@@ -1,9 +1,9 @@
 using System;
 using Xunit;
 
-namespace EveryParser.Test
+namespace EveryParser.Test.ExpressionTest
 {
-    public class UnitTest1
+    public class ExpressionLogicTest
     {
         [Fact]
         public void Test1()
