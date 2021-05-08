@@ -34,7 +34,7 @@ using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.9.2")]
 [System.Diagnostics.DebuggerNonUserCode]
 [System.CLSCompliant(false)]
-public partial class EveryGrammarBaseListener : IEveryGrammarListener {
+public partial class EveryGrammarTypeListener : IEveryGrammarListener {
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="EveryGrammarParser.startRule"/>.
 	/// <para>The default implementation does nothing.</para>
