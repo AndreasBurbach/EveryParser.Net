@@ -92,7 +92,7 @@ namespace EveryParser
 
         public void SetFormular(string formular, bool checkSyntax = true)
         {
-            if (string.IsNullOrWhiteSpace(_formular))
+            if (string.IsNullOrWhiteSpace(formular))
                 throw new ArgumentNullException();
 
             if (checkSyntax)
