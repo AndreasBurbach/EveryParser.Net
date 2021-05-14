@@ -109,7 +109,7 @@ namespace EveryParser
         private static EveryGrammarParser.StartRuleContext GetParser(string formular)
         {
             var stream = CharStreams.fromString(formular);
-            var upper = new CaseChangingCharStream(stream, true); https://github.com/antlr/antlr4/blob/master/doc/case-insensitive-lexing.md
+            var upper = new CaseChangingCharStream(stream, true); //https://github.com/antlr/antlr4/blob/master/doc/case-insensitive-lexing.md
             var lexer = new EveryGrammarLexer(upper);
             var tokens = new CommonTokenStream(lexer);
             var parser = new EveryGrammarParser(tokens)
