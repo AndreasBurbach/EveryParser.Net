@@ -1,4 +1,5 @@
 ﻿using Antlr4.Runtime;
+using Antlr4.Runtime.Tree;
 using System;
 using System.Collections.Generic;
 
@@ -34,7 +35,8 @@ namespace EveryParser
         {
             SetFormular(formular, checkSyntax);
 
-            GetParser(formular).startRule();
+            var listener = new EveryGrammarCalculatorListener();
+            ParseTreeWalker.Default.Walk(listener, GetParser(formular));
 
             return null;
         }
@@ -51,7 +53,8 @@ namespace EveryParser
         {
             SetFormular(formular, checkSyntax);
 
-            GetParser(formular).startRule();
+            var listener = new EveryGrammarCalculatorListener();
+            ParseTreeWalker.Default.Walk(listener, GetParser(formular));
 
             return false;
         }
@@ -68,7 +71,8 @@ namespace EveryParser
         {
             SetFormular(formular, checkSyntax);
 
-            GetParser(formular).startRule();
+            var listener = new EveryGrammarCalculatorListener();
+            ParseTreeWalker.Default.Walk(listener, GetParser(formular));
 
             return null;
         }
@@ -85,33 +89,35 @@ namespace EveryParser
         {
             SetFormular(formular, checkSyntax);
 
-            GetParser(formular).startRule();
+            var listener = new EveryGrammarCalculatorListener();
+            ParseTreeWalker.Default.Walk(listener, GetParser(formular));
 
             return 0.0m;
         }
 
         public void SetFormular(string formular, bool checkSyntax = true)
         {
-            if (string.IsNullOrWhiteSpace(_formular))
+            if (string.IsNullOrWhiteSpace(formular))
                 throw new ArgumentNullException();
 
             if (checkSyntax)
-                GetParser(formular).startRule();
+                ParseTreeWalker.Default.Walk(new EveryGrammarValidatorListener(), GetParser(formular));
 
             _formular = formular;
         }
 
-        private static EveryGrammarParser GetParser(string formular)
+        private static EveryGrammarParser.StartRuleContext GetParser(string formular)
         {
             var stream = CharStreams.fromString(formular);
-            var lexer = new EveryGrammarLexer(stream);
+            var upper = new CaseChangingCharStream(stream, true); https://github.com/antlr/antlr4/blob/master/doc/case-insensitive-lexing.md
+            var lexer = new EveryGrammarLexer(upper);
             var tokens = new CommonTokenStream(lexer);
             var parser = new EveryGrammarParser(tokens)
             {
                 BuildParseTree = true
             };
 
-            return parser;
+            return parser.startRule();
         }
     }
 }

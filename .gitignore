@@ -3,3 +3,5 @@
 /EveryParser.Test/bin
 /EveryParser.Test/obj
 /.vs
+/.antlr
+/.vscode
