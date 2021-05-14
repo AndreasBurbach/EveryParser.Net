@@ -44,6 +44,8 @@ point_term:
 	| point_term MULITPLY factor
 	| point_term POWEROPERATOR factor
 	| point_term MODULO factor
+	| point_term BITSHIFTLEFT factor
+	| point_term BITSHIFTRIGHT factor
 	| point_term DIVIDE factor
 	| point_term INTEGERDIVISION factor;
 
@@ -106,8 +108,9 @@ expr_args: expression | expression KOMMA expr_args;
 
 array_expr: EDGEBRACKETOPEN expr_args EDGEBRACKETCLOSED;
 
-NEWLINE: [\r\n]+;
-INT: [0-9]+;
+//TOKENS
+
+//operators
 ADD: '+';
 SUBTRACT: '-';
 MULITPLY: '*';
@@ -116,32 +119,43 @@ MODULO: '%';
 POWEROPERATOR: '^';
 EQUAL: '==';
 NOT: 'not';
-KOMMA: ',';
 NOTEQUAL: '!=';
 BOOLOR: '||';
 BOOLAND: '&&';
 BITOR: '|';
 BITAND: '&';
-TRUE: 'true';
-FALSE: 'false';
 GREATER: '>';
 GREATEREQUAL: '>=';
 LOWER: '<';
 LOWEREQUAL: '<=';
-ROUNDBRACKETOPEN: '(';
-ROUNDBRACKETCLOSED: ')';
-EDGEBRACKETOPEN: '[';
-EDGEBRACKETCLOSED: ']';
 TILDE: '~';
 COLON: ':';
 QUESTIONMARK: '?';
 INTEGERDIVISION: '//';
+BITSHIFTLEFT: '<<';
+BITSHIFTRIGHT: '>>';
+
+//default types and constants
+NEWLINE: [\r\n]+;
+KOMMA: ',';
+TRUE: 'true';
+FALSE: 'false';
+
+//brackets
+ROUNDBRACKETOPEN: '(';
+ROUNDBRACKETCLOSED: ')';
+EDGEBRACKETOPEN: '[';
+EDGEBRACKETCLOSED: ']';
 DOUBLE: [0-9]+ '.' [0-9]+;
 STRING: '"' ( '\\"' | .)*? '"';
 VARIABLE: ALPHA (ALPHA | DIGIT)*;
 DIGIT: [0-9];
 ALPHA: [a-zA-Z_];
+INT: DIGIT+;
 
+//math constants
+E: 'e';
+PI: 'pi';
 
 //math function tokens
 ABS: 'abs(';
