@@ -2,6 +2,7 @@
 using Antlr4.Runtime.Tree;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EveryParser
 {
@@ -9,10 +10,12 @@ namespace EveryParser
     {
         private string _formular;
         private SortedList<string, object> _baseArguments;
+        private List<string> _missingArguments;
 
         public Expression()
         {
             _baseArguments = new SortedList<string, object>();
+            _missingArguments = new List<string, object>();
         }
 
         public Expression(string formular, bool checkSyntax = true) : this()
@@ -82,6 +85,11 @@ namespace EveryParser
                 _baseArguments[name] = value;
             else
                 _baseArguments.Add(name, value);
+        }
+
+        public List<string> GetMissingUserDefinedArguments()
+        {
+            return _missingArguments ?? new List<string>(); 
         }
 
         #endregion arguments
