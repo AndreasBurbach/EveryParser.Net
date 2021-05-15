@@ -66,10 +66,11 @@ factor:
 	| math_function_term;
 
 default_function_term:
-	(STRING | VARIABLE) CONCAT point_term ROUNDBRACKETCLOSED
-	| (STRING | VARIABLE) UPPERCASE (STRING | VARIABLE) ROUNDBRACKETCLOSED
-	| (STRING | VARIABLE) LOWERCASE (STRING | VARIABLE) ROUNDBRACKETCLOSED
-	| DISTINCT (array_expr | VARIABLE) ROUNDBRACKETCLOSED;
+	(STRING | VARIABLE) CONCAT (STRING | VARIABLE) ROUNDBRACKETCLOSED
+	| UPPERCASE (STRING | VARIABLE | array_expr) ROUNDBRACKETCLOSED
+	| LOWERCASE (STRING | VARIABLE | array_expr) ROUNDBRACKETCLOSED
+	| DISTINCT (array_expr | VARIABLE) ROUNDBRACKETCLOSED
+	| UNION (array_expr | VARIABLE) KOMMA (array_expr | VARIABLE) ROUNDBRACKETCLOSED;
 
 math_function_term:
 	ABS factor ROUNDBRACKETCLOSED
@@ -158,7 +159,7 @@ INT: DIGIT+;
 E: 'e';
 PI: 'pi';
 
-//math function tokens
+//default math function tokens
 ABS: 'abs(';
 ACOS: 'acos(';
 ACOSH: 'acosh(';
@@ -189,9 +190,15 @@ TAN: 'tan(';
 TANH: 'tanh(';
 TRUNCATE: 'truncate(';
 
+//statistic math function tokens
+MEAN: 'mean(';
+MEDIAN: 'median(';
+VARIANCE: 'variance(';
+
 //default function tokens
 CONCAT: 'concat(';
 UPPERCASE: 'upper(';
 LOWERCASE: 'lower(';
 CONTAINS: 'in';
 DISTINCT: 'distinct(';
+UNION: 'union';
