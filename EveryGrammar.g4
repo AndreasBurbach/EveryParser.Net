@@ -20,8 +20,8 @@ equality:
 	check
 	| equality EQUAL check
 	| equality NOTEQUAL check
-	| factor CONTAINS array_expr
-	| factor NOT CONTAINS array_expr;
+	| factor CONTAINS factor
+	| factor NOT CONTAINS factor;
 
 check:
 	bit_or_term
@@ -68,7 +68,8 @@ factor:
 default_function_term:
 	(STRING | VARIABLE) CONCAT point_term ROUNDBRACKETCLOSED
 	| (STRING | VARIABLE) UPPERCASE (STRING | VARIABLE) ROUNDBRACKETCLOSED
-	| (STRING | VARIABLE) LOWERCASE (STRING | VARIABLE) ROUNDBRACKETCLOSED;
+	| (STRING | VARIABLE) LOWERCASE (STRING | VARIABLE) ROUNDBRACKETCLOSED
+	| DISTINCT (array_expr | VARIABLE) ROUNDBRACKETCLOSED;
 
 math_function_term:
 	ABS factor ROUNDBRACKETCLOSED
@@ -193,3 +194,4 @@ CONCAT: 'concat(';
 UPPERCASE: 'upper(';
 LOWERCASE: 'lower(';
 CONTAINS: 'in';
+DISTINCT: 'distinct(';
