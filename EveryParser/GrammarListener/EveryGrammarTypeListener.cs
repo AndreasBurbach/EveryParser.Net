@@ -228,4 +228,24 @@ public partial class EveryGrammarTypeListener : IEveryGrammarListener {
 	/// <inheritdoc/>
 	/// <remarks>The default implementation does nothing.</remarks>
 	public virtual void VisitErrorNode([NotNull] IErrorNode node) { }
+
+    public void EnterDefault_function_term([NotNull] EveryGrammarParser.Default_function_termContext context)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void ExitDefault_function_term([NotNull] EveryGrammarParser.Default_function_termContext context)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void EnterMath_function_term([NotNull] EveryGrammarParser.Math_function_termContext context)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void ExitMath_function_term([NotNull] EveryGrammarParser.Math_function_termContext context)
+    {
+        throw new System.NotImplementedException();
+    }
 }

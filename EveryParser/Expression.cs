@@ -8,20 +8,83 @@ namespace EveryParser
     public class Expression
     {
         private string _formular;
-        private List<BaseArgument> _baseArguments;
+        private SortedList<string, object> _baseArguments;
 
         public Expression()
-        { }
+        {
+            _baseArguments = new SortedList<string, object>();
+        }
 
-        public Expression(string formular, bool checkSyntax = true)
+        public Expression(string formular, bool checkSyntax = true) : this()
         {
             SetFormular(formular, checkSyntax);
         }
 
-        public void AddArgument(params BaseArgument[] arguments)
+        #region arguments
+
+        public void AddArgument(string name, string value)
         {
-            _baseArguments.AddRange(arguments);
+            AddArgument(name, (object)value);
         }
+
+        public void AddArgument(string name, double value)
+        {
+            AddArgument(name, (object)value);
+        }
+
+        public void AddArgument(string name, int value)
+        {
+            AddArgument(name, (object)value);
+        }
+
+        public void AddArgument(string name, decimal value)
+        {
+            AddArgument(name, (object)value);
+        }
+
+        public void AddArgument(string name, float value)
+        {
+            AddArgument(name, (object)value);
+        }
+
+        public void AddArgument(string name, string[] value)
+        {
+            AddArgument(name, (object)value);
+        }
+
+        public void AddArgument(string name, double[] value)
+        {
+            AddArgument(name, (object)value);
+        }
+
+        public void AddArgument(string name, int[] value)
+        {
+            AddArgument(name, (object)value);
+        }
+
+        public void AddArgument(string name, decimal[] value)
+        {
+            AddArgument(name, (object)value);
+        }
+
+        public void AddArgument(string name, float[] value)
+        {
+            AddArgument(name, (object)value);
+        }
+
+
+        private void AddArgument(string name, object value)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentNullException(nameof(name));
+
+            if (_baseArguments.ContainsKey(name))
+                _baseArguments[name] = value;
+            else
+                _baseArguments.Add(name, value);
+        }
+
+        #endregion arguments
 
         public object Calculate()
         {
