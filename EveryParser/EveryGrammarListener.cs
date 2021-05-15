@@ -161,6 +161,26 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitFactor([NotNull] EveryGrammarParser.FactorContext context);
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="EveryGrammarParser.default_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDefault_function_term([NotNull] EveryGrammarParser.Default_function_termContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="EveryGrammarParser.default_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDefault_function_term([NotNull] EveryGrammarParser.Default_function_termContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMath_function_term([NotNull] EveryGrammarParser.Math_function_termContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMath_function_term([NotNull] EveryGrammarParser.Math_function_termContext context);
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="EveryGrammarParser.expr_args"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
