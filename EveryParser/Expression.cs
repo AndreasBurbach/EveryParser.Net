@@ -15,7 +15,7 @@ namespace EveryParser
         public Expression()
         {
             _baseArguments = new SortedList<string, object>();
-            _missingArguments = new List<string, object>();
+            _missingArguments = new List<string>();
         }
 
         public Expression(string formular, bool checkSyntax = true) : this()
