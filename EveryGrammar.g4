@@ -69,6 +69,7 @@ factor:
 	| INT												# Factor_Integer
 	| DOUBLE											# Factor_Double
 	| VARIABLE											# Factor_Variable
+	| OBJECTSVARIABLE									# Factor_ObjectVariables
 	| STRING											# Factor_String
 	| datetime_term										# Factor_DateTimeTerm
 	| array_expr										# Factor_Array
@@ -192,6 +193,7 @@ EDGEBRACKETCLOSED: ']';
 DOUBLE: [0-9]+ '.' [0-9]+;
 STRING: '"' ( '\\"' | .)*? '"';
 VARIABLE: ALPHA (ALPHA | DIGIT)*;
+OBJECTSVARIABLE: VARIABLE ('.' VARIABLE)+;
 DIGIT: [0-9];
 ALPHA: [a-zA-Z_];
 INT: DIGIT+;
