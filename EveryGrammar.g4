@@ -2,13 +2,22 @@ grammar EveryGrammar;
 startRule: (expression NEWLINE)*;
 expression: if_else;
 
-if_else: inner_if_else # IfElse_Next | bool_or_term QUESTIONMARK inner_if_else COLON inner_if_else # IfElse;
+if_else:
+	inner_if_else													# IfElse_Next
+	| inner_if_else array_slicing_term								# ArraySlicing
+	| inner_if_else QUESTIONMARK inner_if_else COLON inner_if_else	# IfElse;
 
-inner_if_else: bool_or_term # InnerIfElse_Next | ROUNDBRACKETOPEN if_else ROUNDBRACKETCLOSED # InnerIfElse;
+inner_if_else:
+	bool_or_term									# InnerIfElse_Next
+	| ROUNDBRACKETOPEN if_else ROUNDBRACKETCLOSED	# InnerIfElse;
 
-bool_or_term: bool_and_term # BoolOr_Next | bool_and_term BOOLOR bool_and_term # BoolOr;
+bool_or_term:
+	bool_and_term							# BoolOr_Next
+	| bool_and_term BOOLOR bool_and_term	# BoolOr;
 
-bool_and_term: equality # BoolAnd_Next | bool_and_term BOOLAND equality # BoolAnd;
+bool_and_term:
+	equality							# BoolAnd_Next
+	| bool_and_term BOOLAND equality	# BoolAnd;
 
 equality:
 	check									# Equality_Next
@@ -26,11 +35,18 @@ check:
 	| check LOWEREQUAL bit_or_term		# Check_LowerEqual
 	| check GREATEREQUAL bit_or_term	# Check_GreaterEqual;
 
-bit_or_term: bit_and_term # BitOr_Next | bit_or_term BITOR bit_and_term # BitOR;
+bit_or_term:
+	bit_and_term						# BitOr_Next
+	| bit_or_term BITOR bit_and_term	# BitOR;
 
-bit_and_term: line_term # BitAnd_Next | bit_and_term BITAND line_term # BitAnd;
+bit_and_term:
+	line_term						# BitAnd_Next
+	| bit_and_term BITAND line_term	# BitAnd;
 
-line_term: point_term # Line_Next | line_term ADD point_term # Line_Addition | line_term SUBTRACT point_term # Line_Subtraction;
+line_term:
+	point_term						# Line_Next
+	| line_term ADD point_term		# Line_Addition
+	| line_term SUBTRACT point_term	# Line_Subtraction;
 
 point_term:
 	factor								# PointTerm_Factor
@@ -54,11 +70,21 @@ factor:
 	| DOUBLE											# Factor_Double
 	| VARIABLE											# Factor_Variable
 	| STRING											# Factor_String
-	| factor array_slicing_term							# Factor_ArraySlicing
+	| datetime_term										# Factor_DateTimeTerm
 	| array_expr										# Factor_Array
 	| default_function_term								# Factor_DefaultFunction
 	| math_function_term								# Factor_MathFunction
 	| statistic_math_function_term						# Factor_StatisticMathFunction;
+
+datetime_term:
+	DATETIMENOW																					# DateTime_Now
+	| DATETIME expression ROUNDBRACKETCLOSED													# DateTime_Expression
+	| DATETIME expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED					# DateTime_DateEntry
+	| DATETIME expression KOMMA expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED	# DateTime_DateHour
+	| DATETIME expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED # DateTime_DateHour
+	| DATETIME expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED # DateTime_DateHourMinute
+	| DATETIME expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression KOMMA	expression KOMMA expression ROUNDBRACKETCLOSED # DateTime_DateHourMinuteSeconds
+	| DATETIME expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression KOMMA	expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED # DateTime_Full;
 
 array_slicing_term:
 	EDGEBRACKETOPEN expression EDGEBRACKETCLOSED										# ArraySlicing_Indexing
@@ -95,23 +121,23 @@ math_function_term:
 	| EXP expression ROUNDBRACKETCLOSED																# Math_Exp
 	| FLOOR expression ROUNDBRACKETCLOSED															# Math_Floor
 	| INTEGRATION expression KOMMA expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED	# Math_Integration
-	| LOG expression KOMMA expression ROUNDBRACKETCLOSED											# Math_Log
-	| LOG2 expression ROUNDBRACKETCLOSED															# Math_Log2
-	| LOG10 expression ROUNDBRACKETCLOSED															# Math_Log10
-	| MAX expression ROUNDBRACKETCLOSED																# Math_Max_Array
-	| MAX expression KOMMA expression ROUNDBRACKETCLOSED											# Math_Max_Two
-	| MIN expression ROUNDBRACKETCLOSED																# Math_Min_Array
-	| MIN expression KOMMA expression ROUNDBRACKETCLOSED											# Math_Min_Two
-	| POWER expression ROUNDBRACKETCLOSED															# Math_Power
-	| ROUND expression ROUNDBRACKETCLOSED															# Math_Round_Not_Decimal
-	| ROUND expression KOMMA expression ROUNDBRACKETCLOSED											# Math_Round_Decimal
-	| ROOT expression KOMMA expression ROUNDBRACKETCLOSED											# Math_Root
-	| SIN expression ROUNDBRACKETCLOSED																# Math_Sin
-	| SINH expression ROUNDBRACKETCLOSED															# Math_SinH
-	| SQRT expression ROUNDBRACKETCLOSED															# Math_Sqrt
-	| TAN expression ROUNDBRACKETCLOSED																# Math_Tan
-	| TANH expression ROUNDBRACKETCLOSED															# Math_TanH
-	| TRUNCATE expression ROUNDBRACKETCLOSED														# Math_Truncate;
+	| LOG expression KOMMA expression ROUNDBRACKETCLOSED	# Math_Log
+	| LOG2 expression ROUNDBRACKETCLOSED					# Math_Log2
+	| LOG10 expression ROUNDBRACKETCLOSED					# Math_Log10
+	| MAX expression ROUNDBRACKETCLOSED						# Math_Max_Array
+	| MAX expression KOMMA expression ROUNDBRACKETCLOSED	# Math_Max_Two
+	| MIN expression ROUNDBRACKETCLOSED						# Math_Min_Array
+	| MIN expression KOMMA expression ROUNDBRACKETCLOSED	# Math_Min_Two
+	| POWER expression ROUNDBRACKETCLOSED					# Math_Power
+	| ROUND expression ROUNDBRACKETCLOSED					# Math_Round_Not_Decimal
+	| ROUND expression KOMMA expression ROUNDBRACKETCLOSED	# Math_Round_Decimal
+	| ROOT expression KOMMA expression ROUNDBRACKETCLOSED	# Math_Root
+	| SIN expression ROUNDBRACKETCLOSED						# Math_Sin
+	| SINH expression ROUNDBRACKETCLOSED					# Math_SinH
+	| SQRT expression ROUNDBRACKETCLOSED					# Math_Sqrt
+	| TAN expression ROUNDBRACKETCLOSED						# Math_Tan
+	| TANH expression ROUNDBRACKETCLOSED					# Math_TanH
+	| TRUNCATE expression ROUNDBRACKETCLOSED				# Math_Truncate;
 
 statistic_math_function_term:
 	MEAN expression ROUNDBRACKETCLOSED			# MathStatistic_Mean
@@ -218,6 +244,8 @@ CONCAT: 'concat(';
 COUNT: 'count(';
 DISTINCT: 'distinct(';
 DUPLICATES: 'duplicates(';
+DATETIME: 'date';
+DATETIMENOW: 'date.now';
 INDEXOF: 'indexOf(';
 LOWERCASE: 'lower(';
 REVERSE: 'reverse(';
