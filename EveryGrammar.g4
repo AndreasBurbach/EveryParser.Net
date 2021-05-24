@@ -78,8 +78,7 @@ factor:
 	| statistic_math_function_term						# Factor_StatisticMathFunction;
 
 datetime_term:
-	DATETIMENOW																					# DateTime_Now
-	| DATETIME expression ROUNDBRACKETCLOSED													# DateTime_Expression
+	DATETIME expression ROUNDBRACKETCLOSED													# DateTime_Expression
 	| DATETIME expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED					# DateTime_DateEntry
 	| DATETIME expression KOMMA expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED	# DateTime_DateHour
 	| DATETIME expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED # DateTime_DateHour
@@ -246,7 +245,6 @@ COUNT: 'count(';
 DISTINCT: 'distinct(';
 DUPLICATES: 'duplicates(';
 DATETIME: 'date';
-DATETIMENOW: 'date.now';
 INDEXOF: 'indexOf(';
 LOWERCASE: 'lower(';
 REVERSE: 'reverse(';

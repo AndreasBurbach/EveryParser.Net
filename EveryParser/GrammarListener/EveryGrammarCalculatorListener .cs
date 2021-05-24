@@ -1159,6 +1159,11 @@ namespace EveryParser
                 Node.AddChildNode(3.14159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534211706798214m);
                 return;
             }
+            else if (text.Equals("date_now", StringComparison.InvariantCultureIgnoreCase))
+            {
+                Node.AddChildNode(DateTime.Now);
+                return;
+            }
 
             Node.AddChildNode(ErrorCollector.GetCheckedArgument(context, Arguments, text));
         }
@@ -1290,22 +1295,6 @@ namespace EveryParser
         /// </summary>
         /// <param name="context">The parse tree.</param>
         public virtual void ExitFactor_StatisticMathFunction([NotNull] EveryGrammarParser.Factor_StatisticMathFunctionContext context) { }
-
-        /// <summary>
-        /// Enter a parse tree produced by the <c>DateTime_Now</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.datetime_term"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public virtual void EnterDateTime_Now([NotNull] EveryGrammarParser.DateTime_NowContext context) { }
-
-        /// <summary>
-        /// Exit a parse tree produced by the <c>DateTime_Now</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.datetime_term"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public virtual void ExitDateTime_Now([NotNull] EveryGrammarParser.DateTime_NowContext context) { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>DateTime_Expression</c>

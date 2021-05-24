@@ -28,6 +28,11 @@ namespace EveryParser
             return new Expression(formular).CalculateDecimal();
         }
 
+        public static DateTime? CalculateDateTime(string formular)
+        {
+            return new Expression(formular).CalculateDateTime();
+        }
+
         #region arguments
 
         public void AddArgument(string name, string value)
@@ -172,6 +177,27 @@ namespace EveryParser
                 return null;
 
             return Convert.ToDecimal(listener.Result);
+        }
+
+        public DateTime? CalculateDateTime()
+        {
+            if (string.IsNullOrWhiteSpace(_formular))
+                throw new ArgumentNullException();
+
+            return CalculateDateTime(_formular, false);
+        }
+
+        public DateTime? CalculateDateTime(string formular, bool checkSyntax = true)
+        {
+            SetFormular(formular, checkSyntax);
+
+            var listener = new EveryGrammarBaseListener();
+            ParseTreeWalker.Default.Walk(listener, GetParser(formular));
+
+            if (listener.ErrorCollector.HasErrors)
+                return null;
+
+            return Convert.ToDateTime(listener.Result);
         }
 
         public void SetFormular(string formular, bool checkSyntax = true)

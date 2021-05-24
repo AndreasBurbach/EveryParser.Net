@@ -676,18 +676,6 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitFactor_StatisticMathFunction([NotNull] EveryGrammarParser.Factor_StatisticMathFunctionContext context);
 	/// <summary>
-	/// Enter a parse tree produced by the <c>DateTime_Now</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.datetime_term"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterDateTime_Now([NotNull] EveryGrammarParser.DateTime_NowContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>DateTime_Now</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.datetime_term"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitDateTime_Now([NotNull] EveryGrammarParser.DateTime_NowContext context);
-	/// <summary>
 	/// Enter a parse tree produced by the <c>DateTime_Expression</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.datetime_term"/>.
 	/// </summary>
