@@ -1,5 +1,6 @@
 using Antlr4.Runtime.Misc;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using IErrorNode = Antlr4.Runtime.Tree.IErrorNode;
@@ -14,12 +15,13 @@ namespace EveryParser
     /// of the available methods.
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.9.2")]
-    //[System.Diagnostics.DebuggerNonUserCode]
+    [System.Diagnostics.DebuggerNonUserCode]
     public class EveryGrammarBaseListener : IEveryGrammarListener
     {
         internal NodeCalculator Node;
         public AssertErrors ErrorCollector;
         public object Result = null;
+        public SortedList<string, object> Arguments;
 
         /// <summary>
         /// Enter a parse tree produced by <see cref="EveryGrammarParser.startRule"/>.
@@ -1144,7 +1146,22 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterFactor_Variable([NotNull] EveryGrammarParser.Factor_VariableContext context) { }
+        public virtual void EnterFactor_Variable([NotNull] EveryGrammarParser.Factor_VariableContext context)
+        {
+            string text = context.GetText();
+            if (text.Equals("e", StringComparison.InvariantCultureIgnoreCase))
+            {
+                Node.AddChildNode(2.71828182845904523536028747135266249775724709369995957496696762772407663035354759457138217852516642742746m);
+                return;
+            }
+            else if (text.Equals("pi", StringComparison.InvariantCultureIgnoreCase))
+            {
+                Node.AddChildNode(3.14159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534211706798214m);
+                return;
+            }
+
+            Node.AddChildNode(ErrorCollector.GetCheckedArgument(context, Arguments, text));
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Factor_Variable</c>
@@ -1160,7 +1177,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterFactor_ObjectVariables([NotNull] EveryGrammarParser.Factor_ObjectVariablesContext context) { }
+        public virtual void EnterFactor_ObjectVariables([NotNull] EveryGrammarParser.Factor_ObjectVariablesContext context)
+        {
+            string text = context.GetText();
+            Node.AddChildNode(ErrorCollector.GetCheckedObjectArgument(context, Arguments, text));
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Factor_ObjectVariables</c>
@@ -1560,7 +1581,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_Abs([NotNull] EveryGrammarParser.Math_AbsContext context) { }
+        public virtual void EnterMath_Abs([NotNull] EveryGrammarParser.Math_AbsContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Abs</c>
@@ -1568,7 +1593,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_Abs([NotNull] EveryGrammarParser.Math_AbsContext context) { }
+        public virtual void ExitMath_Abs([NotNull] EveryGrammarParser.Math_AbsContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Math.Abs(Convert.ToDecimal(childValues[0]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_ACos</c>
@@ -1576,7 +1623,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_ACos([NotNull] EveryGrammarParser.Math_ACosContext context) { }
+        public virtual void EnterMath_ACos([NotNull] EveryGrammarParser.Math_ACosContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_ACos</c>
@@ -1584,7 +1635,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_ACos([NotNull] EveryGrammarParser.Math_ACosContext context) { }
+        public virtual void ExitMath_ACos([NotNull] EveryGrammarParser.Math_ACosContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Math.Acos(Convert.ToDouble(childValues[0]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_ACosH</c>
@@ -1592,7 +1665,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_ACosH([NotNull] EveryGrammarParser.Math_ACosHContext context) { }
+        public virtual void EnterMath_ACosH([NotNull] EveryGrammarParser.Math_ACosHContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_ACosH</c>
@@ -1600,7 +1677,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_ACosH([NotNull] EveryGrammarParser.Math_ACosHContext context) { }
+        public virtual void ExitMath_ACosH([NotNull] EveryGrammarParser.Math_ACosHContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = MathNet.Numerics.Trig.Acosh(Convert.ToDouble(childValues[0]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_ASin</c>
@@ -1608,7 +1707,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_ASin([NotNull] EveryGrammarParser.Math_ASinContext context) { }
+        public virtual void EnterMath_ASin([NotNull] EveryGrammarParser.Math_ASinContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_ASin</c>
@@ -1616,7 +1719,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_ASin([NotNull] EveryGrammarParser.Math_ASinContext context) { }
+        public virtual void ExitMath_ASin([NotNull] EveryGrammarParser.Math_ASinContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Math.Asin(Convert.ToDouble(childValues[0]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_ASinH</c>
@@ -1624,7 +1749,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_ASinH([NotNull] EveryGrammarParser.Math_ASinHContext context) { }
+        public virtual void EnterMath_ASinH([NotNull] EveryGrammarParser.Math_ASinHContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_ASinH</c>
@@ -1632,7 +1761,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_ASinH([NotNull] EveryGrammarParser.Math_ASinHContext context) { }
+        public virtual void ExitMath_ASinH([NotNull] EveryGrammarParser.Math_ASinHContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = MathNet.Numerics.Trig.Asinh(Convert.ToDouble(childValues[0]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_ATan</c>
@@ -1640,7 +1791,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_ATan([NotNull] EveryGrammarParser.Math_ATanContext context) { }
+        public virtual void EnterMath_ATan([NotNull] EveryGrammarParser.Math_ATanContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_ATan</c>
@@ -1648,7 +1803,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_ATan([NotNull] EveryGrammarParser.Math_ATanContext context) { }
+        public virtual void ExitMath_ATan([NotNull] EveryGrammarParser.Math_ATanContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Math.Atan(Convert.ToDouble(childValues[0]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_ATan2</c>
@@ -1656,7 +1833,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_ATan2([NotNull] EveryGrammarParser.Math_ATan2Context context) { }
+        public virtual void EnterMath_ATan2([NotNull] EveryGrammarParser.Math_ATan2Context context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_ATan2</c>
@@ -1664,7 +1845,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_ATan2([NotNull] EveryGrammarParser.Math_ATan2Context context) { }
+        public virtual void ExitMath_ATan2([NotNull] EveryGrammarParser.Math_ATan2Context context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Math.Atan2(Convert.ToDouble(childValues[0]), Convert.ToDouble(childValues[1]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_ATanH</c>
@@ -1672,7 +1875,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_ATanH([NotNull] EveryGrammarParser.Math_ATanHContext context) { }
+        public virtual void EnterMath_ATanH([NotNull] EveryGrammarParser.Math_ATanHContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_ATanH</c>
@@ -1680,7 +1887,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_ATanH([NotNull] EveryGrammarParser.Math_ATanHContext context) { }
+        public virtual void ExitMath_ATanH([NotNull] EveryGrammarParser.Math_ATanHContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = MathNet.Numerics.Trig.Atanh(Convert.ToDouble(childValues[0]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Cbrt</c>
@@ -1688,7 +1917,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_Cbrt([NotNull] EveryGrammarParser.Math_CbrtContext context) { }
+        public virtual void EnterMath_Cbrt([NotNull] EveryGrammarParser.Math_CbrtContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Cbrt</c>
@@ -1696,7 +1929,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_Cbrt([NotNull] EveryGrammarParser.Math_CbrtContext context) { }
+        public virtual void ExitMath_Cbrt([NotNull] EveryGrammarParser.Math_CbrtContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Math.Pow(Convert.ToDouble(childValues[0]), 1d / 3d);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Cos</c>
@@ -1704,7 +1959,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_Cos([NotNull] EveryGrammarParser.Math_CosContext context) { }
+        public virtual void EnterMath_Cos([NotNull] EveryGrammarParser.Math_CosContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Cos</c>
@@ -1712,7 +1971,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_Cos([NotNull] EveryGrammarParser.Math_CosContext context) { }
+        public virtual void ExitMath_Cos([NotNull] EveryGrammarParser.Math_CosContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Math.Cos(Convert.ToDouble(childValues[0]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_CosH</c>
@@ -1720,7 +2001,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_CosH([NotNull] EveryGrammarParser.Math_CosHContext context) { }
+        public virtual void EnterMath_CosH([NotNull] EveryGrammarParser.Math_CosHContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_CosH</c>
@@ -1728,7 +2013,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_CosH([NotNull] EveryGrammarParser.Math_CosHContext context) { }
+        public virtual void ExitMath_CosH([NotNull] EveryGrammarParser.Math_CosHContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Math.Cosh(Convert.ToDouble(childValues[0]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Ceilling</c>
@@ -1736,7 +2043,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_Ceilling([NotNull] EveryGrammarParser.Math_CeillingContext context) { }
+        public virtual void EnterMath_Ceilling([NotNull] EveryGrammarParser.Math_CeillingContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Ceilling</c>
@@ -1744,7 +2055,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_Ceilling([NotNull] EveryGrammarParser.Math_CeillingContext context) { }
+        public virtual void ExitMath_Ceilling([NotNull] EveryGrammarParser.Math_CeillingContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Math.Ceiling(Convert.ToDecimal(childValues[0]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Clamp</c>
@@ -1752,7 +2085,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_Clamp([NotNull] EveryGrammarParser.Math_ClampContext context) { }
+        public virtual void EnterMath_Clamp([NotNull] EveryGrammarParser.Math_ClampContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Clamp</c>
@@ -1760,7 +2097,33 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_Clamp([NotNull] EveryGrammarParser.Math_ClampContext context) { }
+        public virtual void ExitMath_Clamp([NotNull] EveryGrammarParser.Math_ClampContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 3, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            decimal value = Convert.ToDecimal(childValues[0]);
+            decimal min = Convert.ToDecimal(childValues[1]);
+            decimal max = Convert.ToDecimal(childValues[2]);
+
+            Node.Value = value < min ? min : value > max ? max : value;
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_CrossSum</c>
@@ -1768,7 +2131,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_CrossSum([NotNull] EveryGrammarParser.Math_CrossSumContext context) { }
+        public virtual void EnterMath_CrossSum([NotNull] EveryGrammarParser.Math_CrossSumContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_CrossSum</c>
@@ -1776,7 +2143,33 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_CrossSum([NotNull] EveryGrammarParser.Math_CrossSumContext context) { }
+        public virtual void ExitMath_CrossSum([NotNull] EveryGrammarParser.Math_CrossSumContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            long value = 0;
+            foreach (var letter in childValues[0].ToString())
+                value += long.Parse(letter.ToString());
+
+            Node.Value = value;
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Derivative</c>
@@ -1784,7 +2177,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_Derivative([NotNull] EveryGrammarParser.Math_DerivativeContext context) { }
+        public virtual void EnterMath_Derivative([NotNull] EveryGrammarParser.Math_DerivativeContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Derivative</c>
@@ -1800,7 +2197,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_Exp([NotNull] EveryGrammarParser.Math_ExpContext context) { }
+        public virtual void EnterMath_Exp([NotNull] EveryGrammarParser.Math_ExpContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Exp</c>
@@ -1808,7 +2209,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_Exp([NotNull] EveryGrammarParser.Math_ExpContext context) { }
+        public virtual void ExitMath_Exp([NotNull] EveryGrammarParser.Math_ExpContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Math.Exp(Convert.ToDouble(childValues[0]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Floor</c>
@@ -1816,7 +2239,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_Floor([NotNull] EveryGrammarParser.Math_FloorContext context) { }
+        public virtual void EnterMath_Floor([NotNull] EveryGrammarParser.Math_FloorContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Floor</c>
@@ -1824,7 +2251,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_Floor([NotNull] EveryGrammarParser.Math_FloorContext context) { }
+        public virtual void ExitMath_Floor([NotNull] EveryGrammarParser.Math_FloorContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Math.Floor(Convert.ToDecimal(childValues[0]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Integration</c>
@@ -1832,7 +2281,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_Integration([NotNull] EveryGrammarParser.Math_IntegrationContext context) { }
+        public virtual void EnterMath_Integration([NotNull] EveryGrammarParser.Math_IntegrationContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Integration</c>
@@ -1848,7 +2301,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_Log([NotNull] EveryGrammarParser.Math_LogContext context) { }
+        public virtual void EnterMath_Log([NotNull] EveryGrammarParser.Math_LogContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Log</c>
@@ -1856,7 +2313,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_Log([NotNull] EveryGrammarParser.Math_LogContext context) { }
+        public virtual void ExitMath_Log([NotNull] EveryGrammarParser.Math_LogContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Math.Log(Convert.ToDouble(childValues[0]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Log2</c>
@@ -1864,7 +2343,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_Log2([NotNull] EveryGrammarParser.Math_Log2Context context) { }
+        public virtual void EnterMath_Log2([NotNull] EveryGrammarParser.Math_Log2Context context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Log2</c>
@@ -1872,7 +2355,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_Log2([NotNull] EveryGrammarParser.Math_Log2Context context) { }
+        public virtual void ExitMath_Log2([NotNull] EveryGrammarParser.Math_Log2Context context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Math.Log(Convert.ToDouble(childValues[0]), 2d);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Log10</c>
@@ -1880,7 +2385,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_Log10([NotNull] EveryGrammarParser.Math_Log10Context context) { }
+        public virtual void EnterMath_Log10([NotNull] EveryGrammarParser.Math_Log10Context context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Log10</c>
@@ -1888,7 +2397,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_Log10([NotNull] EveryGrammarParser.Math_Log10Context context) { }
+        public virtual void ExitMath_Log10([NotNull] EveryGrammarParser.Math_Log10Context context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Math.Log10(Convert.ToDouble(childValues[0]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Max_Array</c>
@@ -1896,7 +2427,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_Max_Array([NotNull] EveryGrammarParser.Math_Max_ArrayContext context) { }
+        public virtual void EnterMath_Max_Array([NotNull] EveryGrammarParser.Math_Max_ArrayContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Max_Array</c>
@@ -1912,7 +2447,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_Max_Two([NotNull] EveryGrammarParser.Math_Max_TwoContext context) { }
+        public virtual void EnterMath_Max_Two([NotNull] EveryGrammarParser.Math_Max_TwoContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Max_Two</c>
@@ -1920,7 +2459,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_Max_Two([NotNull] EveryGrammarParser.Math_Max_TwoContext context) { }
+        public virtual void ExitMath_Max_Two([NotNull] EveryGrammarParser.Math_Max_TwoContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Math.Max(Convert.ToDouble(childValues[0]), Convert.ToDouble(childValues[1]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Min_Array</c>
@@ -1928,7 +2489,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_Min_Array([NotNull] EveryGrammarParser.Math_Min_ArrayContext context) { }
+        public virtual void EnterMath_Min_Array([NotNull] EveryGrammarParser.Math_Min_ArrayContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Min_Array</c>
@@ -1944,7 +2509,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_Min_Two([NotNull] EveryGrammarParser.Math_Min_TwoContext context) { }
+        public virtual void EnterMath_Min_Two([NotNull] EveryGrammarParser.Math_Min_TwoContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Min_Two</c>
@@ -1952,7 +2521,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_Min_Two([NotNull] EveryGrammarParser.Math_Min_TwoContext context) { }
+        public virtual void ExitMath_Min_Two([NotNull] EveryGrammarParser.Math_Min_TwoContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Math.Min(Convert.ToDouble(childValues[0]), Convert.ToDouble(childValues[1]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Power</c>
@@ -1960,7 +2551,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_Power([NotNull] EveryGrammarParser.Math_PowerContext context) { }
+        public virtual void EnterMath_Power([NotNull] EveryGrammarParser.Math_PowerContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Power</c>
@@ -1968,7 +2563,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_Power([NotNull] EveryGrammarParser.Math_PowerContext context) { }
+        public virtual void ExitMath_Power([NotNull] EveryGrammarParser.Math_PowerContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Math.Pow(Convert.ToDouble(childValues[0]), Convert.ToDouble(childValues[1]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Round_Not_Decimal</c>
@@ -1976,7 +2593,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_Round_Not_Decimal([NotNull] EveryGrammarParser.Math_Round_Not_DecimalContext context) { }
+        public virtual void EnterMath_Round_Not_Decimal([NotNull] EveryGrammarParser.Math_Round_Not_DecimalContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Round_Not_Decimal</c>
@@ -1984,7 +2605,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_Round_Not_Decimal([NotNull] EveryGrammarParser.Math_Round_Not_DecimalContext context) { }
+        public virtual void ExitMath_Round_Not_Decimal([NotNull] EveryGrammarParser.Math_Round_Not_DecimalContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Math.Round(Convert.ToDecimal(childValues[0]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Round_Decimal</c>
@@ -1992,7 +2635,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_Round_Decimal([NotNull] EveryGrammarParser.Math_Round_DecimalContext context) { }
+        public virtual void EnterMath_Round_Decimal([NotNull] EveryGrammarParser.Math_Round_DecimalContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Round_Decimal</c>
@@ -2000,7 +2647,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_Round_Decimal([NotNull] EveryGrammarParser.Math_Round_DecimalContext context) { }
+        public virtual void ExitMath_Round_Decimal([NotNull] EveryGrammarParser.Math_Round_DecimalContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Math.Round(Convert.ToDecimal(childValues[0]), Convert.ToInt32(childValues[1]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Root</c>
@@ -2008,7 +2677,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_Root([NotNull] EveryGrammarParser.Math_RootContext context) { }
+        public virtual void EnterMath_Root([NotNull] EveryGrammarParser.Math_RootContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Root</c>
@@ -2016,7 +2689,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_Root([NotNull] EveryGrammarParser.Math_RootContext context) { }
+        public virtual void ExitMath_Root([NotNull] EveryGrammarParser.Math_RootContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Math.Pow(Convert.ToDouble(childValues[0]), 1d / Convert.ToDouble(childValues[1]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Sin</c>
@@ -2024,7 +2719,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_Sin([NotNull] EveryGrammarParser.Math_SinContext context) { }
+        public virtual void EnterMath_Sin([NotNull] EveryGrammarParser.Math_SinContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Sin</c>
@@ -2032,7 +2731,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_Sin([NotNull] EveryGrammarParser.Math_SinContext context) { }
+        public virtual void ExitMath_Sin([NotNull] EveryGrammarParser.Math_SinContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Math.Sin(Convert.ToDouble(childValues[0]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_SinH</c>
@@ -2040,7 +2761,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_SinH([NotNull] EveryGrammarParser.Math_SinHContext context) { }
+        public virtual void EnterMath_SinH([NotNull] EveryGrammarParser.Math_SinHContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_SinH</c>
@@ -2048,7 +2773,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_SinH([NotNull] EveryGrammarParser.Math_SinHContext context) { }
+        public virtual void ExitMath_SinH([NotNull] EveryGrammarParser.Math_SinHContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Math.Sinh(Convert.ToDouble(childValues[0]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Sqrt</c>
@@ -2056,7 +2803,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_Sqrt([NotNull] EveryGrammarParser.Math_SqrtContext context) { }
+        public virtual void EnterMath_Sqrt([NotNull] EveryGrammarParser.Math_SqrtContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Sqrt</c>
@@ -2064,7 +2815,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_Sqrt([NotNull] EveryGrammarParser.Math_SqrtContext context) { }
+        public virtual void ExitMath_Sqrt([NotNull] EveryGrammarParser.Math_SqrtContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Math.Sqrt(Convert.ToDouble(childValues[0]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Tan</c>
@@ -2072,7 +2845,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_Tan([NotNull] EveryGrammarParser.Math_TanContext context) { }
+        public virtual void EnterMath_Tan([NotNull] EveryGrammarParser.Math_TanContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Tan</c>
@@ -2080,7 +2857,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_Tan([NotNull] EveryGrammarParser.Math_TanContext context) { }
+        public virtual void ExitMath_Tan([NotNull] EveryGrammarParser.Math_TanContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Math.Tan(Convert.ToDouble(childValues[0]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_TanH</c>
@@ -2088,7 +2887,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_TanH([NotNull] EveryGrammarParser.Math_TanHContext context) { }
+        public virtual void EnterMath_TanH([NotNull] EveryGrammarParser.Math_TanHContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_TanH</c>
@@ -2096,7 +2899,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_TanH([NotNull] EveryGrammarParser.Math_TanHContext context) { }
+        public virtual void ExitMath_TanH([NotNull] EveryGrammarParser.Math_TanHContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Math.Tanh(Convert.ToDouble(childValues[0]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Truncate</c>
@@ -2104,7 +2929,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterMath_Truncate([NotNull] EveryGrammarParser.Math_TruncateContext context) { }
+        public virtual void EnterMath_Truncate([NotNull] EveryGrammarParser.Math_TruncateContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Truncate</c>
@@ -2112,7 +2941,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitMath_Truncate([NotNull] EveryGrammarParser.Math_TruncateContext context) { }
+        public virtual void ExitMath_Truncate([NotNull] EveryGrammarParser.Math_TruncateContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Math.Truncate(Convert.ToDecimal(childValues[0]));
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>MathStatistic_Mean</c>
@@ -2205,43 +3056,5 @@ namespace EveryParser
         /// <inheritdoc/>
         /// <remarks>The default implementation does nothing.</remarks>
         public virtual void VisitErrorNode([NotNull] IErrorNode node) { }
-
-        /// <summary>
-        /// Enter a parse tree produced by the <c>Factor_EulerNumber</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public virtual void EnterFactor_EulerNumber([NotNull] EveryGrammarParser.Factor_EulerNumberContext context)
-        {
-            Node.AddChildNode(2.71828182845904523536028747135266249775724709369995957496696762772407663035354759457138217852516642742746m);
-        }
-
-        /// <summary>
-        /// Exit a parse tree produced by the <c>Factor_EulerNumber</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public virtual void ExitFactor_EulerNumber([NotNull] EveryGrammarParser.Factor_EulerNumberContext context) { }
-
-        /// <summary>
-        /// Enter a parse tree produced by the <c>Factor_PiNumber</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public virtual void EnterFactor_PiNumber([NotNull] EveryGrammarParser.Factor_PiNumberContext context)
-        {
-            Node.AddChildNode(3.14159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534211706798214808651m);
-        }
-
-        /// <summary>
-        /// Exit a parse tree produced by the <c>Factor_PiNumber</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public virtual void ExitFactor_PiNumber([NotNull] EveryGrammarParser.Factor_PiNumberContext context) { }
     }
-} // namespace EveryParser
+}

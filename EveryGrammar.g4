@@ -71,8 +71,6 @@ factor:
 	| VARIABLE											# Factor_Variable
 	| OBJECTSVARIABLE									# Factor_ObjectVariables
 	| STRING											# Factor_String
-	| E													# Factor_EulerNumber
-	| PI												# Factor_PiNumber
 	| datetime_term										# Factor_DateTimeTerm
 	| array_expr										# Factor_Array
 	| default_function_term								# Factor_DefaultFunction

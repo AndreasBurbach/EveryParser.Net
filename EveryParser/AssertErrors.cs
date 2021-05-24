@@ -16,7 +16,9 @@ namespace EveryParser
         IsTypeDifferent,
         ParamsCountNotCorrect,
         NoParameter,
-        TypeConversion
+        TypeConversion,
+        NoArguments,
+        VariableNotInArguments,
     }
 
     public class AssertErrors
@@ -48,7 +50,7 @@ namespace EveryParser
         /// Check if one of the parameters is null
         /// </summary>
         /// <param name="context">Context for line recognition</param>
-        /// <param name="childs">All childs which are commited to the calculation</param>
+        /// <param name="childs">All childs which are comitted to the calculation</param>
         /// <returns>true if one parameters is null</returns>
         public bool CheckIsNull(ParserRuleContext context, params object[] childs)
         {
@@ -66,7 +68,7 @@ namespace EveryParser
         /// Check if all parameters are type of numbers (int, long, double, decimal)
         /// </summary>
         /// <param name="context">Context for line recognition</param>
-        /// <param name="childs">All childs which are commited to the calculation</param>
+        /// <param name="childs">All childs which are comitted to the calculation</param>
         /// <returns>true if types are numbers (int, long, double, decimal)</returns>
         public bool CheckIsNumber(ParserRuleContext context, params object[] childs)
         {
@@ -84,7 +86,7 @@ namespace EveryParser
         /// Check if all parameters are type of boolean
         /// </summary>
         /// <param name="context">Context for line recognition</param>
-        /// <param name="childs">All childs which are commited to the calculation</param>
+        /// <param name="childs">All childs which are comitted to the calculation</param>
         /// <returns>true if types are boolean</returns>
         public bool CheckIsBoolean(ParserRuleContext context, params object[] childs)
         {
@@ -102,7 +104,7 @@ namespace EveryParser
         /// Check if a pair of params has not the same type for the calculation
         /// </summary>
         /// <param name="context">Context for line recognition</param>
-        /// <param name="childs">All childs which are commited to the calculation</param>
+        /// <param name="childs">All childs which are comitted to the calculation</param>
         /// <returns>true if types differ</returns>
         public bool CheckIsTypeDifferent(ParserRuleContext context, params object[] childs)
         {
@@ -127,7 +129,7 @@ namespace EveryParser
         /// </summary>
         /// <param name="context">Context for line recognition</param>
         /// <param name="paramsCount">The count of parameters the calculation needs </param>
-        /// <param name="childs">All childs which are commited to the calculation</param>
+        /// <param name="childs">All childs which are comitted to the calculation</param>
         /// <returns>true if count is correct</returns>
         public bool CheckParamsCount(ParserRuleContext context, int paramsCount, params object[] childs)
         {
@@ -144,19 +146,109 @@ namespace EveryParser
         /// Checks if the calculation got parameters to calculate
         /// </summary>
         /// <param name="context">Context for line recognition</param>
-        /// <param name="childs">All childs which are commited to the calculation</param>
+        /// <param name="childs">All childs which are comitted to the calculation</param>
         /// <returns>true if there is a parameter</returns>
         public bool CheckHasParams(ParserRuleContext context, params object[] childs)
         {
-            if (childs is null || !childs.Any())
+            if (childs is null || !childs.Any() || childs[0] is null)
             {
-                _errors.Add((ErrorCode.NoParameter, $"No Parameter was commited to the calculation {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                _errors.Add((ErrorCode.NoParameter, $"No Parameter was comitted to the calculation {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
                 return false;
             }
 
             return true;
         }
 
+        /// <summary>
+        /// Check if the user has add some arguments which are now needed!
+        /// </summary>
+        /// <param name="context">Context for line recognition</param>
+        /// <param name="arguments">All arguments which are given</param>
+        /// <returns>true if there are arguments</returns>
+        public bool CheckHasArguments(ParserRuleContext context, SortedList<string, object> arguments)
+        {
+            if (arguments is null || !arguments.Any())
+            {
+                _errors.Add((ErrorCode.NoArguments, $"No Arguments was given for the calculation {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Get the argument object of the variable if the arguments has it inside
+        /// </summary>
+        /// <param name="context">Context for line recognition</param>
+        /// <param name="arguments">All arguments which are given</param>
+        /// <param name="variable">Variable which is searched</param>
+        /// <returns>returns the object for the variable if found otherwise null</returns>
+        public object GetCheckedArgument(ParserRuleContext context, SortedList<string, object> arguments, string variable)
+        {
+            if (!CheckHasArguments(context, arguments))
+                return null;
+
+            if (!arguments.TryGetValue(variable, out var value))
+            {
+                _errors.Add((ErrorCode.VariableNotInArguments, $"Variable {variable} was not committed for the calculation {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                return null;
+            }
+
+            return value;
+        }
+
+        /// <summary>
+        /// Get the argument object with the internal object of the variable if the arguments has it inside
+        /// </summary>
+        /// <param name="context">Context for line recognition</param>
+        /// <param name="arguments">All arguments which are given</param>
+        /// <param name="variable">Variable which is searched</param>
+        /// <returns>returns the object for the variable if found otherwise null</returns>
+        public object GetCheckedObjectArgument(ParserRuleContext context, SortedList<string, object> arguments, string variable)
+        {
+            if (!CheckHasArguments(context, arguments))
+                return null;
+
+            var variableNames = variable.Split('.');
+
+            if (!arguments.TryGetValue(variableNames[0], out var value))
+            {
+                _errors.Add((ErrorCode.VariableNotInArguments, $"Variable {variable} was not committed for the calculation {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                return null;
+            }
+
+            try
+            {
+                for (int i = 0; i < variableNames.Length; i += 1)
+                {
+                    string variableName = variableNames[i];
+
+                    var property = value.GetType().GetProperty(variableName);
+
+                    if (property is null)
+                    {
+                        _errors.Add((ErrorCode.VariableNotInArguments, $"Variable {variable} was not found inside the base object {variableNames[0]} {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                        return null;
+                    }
+
+                    value = property.GetValue(value);
+                }
+            }
+            catch
+            {
+                _errors.Add((ErrorCode.VariableNotInArguments, $"Variable {variable} was not found inside the base object {variableNames[0]} {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                return null;
+            }
+
+            return value;
+        }
+
+        /// <summary>
+        /// Adds an error text for a failed conversation to a specific type
+        /// </summary>
+        /// <param name="context">Context for line recognition</param>
+        /// <param name="text">Text to convert to a type</param>
+        /// <param name="targetedType">Type the text should be converted to</param>
         public void AddTypeConversionError(ParserRuleContext context, string text, Type targetedType)
         {
             _errors.Add((ErrorCode.TypeConversion, $"Could not convert { text}  to type of {targetedType.Name}  {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));

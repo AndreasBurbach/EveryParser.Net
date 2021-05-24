@@ -616,30 +616,6 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitFactor_String([NotNull] EveryGrammarParser.Factor_StringContext context);
 	/// <summary>
-	/// Enter a parse tree produced by the <c>Factor_EulerNumber</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterFactor_EulerNumber([NotNull] EveryGrammarParser.Factor_EulerNumberContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>Factor_EulerNumber</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitFactor_EulerNumber([NotNull] EveryGrammarParser.Factor_EulerNumberContext context);
-	/// <summary>
-	/// Enter a parse tree produced by the <c>Factor_PiNumber</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterFactor_PiNumber([NotNull] EveryGrammarParser.Factor_PiNumberContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>Factor_PiNumber</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitFactor_PiNumber([NotNull] EveryGrammarParser.Factor_PiNumberContext context);
-	/// <summary>
 	/// Enter a parse tree produced by the <c>Factor_DateTimeTerm</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
 	/// </summary>
