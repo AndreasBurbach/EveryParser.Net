@@ -2324,7 +2324,7 @@ namespace EveryParser
 
             var childValues = Node.Children.Select(child => child.Value).ToArray();
 
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+            if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
                     !ErrorCollector.CheckIsNumber(context, childValues))
             {
@@ -2333,7 +2333,7 @@ namespace EveryParser
                 return;
             }
 
-            Node.Value = Math.Log(Convert.ToDouble(childValues[0]));
+            Node.Value = Math.Log(Convert.ToDouble(childValues[0]), Convert.ToDouble(childValues[1]));
             Node = Node.Parent;
         }
 

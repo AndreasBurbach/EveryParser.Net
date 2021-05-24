@@ -78,14 +78,14 @@ namespace EveryParser.Test.ExpressionTest
 
             Assert.Equal((decimal)Math.Floor(1.1), Expression.CalculatePrimitiveDecimal("floor(1.1)"));
 
-            Assert.Equal((decimal)Math.Log(12), Expression.CalculatePrimitiveDecimal("log(12)"));
+            Assert.Equal((decimal)Math.Log(12, 2), Expression.CalculatePrimitiveDecimal("log(12, 2)"));
             Assert.Equal((decimal)Math.Log2(12), Expression.CalculatePrimitiveDecimal("log2(12)"));
             Assert.Equal((decimal)Math.Log10(12), Expression.CalculatePrimitiveDecimal("log10(12)"));
 
             Assert.Equal(3, Expression.CalculatePrimitiveDecimal("max(2,3)"));
             Assert.Equal(2, Expression.CalculatePrimitiveDecimal("min(2,3)"));
 
-            Assert.Equal(1, Expression.CalculatePrimitiveDecimal("pow(3,2)"));
+            Assert.Equal((decimal)Math.Pow(3, 2), Expression.CalculatePrimitiveDecimal("pow(3,2)"));
             Assert.Equal((decimal)Math.Pow(9, 1 / 2d), Expression.CalculatePrimitiveDecimal("root(9,2)"));
 
             Assert.Equal((decimal)Math.Round(2.2), Expression.CalculatePrimitiveDecimal("round(2.2)"));
@@ -94,8 +94,8 @@ namespace EveryParser.Test.ExpressionTest
             Assert.Equal((decimal)Math.Sin(1), Expression.CalculatePrimitiveDecimal("sin(1)"));
             Assert.Equal((decimal)Math.Sinh(1), Expression.CalculatePrimitiveDecimal("sinh(1)"));
 
-            Assert.Equal((decimal)Math.Sin(1), Expression.CalculatePrimitiveDecimal("sqrt(1)"));
-            Assert.Equal((decimal)Math.Sin(100), Expression.CalculatePrimitiveDecimal("sqrt(100)"));
+            Assert.Equal((decimal)Math.Sqrt(1), Expression.CalculatePrimitiveDecimal("sqrt(1)"));
+            Assert.Equal((decimal)Math.Sqrt(100), Expression.CalculatePrimitiveDecimal("sqrt(100)"));
 
             Assert.Equal((decimal)Math.Tan(1), Expression.CalculatePrimitiveDecimal("tan(1)"));
             Assert.Equal((decimal)Math.Tanh(1), Expression.CalculatePrimitiveDecimal("tanh(1)"));

@@ -129,7 +129,7 @@ math_function_term:
 	| MAX expression KOMMA expression ROUNDBRACKETCLOSED	# Math_Max_Two
 	| MIN expression ROUNDBRACKETCLOSED						# Math_Min_Array
 	| MIN expression KOMMA expression ROUNDBRACKETCLOSED	# Math_Min_Two
-	| POWER expression ROUNDBRACKETCLOSED					# Math_Power
+	| POWER expression KOMMA expression ROUNDBRACKETCLOSED	# Math_Power
 	| ROUND expression ROUNDBRACKETCLOSED					# Math_Round_Not_Decimal
 	| ROUND expression KOMMA expression ROUNDBRACKETCLOSED	# Math_Round_Decimal
 	| ROOT expression KOMMA expression ROUNDBRACKETCLOSED	# Math_Root
