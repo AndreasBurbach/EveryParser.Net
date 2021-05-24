@@ -23,7 +23,7 @@ namespace EveryParser
             SetFormular(formular, checkSyntax);
         }
 
-        public static decimal CalculatePrimitiveDecimal(string formular)
+        public static decimal? CalculatePrimitiveDecimal(string formular)
         {
             return new Expression(formular).CalculateDecimal();
         }
@@ -153,7 +153,7 @@ namespace EveryParser
             return null;
         }
 
-        public decimal CalculateDecimal()
+        public decimal? CalculateDecimal()
         {
             if (string.IsNullOrWhiteSpace(_formular))
                 throw new ArgumentNullException();
@@ -161,7 +161,7 @@ namespace EveryParser
             return CalculateDecimal(_formular, false);
         }
 
-        public decimal CalculateDecimal(string formular, bool checkSyntax = true)
+        public decimal? CalculateDecimal(string formular, bool checkSyntax = true)
         {
             SetFormular(formular, checkSyntax);
 
@@ -169,7 +169,7 @@ namespace EveryParser
             ParseTreeWalker.Default.Walk(listener, GetParser(formular));
 
             if (listener.ErrorCollector.HasErrors)
-                return decimal.MaxValue;
+                return null;
 
             return Convert.ToDecimal(listener.Result);
         }

@@ -1213,7 +1213,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterFactor_DateTimeTerm([NotNull] EveryGrammarParser.Factor_DateTimeTermContext context) { }
+        public virtual void EnterFactor_DateTimeTerm([NotNull] EveryGrammarParser.Factor_DateTimeTermContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Factor_DateTimeTerm</c>
