@@ -32,6 +32,8 @@ namespace EveryParser.Test.ExpressionTest
             Assert.Equal(-1, Expression.CalculatePrimitiveDecimal("-1"));
             Assert.Equal(~1, Expression.CalculatePrimitiveDecimal("~1"));
             Assert.Equal(+1, Expression.CalculatePrimitiveDecimal("+1"));
+            Assert.Equal(2.71828182845904523536028747135266249775724709369995957496696762772407663035354759457138217852516642742746m, Expression.CalculatePrimitiveDecimal("e"));
+            Assert.Equal(3.14159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534211706798214808651m, Expression.CalculatePrimitiveDecimal("pi"));
         }
 
         [Fact]
