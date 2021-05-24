@@ -25,7 +25,7 @@ namespace EveryParser.Test.ExpressionTests
             AssertDateTime(DateTime.Now, Expression.CalculateDateTime("date_now"), CompareDateTime.second);
         }
 
-        public static void AssertDateTime(DateTime? expected, DateTime? actual, CompareDateTime compareUpTo = CompareDateTime.millisecond)
+        private void AssertDateTime(DateTime? expected, DateTime? actual, CompareDateTime compareUpTo = CompareDateTime.millisecond)
         {
             if (expected is null)
             {
@@ -44,28 +44,36 @@ namespace EveryParser.Test.ExpressionTests
                 switch (enumValue)
                 {
                     case CompareDateTime.year:
-                        Assert.True(expected.Value.Year == actual.Value.Year, $"Year is not same for expected {expected} and actual {actual}");
+                        Assert.True(expected.Value.Year == actual.Value.Year, $"Year is not same for expected {expected.ToAssertDateTimeString()} and actual {actual.ToAssertDateTimeString()}");
                         break;
                     case CompareDateTime.month:
-                        Assert.True(expected.Value.Month == actual.Value.Month, $"Month is not same for expected {expected} and actual {actual}");
+                        Assert.True(expected.Value.Month == actual.Value.Month, $"Month is not same for expected {expected.ToAssertDateTimeString()} and actual {actual.ToAssertDateTimeString()}");
                         break;
                     case CompareDateTime.day:
-                        Assert.True(expected.Value.Day == actual.Value.Day, $"Day is not same for expected {expected} and actual {actual}");
+                        Assert.True(expected.Value.Day == actual.Value.Day, $"Day is not same for expected {expected.ToAssertDateTimeString()} and actual {actual.ToAssertDateTimeString()}");
                         break;
                     case CompareDateTime.hour:
-                        Assert.True(expected.Value.Hour == actual.Value.Hour, $"Hour is not same for expected {expected} and actual {actual}");
+                        Assert.True(expected.Value.Hour == actual.Value.Hour, $"Hour is not same for expected {expected.ToAssertDateTimeString()} and actual {actual.ToAssertDateTimeString()}");
                         break;
                     case CompareDateTime.minute:
-                        Assert.True(expected.Value.Minute == actual.Value.Minute, $"Minute is not same for expected {expected} and actual {actual}");
+                        Assert.True(expected.Value.Minute == actual.Value.Minute, $"Minute is not same for expected {expected.ToAssertDateTimeString()} and actual {actual.ToAssertDateTimeString()}");
                         break;
                     case CompareDateTime.second:
-                        Assert.True(expected.Value.Second == actual.Value.Second, $"Second is not same for expected {expected} and actual {actual}");
+                        Assert.True(expected.Value.Second == actual.Value.Second, $"Second is not same for expected {expected.ToAssertDateTimeString()} and actual {actual.ToAssertDateTimeString()}");
                         break;
                     case CompareDateTime.millisecond:
-                        Assert.True(expected.Value.Millisecond == actual.Value.Millisecond, $"Millisecond is not same for expected {expected} and actual {actual}");
+                        Assert.True(expected.Value.Millisecond == actual.Value.Millisecond, $"Millisecond is not same for expected {expected.ToAssertDateTimeString()} and actual {actual.ToAssertDateTimeString()}");
                         break;
                 }
             }
+        }
+    }
+
+    public static class DateTimeExtension
+    {
+        public static string ToAssertDateTimeString(this DateTime? dateTime)
+        {
+            return dateTime.HasValue ? dateTime.Value.ToString("dd.MM.yyyy hh:mm:ss.fff tt") : "null";
         }
     }
 }
