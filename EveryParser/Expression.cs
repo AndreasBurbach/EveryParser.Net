@@ -106,7 +106,7 @@ namespace EveryParser
         {
             SetFormular(formular, checkSyntax);
 
-            var listener = new EveryGrammarCalculatorListener();
+            var listener = new EveryGrammarBaseListener();
             ParseTreeWalker.Default.Walk(listener, GetParser(formular));
 
             return null;
@@ -124,7 +124,7 @@ namespace EveryParser
         {
             SetFormular(formular, checkSyntax);
 
-            var listener = new EveryGrammarCalculatorListener();
+            var listener = new EveryGrammarBaseListener();
             ParseTreeWalker.Default.Walk(listener, GetParser(formular));
 
             return false;
@@ -142,7 +142,7 @@ namespace EveryParser
         {
             SetFormular(formular, checkSyntax);
 
-            var listener = new EveryGrammarCalculatorListener();
+            var listener = new EveryGrammarBaseListener();
             ParseTreeWalker.Default.Walk(listener, GetParser(formular));
 
             return null;
@@ -160,10 +160,13 @@ namespace EveryParser
         {
             SetFormular(formular, checkSyntax);
 
-            var listener = new EveryGrammarCalculatorListener();
+            var listener = new EveryGrammarBaseListener();
             ParseTreeWalker.Default.Walk(listener, GetParser(formular));
 
-            return 0.0m;
+            if (listener.ErrorCollector.HasErrors)
+                return decimal.MaxValue;
+
+            return Convert.ToDecimal(listener.Result);
         }
 
         public void SetFormular(string formular, bool checkSyntax = true)
@@ -171,8 +174,11 @@ namespace EveryParser
             if (string.IsNullOrWhiteSpace(formular))
                 throw new ArgumentNullException();
 
-            if (checkSyntax)
-                ParseTreeWalker.Default.Walk(new EveryGrammarValidatorListener(), GetParser(formular));
+            if (_formular == formular)
+                return;
+
+            //if (checkSyntax)
+            //    ParseTreeWalker.Default.Walk(new EveryGrammarValidatorListener(), GetParser(formular));
 
             _formular = formular;
         }
@@ -180,8 +186,8 @@ namespace EveryParser
         private static EveryGrammarParser.StartRuleContext GetParser(string formular)
         {
             var stream = CharStreams.fromString(formular);
-            var upper = new CaseChangingCharStream(stream, true); //https://github.com/antlr/antlr4/blob/master/doc/case-insensitive-lexing.md
-            var lexer = new EveryGrammarLexer(upper);
+            //var upper = new CaseChangingCharStream(stream, true); //https://github.com/antlr/antlr4/blob/master/doc/case-insensitive-lexing.md
+            var lexer = new EveryGrammarLexer(stream);
             var tokens = new CommonTokenStream(lexer);
             var parser = new EveryGrammarParser(tokens)
             {
