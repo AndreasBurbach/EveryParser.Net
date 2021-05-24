@@ -125,7 +125,7 @@ namespace EveryParser
         }
 
         /// <summary>
-        /// Checks if the count of child params it same as the params count which is need for a calculation
+        /// Checks if the count of child params is same as the params count which is need for a calculation
         /// </summary>
         /// <param name="context">Context for line recognition</param>
         /// <param name="paramsCount">The count of parameters the calculation needs </param>
@@ -133,9 +133,46 @@ namespace EveryParser
         /// <returns>true if count is correct</returns>
         public bool CheckParamsCount(ParserRuleContext context, int paramsCount, params object[] childs)
         {
-            if (childs.Length != paramsCount)
+            if ((childs?.Length ?? 0) != paramsCount)
             {
                 _errors.Add((ErrorCode.ParamsCountNotCorrect, $"No {paramsCount} {(paramsCount == 1 ? "value" : "values")} {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Checks if the count of child params is greater or equal the params count which is need for a calculation
+        /// </summary>
+        /// <param name="context">Context for line recognition</param>
+        /// <param name="paramsCount">The minimal count of parameters the calculation needs </param>
+        /// <param name="childs">All childs which are comitted to the calculation</param>
+        /// <returns>true if count is correct</returns>
+        public bool CheckParamsCountGreaterEqual(ParserRuleContext context, int paramsCount, params object[] childs)
+        {
+            if ((childs?.Length ?? 0) < paramsCount)
+            {
+                _errors.Add((ErrorCode.ParamsCountNotCorrect, $"No {paramsCount} {(paramsCount == 1 ? "value" : "values")} or greater {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Checks if the count of child params is lower or equal the params count which is need for a calculation
+        /// </summary>
+        /// <param name="context">Context for line recognition</param>
+        /// <param name="paramsCount">The maximal count of parameters the calculation needs </param>
+        /// <param name="childs">All childs which are comitted to the calculation</param>
+        /// <returns>true if count is correct</returns>
+        public bool CheckParamsCountLowerEqual(ParserRuleContext context, int paramsCount, params object[] childs)
+        {
+            var childsCount = childs?.Length ?? 0;
+            if (childsCount > paramsCount)
+            {
+                _errors.Add((ErrorCode.ParamsCountNotCorrect, $"Too many values. Accepted {paramsCount}, but has {childsCount} {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
                 return false;
             }
 
@@ -252,6 +289,16 @@ namespace EveryParser
         public void AddTypeConversionError(ParserRuleContext context, string text, Type targetedType)
         {
             _errors.Add((ErrorCode.TypeConversion, $"Could not convert { text}  to type of {targetedType.Name}  {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+        }
+
+        /// <summary>
+        /// Adds an error text
+        /// </summary>
+        /// <param name="context">Context for line recognition</param>
+        /// <param name="text">Text to convert to a type</param>
+        public void AddError(ParserRuleContext context, string text)
+        {
+            _errors.Add((ErrorCode.TypeConversion, $"{text} {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
         }
     }
 }
