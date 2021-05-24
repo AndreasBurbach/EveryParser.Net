@@ -23,6 +23,7 @@ namespace EveryParser.Test.ExpressionTests
         public void DefaultTests()
         {
             AssertDateTime(DateTime.Now, Expression.CalculateDateTime("date_now"), CompareDateTime.second);
+            AssertDateTime(new DateTime(2021, 1, 1), Expression.CalculateDateTime("date(2021)"), CompareDateTime.day);
         }
 
         private void AssertDateTime(DateTime? expected, DateTime? actual, CompareDateTime compareUpTo = CompareDateTime.millisecond)

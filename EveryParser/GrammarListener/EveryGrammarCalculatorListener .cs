@@ -1230,7 +1230,33 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitFactor_DateTimeTerm([NotNull] EveryGrammarParser.Factor_DateTimeTermContext context) { }
+        public virtual void ExitFactor_DateTimeTerm([NotNull] EveryGrammarParser.Factor_DateTimeTermContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = null;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (
+                ErrorCollector.CheckParamsCount(context, 1, childValues) &&
+                !ErrorCollector.CheckIsNull(context, childValues) &&
+                ErrorCollector.CheckIsNumber(context, childValues) &&
+                int.TryParse(childValues[0].ToString(), out var onlyYearValue)
+            )
+            {
+                Node.Value = new DateTime(onlyYearValue, 1, 1);
+                Node = Node.Parent;
+                return;
+            }
+
+
+            Node.Value = double.NaN;
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Factor_Array</c>
@@ -1302,7 +1328,11 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void EnterDateTime_Expression([NotNull] EveryGrammarParser.DateTime_ExpressionContext context) { }
+        public virtual void EnterDateTime_Expression([NotNull] EveryGrammarParser.DateTime_ExpressionContext context)
+        {
+            var childNode = Node.AddChildNode();
+            Node = childNode;
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>DateTime_Expression</c>
@@ -1310,7 +1340,29 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public virtual void ExitDateTime_Expression([NotNull] EveryGrammarParser.DateTime_ExpressionContext context) { }
+        public virtual void ExitDateTime_Expression([NotNull] EveryGrammarParser.DateTime_ExpressionContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = null;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                    !ErrorCollector.CheckIsNumber(context, childValues))
+            {
+                Node.Value = null;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Convert.ToInt32(childValues[0]);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>DateTime_DateEntry</c>

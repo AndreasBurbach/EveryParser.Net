@@ -244,7 +244,7 @@ CONCAT: 'concat(';
 COUNT: 'count(';
 DISTINCT: 'distinct(';
 DUPLICATES: 'duplicates(';
-DATETIME: 'date';
+DATETIME: 'date(';
 INDEXOF: 'indexOf(';
 LOWERCASE: 'lower(';
 REVERSE: 'reverse(';

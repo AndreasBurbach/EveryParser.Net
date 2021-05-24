@@ -76,7 +76,7 @@ public partial class EveryGrammarParser : Parser {
 		"'log('", "'log2('", "'log10('", "'max('", "'min('", "'pow('", "'round('", 
 		"'root('", "'sin('", "'sinh('", "'sqrt('", "'tan('", "'tanh('", "'truncate('", 
 		"'mean('", "'median('", "'variance('", "'concat('", "'count('", "'distinct('", 
-		"'duplicates('", "'date'", "'indexOf('", "'lower('", "'reverse('", "'union('", 
+		"'duplicates('", "'date('", "'indexOf('", "'lower('", "'reverse('", "'union('", 
 		"'upper('"
 	};
 	private static readonly string[] _SymbolicNames = {
