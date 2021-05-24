@@ -51,32 +51,32 @@ namespace EveryParser.Test.ExpressionTest
         [Fact]
         public void FunctionTests()
         {
-            //Assert.Equal(1, Expression.CalculatePrimitiveDecimal("abs(1)"));
-            //Assert.Equal(1, Expression.CalculatePrimitiveDecimal("abs(-1)"));
+            Assert.Equal(1, Expression.CalculatePrimitiveDecimal("abs(1)"));
+            Assert.Equal(1, Expression.CalculatePrimitiveDecimal("abs(-1)"));
 
-            //Assert.Equal((decimal)Math.Acos(1), Expression.CalculatePrimitiveDecimal("acos(1)"));
-            //Assert.Equal((decimal)Math.Acosh(1), Expression.CalculatePrimitiveDecimal("acosh(1)"));
+            Assert.Equal((decimal)Math.Acos(1), Expression.CalculatePrimitiveDecimal("acos(1)"));
+            Assert.Equal((decimal)Math.Acosh(1), Expression.CalculatePrimitiveDecimal("acosh(1)"));
 
-            //Assert.Equal((decimal)Math.Asin(1), Expression.CalculatePrimitiveDecimal("asin(1)"));
-            //Assert.Equal((decimal)Math.Asinh(1), Expression.CalculatePrimitiveDecimal("asinh(1)"));
+            Assert.Equal((decimal)Math.Asin(1), Expression.CalculatePrimitiveDecimal("asin(1)"));
+            Assert.Equal((decimal)Math.Asinh(1), Expression.CalculatePrimitiveDecimal("asinh(1)"));
 
-            //Assert.Equal((decimal)Math.Atan(1), Expression.CalculatePrimitiveDecimal("atan(1)"));
-            //Assert.Equal((decimal)Math.Atan2(1, 1), Expression.CalculatePrimitiveDecimal("atan2(1,1)"));
-            //Assert.Equal((decimal)Math.Atanh(0.5), Expression.CalculatePrimitiveDecimal("atanh(0.5)"));
+            Assert.Equal((decimal)Math.Atan(1), Expression.CalculatePrimitiveDecimal("atan(1)"));
+            Assert.Equal((decimal)Math.Atan2(1, 1), Expression.CalculatePrimitiveDecimal("atan2(1,1)"));
+            Assert.Equal((decimal)Math.Atanh(0.5), Expression.CalculatePrimitiveDecimal("atanh(0.5)"));
 
-            //Assert.Equal((decimal)Math.Cbrt(1), Expression.CalculatePrimitiveDecimal("cbrt(1)"));
-            //Assert.Equal((decimal)Math.Cbrt(27), Expression.CalculatePrimitiveDecimal("cbrt(27)"));
+            Assert.Equal((decimal)Math.Cbrt(1), Expression.CalculatePrimitiveDecimal("cbrt(1)"));
+            Assert.Equal((decimal)Math.Cbrt(27), Expression.CalculatePrimitiveDecimal("cbrt(27)"));
 
-            //Assert.Equal((decimal)Math.Cos(1), Expression.CalculatePrimitiveDecimal("cos(1)"));
-            //Assert.Equal((decimal)Math.Cosh(1), Expression.CalculatePrimitiveDecimal("cosh(1)"));
+            Assert.Equal((decimal)Math.Cos(1), Expression.CalculatePrimitiveDecimal("cos(1)"));
+            Assert.Equal((decimal)Math.Cosh(1), Expression.CalculatePrimitiveDecimal("cosh(1)"));
 
-            //Assert.Equal((decimal)Math.Ceiling(1.1), Expression.CalculatePrimitiveDecimal("ceilling(1.1)"));
-            //Assert.Equal((decimal)Math.Clamp(1, 10, 20), Expression.CalculatePrimitiveDecimal("clamp(1,10,20)"));
+            Assert.Equal((decimal)Math.Ceiling(1.1), Expression.CalculatePrimitiveDecimal("ceilling(1.1)"));
+            Assert.Equal((decimal)Math.Clamp(1, 10, 20), Expression.CalculatePrimitiveDecimal("clamp(1,10,20)"));
 
-            //Assert.Equal(9, Expression.CalculatePrimitiveDecimal("crosssum(1800)"));
-            //Assert.Equal((decimal)Math.Exp(2), Expression.CalculatePrimitiveDecimal("exp(2)"));
+            Assert.Equal(9, Expression.CalculatePrimitiveDecimal("crosssum(1800)"));
+            Assert.Equal((decimal)Math.Exp(2), Expression.CalculatePrimitiveDecimal("exp(2)"));
 
-            //Assert.Equal((decimal)Math.Floor(1.1), Expression.CalculatePrimitiveDecimal("floor(1.1)"));
+            Assert.Equal((decimal)Math.Floor(1.1), Expression.CalculatePrimitiveDecimal("floor(1.1)"));
 
             Assert.Equal((decimal)Math.Log(12), Expression.CalculatePrimitiveDecimal("log(12)"));
             Assert.Equal((decimal)Math.Log2(12), Expression.CalculatePrimitiveDecimal("log2(12)"));
