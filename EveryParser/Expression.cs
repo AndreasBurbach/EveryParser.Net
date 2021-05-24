@@ -23,6 +23,11 @@ namespace EveryParser
             SetFormular(formular, checkSyntax);
         }
 
+        public static decimal CalculatePrimitiveDecimal(string formular)
+        {
+            return new Expression(formular).CalculateDecimal();
+        }
+
         #region arguments
 
         public void AddArgument(string name, string value)
