@@ -4494,25 +4494,48 @@ public partial class EveryGrammarParser : Parser {
 	}
 
 	public partial class Array_exprContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EDGEBRACKETOPEN() { return GetToken(EveryGrammarParser.EDGEBRACKETOPEN, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public Expr_argsContext expr_args() {
-			return GetRuleContext<Expr_argsContext>(0);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EDGEBRACKETCLOSED() { return GetToken(EveryGrammarParser.EDGEBRACKETCLOSED, 0); }
 		public Array_exprContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
 		public override int RuleIndex { get { return RULE_array_expr; } }
+	 
+		public Array_exprContext() { }
+		public virtual void CopyFrom(Array_exprContext context) {
+			base.CopyFrom(context);
+		}
+	}
+	public partial class ArrayCreationContext : Array_exprContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EDGEBRACKETOPEN() { return GetToken(EveryGrammarParser.EDGEBRACKETOPEN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public Expr_argsContext expr_args() {
+			return GetRuleContext<Expr_argsContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EDGEBRACKETCLOSED() { return GetToken(EveryGrammarParser.EDGEBRACKETCLOSED, 0); }
+		public ArrayCreationContext(Array_exprContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
-			if (typedListener != null) typedListener.EnterArray_expr(this);
+			if (typedListener != null) typedListener.EnterArrayCreation(this);
 		}
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void ExitRule(IParseTreeListener listener) {
 			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
-			if (typedListener != null) typedListener.ExitArray_expr(this);
+			if (typedListener != null) typedListener.ExitArrayCreation(this);
+		}
+	}
+	public partial class ArrayCreation_EmptyContext : Array_exprContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EDGEBRACKETOPEN() { return GetToken(EveryGrammarParser.EDGEBRACKETOPEN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EDGEBRACKETCLOSED() { return GetToken(EveryGrammarParser.EDGEBRACKETCLOSED, 0); }
+		public ArrayCreation_EmptyContext(Array_exprContext context) { CopyFrom(context); }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
+			if (typedListener != null) typedListener.EnterArrayCreation_Empty(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
+			if (typedListener != null) typedListener.ExitArrayCreation_Empty(this);
 		}
 	}
 
@@ -4521,14 +4544,31 @@ public partial class EveryGrammarParser : Parser {
 		Array_exprContext _localctx = new Array_exprContext(Context, State);
 		EnterRule(_localctx, 38, RULE_array_expr);
 		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 562;
-			Match(EDGEBRACKETOPEN);
-			State = 563;
-			expr_args();
-			State = 564;
-			Match(EDGEBRACKETCLOSED);
+			State = 568;
+			ErrorHandler.Sync(this);
+			switch ( Interpreter.AdaptivePredict(TokenStream,22,Context) ) {
+			case 1:
+				_localctx = new ArrayCreation_EmptyContext(_localctx);
+				EnterOuterAlt(_localctx, 1);
+				{
+				State = 562;
+				Match(EDGEBRACKETOPEN);
+				State = 563;
+				Match(EDGEBRACKETCLOSED);
+				}
+				break;
+			case 2:
+				_localctx = new ArrayCreationContext(_localctx);
+				EnterOuterAlt(_localctx, 2);
+				{
+				State = 564;
+				Match(EDGEBRACKETOPEN);
+				State = 565;
+				expr_args();
+				State = 566;
+				Match(EDGEBRACKETCLOSED);
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -4614,7 +4654,7 @@ public partial class EveryGrammarParser : Parser {
 
 	private static char[] _serializedATN = {
 		'\x3', '\x608B', '\xA72A', '\x8133', '\xB9ED', '\x417C', '\x3BE7', '\x7786', 
-		'\x5964', '\x3', 'Y', '\x239', '\x4', '\x2', '\t', '\x2', '\x4', '\x3', 
+		'\x5964', '\x3', 'Y', '\x23D', '\x4', '\x2', '\t', '\x2', '\x4', '\x3', 
 		'\t', '\x3', '\x4', '\x4', '\t', '\x4', '\x4', '\x5', '\t', '\x5', '\x4', 
 		'\x6', '\t', '\x6', '\x4', '\a', '\t', '\a', '\x4', '\b', '\t', '\b', 
 		'\x4', '\t', '\t', '\t', '\x4', '\n', '\t', '\n', '\x4', '\v', '\t', '\v', 
@@ -4726,45 +4766,46 @@ public partial class EveryGrammarParser : Parser {
 		'\x13', '\x3', '\x13', '\x3', '\x13', '\x3', '\x13', '\x3', '\x13', '\x5', 
 		'\x13', '\x22C', '\n', '\x13', '\x3', '\x14', '\x3', '\x14', '\x3', '\x14', 
 		'\x3', '\x14', '\x3', '\x14', '\x5', '\x14', '\x233', '\n', '\x14', '\x3', 
-		'\x15', '\x3', '\x15', '\x3', '\x15', '\x3', '\x15', '\x3', '\x15', '\x2', 
-		'\t', '\f', '\xE', '\x10', '\x12', '\x14', '\x16', '\x18', '\x16', '\x2', 
-		'\x4', '\x6', '\b', '\n', '\f', '\xE', '\x10', '\x12', '\x14', '\x16', 
-		'\x18', '\x1A', '\x1C', '\x1E', ' ', '\"', '$', '&', '(', '\x2', '\x2', 
-		'\x2', '\x284', '\x2', '/', '\x3', '\x2', '\x2', '\x2', '\x4', '\x32', 
-		'\x3', '\x2', '\x2', '\x2', '\x6', '>', '\x3', '\x2', '\x2', '\x2', '\b', 
-		'\x45', '\x3', '\x2', '\x2', '\x2', '\n', 'L', '\x3', '\x2', '\x2', '\x2', 
-		'\f', 'N', '\x3', '\x2', '\x2', '\x2', '\xE', 'Y', '\x3', '\x2', '\x2', 
-		'\x2', '\x10', 't', '\x3', '\x2', '\x2', '\x2', '\x12', '\x88', '\x3', 
-		'\x2', '\x2', '\x2', '\x14', '\x93', '\x3', '\x2', '\x2', '\x2', '\x16', 
-		'\x9E', '\x3', '\x2', '\x2', '\x2', '\x18', '\xAC', '\x3', '\x2', '\x2', 
-		'\x2', '\x1A', '\xE1', '\x3', '\x2', '\x2', '\x2', '\x1C', '\x135', '\x3', 
-		'\x2', '\x2', '\x2', '\x1E', '\x149', '\x3', '\x2', '\x2', '\x2', ' ', 
-		'\x173', '\x3', '\x2', '\x2', '\x2', '\"', '\x21D', '\x3', '\x2', '\x2', 
-		'\x2', '$', '\x22B', '\x3', '\x2', '\x2', '\x2', '&', '\x232', '\x3', 
-		'\x2', '\x2', '\x2', '(', '\x234', '\x3', '\x2', '\x2', '\x2', '*', '+', 
-		'\x5', '\x4', '\x3', '\x2', '+', ',', '\a', '\x1D', '\x2', '\x2', ',', 
-		'.', '\x3', '\x2', '\x2', '\x2', '-', '*', '\x3', '\x2', '\x2', '\x2', 
-		'.', '\x31', '\x3', '\x2', '\x2', '\x2', '/', '-', '\x3', '\x2', '\x2', 
-		'\x2', '/', '\x30', '\x3', '\x2', '\x2', '\x2', '\x30', '\x3', '\x3', 
-		'\x2', '\x2', '\x2', '\x31', '/', '\x3', '\x2', '\x2', '\x2', '\x32', 
-		'\x33', '\x5', '\x6', '\x4', '\x2', '\x33', '\x5', '\x3', '\x2', '\x2', 
-		'\x2', '\x34', '?', '\x5', '\b', '\x5', '\x2', '\x35', '\x36', '\x5', 
-		'\b', '\x5', '\x2', '\x36', '\x37', '\x5', '\x1E', '\x10', '\x2', '\x37', 
-		'?', '\x3', '\x2', '\x2', '\x2', '\x38', '\x39', '\x5', '\b', '\x5', '\x2', 
-		'\x39', ':', '\a', '\x18', '\x2', '\x2', ':', ';', '\x5', '\b', '\x5', 
-		'\x2', ';', '<', '\a', '\x17', '\x2', '\x2', '<', '=', '\x5', '\b', '\x5', 
-		'\x2', '=', '?', '\x3', '\x2', '\x2', '\x2', '>', '\x34', '\x3', '\x2', 
-		'\x2', '\x2', '>', '\x35', '\x3', '\x2', '\x2', '\x2', '>', '\x38', '\x3', 
-		'\x2', '\x2', '\x2', '?', '\a', '\x3', '\x2', '\x2', '\x2', '@', '\x46', 
-		'\x5', '\n', '\x6', '\x2', '\x41', '\x42', '\a', '!', '\x2', '\x2', '\x42', 
-		'\x43', '\x5', '\x6', '\x4', '\x2', '\x43', '\x44', '\a', '\"', '\x2', 
-		'\x2', '\x44', '\x46', '\x3', '\x2', '\x2', '\x2', '\x45', '@', '\x3', 
-		'\x2', '\x2', '\x2', '\x45', '\x41', '\x3', '\x2', '\x2', '\x2', '\x46', 
-		'\t', '\x3', '\x2', '\x2', '\x2', 'G', 'M', '\x5', '\f', '\a', '\x2', 
-		'H', 'I', '\x5', '\f', '\a', '\x2', 'I', 'J', '\a', '\xE', '\x2', '\x2', 
-		'J', 'K', '\x5', '\f', '\a', '\x2', 'K', 'M', '\x3', '\x2', '\x2', '\x2', 
-		'L', 'G', '\x3', '\x2', '\x2', '\x2', 'L', 'H', '\x3', '\x2', '\x2', '\x2', 
-		'M', '\v', '\x3', '\x2', '\x2', '\x2', 'N', 'O', '\b', '\a', '\x1', '\x2', 
+		'\x15', '\x3', '\x15', '\x3', '\x15', '\x3', '\x15', '\x3', '\x15', '\x3', 
+		'\x15', '\x5', '\x15', '\x23B', '\n', '\x15', '\x3', '\x15', '\x2', '\t', 
+		'\f', '\xE', '\x10', '\x12', '\x14', '\x16', '\x18', '\x16', '\x2', '\x4', 
+		'\x6', '\b', '\n', '\f', '\xE', '\x10', '\x12', '\x14', '\x16', '\x18', 
+		'\x1A', '\x1C', '\x1E', ' ', '\"', '$', '&', '(', '\x2', '\x2', '\x2', 
+		'\x289', '\x2', '/', '\x3', '\x2', '\x2', '\x2', '\x4', '\x32', '\x3', 
+		'\x2', '\x2', '\x2', '\x6', '>', '\x3', '\x2', '\x2', '\x2', '\b', '\x45', 
+		'\x3', '\x2', '\x2', '\x2', '\n', 'L', '\x3', '\x2', '\x2', '\x2', '\f', 
+		'N', '\x3', '\x2', '\x2', '\x2', '\xE', 'Y', '\x3', '\x2', '\x2', '\x2', 
+		'\x10', 't', '\x3', '\x2', '\x2', '\x2', '\x12', '\x88', '\x3', '\x2', 
+		'\x2', '\x2', '\x14', '\x93', '\x3', '\x2', '\x2', '\x2', '\x16', '\x9E', 
+		'\x3', '\x2', '\x2', '\x2', '\x18', '\xAC', '\x3', '\x2', '\x2', '\x2', 
+		'\x1A', '\xE1', '\x3', '\x2', '\x2', '\x2', '\x1C', '\x135', '\x3', '\x2', 
+		'\x2', '\x2', '\x1E', '\x149', '\x3', '\x2', '\x2', '\x2', ' ', '\x173', 
+		'\x3', '\x2', '\x2', '\x2', '\"', '\x21D', '\x3', '\x2', '\x2', '\x2', 
+		'$', '\x22B', '\x3', '\x2', '\x2', '\x2', '&', '\x232', '\x3', '\x2', 
+		'\x2', '\x2', '(', '\x23A', '\x3', '\x2', '\x2', '\x2', '*', '+', '\x5', 
+		'\x4', '\x3', '\x2', '+', ',', '\a', '\x1D', '\x2', '\x2', ',', '.', '\x3', 
+		'\x2', '\x2', '\x2', '-', '*', '\x3', '\x2', '\x2', '\x2', '.', '\x31', 
+		'\x3', '\x2', '\x2', '\x2', '/', '-', '\x3', '\x2', '\x2', '\x2', '/', 
+		'\x30', '\x3', '\x2', '\x2', '\x2', '\x30', '\x3', '\x3', '\x2', '\x2', 
+		'\x2', '\x31', '/', '\x3', '\x2', '\x2', '\x2', '\x32', '\x33', '\x5', 
+		'\x6', '\x4', '\x2', '\x33', '\x5', '\x3', '\x2', '\x2', '\x2', '\x34', 
+		'?', '\x5', '\b', '\x5', '\x2', '\x35', '\x36', '\x5', '\b', '\x5', '\x2', 
+		'\x36', '\x37', '\x5', '\x1E', '\x10', '\x2', '\x37', '?', '\x3', '\x2', 
+		'\x2', '\x2', '\x38', '\x39', '\x5', '\b', '\x5', '\x2', '\x39', ':', 
+		'\a', '\x18', '\x2', '\x2', ':', ';', '\x5', '\b', '\x5', '\x2', ';', 
+		'<', '\a', '\x17', '\x2', '\x2', '<', '=', '\x5', '\b', '\x5', '\x2', 
+		'=', '?', '\x3', '\x2', '\x2', '\x2', '>', '\x34', '\x3', '\x2', '\x2', 
+		'\x2', '>', '\x35', '\x3', '\x2', '\x2', '\x2', '>', '\x38', '\x3', '\x2', 
+		'\x2', '\x2', '?', '\a', '\x3', '\x2', '\x2', '\x2', '@', '\x46', '\x5', 
+		'\n', '\x6', '\x2', '\x41', '\x42', '\a', '!', '\x2', '\x2', '\x42', '\x43', 
+		'\x5', '\x6', '\x4', '\x2', '\x43', '\x44', '\a', '\"', '\x2', '\x2', 
+		'\x44', '\x46', '\x3', '\x2', '\x2', '\x2', '\x45', '@', '\x3', '\x2', 
+		'\x2', '\x2', '\x45', '\x41', '\x3', '\x2', '\x2', '\x2', '\x46', '\t', 
+		'\x3', '\x2', '\x2', '\x2', 'G', 'M', '\x5', '\f', '\a', '\x2', 'H', 'I', 
+		'\x5', '\f', '\a', '\x2', 'I', 'J', '\a', '\xE', '\x2', '\x2', 'J', 'K', 
+		'\x5', '\f', '\a', '\x2', 'K', 'M', '\x3', '\x2', '\x2', '\x2', 'L', 'G', 
+		'\x3', '\x2', '\x2', '\x2', 'L', 'H', '\x3', '\x2', '\x2', '\x2', 'M', 
+		'\v', '\x3', '\x2', '\x2', '\x2', 'N', 'O', '\b', '\a', '\x1', '\x2', 
 		'O', 'P', '\x5', '\xE', '\b', '\x2', 'P', 'V', '\x3', '\x2', '\x2', '\x2', 
 		'Q', 'R', '\f', '\x3', '\x2', '\x2', 'R', 'S', '\a', '\xF', '\x2', '\x2', 
 		'S', 'U', '\x5', '\xE', '\b', '\x2', 'T', 'Q', '\x3', '\x2', '\x2', '\x2', 
@@ -5112,11 +5153,14 @@ public partial class EveryGrammarParser : Parser {
 		'\x5', '&', '\x14', '\x2', '\x231', '\x233', '\x3', '\x2', '\x2', '\x2', 
 		'\x232', '\x22D', '\x3', '\x2', '\x2', '\x2', '\x232', '\x22E', '\x3', 
 		'\x2', '\x2', '\x2', '\x233', '\'', '\x3', '\x2', '\x2', '\x2', '\x234', 
-		'\x235', '\a', '#', '\x2', '\x2', '\x235', '\x236', '\x5', '&', '\x14', 
-		'\x2', '\x236', '\x237', '\a', '$', '\x2', '\x2', '\x237', ')', '\x3', 
-		'\x2', '\x2', '\x2', '\x18', '/', '>', '\x45', 'L', 'V', 'o', 'q', '\x83', 
+		'\x235', '\a', '#', '\x2', '\x2', '\x235', '\x23B', '\a', '$', '\x2', 
+		'\x2', '\x236', '\x237', '\a', '#', '\x2', '\x2', '\x237', '\x238', '\x5', 
+		'&', '\x14', '\x2', '\x238', '\x239', '\a', '$', '\x2', '\x2', '\x239', 
+		'\x23B', '\x3', '\x2', '\x2', '\x2', '\x23A', '\x234', '\x3', '\x2', '\x2', 
+		'\x2', '\x23A', '\x236', '\x3', '\x2', '\x2', '\x2', '\x23B', ')', '\x3', 
+		'\x2', '\x2', '\x2', '\x19', '/', '>', '\x45', 'L', 'V', 'o', 'q', '\x83', 
 		'\x85', '\x90', '\x9B', '\xA7', '\xA9', '\xC4', '\xC6', '\xE1', '\x135', 
-		'\x149', '\x173', '\x21D', '\x22B', '\x232',
+		'\x149', '\x173', '\x21D', '\x22B', '\x232', '\x23A',
 	};
 
 	public static readonly ATN _ATN =

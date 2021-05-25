@@ -146,7 +146,9 @@ statistic_math_function_term:
 
 expr_args: expression | expression KOMMA expr_args;
 
-array_expr: EDGEBRACKETOPEN expr_args EDGEBRACKETCLOSED;
+array_expr: 
+	EDGEBRACKETOPEN EDGEBRACKETCLOSED #ArrayCreation_Empty
+	|EDGEBRACKETOPEN expr_args EDGEBRACKETCLOSED #ArrayCreation;
 
 //TOKENS
 
