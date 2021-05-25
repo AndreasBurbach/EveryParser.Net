@@ -1119,7 +1119,7 @@ namespace EveryParser
             if (childValues[0] is List<object> list)
                 Node.Value = list.Select(x => (object)-Convert.ToDecimal(x)).ToList();
             else
-                Node.Value = Convert.ToDecimal(childValues[0]);
+                Node.Value = -Convert.ToDecimal(childValues[0]);
 
             Node = Node.Parent;
         }
