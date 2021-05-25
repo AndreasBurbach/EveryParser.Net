@@ -428,7 +428,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -486,7 +486,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -544,7 +544,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -586,7 +586,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -660,7 +660,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -702,7 +702,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -744,7 +744,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -786,7 +786,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -828,7 +828,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -870,7 +870,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -928,7 +928,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -970,7 +970,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -1012,7 +1012,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -1399,7 +1399,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = null;
                 Node = Node.Parent;
@@ -1697,7 +1697,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -1739,7 +1739,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -1781,7 +1781,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -1823,7 +1823,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -1865,7 +1865,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -1907,7 +1907,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -1949,7 +1949,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -1991,7 +1991,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -2033,7 +2033,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -2075,7 +2075,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -2117,7 +2117,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -2159,7 +2159,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -2201,7 +2201,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 3, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -2247,7 +2247,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -2313,7 +2313,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -2355,7 +2355,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -2417,7 +2417,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -2459,7 +2459,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -2501,7 +2501,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -2563,7 +2563,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -2625,7 +2625,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -2667,7 +2667,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -2709,7 +2709,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -2751,7 +2751,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -2793,7 +2793,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -2835,7 +2835,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -2877,7 +2877,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -2919,7 +2919,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -2961,7 +2961,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -3003,7 +3003,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
@@ -3045,7 +3045,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                    !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
