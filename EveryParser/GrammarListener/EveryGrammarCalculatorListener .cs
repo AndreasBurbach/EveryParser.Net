@@ -1,4 +1,5 @@
 using Antlr4.Runtime.Misc;
+using MathNet.Numerics.LinearAlgebra;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -544,14 +545,44 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Convert.ToDecimal(childValues[0]) + Convert.ToDecimal(childValues[1]);
+            var list1 = childValues[0] as List<object>;
+            decimal value1 = 0;
+            if (list1 is null)
+                value1 = Convert.ToDecimal(childValues[0]);
+
+            var list2 = childValues[1] as List<object>;
+            decimal value2 = 0;
+            if (list2 is null)
+                value2 = Convert.ToDecimal(childValues[1]);
+
+            if (list1 is null && list2 is null)
+            {
+                Node.Value = value1 + value2;
+            }
+            else if (!(list1 is null) && list2 is null)
+            {
+                var vector1 = Vector<decimal>.Build.DenseOfEnumerable(list1.Select(x => Convert.ToDecimal(x)));
+                Node.Value = (vector1 + value2).Select(x => (object)x).ToList();
+            }
+            else if (list1 is null && !(list2 is null))
+            {
+                var vector2 = Vector<decimal>.Build.DenseOfEnumerable(list2.Select(x => Convert.ToDecimal(x)));
+                Node.Value = (value1 + vector2).Select(x => (object)x).ToList();
+            }
+            else
+            {
+                var vector1 = Vector<decimal>.Build.DenseOfEnumerable(list1.Select(x => Convert.ToDecimal(x)));
+                var vector2 = Vector<decimal>.Build.DenseOfEnumerable(list2.Select(x => Convert.ToDecimal(x)));
+                Node.Value = (vector1 + vector2).Select(x => (object)x).ToList();
+            }
+
             Node = Node.Parent;
         }
 
@@ -586,14 +617,44 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Convert.ToDecimal(childValues[0]) - Convert.ToDecimal(childValues[1]);
+            var list1 = childValues[0] as List<object>;
+            decimal value1 = 0;
+            if (list1 is null)
+                value1 = Convert.ToDecimal(childValues[0]);
+
+            var list2 = childValues[1] as List<object>;
+            decimal value2 = 0;
+            if (list2 is null)
+                value2 = Convert.ToDecimal(childValues[1]);
+
+            if (list1 is null && list2 is null)
+            {
+                Node.Value = value1 - value2;
+            }
+            else if (!(list1 is null) && list2 is null)
+            {
+                var vector1 = Vector<decimal>.Build.DenseOfEnumerable(list1.Select(x => Convert.ToDecimal(x)));
+                Node.Value = (vector1 - value2).Select(x => (object)x).ToList();
+            }
+            else if (list1 is null && !(list2 is null))
+            {
+                var vector2 = Vector<decimal>.Build.DenseOfEnumerable(list2.Select(x => Convert.ToDecimal(x)));
+                Node.Value = (value1 - vector2).Select(x => (object)x).ToList();
+            }
+            else
+            {
+                var vector1 = Vector<decimal>.Build.DenseOfEnumerable(list1.Select(x => Convert.ToDecimal(x)));
+                var vector2 = Vector<decimal>.Build.DenseOfEnumerable(list2.Select(x => Convert.ToDecimal(x)));
+                Node.Value = (vector1 - vector2).Select(x => (object)x).ToList();
+            }
+
             Node = Node.Parent;
         }
 
@@ -660,14 +721,44 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Convert.ToDecimal(childValues[0]) % Convert.ToDecimal(childValues[1]);
+            var list1 = childValues[0] as List<object>;
+            decimal value1 = 0;
+            if (list1 is null)
+                value1 = Convert.ToDecimal(childValues[0]);
+
+            var list2 = childValues[1] as List<object>;
+            decimal value2 = 0;
+            if (list2 is null)
+                value2 = Convert.ToDecimal(childValues[1]);
+
+            if (list1 is null && list2 is null)
+            {
+                Node.Value = value1 % value2;
+            }
+            else if (!(list1 is null) && list2 is null)
+            {
+                var vector1 = Vector<decimal>.Build.DenseOfEnumerable(list1.Select(x => Convert.ToDecimal(x)));
+                Node.Value = (vector1 % value2).Select(x => (object)x).ToList();
+            }
+            else if (list1 is null && !(list2 is null))
+            {
+                var vector2 = Vector<decimal>.Build.DenseOfEnumerable(list2.Select(x => Convert.ToDecimal(x)));
+                Node.Value = (value1 % vector2).Select(x => (object)x).ToList();
+            }
+            else
+            {
+                var vector1 = Vector<decimal>.Build.DenseOfEnumerable(list1.Select(x => Convert.ToDecimal(x)));
+                var vector2 = Vector<decimal>.Build.DenseOfEnumerable(list2.Select(x => Convert.ToDecimal(x)));
+                Node.Value = (vector1 % vector2).Select(x => (object)x).ToList();
+            }
+
             Node = Node.Parent;
         }
 
@@ -702,14 +793,44 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Convert.ToDecimal(childValues[0]) * Convert.ToDecimal(childValues[1]);
+            var list1 = childValues[0] as List<object>;
+            decimal value1 = 0;
+            if (list1 is null)
+                value1 = Convert.ToDecimal(childValues[0]);
+
+            var list2 = childValues[1] as List<object>;
+            decimal value2 = 0;
+            if (list2 is null)
+                value2 = Convert.ToDecimal(childValues[1]);
+
+            if (list1 is null && list2 is null)
+            {
+                Node.Value = value1 * value2;
+            }
+            else if (!(list1 is null) && list2 is null)
+            {
+                var vector1 = Vector<decimal>.Build.DenseOfEnumerable(list1.Select(x => Convert.ToDecimal(x)));
+                Node.Value = (vector1 * value2).Select(x => (object)x).ToList();
+            }
+            else if (list1 is null && !(list2 is null))
+            {
+                var vector2 = Vector<decimal>.Build.DenseOfEnumerable(list2.Select(x => Convert.ToDecimal(x)));
+                Node.Value = (value1 * vector2).Select(x => (object)x).ToList();
+            }
+            else
+            {
+                var vector1 = Vector<decimal>.Build.DenseOfEnumerable(list1.Select(x => Convert.ToDecimal(x)));
+                var vector2 = Vector<decimal>.Build.DenseOfEnumerable(list2.Select(x => Convert.ToDecimal(x)));
+                Node.Value = vector1 * vector2;
+            }
+
             Node = Node.Parent;
         }
 
@@ -786,14 +907,44 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Convert.ToInt64(childValues[0]) / Convert.ToInt64(childValues[1]);
+            var list1 = childValues[0] as List<object>;
+            long value1 = 0;
+            if (list1 is null)
+                value1 = Convert.ToInt64(childValues[0]);
+
+            var list2 = childValues[1] as List<object>;
+            long value2 = 0;
+            if (list2 is null)
+                value2 = Convert.ToInt64(childValues[1]);
+
+            if (list1 is null && list2 is null)
+            {
+                Node.Value = value1 / value2;
+            }
+            else if (!(list1 is null) && list2 is null)
+            {
+                var vector1 = Vector<long>.Build.DenseOfEnumerable(list1.Select(x => Convert.ToInt64(x)));
+                Node.Value = (vector1 / value2).Select(x => (object)x).ToList();
+            }
+            else if (list1 is null && !(list2 is null))
+            {
+                var vector2 = Vector<long>.Build.DenseOfEnumerable(list2.Select(x => Convert.ToInt64(x)));
+                Node.Value = (value1 / vector2).Select(x => (object)x).ToList();
+            }
+            else
+            {
+                var vector1 = Vector<long>.Build.DenseOfEnumerable(list1.Select(x => Convert.ToInt64(x)));
+                var vector2 = Vector<long>.Build.DenseOfEnumerable(list2.Select(x => Convert.ToInt64(x)));
+                Node.Value = (vector1 / vector2).Select(x => (object)x).ToList();
+            }
+
             Node = Node.Parent;
         }
 
@@ -870,14 +1021,44 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Convert.ToDecimal(childValues[0]) / Convert.ToDecimal(childValues[1]);
+            var list1 = childValues[0] as List<object>;
+            decimal value1 = 0;
+            if (list1 is null)
+                value1 = Convert.ToDecimal(childValues[0]);
+
+            var list2 = childValues[1] as List<object>;
+            decimal value2 = 0;
+            if (list2 is null)
+                value2 = Convert.ToDecimal(childValues[1]);
+
+            if (list1 is null && list2 is null)
+            {
+                Node.Value = value1 / value2;
+            }
+            else if (!(list1 is null) && list2 is null)
+            {
+                var vector1 = Vector<decimal>.Build.DenseOfEnumerable(list1.Select(x => Convert.ToDecimal(x)));
+                Node.Value = (vector1 / value2).Select(x => (object)x).ToList();
+            }
+            else if (list1 is null && !(list2 is null))
+            {
+                var vector2 = Vector<decimal>.Build.DenseOfEnumerable(list2.Select(x => Convert.ToDecimal(x)));
+                Node.Value = (value1 / vector2).Select(x => (object)x).ToList();
+            }
+            else
+            {
+                var vector1 = Vector<decimal>.Build.DenseOfEnumerable(list1.Select(x => Convert.ToDecimal(x)));
+                var vector2 = Vector<decimal>.Build.DenseOfEnumerable(list2.Select(x => Convert.ToDecimal(x)));
+                Node.Value = (vector1 / vector2).Select(x => (object)x).ToList();
+            }
+
             Node = Node.Parent;
         }
 
@@ -928,14 +1109,18 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = -Convert.ToDecimal(childValues[0]);
+            if (childValues[0] is List<object> list)
+                Node.Value = list.Select(x => (object)-Convert.ToDecimal(x)).ToList();
+            else
+                Node.Value = Convert.ToDecimal(childValues[0]);
+
             Node = Node.Parent;
         }
 
@@ -970,14 +1155,14 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Convert.ToDecimal(childValues[0]);
+            Node.Value = childValues[0];
             Node = Node.Parent;
         }
 
@@ -1012,14 +1197,18 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = ~Convert.ToInt64(childValues[0]);
+            if (childValues[0] is List<object> list)
+                Node.Value = list.Select(x => (object)~Convert.ToInt64(x)).ToList();
+            else
+                Node.Value = ~Convert.ToInt64(childValues[0]);
+
             Node = Node.Parent;
         }
 
@@ -1697,14 +1886,18 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Math.Abs(Convert.ToDecimal(childValues[0]));
+            if (childValues[0] is List<object> list)
+                Node.Value = list.Select(x => (object)Math.Abs(Convert.ToDecimal(x))).ToList();
+            else
+                Node.Value = Math.Abs(Convert.ToDecimal(childValues[0]));
+
             Node = Node.Parent;
         }
 
@@ -1739,14 +1932,18 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Math.Acos(Convert.ToDouble(childValues[0]));
+            if (childValues[0] is List<object> list)
+                Node.Value = list.Select(x => (object)Math.Acos(Convert.ToDouble(x))).ToList();
+            else
+                Node.Value = Math.Acos(Convert.ToDouble(childValues[0]));
+
             Node = Node.Parent;
         }
 
@@ -1781,14 +1978,18 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = MathNet.Numerics.Trig.Acosh(Convert.ToDouble(childValues[0]));
+            if (childValues[0] is List<object> list)
+                Node.Value = list.Select(x => (object)MathNet.Numerics.Trig.Acosh(Convert.ToDouble(x))).ToList();
+            else
+                Node.Value = MathNet.Numerics.Trig.Acosh(Convert.ToDouble(childValues[0]));
+
             Node = Node.Parent;
         }
 
@@ -1823,14 +2024,18 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Math.Asin(Convert.ToDouble(childValues[0]));
+            if (childValues[0] is List<object> list)
+                Node.Value = list.Select(x => (object)Math.Asin(Convert.ToDouble(x))).ToList();
+            else
+                Node.Value = Math.Asin(Convert.ToDouble(childValues[0]));
+
             Node = Node.Parent;
         }
 
@@ -1865,14 +2070,18 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = MathNet.Numerics.Trig.Asinh(Convert.ToDouble(childValues[0]));
+            if (childValues[0] is List<object> list)
+                Node.Value = list.Select(x => (object)MathNet.Numerics.Trig.Asinh(Convert.ToDouble(x))).ToList();
+            else
+                Node.Value = MathNet.Numerics.Trig.Asinh(Convert.ToDouble(childValues[0]));
+
             Node = Node.Parent;
         }
 
@@ -1907,14 +2116,18 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Math.Atan(Convert.ToDouble(childValues[0]));
+            if (childValues[0] is List<object> list)
+                Node.Value = list.Select(x => (object)Math.Atan(Convert.ToDouble(x))).ToList();
+            else
+                Node.Value = Math.Atan(Convert.ToDouble(childValues[0]));
+
             Node = Node.Parent;
         }
 
@@ -1949,14 +2162,52 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Math.Atan2(Convert.ToDouble(childValues[0]), Convert.ToDouble(childValues[1]));
+            var list1 = childValues[0] as List<object>;
+            double value1 = 0;
+            if (list1 is null)
+                value1 = Convert.ToDouble(childValues[0]);
+
+            var list2 = childValues[1] as List<object>;
+            double value2 = 0;
+            if (list2 is null)
+                value2 = Convert.ToDouble(childValues[1]);
+
+            if (list1 is null && list2 is null)
+            {
+                Node.Value = Math.Atan2(value1, value2);
+            }
+            else if (!(list1 is null))
+            {
+                if (list2 is null)
+                {
+                    Node.Value = list1.Select(x => (object)Math.Atan2(Convert.ToDouble(x), value2)).ToList();
+                }
+                else if (list1.Count == list2.Count)
+                {
+                    var result = new List<object>(list1.Count);
+                    for (int i = 0; i < list1.Count; i += 1)
+                        result.Add(Math.Atan2(Convert.ToDouble(list1[i]), Convert.ToDouble(list2[i])));
+                    Node.Value = result;
+                }
+                else
+                {
+                    ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, $"Array count must be equal: Array1 Count {list1.Count} Array2 Count {list2.Count}");
+                    Node.Value = new List<object>();
+                }
+            }
+            else
+            {
+                ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, "If first parameter is an array, all parameters must be an array");
+                Node.Value = new List<object>();
+            }
+
             Node = Node.Parent;
         }
 
@@ -1991,14 +2242,18 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = MathNet.Numerics.Trig.Atanh(Convert.ToDouble(childValues[0]));
+            if (childValues[0] is List<object> list)
+                Node.Value = list.Select(x => (object)MathNet.Numerics.Trig.Atanh(Convert.ToDouble(x))).ToList();
+            else
+                Node.Value = MathNet.Numerics.Trig.Atanh(Convert.ToDouble(childValues[0]));
+
             Node = Node.Parent;
         }
 
@@ -2033,14 +2288,18 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Math.Pow(Convert.ToDouble(childValues[0]), 1d / 3d);
+            if (childValues[0] is List<object> list)
+                Node.Value = list.Select(x => (object)Math.Pow(Convert.ToDouble(x), 1d / 3d)).ToList();
+            else
+                Node.Value = Math.Pow(Convert.ToDouble(childValues[0]), 1d / 3d);
+
             Node = Node.Parent;
         }
 
@@ -2075,14 +2334,18 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Math.Cos(Convert.ToDouble(childValues[0]));
+            if (childValues[0] is List<object> list)
+                Node.Value = list.Select(x => (object)Math.Cos(Convert.ToDouble(x))).ToList();
+            else
+                Node.Value = Math.Cos(Convert.ToDouble(childValues[0]));
+
             Node = Node.Parent;
         }
 
@@ -2117,14 +2380,18 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Math.Cosh(Convert.ToDouble(childValues[0]));
+            if (childValues[0] is List<object> list)
+                Node.Value = list.Select(x => (object)Math.Cosh(Convert.ToDouble(x))).ToList();
+            else
+                Node.Value = Math.Cosh(Convert.ToDouble(childValues[0]));
+
             Node = Node.Parent;
         }
 
@@ -2159,14 +2426,18 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Math.Ceiling(Convert.ToDecimal(childValues[0]));
+            if (childValues[0] is List<object> list)
+                Node.Value = list.Select(x => (object)Math.Ceiling(Convert.ToDecimal(x))).ToList();
+            else
+                Node.Value = Math.Ceiling(Convert.ToDecimal(childValues[0]));
+
             Node = Node.Parent;
         }
 
@@ -2201,18 +2472,73 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 3, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            decimal value = Convert.ToDecimal(childValues[0]);
-            decimal min = Convert.ToDecimal(childValues[1]);
-            decimal max = Convert.ToDecimal(childValues[2]);
+            var valueList = childValues[0] as List<object>;
+            decimal value = 0;
+            if (valueList is null)
+                value = Convert.ToDecimal(childValues[0]);
 
-            Node.Value = value < min ? min : value > max ? max : value;
+            var minList = childValues[1] as List<object>;
+            decimal min = 0;
+            if (minList is null)
+                min = Convert.ToDecimal(childValues[1]);
+
+            var maxList = childValues[2] as List<object>;
+            decimal max = 0;
+            if (maxList is null)
+                max = Convert.ToDecimal(childValues[2]);
+
+            if (valueList is null && minList is null && maxList is null)
+            {
+                Node.Value = value < min ? min : value > max ? max : value;
+            }
+            else if (!(valueList is null))
+            {
+                if (minList is null && maxList is null)
+                {
+                    Node.Value = valueList.Select(x =>
+                    {
+                        decimal valueX = Convert.ToDecimal(x);
+                        return (object)(valueX < min ? min : valueX > max ? max : value);
+                    }).ToList();
+                }
+                else if (minList is null || maxList is null)
+                {
+                    ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, "If any parameter is an array, all parameters must be an array");
+                    Node.Value = new List<object>();
+                }
+                else if (valueList.Count == minList.Count && minList.Count == maxList.Count)
+                {
+                    var result = new List<object>(valueList.Count);
+                    for (int i = 0; i < valueList.Count; i += 1)
+                    {
+                        decimal valueX = Convert.ToDecimal(valueList[i]);
+                        decimal minX = Convert.ToDecimal(minList[i]);
+                        decimal maxX = Convert.ToDecimal(maxList[i]);
+
+                        result.Add(valueX < minX ? minX : valueX > maxX ? maxX : valueX);
+                    }
+                    Node.Value = result;
+                }
+                else
+                {
+                    ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount,
+                        $"Array count must be equal: Array1 Count {valueList.Count} Array2 Count {minList.Count} Array3 Count {maxList.Count}");
+                    Node.Value = new List<object>();
+                }
+            }
+            else
+            {
+                ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, "If any parameter is an array, all parameters must be an array");
+                Node.Value = new List<object>();
+            }
+
             Node = Node.Parent;
         }
 
@@ -2247,18 +2573,29 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            long value = 0;
-            foreach (var letter in childValues[0].ToString())
-                value += long.Parse(letter.ToString());
+            if (childValues[0] is List<object> list)
+                Node.Value = list.Select(x =>
+                {
+                    long value = 0;
+                    foreach (var letter in Convert.ToInt64(x).ToString())
+                        value += long.Parse(letter.ToString());
+                    return (object)value;
+                }).ToList();
+            else
+            {
+                long value = 0;
+                foreach (var letter in Convert.ToInt64(childValues[0]).ToString())
+                    value += long.Parse(letter.ToString());
+                Node.Value = value;
+            }
 
-            Node.Value = value;
             Node = Node.Parent;
         }
 
@@ -2313,14 +2650,18 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Math.Exp(Convert.ToDouble(childValues[0]));
+            if (childValues[0] is List<object> list)
+                Node.Value = list.Select(x => (object)Math.Exp(Convert.ToDouble(x))).ToList();
+            else
+                Node.Value = Math.Exp(Convert.ToDouble(childValues[0]));
+
             Node = Node.Parent;
         }
 
@@ -2355,14 +2696,18 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Math.Floor(Convert.ToDecimal(childValues[0]));
+            if (childValues[0] is List<object> list)
+                Node.Value = list.Select(x => (object)Math.Floor(Convert.ToDecimal(x))).ToList();
+            else
+                Node.Value = Math.Floor(Convert.ToDecimal(childValues[0]));
+
             Node = Node.Parent;
         }
 
@@ -2417,14 +2762,52 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Math.Log(Convert.ToDouble(childValues[0]), Convert.ToDouble(childValues[1]));
+            var list1 = childValues[0] as List<object>;
+            double value1 = 0;
+            if (list1 is null)
+                value1 = Convert.ToDouble(childValues[0]);
+
+            var list2 = childValues[1] as List<object>;
+            double value2 = 0;
+            if (list2 is null)
+                value2 = Convert.ToDouble(childValues[1]);
+
+            if (list1 is null && list2 is null)
+            {
+                Node.Value = Math.Log(value1, value2);
+            }
+            else if (!(list1 is null))
+            {
+                if (list2 is null)
+                {
+                    Node.Value = list1.Select(x => (object)Math.Log(Convert.ToDouble(x), value2)).ToList();
+                }
+                else if (list1.Count == list2.Count)
+                {
+                    var result = new List<object>(list1.Count);
+                    for (int i = 0; i < list1.Count; i += 1)
+                        result.Add(Math.Log(Convert.ToDouble(list1[i]), Convert.ToDouble(list2[i])));
+                    Node.Value = result;
+                }
+                else
+                {
+                    ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, $"Array count must be equal: Array1 Count {list1.Count} Array2 Count {list2.Count}");
+                    Node.Value = new List<object>();
+                }
+            }
+            else
+            {
+                ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, "If first parameter is an array, all parameters must be an array");
+                Node.Value = new List<object>();
+            }
+
             Node = Node.Parent;
         }
 
@@ -2459,14 +2842,18 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Math.Log(Convert.ToDouble(childValues[0]), 2d);
+            if (childValues[0] is List<object> list)
+                Node.Value = list.Select(x => (object)Math.Log(Convert.ToDouble(x), 2d)).ToList();
+            else
+                Node.Value = Math.Log(Convert.ToDouble(childValues[0]), 2d);
+
             Node = Node.Parent;
         }
 
@@ -2501,14 +2888,18 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Math.Log10(Convert.ToDouble(childValues[0]));
+            if (childValues[0] is List<object> list)
+                Node.Value = list.Select(x => (object)Math.Log10(Convert.ToDouble(x))).ToList();
+            else
+                Node.Value = Math.Log10(Convert.ToDouble(childValues[0]));
+
             Node = Node.Parent;
         }
 
@@ -2667,14 +3058,52 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Math.Pow(Convert.ToDouble(childValues[0]), Convert.ToDouble(childValues[1]));
+            var list1 = childValues[0] as List<object>;
+            double value1 = 0;
+            if (list1 is null)
+                value1 = Convert.ToDouble(childValues[0]);
+
+            var list2 = childValues[1] as List<object>;
+            double value2 = 0;
+            if (list2 is null)
+                value2 = Convert.ToDouble(childValues[1]);
+
+            if (list1 is null && list2 is null)
+            {
+                Node.Value = Math.Pow(value1, value2);
+            }
+            else if (!(list1 is null))
+            {
+                if (list2 is null)
+                {
+                    Node.Value = list1.Select(x => (object)Math.Pow(Convert.ToDouble(x), value2)).ToList();
+                }
+                else if (list1.Count == list2.Count)
+                {
+                    var result = new List<object>(list1.Count);
+                    for (int i = 0; i < list1.Count; i += 1)
+                        result.Add(Math.Pow(Convert.ToDouble(list1[i]), Convert.ToDouble(list2[i])));
+                    Node.Value = result;
+                }
+                else
+                {
+                    ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, $"Array count must be equal: Array1 Count {list1.Count} Array2 Count {list2.Count}");
+                    Node.Value = new List<object>();
+                }
+            }
+            else
+            {
+                ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, "If first parameter is an array, all parameters must be an array");
+                Node.Value = new List<object>();
+            }
+
             Node = Node.Parent;
         }
 
@@ -2709,14 +3138,18 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Math.Round(Convert.ToDecimal(childValues[0]));
+            if (childValues[0] is List<object> list)
+                Node.Value = list.Select(x => (object)Math.Round(Convert.ToDecimal(x))).ToList();
+            else
+                Node.Value = Math.Round(Convert.ToDecimal(childValues[0]));
+
             Node = Node.Parent;
         }
 
@@ -2751,14 +3184,52 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Math.Round(Convert.ToDecimal(childValues[0]), Convert.ToInt32(childValues[1]));
+            var list1 = childValues[0] as List<object>;
+            decimal value1 = 0;
+            if (list1 is null)
+                value1 = Convert.ToDecimal(childValues[0]);
+
+            var list2 = childValues[1] as List<object>;
+            int value2 = 0;
+            if (list2 is null)
+                value2 = Convert.ToInt32(childValues[1]);
+
+            if (list1 is null && list2 is null)
+            {
+                Node.Value = Math.Round(value1, value2);
+            }
+            else if (!(list1 is null))
+            {
+                if (list2 is null)
+                {
+                    Node.Value = list1.Select(x => (object)Math.Round(Convert.ToDecimal(x), value2)).ToList();
+                }
+                else if (list1.Count == list2.Count)
+                {
+                    var result = new List<object>(list1.Count);
+                    for (int i = 0; i < list1.Count; i += 1)
+                        result.Add(Math.Round(Convert.ToDecimal(list1[i]), Convert.ToInt32(list2[i])));
+                    Node.Value = result;
+                }
+                else
+                {
+                    ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, $"Array count must be equal: Array1 Count {list1.Count} Array2 Count {list2.Count}");
+                    Node.Value = new List<object>();
+                }
+            }
+            else
+            {
+                ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, "If first parameter is an array, all parameters must be an array");
+                Node.Value = new List<object>();
+            }
+
             Node = Node.Parent;
         }
 
@@ -2793,14 +3264,52 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Math.Pow(Convert.ToDouble(childValues[0]), 1d / Convert.ToDouble(childValues[1]));
+            var list1 = childValues[0] as List<object>;
+            double value1 = 0;
+            if (list1 is null)
+                value1 = Convert.ToDouble(childValues[0]);
+
+            var list2 = childValues[1] as List<object>;
+            double value2 = 0;
+            if (list2 is null)
+                value2 = Convert.ToDouble(childValues[1]);
+
+            if (list1 is null && list2 is null)
+            {
+                Node.Value = Math.Pow(value1, 1 / value2);
+            }
+            else if (!(list1 is null))
+            {
+                if (list2 is null)
+                {
+                    Node.Value = list1.Select(x => (object)Math.Pow(Convert.ToDouble(x), 1 / value2)).ToList();
+                }
+                else if (list1.Count == list2.Count)
+                {
+                    var result = new List<object>(list1.Count);
+                    for (int i = 0; i < list1.Count; i += 1)
+                        result.Add(Math.Pow(Convert.ToDouble(list1[i]), 1d / Convert.ToDouble(childValues[1])));
+                    Node.Value = result;
+                }
+                else
+                {
+                    ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, $"Array count must be equal: Array1 Count {list1.Count} Array2 Count {list2.Count}");
+                    Node.Value = new List<object>();
+                }
+            }
+            else
+            {
+                ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, "If first parameter is an array, all parameters must be an array");
+                Node.Value = new List<object>();
+            }
+
             Node = Node.Parent;
         }
 
@@ -2835,14 +3344,18 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Math.Sin(Convert.ToDouble(childValues[0]));
+            if (childValues[0] is List<object> list)
+                Node.Value = list.Select(x => (object)Math.Sin(Convert.ToDouble(x))).ToList();
+            else
+                Node.Value = Math.Sin(Convert.ToDouble(childValues[0]));
+
             Node = Node.Parent;
         }
 
@@ -2877,14 +3390,18 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Math.Sinh(Convert.ToDouble(childValues[0]));
+            if (childValues[0] is List<object> list)
+                Node.Value = list.Select(x => (object)Math.Sinh(Convert.ToDouble(x))).ToList();
+            else
+                Node.Value = Math.Sinh(Convert.ToDouble(childValues[0]));
+
             Node = Node.Parent;
         }
 
@@ -2919,14 +3436,18 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Math.Sqrt(Convert.ToDouble(childValues[0]));
+            if (childValues[0] is List<object> list)
+                Node.Value = list.Select(x => (object)Math.Sqrt(Convert.ToDouble(x))).ToList();
+            else
+                Node.Value = Math.Sqrt(Convert.ToDouble(childValues[0]));
+
             Node = Node.Parent;
         }
 
@@ -2961,14 +3482,18 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Math.Tan(Convert.ToDouble(childValues[0]));
+            if (childValues[0] is List<object> list)
+                Node.Value = list.Select(x => (object)Math.Tan(Convert.ToDouble(x))).ToList();
+            else
+                Node.Value = Math.Tan(Convert.ToDouble(childValues[0]));
+
             Node = Node.Parent;
         }
 
@@ -3003,14 +3528,18 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Math.Tanh(Convert.ToDouble(childValues[0]));
+            if (childValues[0] is List<object> list)
+                Node.Value = list.Select(x => (object)Math.Tanh(Convert.ToDouble(x))).ToList();
+            else
+                Node.Value = Math.Tanh(Convert.ToDouble(childValues[0]));
+
             Node = Node.Parent;
         }
 
@@ -3045,14 +3574,18 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = double.NaN;
                 Node = Node.Parent;
                 return;
             }
 
-            Node.Value = Math.Truncate(Convert.ToDecimal(childValues[0]));
+            if (childValues[0] is List<object> list)
+                Node.Value = list.Select(x => (object)Math.Truncate(Convert.ToDecimal(x))).ToList();
+            else
+                Node.Value = Math.Truncate(Convert.ToDecimal(childValues[0]));
+
             Node = Node.Parent;
         }
 
