@@ -376,9 +376,9 @@ namespace EveryParser
         /// <param name="context">Context for line recognition</param>
         /// <param name="errorCode">ErrorCode of error</param>
         /// <param name="text">Text to convert to a type</param>
-        public void AddError(ParserRuleContext context, ErrorCode code, string text)
+        public void AddError(ParserRuleContext context, ErrorCode errorCode, string text)
         {
-            _errors.Add((code, $"{text} {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+            _errors.Add((errorCode, $"{text} {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
         }
     }
 }
