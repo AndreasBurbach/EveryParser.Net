@@ -1023,23 +1023,18 @@ namespace EveryParser
         public void EnterFactor_Variable([NotNull] EveryGrammarParser.Factor_VariableContext context)
         {
             string text = context.GetText();
-            if (text.Equals("e", StringComparison.InvariantCultureIgnoreCase))
-            {
-                Node.AddChildNode(2.71828182845904523536028747135266249775724709369995957496696762772407663035354759457138217852516642742746m);
-                return;
-            }
-            else if (text.Equals("pi", StringComparison.InvariantCultureIgnoreCase))
-            {
-                Node.AddChildNode(3.14159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534211706798214m);
-                return;
-            }
-            else if (text.Equals("date_now", StringComparison.InvariantCultureIgnoreCase))
-            {
-                Node.AddChildNode(DateTime.Now);
-                return;
-            }
+            object value;
 
-            Node.AddChildNode(ErrorCollector.GetCheckedArgument(context, Arguments, text));
+            if (text.Equals("e", StringComparison.InvariantCultureIgnoreCase))
+                value = 2.71828182845904523536028747135266249775724709369995957496696762772407663035354759457138217852516642742746m;
+            else if (text.Equals("pi", StringComparison.InvariantCultureIgnoreCase))
+                value = 3.14159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534211706798214m;
+            else if (text.Equals("date.now", StringComparison.InvariantCultureIgnoreCase))
+                value = DateTime.Now;
+            else
+                value = ErrorCollector.GetCheckedArgument(context, Arguments, text);
+
+            Node.AddChildNode(value);
         }
 
         /// <summary>
@@ -1058,8 +1053,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterFactor_ObjectVariables([NotNull] EveryGrammarParser.Factor_ObjectVariablesContext context)
         {
-            string text = context.GetText();
-            Node.AddChildNode(ErrorCollector.GetCheckedObjectArgument(context, Arguments, text));
+            Node.AddChildNode(ErrorCollector.GetCheckedObjectArgument(context, Arguments, context.GetText()));
         }
 
         /// <summary>
@@ -1076,7 +1070,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterFactor_String([NotNull] EveryGrammarParser.Factor_StringContext context) { }
+        public void EnterFactor_String([NotNull] EveryGrammarParser.Factor_StringContext context)
+        {
+            Node.AddChildNode(context.GetText());
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Factor_String</c>
