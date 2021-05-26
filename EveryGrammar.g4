@@ -85,10 +85,9 @@ datetime_term:
 	DATETIME expression ROUNDBRACKETCLOSED													# DateTime_Expression
 	| DATETIME expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED					# DateTime_DateEntry
 	| DATETIME expression KOMMA expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED	# DateTime_DateHour
-	| DATETIME expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED # DateTime_DateHour
-	| DATETIME expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED # DateTime_DateHourMinute
-	| DATETIME expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression KOMMA	expression KOMMA expression ROUNDBRACKETCLOSED # DateTime_DateHourMinuteSeconds
-	| DATETIME expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression KOMMA	expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED # DateTime_Full;
+	| DATETIME expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED # DateTime_DateHourMinute
+	| DATETIME expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED # DateTime_DateHourMinuteSeconds
+	| DATETIME expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression KOMMA	expression KOMMA expression ROUNDBRACKETCLOSED # DateTime_Full;
 
 array_slicing_term:
 	EDGEBRACKETOPEN expression EDGEBRACKETCLOSED										# ArraySlicing_Indexing
