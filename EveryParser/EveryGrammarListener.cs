@@ -136,6 +136,30 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitBoolOr([NotNull] EveryGrammarParser.BoolOrContext context);
 	/// <summary>
+	/// Enter a parse tree produced by the <c>BoolXOr_Next</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.bool_xor_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBoolXOr_Next([NotNull] EveryGrammarParser.BoolXOr_NextContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>BoolXOr_Next</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.bool_xor_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBoolXOr_Next([NotNull] EveryGrammarParser.BoolXOr_NextContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>BoolXOr</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.bool_xor_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBoolXOr([NotNull] EveryGrammarParser.BoolXOrContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>BoolXOr</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.bool_xor_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBoolXOr([NotNull] EveryGrammarParser.BoolXOrContext context);
+	/// <summary>
 	/// Enter a parse tree produced by the <c>BoolAnd_Next</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.bool_and_term"/>.
 	/// </summary>

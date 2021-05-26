@@ -12,8 +12,12 @@ inner_if_else:
 	| ROUNDBRACKETOPEN if_else ROUNDBRACKETCLOSED	# InnerIfElse;
 
 bool_or_term:
-	bool_and_term							# BoolOr_Next
-	| bool_and_term BOOLOR bool_and_term	# BoolOr;
+	bool_xor_term							# BoolOr_Next
+	| bool_xor_term BOOLOR bool_xor_term	# BoolOr;
+
+bool_xor_term:
+	bool_and_term							#BoolXOr_Next
+	| bool_and_term BOOLXOR bool_and_term	# BoolXOr;
 
 bool_and_term:
 	equality							# BoolAnd_Next
@@ -158,7 +162,8 @@ SUBTRACT: '-';
 MULTIPLY: '*';
 DIVIDE: '/';
 MODULO: '%';
-POWEROPERATOR: '^';
+POWEROPERATOR: '**';
+BOOLXOR: '^';
 EQUAL: '==';
 EQUAL_IGNORECASE: '=i';
 NOT: 'not';

@@ -1,4 +1,5 @@
 using Antlr4.Runtime.Misc;
+using EveryParser.Compare;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -163,7 +164,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterBoolOr([NotNull] EveryGrammarParser.BoolOrContext context) { }
+        public void EnterBoolOr([NotNull] EveryGrammarParser.BoolOrContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>BoolOr</c>
@@ -171,7 +175,52 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitBoolOr([NotNull] EveryGrammarParser.BoolOrContext context) { }
+        public void ExitBoolOr([NotNull] EveryGrammarParser.BoolOrContext context)
+        {
+            Func<bool, bool, object> calculation = (x1, x2) => x1 || x2;
+            Node.Value = CalculationHelper.CalcBooleanBinary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
+
+        /// <summary>
+        /// Enter a parse tree produced by the <c>BoolXOr_Next</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.bool_xor_term"/>.
+        /// <para>The default implementation does nothing.</para>
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public virtual void EnterBoolXOr_Next([NotNull] EveryGrammarParser.BoolXOr_NextContext context) { }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>BoolXOr_Next</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.bool_xor_term"/>.
+        /// <para>The default implementation does nothing.</para>
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public virtual void ExitBoolXOr_Next([NotNull] EveryGrammarParser.BoolXOr_NextContext context) { }
+
+        /// <summary>
+        /// Enter a parse tree produced by the <c>BoolXOr</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.bool_xor_term"/>.
+        /// <para>The default implementation does nothing.</para>
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public virtual void EnterBoolXOr([NotNull] EveryGrammarParser.BoolXOrContext context)
+        {
+            Node = Node.AddChildNode();
+        }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>BoolXOr</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.bool_xor_term"/>.
+        /// <para>The default implementation does nothing.</para>
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public virtual void ExitBoolXOr([NotNull] EveryGrammarParser.BoolXOrContext context)
+        {
+            Func<bool, bool, object> calculation = (x1, x2) => x1 ^ x2;
+            Node.Value = CalculationHelper.CalcBooleanBinary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>BoolAnd_Next</c>
@@ -195,7 +244,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterBoolAnd([NotNull] EveryGrammarParser.BoolAndContext context) { }
+        public void EnterBoolAnd([NotNull] EveryGrammarParser.BoolAndContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>BoolAnd</c>
@@ -203,7 +255,12 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitBoolAnd([NotNull] EveryGrammarParser.BoolAndContext context) { }
+        public void ExitBoolAnd([NotNull] EveryGrammarParser.BoolAndContext context)
+        {
+            Func<bool, bool, object> calculation = (x1, x2) => x1 && x2;
+            Node.Value = CalculationHelper.CalcBooleanBinary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Equality_Contains</c>
@@ -211,7 +268,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterEquality_Contains([NotNull] EveryGrammarParser.Equality_ContainsContext context) { }
+        public void EnterEquality_Contains([NotNull] EveryGrammarParser.Equality_ContainsContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Equality_Contains</c>
@@ -219,7 +279,37 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitEquality_Contains([NotNull] EveryGrammarParser.Equality_ContainsContext context) { }
+        public void ExitEquality_Contains([NotNull] EveryGrammarParser.Equality_ContainsContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = null;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 2, childValues))
+            {
+                Node.Value = null;
+                Node = Node.Parent;
+                return;
+            }
+
+            object value1 = childValues[0];
+            object value2 = childValues[1];
+
+            if (value2 is List<object> list2)
+                Node.Value = list2.Contains(value1);
+            else
+            {
+                ErrorCollector.AddError(context, ErrorCode.SecondParamIsNotArray, "The second argument is not an array");
+                Node.Value = null;
+            }
+
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Equality_Next</c>
@@ -243,7 +333,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterEquality_Equal([NotNull] EveryGrammarParser.Equality_EqualContext context) { }
+        public void EnterEquality_Equal([NotNull] EveryGrammarParser.Equality_EqualContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Equality_Equal</c>
@@ -251,7 +344,34 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitEquality_Equal([NotNull] EveryGrammarParser.Equality_EqualContext context) { }
+        public void ExitEquality_Equal([NotNull] EveryGrammarParser.Equality_EqualContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = null;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 2, childValues))
+            {
+                Node.Value = null;
+                Node = Node.Parent;
+                return;
+            }
+
+            object value1 = childValues[0];
+            object value2 = childValues[1];
+
+            if (value1 is List<object> list1 && value2 is List<object> list2)
+                Node.Value = list1.SequenceEqual(list2);
+            else
+                Node.Value = value1.Equals(value2);
+
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Equality_NotEqualIgnoreCase</c>
@@ -259,7 +379,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterEquality_NotEqualIgnoreCase([NotNull] EveryGrammarParser.Equality_NotEqualIgnoreCaseContext context) { }
+        public void EnterEquality_NotEqualIgnoreCase([NotNull] EveryGrammarParser.Equality_NotEqualIgnoreCaseContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Equality_NotEqualIgnoreCase</c>
@@ -267,7 +390,36 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitEquality_NotEqualIgnoreCase([NotNull] EveryGrammarParser.Equality_NotEqualIgnoreCaseContext context) { }
+        public void ExitEquality_NotEqualIgnoreCase([NotNull] EveryGrammarParser.Equality_NotEqualIgnoreCaseContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = null;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                !ErrorCollector.CheckIsStringOrArrayOfStrings(context, childValues))
+            {
+                Node.Value = null;
+                Node = Node.Parent;
+                return;
+            }
+
+            object value1 = childValues[0];
+            object value2 = childValues[1];
+
+            if (value1 is List<object> list1 && value2 is List<object> list2)
+                Node.Value = !list1.SequenceEqual(list2, new StringIgnoreCaseComparer());
+            else
+                Node.Value = !value1.ToString().Equals(value2.ToString(), StringComparison.OrdinalIgnoreCase);
+
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Equality_NotEqual</c>
@@ -275,7 +427,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterEquality_NotEqual([NotNull] EveryGrammarParser.Equality_NotEqualContext context) { }
+        public void EnterEquality_NotEqual([NotNull] EveryGrammarParser.Equality_NotEqualContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Equality_NotEqual</c>
@@ -283,7 +438,34 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitEquality_NotEqual([NotNull] EveryGrammarParser.Equality_NotEqualContext context) { }
+        public void ExitEquality_NotEqual([NotNull] EveryGrammarParser.Equality_NotEqualContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = null;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 2, childValues))
+            {
+                Node.Value = null;
+                Node = Node.Parent;
+                return;
+            }
+
+            object value1 = childValues[0];
+            object value2 = childValues[1];
+
+            if (value1 is List<object> list1 && value2 is List<object> list2)
+                Node.Value = !list1.SequenceEqual(list2);
+            else
+                Node.Value = !value1.Equals(value2);
+
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Equality_NotContains</c>
@@ -291,7 +473,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterEquality_NotContains([NotNull] EveryGrammarParser.Equality_NotContainsContext context) { }
+        public void EnterEquality_NotContains([NotNull] EveryGrammarParser.Equality_NotContainsContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Equality_NotContains</c>
@@ -299,7 +484,37 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitEquality_NotContains([NotNull] EveryGrammarParser.Equality_NotContainsContext context) { }
+        public void ExitEquality_NotContains([NotNull] EveryGrammarParser.Equality_NotContainsContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = null;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 2, childValues))
+            {
+                Node.Value = null;
+                Node = Node.Parent;
+                return;
+            }
+
+            object value1 = childValues[0];
+            object value2 = childValues[1];
+
+            if (value2 is List<object> list2)
+                Node.Value = !list2.Contains(value1);
+            else
+            {
+                ErrorCollector.AddError(context, ErrorCode.SecondParamIsNotArray, "The second argument is not an array");
+                Node.Value = null;
+            }
+
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Equality_EqualIgnoreCase</c>
@@ -307,7 +522,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterEquality_EqualIgnoreCase([NotNull] EveryGrammarParser.Equality_EqualIgnoreCaseContext context) { }
+        public void EnterEquality_EqualIgnoreCase([NotNull] EveryGrammarParser.Equality_EqualIgnoreCaseContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Equality_EqualIgnoreCase</c>
@@ -315,7 +533,36 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitEquality_EqualIgnoreCase([NotNull] EveryGrammarParser.Equality_EqualIgnoreCaseContext context) { }
+        public void ExitEquality_EqualIgnoreCase([NotNull] EveryGrammarParser.Equality_EqualIgnoreCaseContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = null;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                !ErrorCollector.CheckIsStringOrArrayOfStrings(context, childValues))
+            {
+                Node.Value = null;
+                Node = Node.Parent;
+                return;
+            }
+
+            object value1 = childValues[0];
+            object value2 = childValues[1];
+
+            if (value1 is List<object> list1 && value2 is List<object> list2)
+                Node.Value = list1.SequenceEqual(list2, new StringIgnoreCaseComparer());
+            else
+                Node.Value = value1.ToString().Equals(value2.ToString(), StringComparison.OrdinalIgnoreCase);
+
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Check_Next</c>
@@ -339,7 +586,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterCheck_Greater([NotNull] EveryGrammarParser.Check_GreaterContext context) { }
+        public void EnterCheck_Greater([NotNull] EveryGrammarParser.Check_GreaterContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Check_Greater</c>
@@ -347,7 +597,12 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitCheck_Greater([NotNull] EveryGrammarParser.Check_GreaterContext context) { }
+        public void ExitCheck_Greater([NotNull] EveryGrammarParser.Check_GreaterContext context)
+        {
+            Func<object, object, object> calculation = (x1, x2) => (object)(Convert.ToDecimal(x1) > Convert.ToDecimal(x2));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Check_GreaterEqual</c>
@@ -355,7 +610,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterCheck_GreaterEqual([NotNull] EveryGrammarParser.Check_GreaterEqualContext context) { }
+        public void EnterCheck_GreaterEqual([NotNull] EveryGrammarParser.Check_GreaterEqualContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Check_GreaterEqual</c>
@@ -363,7 +621,12 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitCheck_GreaterEqual([NotNull] EveryGrammarParser.Check_GreaterEqualContext context) { }
+        public void ExitCheck_GreaterEqual([NotNull] EveryGrammarParser.Check_GreaterEqualContext context)
+        {
+            Func<object, object, object> calculation = (x1, x2) => (object)(Convert.ToDecimal(x1) >= Convert.ToDecimal(x2));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Check_Lower</c>
@@ -371,7 +634,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterCheck_Lower([NotNull] EveryGrammarParser.Check_LowerContext context) { }
+        public void EnterCheck_Lower([NotNull] EveryGrammarParser.Check_LowerContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Check_Lower</c>
@@ -379,7 +645,12 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitCheck_Lower([NotNull] EveryGrammarParser.Check_LowerContext context) { }
+        public void ExitCheck_Lower([NotNull] EveryGrammarParser.Check_LowerContext context)
+        {
+            Func<object, object, object> calculation = (x1, x2) => (object)(Convert.ToDecimal(x1) < Convert.ToDecimal(x2));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Check_LowerEqual</c>
@@ -387,7 +658,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterCheck_LowerEqual([NotNull] EveryGrammarParser.Check_LowerEqualContext context) { }
+        public void EnterCheck_LowerEqual([NotNull] EveryGrammarParser.Check_LowerEqualContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Check_LowerEqual</c>
@@ -395,7 +669,12 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitCheck_LowerEqual([NotNull] EveryGrammarParser.Check_LowerEqualContext context) { }
+        public void ExitCheck_LowerEqual([NotNull] EveryGrammarParser.Check_LowerEqualContext context)
+        {
+            Func<object, object, object> calculation = (x1, x2) => (object)(Convert.ToDecimal(x1) <= Convert.ToDecimal(x2));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>BitOR</c>
