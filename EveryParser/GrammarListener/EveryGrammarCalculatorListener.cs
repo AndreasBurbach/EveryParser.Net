@@ -1308,8 +1308,6 @@ namespace EveryParser
                 value = 2.71828182845904523536028747135266249775724709369995957496696762772407663035354759457138217852516642742746m;
             else if (text.Equals("pi", StringComparison.InvariantCultureIgnoreCase))
                 value = 3.14159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534211706798214m;
-            else if (text.Equals("date.now", StringComparison.InvariantCultureIgnoreCase))
-                value = DateTime.Now;
             else
                 value = ErrorCollector.GetCheckedArgument(context, Arguments, text);
 
@@ -1332,7 +1330,15 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterFactor_ObjectVariables([NotNull] EveryGrammarParser.Factor_ObjectVariablesContext context)
         {
-            Node.AddChildNode(ErrorCollector.GetCheckedObjectArgument(context, Arguments, context.GetText()));
+            string text = context.GetText();
+            object value;
+
+            if (text.Equals("date.now", StringComparison.InvariantCultureIgnoreCase))
+                value = DateTime.Now;
+            else
+                value = ErrorCollector.GetCheckedObjectArgument(context, Arguments, text);
+
+            Node.AddChildNode(value);
         }
 
         /// <summary>
