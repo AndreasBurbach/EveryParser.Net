@@ -406,8 +406,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterBitOR([NotNull] EveryGrammarParser.BitORContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -464,8 +463,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterBitAnd([NotNull] EveryGrammarParser.BitAndContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -522,8 +520,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterLine_Addition([NotNull] EveryGrammarParser.Line_AdditionContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -594,8 +591,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterLine_Subtraction([NotNull] EveryGrammarParser.Line_SubtractionContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -698,8 +694,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterPointTerm_Modulo([NotNull] EveryGrammarParser.PointTerm_ModuloContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -770,8 +765,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterPointTerm_Multiply([NotNull] EveryGrammarParser.PointTerm_MultiplyContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -842,8 +836,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterPointTerm_BitShiftLeft([NotNull] EveryGrammarParser.PointTerm_BitShiftLeftContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -884,8 +877,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterPointTerm_IntegerDivision([NotNull] EveryGrammarParser.PointTerm_IntegerDivisionContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -956,8 +948,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterPointTerm_BitShiftRight([NotNull] EveryGrammarParser.PointTerm_BitShiftRightContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -998,8 +989,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterPointTerm_Divide([NotNull] EveryGrammarParser.PointTerm_DivideContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1086,8 +1076,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterFactor_Minus([NotNull] EveryGrammarParser.Factor_MinusContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1098,29 +1087,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitFactor_Minus([NotNull] EveryGrammarParser.Factor_MinusContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            if (childValues[0] is List<object> list)
-                Node.Value = list.Select(x => (object)-Convert.ToDecimal(x)).ToList();
-            else
-                Node.Value = -Convert.ToDecimal(childValues[0]);
-
+            Func<object, object> calculation = x => (object)-Convert.ToDecimal(x);
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -1132,8 +1100,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterFactor_Plus([NotNull] EveryGrammarParser.Factor_PlusContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1174,8 +1141,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterFactor_Tilde([NotNull] EveryGrammarParser.Factor_TildeContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1186,29 +1152,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitFactor_Tilde([NotNull] EveryGrammarParser.Factor_TildeContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            if (childValues[0] is List<object> list)
-                Node.Value = list.Select(x => (object)~Convert.ToInt64(x)).ToList();
-            else
-                Node.Value = ~Convert.ToInt64(childValues[0]);
-
+            Func<object, object> calculation = x => (object)~Convert.ToInt64(x);
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -1408,8 +1353,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterFactor_DateTimeTerm([NotNull] EveryGrammarParser.Factor_DateTimeTermContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1565,8 +1509,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterDateTime_Expression([NotNull] EveryGrammarParser.DateTime_ExpressionContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1863,8 +1806,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_Abs([NotNull] EveryGrammarParser.Math_AbsContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1875,29 +1817,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Abs([NotNull] EveryGrammarParser.Math_AbsContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            if (childValues[0] is List<object> list)
-                Node.Value = list.Select(x => (object)Math.Abs(Convert.ToDecimal(x))).ToList();
-            else
-                Node.Value = Math.Abs(Convert.ToDecimal(childValues[0]));
-
+            Func<object, object> calculation = x => (object)Math.Abs(Convert.ToDecimal(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -1909,8 +1830,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_ACos([NotNull] EveryGrammarParser.Math_ACosContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1921,29 +1841,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ACos([NotNull] EveryGrammarParser.Math_ACosContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            if (childValues[0] is List<object> list)
-                Node.Value = list.Select(x => (object)Math.Acos(Convert.ToDouble(x))).ToList();
-            else
-                Node.Value = Math.Acos(Convert.ToDouble(childValues[0]));
-
+            Func<object, object> calculation = x => (object)Math.Acos(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -1955,8 +1854,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_ACosH([NotNull] EveryGrammarParser.Math_ACosHContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1967,29 +1865,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ACosH([NotNull] EveryGrammarParser.Math_ACosHContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            if (childValues[0] is List<object> list)
-                Node.Value = list.Select(x => (object)MathNet.Numerics.Trig.Acosh(Convert.ToDouble(x))).ToList();
-            else
-                Node.Value = MathNet.Numerics.Trig.Acosh(Convert.ToDouble(childValues[0]));
-
+            Func<object, object> calculation = x => (object)MathNet.Numerics.Trig.Acosh(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -2001,8 +1878,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_ASin([NotNull] EveryGrammarParser.Math_ASinContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -2013,29 +1889,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ASin([NotNull] EveryGrammarParser.Math_ASinContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            if (childValues[0] is List<object> list)
-                Node.Value = list.Select(x => (object)Math.Asin(Convert.ToDouble(x))).ToList();
-            else
-                Node.Value = Math.Asin(Convert.ToDouble(childValues[0]));
-
+            Func<object, object> calculation = x => (object)Math.Asin(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -2047,8 +1902,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_ASinH([NotNull] EveryGrammarParser.Math_ASinHContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -2059,29 +1913,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ASinH([NotNull] EveryGrammarParser.Math_ASinHContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            if (childValues[0] is List<object> list)
-                Node.Value = list.Select(x => (object)MathNet.Numerics.Trig.Asinh(Convert.ToDouble(x))).ToList();
-            else
-                Node.Value = MathNet.Numerics.Trig.Asinh(Convert.ToDouble(childValues[0]));
-
+            Func<object, object> calculation = x => (object)MathNet.Numerics.Trig.Asinh(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -2093,8 +1926,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_ATan([NotNull] EveryGrammarParser.Math_ATanContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -2105,29 +1937,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ATan([NotNull] EveryGrammarParser.Math_ATanContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            if (childValues[0] is List<object> list)
-                Node.Value = list.Select(x => (object)Math.Atan(Convert.ToDouble(x))).ToList();
-            else
-                Node.Value = Math.Atan(Convert.ToDouble(childValues[0]));
-
+            Func<object, object> calculation = x => (object)Math.Atan(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -2139,8 +1950,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_ATan2([NotNull] EveryGrammarParser.Math_ATan2Context context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -2219,8 +2029,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_ATanH([NotNull] EveryGrammarParser.Math_ATanHContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -2231,29 +2040,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ATanH([NotNull] EveryGrammarParser.Math_ATanHContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            if (childValues[0] is List<object> list)
-                Node.Value = list.Select(x => (object)MathNet.Numerics.Trig.Atanh(Convert.ToDouble(x))).ToList();
-            else
-                Node.Value = MathNet.Numerics.Trig.Atanh(Convert.ToDouble(childValues[0]));
-
+            Func<object, object> calculation = x => (object)MathNet.Numerics.Trig.Atanh(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -2265,8 +2053,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_Cbrt([NotNull] EveryGrammarParser.Math_CbrtContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -2277,29 +2064,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Cbrt([NotNull] EveryGrammarParser.Math_CbrtContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            if (childValues[0] is List<object> list)
-                Node.Value = list.Select(x => (object)Math.Pow(Convert.ToDouble(x), 1d / 3d)).ToList();
-            else
-                Node.Value = Math.Pow(Convert.ToDouble(childValues[0]), 1d / 3d);
-
+            Func<object, object> calculation = x => (object)Math.Pow(Convert.ToDouble(x), 1d / 3d);
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -2311,8 +2077,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_Cos([NotNull] EveryGrammarParser.Math_CosContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -2323,29 +2088,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Cos([NotNull] EveryGrammarParser.Math_CosContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            if (childValues[0] is List<object> list)
-                Node.Value = list.Select(x => (object)Math.Cos(Convert.ToDouble(x))).ToList();
-            else
-                Node.Value = Math.Cos(Convert.ToDouble(childValues[0]));
-
+            Func<object, object> calculation = x => (object)Math.Cos(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -2357,8 +2101,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_CosH([NotNull] EveryGrammarParser.Math_CosHContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -2369,29 +2112,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_CosH([NotNull] EveryGrammarParser.Math_CosHContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            if (childValues[0] is List<object> list)
-                Node.Value = list.Select(x => (object)Math.Cosh(Convert.ToDouble(x))).ToList();
-            else
-                Node.Value = Math.Cosh(Convert.ToDouble(childValues[0]));
-
+            Func<object, object> calculation = x => (object)Math.Cosh(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -2403,8 +2125,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_Ceilling([NotNull] EveryGrammarParser.Math_CeillingContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -2415,29 +2136,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Ceilling([NotNull] EveryGrammarParser.Math_CeillingContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            if (childValues[0] is List<object> list)
-                Node.Value = list.Select(x => (object)Math.Ceiling(Convert.ToDecimal(x))).ToList();
-            else
-                Node.Value = Math.Ceiling(Convert.ToDecimal(childValues[0]));
-
+            Func<object, object> calculation = x => (object)Math.Ceiling(Convert.ToDecimal(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -2449,8 +2149,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_Clamp([NotNull] EveryGrammarParser.Math_ClampContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -2550,8 +2249,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_CrossSum([NotNull] EveryGrammarParser.Math_CrossSumContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -2562,40 +2260,14 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_CrossSum([NotNull] EveryGrammarParser.Math_CrossSumContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            if (childValues[0] is List<object> list)
-                Node.Value = list.Select(x =>
-                {
-                    long value = 0;
-                    foreach (var letter in Convert.ToInt64(x).ToString())
-                        value += long.Parse(letter.ToString());
-                    return (object)value;
-                }).ToList();
-            else
+            Func<object, object> calculation = x =>
             {
                 long value = 0;
-                foreach (var letter in Convert.ToInt64(childValues[0]).ToString())
+                foreach (var letter in Convert.ToInt64(x).ToString())
                     value += long.Parse(letter.ToString());
-                Node.Value = value;
-            }
-
+                return (object)value;
+            };
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -2607,8 +2279,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_Derivative([NotNull] EveryGrammarParser.Math_DerivativeContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -2627,8 +2298,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_Exp([NotNull] EveryGrammarParser.Math_ExpContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -2639,29 +2309,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Exp([NotNull] EveryGrammarParser.Math_ExpContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            if (childValues[0] is List<object> list)
-                Node.Value = list.Select(x => (object)Math.Exp(Convert.ToDouble(x))).ToList();
-            else
-                Node.Value = Math.Exp(Convert.ToDouble(childValues[0]));
-
+            Func<object, object> calculation = x => (object)Math.Exp(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -2673,8 +2322,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_Floor([NotNull] EveryGrammarParser.Math_FloorContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -2685,29 +2333,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Floor([NotNull] EveryGrammarParser.Math_FloorContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            if (childValues[0] is List<object> list)
-                Node.Value = list.Select(x => (object)Math.Floor(Convert.ToDecimal(x))).ToList();
-            else
-                Node.Value = Math.Floor(Convert.ToDecimal(childValues[0]));
-
+            Func<object, object> calculation = x => (object)Math.Floor(Convert.ToDecimal(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -2719,8 +2346,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_Integration([NotNull] EveryGrammarParser.Math_IntegrationContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -2739,8 +2365,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_Log([NotNull] EveryGrammarParser.Math_LogContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -2819,8 +2444,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_Log2([NotNull] EveryGrammarParser.Math_Log2Context context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -2831,29 +2455,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Log2([NotNull] EveryGrammarParser.Math_Log2Context context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            if (childValues[0] is List<object> list)
-                Node.Value = list.Select(x => (object)Math.Log(Convert.ToDouble(x), 2d)).ToList();
-            else
-                Node.Value = Math.Log(Convert.ToDouble(childValues[0]), 2d);
-
+            Func<object, object> calculation = x => (object)Math.Log(Convert.ToDouble(x), 2d);
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -2865,8 +2468,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_Log10([NotNull] EveryGrammarParser.Math_Log10Context context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -2877,29 +2479,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Log10([NotNull] EveryGrammarParser.Math_Log10Context context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            if (childValues[0] is List<object> list)
-                Node.Value = list.Select(x => (object)Math.Log10(Convert.ToDouble(x))).ToList();
-            else
-                Node.Value = Math.Log10(Convert.ToDouble(childValues[0]));
-
+            Func<object, object> calculation = x => (object)Math.Log10(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -2911,8 +2492,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_Max_Array([NotNull] EveryGrammarParser.Math_Max_ArrayContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -2931,8 +2511,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_Max_Two([NotNull] EveryGrammarParser.Math_Max_TwoContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -2973,8 +2552,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_Min_Array([NotNull] EveryGrammarParser.Math_Min_ArrayContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -2993,8 +2571,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_Min_Two([NotNull] EveryGrammarParser.Math_Min_TwoContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -3035,8 +2612,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_Power([NotNull] EveryGrammarParser.Math_PowerContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -3115,8 +2691,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_Round_Not_Decimal([NotNull] EveryGrammarParser.Math_Round_Not_DecimalContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -3127,29 +2702,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Round_Not_Decimal([NotNull] EveryGrammarParser.Math_Round_Not_DecimalContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            if (childValues[0] is List<object> list)
-                Node.Value = list.Select(x => (object)Math.Round(Convert.ToDecimal(x))).ToList();
-            else
-                Node.Value = Math.Round(Convert.ToDecimal(childValues[0]));
-
+            Func<object, object> calculation = x => (object)Math.Round(Convert.ToDecimal(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -3161,8 +2715,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_Round_Decimal([NotNull] EveryGrammarParser.Math_Round_DecimalContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -3241,8 +2794,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_Root([NotNull] EveryGrammarParser.Math_RootContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -3321,8 +2873,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_Sin([NotNull] EveryGrammarParser.Math_SinContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -3333,29 +2884,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Sin([NotNull] EveryGrammarParser.Math_SinContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            if (childValues[0] is List<object> list)
-                Node.Value = list.Select(x => (object)Math.Sin(Convert.ToDouble(x))).ToList();
-            else
-                Node.Value = Math.Sin(Convert.ToDouble(childValues[0]));
-
+            Func<object, object> calculation = x => (object)Math.Sin(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -3367,8 +2897,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_SinH([NotNull] EveryGrammarParser.Math_SinHContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -3379,29 +2908,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_SinH([NotNull] EveryGrammarParser.Math_SinHContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            if (childValues[0] is List<object> list)
-                Node.Value = list.Select(x => (object)Math.Sinh(Convert.ToDouble(x))).ToList();
-            else
-                Node.Value = Math.Sinh(Convert.ToDouble(childValues[0]));
-
+            Func<object, object> calculation = x => (object)Math.Sinh(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -3413,8 +2921,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_Sqrt([NotNull] EveryGrammarParser.Math_SqrtContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -3425,29 +2932,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Sqrt([NotNull] EveryGrammarParser.Math_SqrtContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            if (childValues[0] is List<object> list)
-                Node.Value = list.Select(x => (object)Math.Sqrt(Convert.ToDouble(x))).ToList();
-            else
-                Node.Value = Math.Sqrt(Convert.ToDouble(childValues[0]));
-
+            Func<object, object> calculation = x => (object)Math.Sqrt(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -3459,8 +2945,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_Tan([NotNull] EveryGrammarParser.Math_TanContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -3471,29 +2956,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Tan([NotNull] EveryGrammarParser.Math_TanContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            if (childValues[0] is List<object> list)
-                Node.Value = list.Select(x => (object)Math.Tan(Convert.ToDouble(x))).ToList();
-            else
-                Node.Value = Math.Tan(Convert.ToDouble(childValues[0]));
-
+            Func<object, object> calculation = x => (object)Math.Tan(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -3505,8 +2969,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_TanH([NotNull] EveryGrammarParser.Math_TanHContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -3517,29 +2980,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_TanH([NotNull] EveryGrammarParser.Math_TanHContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            if (childValues[0] is List<object> list)
-                Node.Value = list.Select(x => (object)Math.Tanh(Convert.ToDouble(x))).ToList();
-            else
-                Node.Value = Math.Tanh(Convert.ToDouble(childValues[0]));
-
+            Func<object, object> calculation = x => (object)Math.Tanh(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -3551,8 +2993,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterMath_Truncate([NotNull] EveryGrammarParser.Math_TruncateContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -3563,29 +3004,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Truncate([NotNull] EveryGrammarParser.Math_TruncateContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            if (childValues[0] is List<object> list)
-                Node.Value = list.Select(x => (object)Math.Truncate(Convert.ToDecimal(x))).ToList();
-            else
-                Node.Value = Math.Truncate(Convert.ToDecimal(childValues[0]));
-
+            Func<object, object> calculation = x => (object)Math.Truncate(Convert.ToDecimal(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -3673,8 +3093,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterArrayCreation([NotNull] EveryGrammarParser.ArrayCreationContext context)
         {
-            var childNode = Node.AddChildNode();
-            Node = childNode;
+            Node = Node.AddChildNode();
         }
 
         /// <summary>

@@ -1,6 +1,8 @@
 # EveryParser.Net
 Parser for everything in your life!
 
+Makes use of ANTLR and Math.Net. Many thanks to their contributors.
+
 Very Noice
 
 java -jar antlr-4.9.2-complete.jar -Dlanguage=CSharp EveryGrammar.g4 -o ".antlr" -package "EveryParser"
