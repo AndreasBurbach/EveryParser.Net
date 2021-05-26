@@ -1693,7 +1693,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterFunction_Concat([NotNull] EveryGrammarParser.Function_ConcatContext context) { }
+        public void EnterFunction_Concat([NotNull] EveryGrammarParser.Function_ConcatContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Function_Concat</c>
@@ -1709,7 +1712,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterFunction_Count([NotNull] EveryGrammarParser.Function_CountContext context) { }
+        public void EnterFunction_Count([NotNull] EveryGrammarParser.Function_CountContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Function_Count</c>
@@ -1725,7 +1731,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterFunction_Distinc([NotNull] EveryGrammarParser.Function_DistincContext context) { }
+        public void EnterFunction_Distinc([NotNull] EveryGrammarParser.Function_DistincContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Function_Distinc</c>
@@ -1733,7 +1742,12 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitFunction_Distinc([NotNull] EveryGrammarParser.Function_DistincContext context) { }
+        public void ExitFunction_Distinc([NotNull] EveryGrammarParser.Function_DistincContext context)
+        {
+            Func<List<object>, object> calculation = list => list.Distinct().ToList();
+            Node.Value = CalculationHelper.CalcListUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Function_Duplicates</c>
@@ -1741,7 +1755,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterFunction_Duplicates([NotNull] EveryGrammarParser.Function_DuplicatesContext context) { }
+        public void EnterFunction_Duplicates([NotNull] EveryGrammarParser.Function_DuplicatesContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Function_Duplicates</c>
@@ -1749,7 +1766,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitFunction_Duplicates([NotNull] EveryGrammarParser.Function_DuplicatesContext context) { }
+        public void ExitFunction_Duplicates([NotNull] EveryGrammarParser.Function_DuplicatesContext context)
+        {
+            //War hier gemeint, ob es duplikate im array gibt?
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Function_IndexOf</c>
@@ -1757,7 +1777,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterFunction_IndexOf([NotNull] EveryGrammarParser.Function_IndexOfContext context) { }
+        public void EnterFunction_IndexOf([NotNull] EveryGrammarParser.Function_IndexOfContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Function_IndexOf</c>
@@ -1773,7 +1796,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterFunction_Lower([NotNull] EveryGrammarParser.Function_LowerContext context) { }
+        public void EnterFunction_Lower([NotNull] EveryGrammarParser.Function_LowerContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Function_Lower</c>
@@ -1781,7 +1807,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitFunction_Lower([NotNull] EveryGrammarParser.Function_LowerContext context) { }
+        public void ExitFunction_Lower([NotNull] EveryGrammarParser.Function_LowerContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Function_Reverse</c>
@@ -1789,7 +1818,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterFunction_Reverse([NotNull] EveryGrammarParser.Function_ReverseContext context) { }
+        public void EnterFunction_Reverse([NotNull] EveryGrammarParser.Function_ReverseContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Function_Reverse</c>
@@ -1797,7 +1829,12 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitFunction_Reverse([NotNull] EveryGrammarParser.Function_ReverseContext context) { }
+        public void ExitFunction_Reverse([NotNull] EveryGrammarParser.Function_ReverseContext context)
+        {
+            Func<List<object>, object> calculation = list => list.Reverse<object>().ToList();
+            Node.Value = CalculationHelper.CalcListUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Function_Upper</c>
@@ -1805,7 +1842,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterFunction_Upper([NotNull] EveryGrammarParser.Function_UpperContext context) { }
+        public void EnterFunction_Upper([NotNull] EveryGrammarParser.Function_UpperContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Function_Upper</c>

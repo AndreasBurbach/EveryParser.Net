@@ -23,6 +23,7 @@ namespace EveryParser
         VariableNotInArguments,
         NotEqualArayCount,
         SecondParamIsNotArray,
+        IsNotArray,
     }
 
     public class AssertErrors
@@ -134,6 +135,24 @@ namespace EveryParser
                 if (bool.TryParse(child.ToString(), out _))
                 {
                     _errors.Add((ErrorCode.IsNotBoolean, $"One or more values are not boolean {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                    return false;
+                }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Check if all parameters are type of List(object)
+        /// </summary>
+        /// <param name="context">Context for line recognition</param>
+        /// <param name="childs">All childs which are comitted to the calculation</param>
+        /// <returns>true if types are boolean</returns>
+        public bool CheckIsList(ParserRuleContext context, params object[] childs)
+        {
+            foreach (var child in childs)
+                if (!(child is List<object>))
+                {
+                    _errors.Add((ErrorCode.IsNotArray, $"One or more values are not an array {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
                     return false;
                 }
 
