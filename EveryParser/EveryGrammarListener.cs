@@ -400,6 +400,18 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitPointTerm_Factor([NotNull] EveryGrammarParser.PointTerm_FactorContext context);
 	/// <summary>
+	/// Enter a parse tree produced by the <c>PointTerm_PowerOperator</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.point_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPointTerm_PowerOperator([NotNull] EveryGrammarParser.PointTerm_PowerOperatorContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>PointTerm_PowerOperator</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.point_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPointTerm_PowerOperator([NotNull] EveryGrammarParser.PointTerm_PowerOperatorContext context);
+	/// <summary>
 	/// Enter a parse tree produced by the <c>PointTerm_Modulo</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.point_term"/>.
 	/// </summary>

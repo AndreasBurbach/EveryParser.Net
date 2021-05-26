@@ -51,7 +51,7 @@ line_term:
 point_term:
 	factor								# PointTerm_Factor
 	| point_term MULTIPLY factor		# PointTerm_Multiply
-	| point_term POWEROPERATOR factor	# PointTerm_Multiply
+	| point_term POWEROPERATOR factor	# PointTerm_PowerOperator
 	| point_term MODULO factor			# PointTerm_Modulo
 	| point_term BITSHIFTLEFT factor	# PointTerm_BitShiftLeft
 	| point_term BITSHIFTRIGHT factor	# PointTerm_BitShiftRight

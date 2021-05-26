@@ -1,5 +1,4 @@
 using Antlr4.Runtime.Misc;
-using MathNet.Numerics.LinearAlgebra;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -531,55 +530,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitLine_Addition([NotNull] EveryGrammarParser.Line_AdditionContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var list1 = childValues[0] as List<object>;
-            decimal value1 = 0;
-            if (list1 is null)
-                value1 = Convert.ToDecimal(childValues[0]);
-
-            var list2 = childValues[1] as List<object>;
-            decimal value2 = 0;
-            if (list2 is null)
-                value2 = Convert.ToDecimal(childValues[1]);
-
-            if (list1 is null && list2 is null)
-            {
-                Node.Value = value1 + value2;
-            }
-            else if (!(list1 is null) && list2 is null)
-            {
-                var vector1 = Vector<decimal>.Build.DenseOfEnumerable(list1.Select(x => Convert.ToDecimal(x)));
-                Node.Value = (vector1 + value2).Select(x => (object)x).ToList();
-            }
-            else if (list1 is null && !(list2 is null))
-            {
-                var vector2 = Vector<decimal>.Build.DenseOfEnumerable(list2.Select(x => Convert.ToDecimal(x)));
-                Node.Value = (value1 + vector2).Select(x => (object)x).ToList();
-            }
-            else
-            {
-                var vector1 = Vector<decimal>.Build.DenseOfEnumerable(list1.Select(x => Convert.ToDecimal(x)));
-                var vector2 = Vector<decimal>.Build.DenseOfEnumerable(list2.Select(x => Convert.ToDecimal(x)));
-                Node.Value = (vector1 + vector2).Select(x => (object)x).ToList();
-            }
-
+            Func<object, object, object> calculation = (x1, x2) => (object)(Convert.ToDecimal(x1) + Convert.ToDecimal(x2));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
             Node = Node.Parent;
         }
 
@@ -602,55 +554,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitLine_Subtraction([NotNull] EveryGrammarParser.Line_SubtractionContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var list1 = childValues[0] as List<object>;
-            decimal value1 = 0;
-            if (list1 is null)
-                value1 = Convert.ToDecimal(childValues[0]);
-
-            var list2 = childValues[1] as List<object>;
-            decimal value2 = 0;
-            if (list2 is null)
-                value2 = Convert.ToDecimal(childValues[1]);
-
-            if (list1 is null && list2 is null)
-            {
-                Node.Value = value1 - value2;
-            }
-            else if (!(list1 is null) && list2 is null)
-            {
-                var vector1 = Vector<decimal>.Build.DenseOfEnumerable(list1.Select(x => Convert.ToDecimal(x)));
-                Node.Value = (vector1 - value2).Select(x => (object)x).ToList();
-            }
-            else if (list1 is null && !(list2 is null))
-            {
-                var vector2 = Vector<decimal>.Build.DenseOfEnumerable(list2.Select(x => Convert.ToDecimal(x)));
-                Node.Value = (value1 - vector2).Select(x => (object)x).ToList();
-            }
-            else
-            {
-                var vector1 = Vector<decimal>.Build.DenseOfEnumerable(list1.Select(x => Convert.ToDecimal(x)));
-                var vector2 = Vector<decimal>.Build.DenseOfEnumerable(list2.Select(x => Convert.ToDecimal(x)));
-                Node.Value = (vector1 - vector2).Select(x => (object)x).ToList();
-            }
-
+            Func<object, object, object> calculation = (x1, x2) => (object)(Convert.ToDecimal(x1) - Convert.ToDecimal(x2));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
             Node = Node.Parent;
         }
 
@@ -687,6 +592,30 @@ namespace EveryParser
         public void ExitPointTerm_Factor([NotNull] EveryGrammarParser.PointTerm_FactorContext context) { }
 
         /// <summary>
+        /// Enter a parse tree produced by the <c>PointTerm_PowerOperator</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.point_term"/>.
+        /// <para>The default implementation does nothing.</para>
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void EnterPointTerm_PowerOperator([NotNull] EveryGrammarParser.PointTerm_PowerOperatorContext context)
+        {
+            Node = Node.AddChildNode();
+        }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>PointTerm_PowerOperator</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.point_term"/>.
+        /// <para>The default implementation does nothing.</para>
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitPointTerm_PowerOperator([NotNull] EveryGrammarParser.PointTerm_PowerOperatorContext context)
+        {
+            Func<object, object, object> calculation = (x1, x2) => (object)(Convert.ToDecimal(x1) % Convert.ToDecimal(x2));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
+            Node = Node.Parent;
+        }
+
+        /// <summary>
         /// Enter a parse tree produced by the <c>PointTerm_Modulo</c>
         /// labeled alternative in <see cref="EveryGrammarParser.point_term"/>.
         /// <para>The default implementation does nothing.</para>
@@ -705,55 +634,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitPointTerm_Modulo([NotNull] EveryGrammarParser.PointTerm_ModuloContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var list1 = childValues[0] as List<object>;
-            decimal value1 = 0;
-            if (list1 is null)
-                value1 = Convert.ToDecimal(childValues[0]);
-
-            var list2 = childValues[1] as List<object>;
-            decimal value2 = 0;
-            if (list2 is null)
-                value2 = Convert.ToDecimal(childValues[1]);
-
-            if (list1 is null && list2 is null)
-            {
-                Node.Value = value1 % value2;
-            }
-            else if (!(list1 is null) && list2 is null)
-            {
-                var vector1 = Vector<decimal>.Build.DenseOfEnumerable(list1.Select(x => Convert.ToDecimal(x)));
-                Node.Value = (vector1 % value2).Select(x => (object)x).ToList();
-            }
-            else if (list1 is null && !(list2 is null))
-            {
-                var vector2 = Vector<decimal>.Build.DenseOfEnumerable(list2.Select(x => Convert.ToDecimal(x)));
-                Node.Value = (value1 % vector2).Select(x => (object)x).ToList();
-            }
-            else
-            {
-                var vector1 = Vector<decimal>.Build.DenseOfEnumerable(list1.Select(x => Convert.ToDecimal(x)));
-                var vector2 = Vector<decimal>.Build.DenseOfEnumerable(list2.Select(x => Convert.ToDecimal(x)));
-                Node.Value = (vector1 % vector2).Select(x => (object)x).ToList();
-            }
-
+            Func<object, object, object> calculation = (x1, x2) => (object)(Convert.ToDecimal(x1) % Convert.ToDecimal(x2));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
             Node = Node.Parent;
         }
 
@@ -776,55 +658,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitPointTerm_Multiply([NotNull] EveryGrammarParser.PointTerm_MultiplyContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var list1 = childValues[0] as List<object>;
-            decimal value1 = 0;
-            if (list1 is null)
-                value1 = Convert.ToDecimal(childValues[0]);
-
-            var list2 = childValues[1] as List<object>;
-            decimal value2 = 0;
-            if (list2 is null)
-                value2 = Convert.ToDecimal(childValues[1]);
-
-            if (list1 is null && list2 is null)
-            {
-                Node.Value = value1 * value2;
-            }
-            else if (!(list1 is null) && list2 is null)
-            {
-                var vector1 = Vector<decimal>.Build.DenseOfEnumerable(list1.Select(x => Convert.ToDecimal(x)));
-                Node.Value = (vector1 * value2).Select(x => (object)x).ToList();
-            }
-            else if (list1 is null && !(list2 is null))
-            {
-                var vector2 = Vector<decimal>.Build.DenseOfEnumerable(list2.Select(x => Convert.ToDecimal(x)));
-                Node.Value = (value1 * vector2).Select(x => (object)x).ToList();
-            }
-            else
-            {
-                var vector1 = Vector<decimal>.Build.DenseOfEnumerable(list1.Select(x => Convert.ToDecimal(x)));
-                var vector2 = Vector<decimal>.Build.DenseOfEnumerable(list2.Select(x => Convert.ToDecimal(x)));
-                Node.Value = vector1 * vector2;
-            }
-
+            Func<object, object, object> calculation = (x1, x2) => (object)(Convert.ToDecimal(x1) * Convert.ToDecimal(x2));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
             Node = Node.Parent;
         }
 
@@ -888,55 +723,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitPointTerm_IntegerDivision([NotNull] EveryGrammarParser.PointTerm_IntegerDivisionContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var list1 = childValues[0] as List<object>;
-            long value1 = 0;
-            if (list1 is null)
-                value1 = Convert.ToInt64(childValues[0]);
-
-            var list2 = childValues[1] as List<object>;
-            long value2 = 0;
-            if (list2 is null)
-                value2 = Convert.ToInt64(childValues[1]);
-
-            if (list1 is null && list2 is null)
-            {
-                Node.Value = value1 / value2;
-            }
-            else if (!(list1 is null) && list2 is null)
-            {
-                var vector1 = Vector<long>.Build.DenseOfEnumerable(list1.Select(x => Convert.ToInt64(x)));
-                Node.Value = (vector1 / value2).Select(x => (object)x).ToList();
-            }
-            else if (list1 is null && !(list2 is null))
-            {
-                var vector2 = Vector<long>.Build.DenseOfEnumerable(list2.Select(x => Convert.ToInt64(x)));
-                Node.Value = (value1 / vector2).Select(x => (object)x).ToList();
-            }
-            else
-            {
-                var vector1 = Vector<long>.Build.DenseOfEnumerable(list1.Select(x => Convert.ToInt64(x)));
-                var vector2 = Vector<long>.Build.DenseOfEnumerable(list2.Select(x => Convert.ToInt64(x)));
-                Node.Value = (vector1 / vector2).Select(x => (object)x).ToList();
-            }
-
+            Func<object, object, object> calculation = (x1, x2) => (object)(Convert.ToInt64(x1) / Convert.ToInt64(x2));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
             Node = Node.Parent;
         }
 
@@ -1000,55 +788,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitPointTerm_Divide([NotNull] EveryGrammarParser.PointTerm_DivideContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var list1 = childValues[0] as List<object>;
-            decimal value1 = 0;
-            if (list1 is null)
-                value1 = Convert.ToDecimal(childValues[0]);
-
-            var list2 = childValues[1] as List<object>;
-            decimal value2 = 0;
-            if (list2 is null)
-                value2 = Convert.ToDecimal(childValues[1]);
-
-            if (list1 is null && list2 is null)
-            {
-                Node.Value = value1 / value2;
-            }
-            else if (!(list1 is null) && list2 is null)
-            {
-                var vector1 = Vector<decimal>.Build.DenseOfEnumerable(list1.Select(x => Convert.ToDecimal(x)));
-                Node.Value = (vector1 / value2).Select(x => (object)x).ToList();
-            }
-            else if (list1 is null && !(list2 is null))
-            {
-                var vector2 = Vector<decimal>.Build.DenseOfEnumerable(list2.Select(x => Convert.ToDecimal(x)));
-                Node.Value = (value1 / vector2).Select(x => (object)x).ToList();
-            }
-            else
-            {
-                var vector1 = Vector<decimal>.Build.DenseOfEnumerable(list1.Select(x => Convert.ToDecimal(x)));
-                var vector2 = Vector<decimal>.Build.DenseOfEnumerable(list2.Select(x => Convert.ToDecimal(x)));
-                Node.Value = (vector1 / vector2).Select(x => (object)x).ToList();
-            }
-
+            Func<object, object, object> calculation = (x1, x2) => (object)(Convert.ToDecimal(x1) / Convert.ToDecimal(x2));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
             Node = Node.Parent;
         }
 
@@ -1961,63 +1702,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ATan2([NotNull] EveryGrammarParser.Math_ATan2Context context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var list1 = childValues[0] as List<object>;
-            double value1 = 0;
-            if (list1 is null)
-                value1 = Convert.ToDouble(childValues[0]);
-
-            var list2 = childValues[1] as List<object>;
-            double value2 = 0;
-            if (list2 is null)
-                value2 = Convert.ToDouble(childValues[1]);
-
-            if (list1 is null && list2 is null)
-            {
-                Node.Value = Math.Atan2(value1, value2);
-            }
-            else if (!(list1 is null))
-            {
-                if (list2 is null)
-                {
-                    Node.Value = list1.Select(x => (object)Math.Atan2(Convert.ToDouble(x), value2)).ToList();
-                }
-                else if (list1.Count == list2.Count)
-                {
-                    var result = new List<object>(list1.Count);
-                    for (int i = 0; i < list1.Count; i += 1)
-                        result.Add(Math.Atan2(Convert.ToDouble(list1[i]), Convert.ToDouble(list2[i])));
-                    Node.Value = result;
-                }
-                else
-                {
-                    ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, $"Array count must be equal: Array1 Count {list1.Count} Array2 Count {list2.Count}");
-                    Node.Value = new List<object>();
-                }
-            }
-            else
-            {
-                ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, "If first parameter is an array, all parameters must be an array");
-                Node.Value = new List<object>();
-            }
-
+            Func<object, object, object> calculation = (x1, x2) => (object)Math.Atan2(Convert.ToDouble(x1), Convert.ToDouble(x2));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children, true);
             Node = Node.Parent;
         }
 
@@ -2376,63 +2062,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Log([NotNull] EveryGrammarParser.Math_LogContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var list1 = childValues[0] as List<object>;
-            double value1 = 0;
-            if (list1 is null)
-                value1 = Convert.ToDouble(childValues[0]);
-
-            var list2 = childValues[1] as List<object>;
-            double value2 = 0;
-            if (list2 is null)
-                value2 = Convert.ToDouble(childValues[1]);
-
-            if (list1 is null && list2 is null)
-            {
-                Node.Value = Math.Log(value1, value2);
-            }
-            else if (!(list1 is null))
-            {
-                if (list2 is null)
-                {
-                    Node.Value = list1.Select(x => (object)Math.Log(Convert.ToDouble(x), value2)).ToList();
-                }
-                else if (list1.Count == list2.Count)
-                {
-                    var result = new List<object>(list1.Count);
-                    for (int i = 0; i < list1.Count; i += 1)
-                        result.Add(Math.Log(Convert.ToDouble(list1[i]), Convert.ToDouble(list2[i])));
-                    Node.Value = result;
-                }
-                else
-                {
-                    ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, $"Array count must be equal: Array1 Count {list1.Count} Array2 Count {list2.Count}");
-                    Node.Value = new List<object>();
-                }
-            }
-            else
-            {
-                ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, "If first parameter is an array, all parameters must be an array");
-                Node.Value = new List<object>();
-            }
-
+            Func<object, object, object> calculation = (x1, x2) => (object)Math.Log(Convert.ToDouble(x1), Convert.ToDouble(x2));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children, true);
             Node = Node.Parent;
         }
 
@@ -2522,25 +2153,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Max_Two([NotNull] EveryGrammarParser.Math_Max_TwoContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            Node.Value = Math.Max(Convert.ToDouble(childValues[0]), Convert.ToDouble(childValues[1]));
+            Func<object, object, object> calculation = (x1, x2) => (object)Math.Max(Convert.ToDouble(x1), Convert.ToDouble(x2));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
             Node = Node.Parent;
         }
 
@@ -2582,25 +2196,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Min_Two([NotNull] EveryGrammarParser.Math_Min_TwoContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            Node.Value = Math.Min(Convert.ToDouble(childValues[0]), Convert.ToDouble(childValues[1]));
+            Func<object, object, object> calculation = (x1, x2) => (object)Math.Min(Convert.ToDouble(x1), Convert.ToDouble(x2));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
             Node = Node.Parent;
         }
 
@@ -2623,63 +2220,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Power([NotNull] EveryGrammarParser.Math_PowerContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var list1 = childValues[0] as List<object>;
-            double value1 = 0;
-            if (list1 is null)
-                value1 = Convert.ToDouble(childValues[0]);
-
-            var list2 = childValues[1] as List<object>;
-            double value2 = 0;
-            if (list2 is null)
-                value2 = Convert.ToDouble(childValues[1]);
-
-            if (list1 is null && list2 is null)
-            {
-                Node.Value = Math.Pow(value1, value2);
-            }
-            else if (!(list1 is null))
-            {
-                if (list2 is null)
-                {
-                    Node.Value = list1.Select(x => (object)Math.Pow(Convert.ToDouble(x), value2)).ToList();
-                }
-                else if (list1.Count == list2.Count)
-                {
-                    var result = new List<object>(list1.Count);
-                    for (int i = 0; i < list1.Count; i += 1)
-                        result.Add(Math.Pow(Convert.ToDouble(list1[i]), Convert.ToDouble(list2[i])));
-                    Node.Value = result;
-                }
-                else
-                {
-                    ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, $"Array count must be equal: Array1 Count {list1.Count} Array2 Count {list2.Count}");
-                    Node.Value = new List<object>();
-                }
-            }
-            else
-            {
-                ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, "If first parameter is an array, all parameters must be an array");
-                Node.Value = new List<object>();
-            }
-
+            Func<object, object, object> calculation = (x1, x2) => (object)Math.Pow(Convert.ToDouble(x1), Convert.ToDouble(x2));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children, true);
             Node = Node.Parent;
         }
 
@@ -2726,63 +2268,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Round_Decimal([NotNull] EveryGrammarParser.Math_Round_DecimalContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var list1 = childValues[0] as List<object>;
-            decimal value1 = 0;
-            if (list1 is null)
-                value1 = Convert.ToDecimal(childValues[0]);
-
-            var list2 = childValues[1] as List<object>;
-            int value2 = 0;
-            if (list2 is null)
-                value2 = Convert.ToInt32(childValues[1]);
-
-            if (list1 is null && list2 is null)
-            {
-                Node.Value = Math.Round(value1, value2);
-            }
-            else if (!(list1 is null))
-            {
-                if (list2 is null)
-                {
-                    Node.Value = list1.Select(x => (object)Math.Round(Convert.ToDecimal(x), value2)).ToList();
-                }
-                else if (list1.Count == list2.Count)
-                {
-                    var result = new List<object>(list1.Count);
-                    for (int i = 0; i < list1.Count; i += 1)
-                        result.Add(Math.Round(Convert.ToDecimal(list1[i]), Convert.ToInt32(list2[i])));
-                    Node.Value = result;
-                }
-                else
-                {
-                    ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, $"Array count must be equal: Array1 Count {list1.Count} Array2 Count {list2.Count}");
-                    Node.Value = new List<object>();
-                }
-            }
-            else
-            {
-                ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, "If first parameter is an array, all parameters must be an array");
-                Node.Value = new List<object>();
-            }
-
+            Func<object, object, object> calculation = (x1, x2) => (object)Math.Round(Convert.ToDecimal(x1), Convert.ToInt32(x2));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children, true);
             Node = Node.Parent;
         }
 
@@ -2805,63 +2292,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Root([NotNull] EveryGrammarParser.Math_RootContext context)
         {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
-            {
-                Node.Value = double.NaN;
-                Node = Node.Parent;
-                return;
-            }
-
-            var list1 = childValues[0] as List<object>;
-            double value1 = 0;
-            if (list1 is null)
-                value1 = Convert.ToDouble(childValues[0]);
-
-            var list2 = childValues[1] as List<object>;
-            double value2 = 0;
-            if (list2 is null)
-                value2 = Convert.ToDouble(childValues[1]);
-
-            if (list1 is null && list2 is null)
-            {
-                Node.Value = Math.Pow(value1, 1 / value2);
-            }
-            else if (!(list1 is null))
-            {
-                if (list2 is null)
-                {
-                    Node.Value = list1.Select(x => (object)Math.Pow(Convert.ToDouble(x), 1 / value2)).ToList();
-                }
-                else if (list1.Count == list2.Count)
-                {
-                    var result = new List<object>(list1.Count);
-                    for (int i = 0; i < list1.Count; i += 1)
-                        result.Add(Math.Pow(Convert.ToDouble(list1[i]), 1d / Convert.ToDouble(childValues[1])));
-                    Node.Value = result;
-                }
-                else
-                {
-                    ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, $"Array count must be equal: Array1 Count {list1.Count} Array2 Count {list2.Count}");
-                    Node.Value = new List<object>();
-                }
-            }
-            else
-            {
-                ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, "If first parameter is an array, all parameters must be an array");
-                Node.Value = new List<object>();
-            }
-
+            Func<object, object, object> calculation = (x1, x2) => (object)Math.Pow(Convert.ToDouble(x1), 1 / Convert.ToDouble(x2));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children, true);
             Node = Node.Parent;
         }
 

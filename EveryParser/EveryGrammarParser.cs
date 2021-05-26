@@ -1545,6 +1545,26 @@ public partial class EveryGrammarParser : Parser {
 			if (typedListener != null) typedListener.ExitPointTerm_Factor(this);
 		}
 	}
+	public partial class PointTerm_PowerOperatorContext : Point_termContext {
+		[System.Diagnostics.DebuggerNonUserCode] public Point_termContext point_term() {
+			return GetRuleContext<Point_termContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode POWEROPERATOR() { return GetToken(EveryGrammarParser.POWEROPERATOR, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public FactorContext factor() {
+			return GetRuleContext<FactorContext>(0);
+		}
+		public PointTerm_PowerOperatorContext(Point_termContext context) { CopyFrom(context); }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
+			if (typedListener != null) typedListener.EnterPointTerm_PowerOperator(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
+			if (typedListener != null) typedListener.ExitPointTerm_PowerOperator(this);
+		}
+	}
 	public partial class PointTerm_ModuloContext : Point_termContext {
 		[System.Diagnostics.DebuggerNonUserCode] public Point_termContext point_term() {
 			return GetRuleContext<Point_termContext>(0);
@@ -1573,7 +1593,6 @@ public partial class EveryGrammarParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public FactorContext factor() {
 			return GetRuleContext<FactorContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode POWEROPERATOR() { return GetToken(EveryGrammarParser.POWEROPERATOR, 0); }
 		public PointTerm_MultiplyContext(Point_termContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
@@ -1718,7 +1737,7 @@ public partial class EveryGrammarParser : Parser {
 						break;
 					case 2:
 						{
-						_localctx = new PointTerm_MultiplyContext(new Point_termContext(_parentctx, _parentState));
+						_localctx = new PointTerm_PowerOperatorContext(new Point_termContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_point_term);
 						State = 176;
 						if (!(Precpred(Context, 6))) throw new FailedPredicateException(this, "Precpred(Context, 6)");
