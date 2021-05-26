@@ -1299,6 +1299,69 @@ namespace EveryParser
             Node = Node.Parent;
         }
 
+        private DateTime? GetDateTimeValue([NotNull] EveryGrammarParser.Factor_DateTimeTermContext context, int expectedDateParameters)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+                return null;
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+            var childValuesLength = childValues.Length;
+
+            if (!ErrorCollector.CheckParamsCount(context, expectedDateParameters, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                !ErrorCollector.CheckIsNumber(context, childValues)
+                )
+            {
+                SetErrorNodeFor_ExitFactor_DateTimeTerm();
+                return null;
+            }
+
+            var date = new DateTime();
+            for (var datePartIndex = 0; datePartIndex < childValuesLength; datePartIndex++)
+            {
+                var datePartChildString = childValues[datePartIndex].ToString();
+                if (!int.TryParse(datePartChildString, out var datePart))
+                {
+                    ErrorCollector.AddTypeConversionError(context, datePartChildString, typeof(int));
+                    SetErrorNodeFor_ExitFactor_DateTimeTerm();
+                    return null;
+                }
+
+                switch (datePartIndex)
+                {
+                    case 0:
+                        date = date.AddYears(datePart - date.Year);
+                        break;
+
+                    case 1:
+                        date = date.AddMonths(datePart - date.Month);
+                        break;
+
+                    case 2:
+                        date = date.AddDays(datePart - date.Day);
+                        break;
+
+                    case 3:
+                        date = date.AddHours(datePart - date.Hour);
+                        break;
+
+                    case 4:
+                        date = date.AddMinutes(datePart - date.Minute);
+                        break;
+
+                    case 5:
+                        date = date.AddSeconds(datePart - date.Second);
+                        break;
+
+                    case 6:
+                        date = date.AddMilliseconds(datePart - date.Millisecond);
+                        break;
+                }
+            }
+
+            return date;
+        }
+
         private void SetErrorNodeFor_ExitFactor_DateTimeTerm()
         {
             Node.Value = double.NaN;
