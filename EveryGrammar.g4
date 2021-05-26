@@ -12,8 +12,12 @@ inner_if_else:
 	| ROUNDBRACKETOPEN if_else ROUNDBRACKETCLOSED	# InnerIfElse;
 
 bool_or_term:
-	bool_and_term							# BoolOr_Next
-	| bool_and_term BOOLOR bool_and_term	# BoolOr;
+	bool_xor_term							# BoolOr_Next
+	| bool_xor_term BOOLOR bool_xor_term	# BoolOr;
+
+bool_xor_term:
+	bool_and_term							#BoolXOr_Next
+	| bool_and_term BOOLXOR bool_and_term	# BoolXOr;
 
 bool_and_term:
 	equality							# BoolAnd_Next
@@ -51,7 +55,7 @@ line_term:
 point_term:
 	factor								# PointTerm_Factor
 	| point_term MULTIPLY factor		# PointTerm_Multiply
-	| point_term POWEROPERATOR factor	# PointTerm_Multiply
+	| point_term POWEROPERATOR factor	# PointTerm_PowerOperator
 	| point_term MODULO factor			# PointTerm_Modulo
 	| point_term BITSHIFTLEFT factor	# PointTerm_BitShiftLeft
 	| point_term BITSHIFTRIGHT factor	# PointTerm_BitShiftRight
@@ -146,7 +150,9 @@ statistic_math_function_term:
 
 expr_args: expression | expression KOMMA expr_args;
 
-array_expr: EDGEBRACKETOPEN expr_args EDGEBRACKETCLOSED;
+array_expr: 
+	EDGEBRACKETOPEN EDGEBRACKETCLOSED #ArrayCreation_Empty
+	|EDGEBRACKETOPEN expr_args EDGEBRACKETCLOSED #ArrayCreation;
 
 //TOKENS
 
@@ -156,7 +162,8 @@ SUBTRACT: '-';
 MULTIPLY: '*';
 DIVIDE: '/';
 MODULO: '%';
-POWEROPERATOR: '^';
+POWEROPERATOR: '**';
+BOOLXOR: '^';
 EQUAL: '==';
 EQUAL_IGNORECASE: '=i';
 NOT: 'not';

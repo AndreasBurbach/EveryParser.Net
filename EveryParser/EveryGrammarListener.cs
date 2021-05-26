@@ -136,6 +136,30 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitBoolOr([NotNull] EveryGrammarParser.BoolOrContext context);
 	/// <summary>
+	/// Enter a parse tree produced by the <c>BoolXOr_Next</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.bool_xor_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBoolXOr_Next([NotNull] EveryGrammarParser.BoolXOr_NextContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>BoolXOr_Next</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.bool_xor_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBoolXOr_Next([NotNull] EveryGrammarParser.BoolXOr_NextContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>BoolXOr</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.bool_xor_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBoolXOr([NotNull] EveryGrammarParser.BoolXOrContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>BoolXOr</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.bool_xor_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBoolXOr([NotNull] EveryGrammarParser.BoolXOrContext context);
+	/// <summary>
 	/// Enter a parse tree produced by the <c>BoolAnd_Next</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.bool_and_term"/>.
 	/// </summary>
@@ -399,6 +423,18 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitPointTerm_Factor([NotNull] EveryGrammarParser.PointTerm_FactorContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>PointTerm_PowerOperator</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.point_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPointTerm_PowerOperator([NotNull] EveryGrammarParser.PointTerm_PowerOperatorContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>PointTerm_PowerOperator</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.point_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPointTerm_PowerOperator([NotNull] EveryGrammarParser.PointTerm_PowerOperatorContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>PointTerm_Modulo</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.point_term"/>.
@@ -1346,14 +1382,28 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitExpr_args([NotNull] EveryGrammarParser.Expr_argsContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="EveryGrammarParser.array_expr"/>.
+	/// Enter a parse tree produced by the <c>ArrayCreation_Empty</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.array_expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterArray_expr([NotNull] EveryGrammarParser.Array_exprContext context);
+	void EnterArrayCreation_Empty([NotNull] EveryGrammarParser.ArrayCreation_EmptyContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="EveryGrammarParser.array_expr"/>.
+	/// Exit a parse tree produced by the <c>ArrayCreation_Empty</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.array_expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitArray_expr([NotNull] EveryGrammarParser.Array_exprContext context);
+	void ExitArrayCreation_Empty([NotNull] EveryGrammarParser.ArrayCreation_EmptyContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>ArrayCreation</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.array_expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterArrayCreation([NotNull] EveryGrammarParser.ArrayCreationContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>ArrayCreation</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.array_expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitArrayCreation([NotNull] EveryGrammarParser.ArrayCreationContext context);
 }
 } // namespace EveryParser

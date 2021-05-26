@@ -12,13 +12,18 @@ namespace EveryParser
     {
         IsNull,
         IsNotNumber,
+        IsNotNumberOrArrayOfNumbers,
         IsNotBoolean,
         IsTypeDifferent,
+        IsNotString,
         ParamsCountNotCorrect,
         NoParameter,
         TypeConversion,
         NoArguments,
         VariableNotInArguments,
+        NotEqualArayCount,
+        SecondParamIsNotArray,
+        IsNotArray,
     }
 
     public class AssertErrors
@@ -83,6 +88,42 @@ namespace EveryParser
         }
 
         /// <summary>
+        /// Check if all parameters are type of numbers (int, long, double, decimal) or an array of numbers
+        /// </summary>
+        /// <param name="context">Context for line recognition</param>
+        /// <param name="childs">All childs which are comitted to the calculation</param>
+        /// <returns>true if types are numbers (int, long, double, decimal)</returns>
+        public bool CheckIsNumberOrArrayOfNumbers(ParserRuleContext context, params object[] childs)
+        {
+            foreach (var child in childs)
+                if (!(child is int || child is long || child is double || child is decimal || (child is List<object> list && list.All(x => x is int || x is long || x is double || x is decimal))))
+                {
+                    _errors.Add((ErrorCode.IsNotNumber, $"One or more values are not numbers or array of numbers {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                    return false;
+                }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Check if all parameters are type of string or an array of string
+        /// </summary>
+        /// <param name="context">Context for line recognition</param>
+        /// <param name="childs">All childs which are comitted to the calculation</param>
+        /// <returns>true if types are numbers (int, long, double, decimal)</returns>
+        public bool CheckIsStringOrArrayOfStrings(ParserRuleContext context, params object[] childs)
+        {
+            foreach (var child in childs)
+                if (!(child is string || (child is List<object> list && list.All(x => x is string))))
+                {
+                    _errors.Add((ErrorCode.IsNotString, $"One or more values are not string or array of strings {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                    return false;
+                }
+
+            return true;
+        }
+
+        /// <summary>
         /// Check if all parameters are type of boolean
         /// </summary>
         /// <param name="context">Context for line recognition</param>
@@ -94,6 +135,24 @@ namespace EveryParser
                 if (bool.TryParse(child.ToString(), out _))
                 {
                     _errors.Add((ErrorCode.IsNotBoolean, $"One or more values are not boolean {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                    return false;
+                }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Check if all parameters are type of List(object)
+        /// </summary>
+        /// <param name="context">Context for line recognition</param>
+        /// <param name="childs">All childs which are comitted to the calculation</param>
+        /// <returns>true if types are boolean</returns>
+        public bool CheckIsList(ParserRuleContext context, params object[] childs)
+        {
+            foreach (var child in childs)
+                if (!(child is List<object>))
+                {
+                    _errors.Add((ErrorCode.IsNotArray, $"One or more values are not an array {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
                     return false;
                 }
 
@@ -295,11 +354,11 @@ namespace EveryParser
         /// Adds an error text
         /// </summary>
         /// <param name="context">Context for line recognition</param>
-        /// <param name="text">Text to convert to a type</param>
         /// <param name="errorCode">ErrorCode of error</param>
-        public void AddError(ParserRuleContext context, string text, ErrorCode errorCode)
+        /// <param name="text">Text to convert to a type</param>
+        public void AddError(ParserRuleContext context, ErrorCode code, string text)
         {
-            _errors.Add((errorCode, $"{text} {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+            _errors.Add((code, $"{text} {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
         }
     }
 }
