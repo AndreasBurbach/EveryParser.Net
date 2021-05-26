@@ -31,6 +31,9 @@ namespace EveryParser.Test.ExpressionTest
 
             Assert.Equal((1 + 1) / (3), Expression.CalculatePrimitiveDecimal("(1+1)//(3)"));
             Assert.Equal((1 + 1) / (3.1m), Expression.CalculatePrimitiveDecimal("(1+1)/(3.1)"));
+
+            Assert.Equal(4, Expression.CalculatePrimitiveDecimal("2^2"));
+            Assert.Equal(5, Expression.CalculatePrimitiveDecimal("2^2+1"));
         }
 
         [Fact]

@@ -610,8 +610,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitPointTerm_PowerOperator([NotNull] EveryGrammarParser.PointTerm_PowerOperatorContext context)
         {
-            Func<object, object, object> calculation = (x1, x2) => (object)(Convert.ToDecimal(x1) % Convert.ToDecimal(x2));
-            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
+            Func<object, object, object> calculation = (x1, x2) => (object)Math.Pow(Convert.ToDouble(x1), Convert.ToDouble(x2));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children, true);
             Node = Node.Parent;
         }
 
