@@ -24,6 +24,11 @@ namespace EveryParser.Test.ExpressionTests
         {
             AssertDateTime(DateTime.Now, Expression.CalculateDateTime("date.now"), CompareDateTime.second); //for comparing milliseconds the programm is too slow :-| 
             AssertDateTime(new DateTime(2021, 1, 1), Expression.CalculateDateTime("date(2021)"), CompareDateTime.day);
+            AssertDateTime(new DateTime(2021, 2, 3), Expression.CalculateDateTime("date(2021,2,3)"), CompareDateTime.day);
+            AssertDateTime(new DateTime(2021, 2, 3, 4, 0, 0), Expression.CalculateDateTime("date(2021,2,3,4)"), CompareDateTime.second);
+            AssertDateTime(new DateTime(2021, 2, 3, 4, 5, 0), Expression.CalculateDateTime("date(2021,2,3,4,5)"), CompareDateTime.second);
+            AssertDateTime(new DateTime(2021, 2, 3, 4, 5, 6), Expression.CalculateDateTime("date(2021,2,3,4,5,6)"), CompareDateTime.second);
+            AssertDateTime(new DateTime(2021, 2, 3, 4, 5, 6, 7), Expression.CalculateDateTime("date(2021,2,3,4,5,6,7)"), CompareDateTime.millisecond);
         }
 
         private void AssertDateTime(DateTime? expected, DateTime? actual, CompareDateTime compareUpTo = CompareDateTime.millisecond)

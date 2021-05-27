@@ -24,6 +24,7 @@ namespace EveryParser
         NotEqualArayCount,
         SecondParamIsNotArray,
         IsNotArray,
+        IsNotDateTime
     }
 
     public class AssertErrors
@@ -181,6 +182,25 @@ namespace EveryParser
             }
 
             return false;
+        }
+
+
+        /// <summary>
+        /// Check if all parameters are type of DateTime
+        /// </summary>
+        /// <param name="context">Context for line recognition</param>
+        /// <param name="childs">All childs which are comitted to the calculation</param>
+        /// <returns>true if types are numbers (int, long, double, decimal)</returns>
+        public bool CheckIsDateTime(ParserRuleContext context, params object[] childs)
+        {
+            foreach (var child in childs)
+                if (!(child is DateTime))
+                {
+                    _errors.Add((ErrorCode.IsNotDateTime, $"One or more values are not numbers {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                    return false;
+                }
+
+            return true;
         }
 
         /// <summary>
@@ -354,10 +374,11 @@ namespace EveryParser
         /// Adds an error text
         /// </summary>
         /// <param name="context">Context for line recognition</param>
+        /// <param name="errorCode">ErrorCode of error</param>
         /// <param name="text">Text to convert to a type</param>
-        public void AddError(ParserRuleContext context, ErrorCode code, string text)
+        public void AddError(ParserRuleContext context, ErrorCode errorCode, string text)
         {
-            _errors.Add((code, $"{text} {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+            _errors.Add((errorCode, $"{text} {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
         }
     }
 }
