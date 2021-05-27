@@ -11,16 +11,35 @@ namespace EveryParser
         private string _formular;
         private SortedList<string, object> _baseArguments;
         private List<string> _missingArguments;
+        private (ErrorCode, string)[] _errorsOfLastCalculation;
+
+        public bool HasErrors => !(_errorsOfLastCalculation is null) && _errorsOfLastCalculation.Any();
 
         public Expression()
         {
             _baseArguments = new SortedList<string, object>();
             _missingArguments = new List<string>();
+            _errorsOfLastCalculation = null;
         }
 
         public Expression(string formular, bool checkSyntax = true) : this()
         {
             SetFormular(formular, checkSyntax);
+        }
+
+        public static object Calculate(string formular)
+        {
+            return new Expression(formular).Calculate();
+        }
+
+        public static bool? CalculateBoolean(string formular)
+        {
+            return new Expression(formular).CalculateBoolean();
+        }
+
+        public static string CalculateString(string formular)
+        {
+            return new Expression(formular).CalculateString();
         }
 
         public static decimal? CalculatePrimitiveDecimal(string formular)
@@ -85,7 +104,6 @@ namespace EveryParser
             AddArgument(name, (object)value);
         }
 
-
         private void AddArgument(string name, object value)
         {
             if (string.IsNullOrWhiteSpace(name))
@@ -99,10 +117,12 @@ namespace EveryParser
 
         public List<string> GetMissingUserDefinedArguments()
         {
-            return _missingArguments ?? new List<string>(); 
+            return _missingArguments ?? new List<string>();
         }
 
         #endregion arguments
+
+        #region Caluclator
 
         public object Calculate()
         {
@@ -114,15 +134,22 @@ namespace EveryParser
 
         public object Calculate(string formular, bool checkSyntax = true)
         {
+            _errorsOfLastCalculation = null;
+
             SetFormular(formular, checkSyntax);
 
             var listener = new EveryGrammarCalculatorListener();
             ParseTreeWalker.Default.Walk(listener, GetParser(formular));
 
-            return null;
+            _errorsOfLastCalculation = listener.ErrorCollector.GetErrors();
+
+            if (listener.ErrorCollector.HasErrors)
+                return null;
+
+            return listener.Result;
         }
 
-        public bool CalculateBoolean()
+        public bool? CalculateBoolean()
         {
             if (string.IsNullOrWhiteSpace(_formular))
                 throw new ArgumentNullException();
@@ -130,14 +157,21 @@ namespace EveryParser
             return CalculateBoolean(_formular, false);
         }
 
-        public bool CalculateBoolean(string formular, bool checkSyntax = true)
+        public bool? CalculateBoolean(string formular, bool checkSyntax = true)
         {
+            _errorsOfLastCalculation = null;
+
             SetFormular(formular, checkSyntax);
 
             var listener = new EveryGrammarCalculatorListener();
             ParseTreeWalker.Default.Walk(listener, GetParser(formular));
 
-            return false;
+            _errorsOfLastCalculation = listener.ErrorCollector.GetErrors();
+
+            if (listener.ErrorCollector.HasErrors)
+                return null;
+
+            return Convert.ToBoolean(listener.Result);
         }
 
         public string CalculateString()
@@ -150,10 +184,17 @@ namespace EveryParser
 
         public string CalculateString(string formular, bool checkSyntax = true)
         {
+            _errorsOfLastCalculation = null;
+
             SetFormular(formular, checkSyntax);
 
             var listener = new EveryGrammarCalculatorListener();
             ParseTreeWalker.Default.Walk(listener, GetParser(formular));
+
+            _errorsOfLastCalculation = listener.ErrorCollector.GetErrors();
+
+            if (listener.ErrorCollector.HasErrors)
+                return null;
 
             return null;
         }
@@ -168,10 +209,14 @@ namespace EveryParser
 
         public decimal? CalculateDecimal(string formular, bool checkSyntax = true)
         {
+            _errorsOfLastCalculation = null;
+
             SetFormular(formular, checkSyntax);
 
             var listener = new EveryGrammarCalculatorListener();
             ParseTreeWalker.Default.Walk(listener, GetParser(formular));
+
+            _errorsOfLastCalculation = listener.ErrorCollector.GetErrors();
 
             if (listener.ErrorCollector.HasErrors)
                 return null;
@@ -189,16 +234,22 @@ namespace EveryParser
 
         public DateTime? CalculateDateTime(string formular, bool checkSyntax = true)
         {
+            _errorsOfLastCalculation = null;
+
             SetFormular(formular, checkSyntax);
 
             var listener = new EveryGrammarCalculatorListener();
             ParseTreeWalker.Default.Walk(listener, GetParser(formular));
+
+            _errorsOfLastCalculation = listener.ErrorCollector.GetErrors();
 
             if (listener.ErrorCollector.HasErrors)
                 return null;
 
             return Convert.ToDateTime(listener.Result);
         }
+
+        #endregion Caluclator
 
         public void SetFormular(string formular, bool checkSyntax = true)
         {
@@ -212,6 +263,11 @@ namespace EveryParser
             //    ParseTreeWalker.Default.Walk(new EveryGrammarValidatorListener(), GetParser(formular));
 
             _formular = formular;
+        }
+
+        public (ErrorCode, string)[] GetErrors()
+        {
+            return _errorsOfLastCalculation.ToArray();//Create new instace with ToArray()
         }
 
         private static EveryGrammarParser.StartRuleContext GetParser(string formular)

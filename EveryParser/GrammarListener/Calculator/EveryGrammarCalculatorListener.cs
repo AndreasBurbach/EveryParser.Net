@@ -48,8 +48,6 @@ namespace EveryParser
                 Result = null;
         }
 
-
-
         /// <summary>
         /// Enter a parse tree produced by the <c>ArraySlicing</c>
         /// labeled alternative in <see cref="EveryGrammarParser.if_else"/>.
@@ -81,7 +79,6 @@ namespace EveryParser
         /// </summary>
         /// <param name="context">The parse tree.</param>
         public void ExitIfElse([NotNull] EveryGrammarParser.IfElseContext context) { }
-
 
         /// <summary>
         /// Enter a parse tree produced by the <c>InnerIfElse</c>
@@ -457,7 +454,6 @@ namespace EveryParser
             Node = Node.Parent;
         }
 
-
         /// <summary>
         /// Enter a parse tree produced by the <c>Check_Greater</c>
         /// labeled alternative in <see cref="EveryGrammarParser.check"/>.
@@ -594,7 +590,6 @@ namespace EveryParser
             Node.Value = Convert.ToInt64(childValues[0]) | Convert.ToInt64(childValues[1]);
             Node = Node.Parent;
         }
-
 
         /// <summary>
         /// Enter a parse tree produced by the <c>BitAnd</c>
