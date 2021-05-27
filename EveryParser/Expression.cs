@@ -42,7 +42,7 @@ namespace EveryParser
             return new Expression(formular).CalculateString();
         }
 
-        public static decimal? CalculatePrimitiveDecimal(string formular)
+        public static decimal? CalculateDecimal(string formular)
         {
             return new Expression(formular).CalculateDecimal();
         }
@@ -50,6 +50,11 @@ namespace EveryParser
         public static DateTime? CalculateDateTime(string formular)
         {
             return new Expression(formular).CalculateDateTime();
+        }
+
+        public static object[] CalculateArray(string formular)
+        {
+            return new Expression(formular).CalculateArray();
         }
 
         #region arguments
@@ -247,6 +252,31 @@ namespace EveryParser
                 return null;
 
             return Convert.ToDateTime(listener.Result);
+        }
+
+        public object[] CalculateArray()
+        {
+            if (string.IsNullOrWhiteSpace(_formular))
+                throw new ArgumentNullException();
+
+            return CalculateArray(_formular, false);
+        }
+
+        public object[] CalculateArray(string formular, bool checkSyntax = true)
+        {
+            _errorsOfLastCalculation = null;
+
+            SetFormular(formular, checkSyntax);
+
+            var listener = new EveryGrammarCalculatorListener();
+            ParseTreeWalker.Default.Walk(listener, GetParser(formular));
+
+            _errorsOfLastCalculation = listener.ErrorCollector.GetErrors();
+
+            if (listener.ErrorCollector.HasErrors)
+                return null;
+
+            return (listener.Result as List<object>)?.ToArray();
         }
 
         #endregion Caluclator

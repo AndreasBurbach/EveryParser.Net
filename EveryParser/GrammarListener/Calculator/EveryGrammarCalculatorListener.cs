@@ -2051,7 +2051,38 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_Max_Array([NotNull] EveryGrammarParser.Math_Max_ArrayContext context) { }
+        public void ExitMath_Max_Array([NotNull] EveryGrammarParser.Math_Max_ArrayContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            if (childValues[0] is List<object> list)
+            {
+                decimal max = decimal.MinValue;
+                foreach (var value in list)
+                    max = Math.Max(max, Convert.ToDecimal(value));
+                Node.Value = max;
+            }
+            else
+                Node.Value = Convert.ToDecimal(childValues[0]);
+
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Max_Two</c>
@@ -2094,7 +2125,38 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_Min_Array([NotNull] EveryGrammarParser.Math_Min_ArrayContext context) { }
+        public void ExitMath_Min_Array([NotNull] EveryGrammarParser.Math_Min_ArrayContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            if (childValues[0] is List<object> list)
+            {
+                decimal min = decimal.MaxValue;
+                foreach (var value in list)
+                    min = Math.Min(min, Convert.ToDecimal(value));
+                Node.Value = min;
+            }
+            else
+                Node.Value = Convert.ToDecimal(childValues[0]);
+
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Min_Two</c>
