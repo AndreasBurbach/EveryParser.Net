@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using IErrorNode = Antlr4.Runtime.Tree.IErrorNode;
-using ITerminalNode = Antlr4.Runtime.Tree.ITerminalNode;
-using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 
 namespace EveryParser
 {
@@ -888,7 +885,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterFactor_Not([NotNull] EveryGrammarParser.Factor_NotContext context) { }
+        public void EnterFactor_Not([NotNull] EveryGrammarParser.Factor_NotContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Factor_Not</c>
@@ -985,32 +985,6 @@ namespace EveryParser
             Func<object, object> calculation = x => (object)~Convert.ToInt64(x);
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
-        }
-
-        /// <summary>
-        /// Enter a parse tree produced by the <c>Factor_Brackets</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void EnterFactor_Brackets([NotNull] EveryGrammarParser.Factor_BracketsContext context)
-        {
-            //    var childNode = Node.AddChildNode();
-            //    Node = childNode;
-        }
-
-        /// <summary>
-        /// Exit a parse tree produced by the <c>Factor_Brackets</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitFactor_Brackets([NotNull] EveryGrammarParser.Factor_BracketsContext context)
-        {
-            //if (ErrorCollector.CheckHasParams(context, Node.Children))
-            //    Node.Value = Node.Children[0].Value;
-            //else
-            //    Result = null;
         }
 
         /// <summary>
@@ -1167,7 +1141,13 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void EnterFactor_String([NotNull] EveryGrammarParser.Factor_StringContext context)
         {
-            Node.AddChildNode(context.GetText());
+            var text = context.GetText();
+            if (string.IsNullOrWhiteSpace(text) || text.Length == 2)
+                text = string.Empty;
+            else
+                text = text.Substring(1, text.Length - 2);
+
+            Node.AddChildNode(text);
         }
 
         /// <summary>
@@ -1177,118 +1157,6 @@ namespace EveryParser
         /// </summary>
         /// <param name="context">The parse tree.</param>
         public void ExitFactor_String([NotNull] EveryGrammarParser.Factor_StringContext context) { }
-
-        /// <summary>
-        /// Enter a parse tree produced by the <c>Factor_Array</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void EnterFactor_Array([NotNull] EveryGrammarParser.Factor_ArrayContext context) { }
-
-        /// <summary>
-        /// Exit a parse tree produced by the <c>Factor_Array</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitFactor_Array([NotNull] EveryGrammarParser.Factor_ArrayContext context) { }
-
-        /// <summary>
-        /// Enter a parse tree produced by the <c>Factor_DefaultFunction</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void EnterFactor_DefaultFunction([NotNull] EveryGrammarParser.Factor_DefaultFunctionContext context) { }
-
-        /// <summary>
-        /// Exit a parse tree produced by the <c>Factor_DefaultFunction</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitFactor_DefaultFunction([NotNull] EveryGrammarParser.Factor_DefaultFunctionContext context) { }
-
-        /// <summary>
-        /// Enter a parse tree produced by the <c>Factor_MathFunction</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void EnterFactor_MathFunction([NotNull] EveryGrammarParser.Factor_MathFunctionContext context) { }
-
-        /// <summary>
-        /// Exit a parse tree produced by the <c>Factor_MathFunction</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitFactor_MathFunction([NotNull] EveryGrammarParser.Factor_MathFunctionContext context) { }
-
-        /// <summary>
-        /// Enter a parse tree produced by the <c>Factor_StatisticMathFunction</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void EnterFactor_StatisticMathFunction([NotNull] EveryGrammarParser.Factor_StatisticMathFunctionContext context) { }
-
-        /// <summary>
-        /// Exit a parse tree produced by the <c>Factor_StatisticMathFunction</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitFactor_StatisticMathFunction([NotNull] EveryGrammarParser.Factor_StatisticMathFunctionContext context) { }
-
-        /// <summary>
-        /// Enter a parse tree produced by the <c>ArraySlicing_Indexing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void EnterArraySlicing_Indexing([NotNull] EveryGrammarParser.ArraySlicing_IndexingContext context) { }
-
-        /// <summary>
-        /// Exit a parse tree produced by the <c>ArraySlicing_Indexing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitArraySlicing_Indexing([NotNull] EveryGrammarParser.ArraySlicing_IndexingContext context) { }
-
-        /// <summary>
-        /// Enter a parse tree produced by the <c>ArraySlicing_Slicing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void EnterArraySlicing_Slicing([NotNull] EveryGrammarParser.ArraySlicing_SlicingContext context) { }
-
-        /// <summary>
-        /// Exit a parse tree produced by the <c>ArraySlicing_Slicing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitArraySlicing_Slicing([NotNull] EveryGrammarParser.ArraySlicing_SlicingContext context) { }
-
-        /// <summary>
-        /// Enter a parse tree produced by the <c>ArraySlicing_StepSlicing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void EnterArraySlicing_StepSlicing([NotNull] EveryGrammarParser.ArraySlicing_StepSlicingContext context) { }
-
-        /// <summary>
-        /// Exit a parse tree produced by the <c>ArraySlicing_StepSlicing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitArraySlicing_StepSlicing([NotNull] EveryGrammarParser.ArraySlicing_StepSlicingContext context) { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Function_Concat</c>
@@ -2428,7 +2296,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterMathStatistic_Mean([NotNull] EveryGrammarParser.MathStatistic_MeanContext context) { }
+        public void EnterMathStatistic_Mean([NotNull] EveryGrammarParser.MathStatistic_MeanContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>MathStatistic_Mean</c>
@@ -2444,7 +2315,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterMathStatistic_Median([NotNull] EveryGrammarParser.MathStatistic_MedianContext context) { }
+        public void EnterMathStatistic_Median([NotNull] EveryGrammarParser.MathStatistic_MedianContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>MathStatistic_Median</c>
@@ -2460,7 +2334,10 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterMathStatistic_Variance([NotNull] EveryGrammarParser.MathStatistic_VarianceContext context) { }
+        public void EnterMathStatistic_Variance([NotNull] EveryGrammarParser.MathStatistic_VarianceContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>MathStatistic_Variance</c>
@@ -2469,20 +2346,6 @@ namespace EveryParser
         /// </summary>
         /// <param name="context">The parse tree.</param>
         public void ExitMathStatistic_Variance([NotNull] EveryGrammarParser.MathStatistic_VarianceContext context) { }
-
-        /// <summary>
-        /// Enter a parse tree produced by <see cref="EveryGrammarParser.expr_args"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void EnterExpr_args([NotNull] EveryGrammarParser.Expr_argsContext context) { }
-
-        /// <summary>
-        /// Exit a parse tree produced by <see cref="EveryGrammarParser.expr_args"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitExpr_args([NotNull] EveryGrammarParser.Expr_argsContext context) { }
 
         /// Enter a parse tree produced by the <c>ArrayCreation_Empty</c>
         /// labeled alternative in <see cref="EveryGrammarParser.array_expr"/>.
@@ -2535,21 +2398,5 @@ namespace EveryParser
             Node.Value = new List<object>(childValues);
             Node = Node.Parent;
         }
-
-        /// <inheritdoc/>
-        /// <remarks>The default implementation does nothing.</remarks>
-        public void EnterEveryRule([NotNull] ParserRuleContext context) { }
-
-        /// <inheritdoc/>
-        /// <remarks>The default implementation does nothing.</remarks>
-        public void ExitEveryRule([NotNull] ParserRuleContext context) { }
-
-        /// <inheritdoc/>
-        /// <remarks>The default implementation does nothing.</remarks>
-        public void VisitTerminal([NotNull] ITerminalNode node) { }
-
-        /// <inheritdoc/>
-        /// <remarks>The default implementation does nothing.</remarks>
-        public void VisitErrorNode([NotNull] IErrorNode node) { }
     }
 }
