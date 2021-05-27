@@ -1620,22 +1620,6 @@ public partial class EveryGrammarParser : Parser {
 			base.CopyFrom(context);
 		}
 	}
-	public partial class PointTerm_FactorContext : Point_termContext {
-		[System.Diagnostics.DebuggerNonUserCode] public FactorContext factor() {
-			return GetRuleContext<FactorContext>(0);
-		}
-		public PointTerm_FactorContext(Point_termContext context) { CopyFrom(context); }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
-			if (typedListener != null) typedListener.EnterPointTerm_Factor(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
-			if (typedListener != null) typedListener.ExitPointTerm_Factor(this);
-		}
-	}
 	public partial class PointTerm_PowerOperatorContext : Point_termContext {
 		[System.Diagnostics.DebuggerNonUserCode] public Point_termContext point_term() {
 			return GetRuleContext<Point_termContext>(0);
@@ -1776,6 +1760,22 @@ public partial class EveryGrammarParser : Parser {
 			if (typedListener != null) typedListener.ExitPointTerm_Divide(this);
 		}
 	}
+	public partial class PointTerm_NextContext : Point_termContext {
+		[System.Diagnostics.DebuggerNonUserCode] public FactorContext factor() {
+			return GetRuleContext<FactorContext>(0);
+		}
+		public PointTerm_NextContext(Point_termContext context) { CopyFrom(context); }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
+			if (typedListener != null) typedListener.EnterPointTerm_Next(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
+			if (typedListener != null) typedListener.ExitPointTerm_Next(this);
+		}
+	}
 
 	[RuleVersion(0)]
 	public Point_termContext point_term() {
@@ -1794,7 +1794,7 @@ public partial class EveryGrammarParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			{
-			_localctx = new PointTerm_FactorContext(_localctx);
+			_localctx = new PointTerm_NextContext(_localctx);
 			Context = _localctx;
 			_prevctx = _localctx;
 

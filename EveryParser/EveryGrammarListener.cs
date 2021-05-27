@@ -412,18 +412,6 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitLine_Next([NotNull] EveryGrammarParser.Line_NextContext context);
 	/// <summary>
-	/// Enter a parse tree produced by the <c>PointTerm_Factor</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.point_term"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterPointTerm_Factor([NotNull] EveryGrammarParser.PointTerm_FactorContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>PointTerm_Factor</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.point_term"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitPointTerm_Factor([NotNull] EveryGrammarParser.PointTerm_FactorContext context);
-	/// <summary>
 	/// Enter a parse tree produced by the <c>PointTerm_PowerOperator</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.point_term"/>.
 	/// </summary>
@@ -507,6 +495,18 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitPointTerm_Divide([NotNull] EveryGrammarParser.PointTerm_DivideContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>PointTerm_Next</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.point_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPointTerm_Next([NotNull] EveryGrammarParser.PointTerm_NextContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>PointTerm_Next</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.point_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPointTerm_Next([NotNull] EveryGrammarParser.PointTerm_NextContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>Factor_Not</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.factor"/>.

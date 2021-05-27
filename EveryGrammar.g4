@@ -53,7 +53,7 @@ line_term:
 	| line_term SUBTRACT point_term	# Line_Subtraction;
 
 point_term:
-	factor								# PointTerm_Factor
+	factor								# PointTerm_Next
 	| point_term MULTIPLY factor		# PointTerm_Multiply
 	| point_term POWEROPERATOR factor	# PointTerm_PowerOperator
 	| point_term MODULO factor			# PointTerm_Modulo
