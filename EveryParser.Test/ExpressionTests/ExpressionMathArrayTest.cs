@@ -3,7 +3,7 @@ using Xunit;
 
 namespace EveryParser.Test.ExpressionTest
 {
-    public class ExpressionArrayTest
+    public class ExpressionMathArrayTest
     {
         [Fact]
         public void MathArrayTests()
@@ -86,7 +86,7 @@ namespace EveryParser.Test.ExpressionTest
 
             Assert.Equal(MathNet.Numerics.Statistics.ArrayStatistics.Covariance(new double[] { 1, 2, 3, 4, 5.5 }, new double[] { 1, 2, 3, 4, 5.5 }), (double)Expression.CalculateDecimal("covariance([1,2,3,4,5.5], [1,2,3,4,5.5])"));
 
-            Assert.Equal(MathNet.Numerics.Statistics.ArrayStatistics.StandardDeviation(new double[] { 1, 2, 3, 4, 5.5 }), (double)Expression.CalculateDecimal("std([1,2,3,4,5.5])"));
+            Assert.Equal(MathNet.Numerics.Statistics.ArrayStatistics.StandardDeviation(new double[] { 1, 2, 3, 4, 5.5 }), (double)Expression.CalculateDecimal("std([1,2,3,4,5.5])"), 12);
 
             Assert.Equal(MathNet.Numerics.Statistics.ArrayStatistics.QuantileInplace(new double[] { 1, 2, 3, 4, 5.5 }, 0.75), (double)Expression.CalculateDecimal("quantil([1,2,3,4,5.5], 0.75)"));
 

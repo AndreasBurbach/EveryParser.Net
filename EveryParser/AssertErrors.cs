@@ -25,7 +25,9 @@ namespace EveryParser
         SecondParamIsNotArray,
         IsNotArray,
         IsNotDateTime,
-        IsNotNumberArray
+        IsNotNumberArray,
+        FirstNotNumberArray,
+        SecondNotNumber
     }
 
     public class AssertErrors
@@ -61,12 +63,11 @@ namespace EveryParser
         /// <returns>true if one parameters is null</returns>
         public bool CheckIsNull(ParserRuleContext context, params object[] childs)
         {
-            foreach (var child in childs)
-                if (child is null)
-                {
-                    _errors.Add((ErrorCode.IsNull, $"One or more values are null {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
-                    return true;
-                }
+            if (TypeCheckHelper.IsOneOfNull(childs))
+            {
+                _errors.Add((ErrorCode.IsNull, $"One or more values are null {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                return true;
+            }
 
             return false;
         }
@@ -79,12 +80,11 @@ namespace EveryParser
         /// <returns>true if types are numbers (int, long, double, decimal)</returns>
         public bool CheckIsNumber(ParserRuleContext context, params object[] childs)
         {
-            foreach (var child in childs)
-                if (!(child is int || child is long || child is double || child is decimal))
-                {
-                    _errors.Add((ErrorCode.IsNotNumber, $"One or more values are not numbers {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
-                    return false;
-                }
+            if (!TypeCheckHelper.IsArrayOfNumber(childs))
+            {
+                _errors.Add((ErrorCode.IsNotNumber, $"One or more values are not numbers {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                return false;
+            }
 
             return true;
         }
@@ -97,16 +97,14 @@ namespace EveryParser
         /// <returns>true if types are numbers (int, long, double, decimal)</returns>
         public bool CheckIsNumberOrArrayOfNumbers(ParserRuleContext context, params object[] childs)
         {
-            foreach (var child in childs)
-                if (!(child is int || child is long || child is double || child is decimal || (child is List<object> list && list.All(x => x is int || x is long || x is double || x is decimal))))
-                {
-                    _errors.Add((ErrorCode.IsNotNumber, $"One or more values are not numbers or array of numbers {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
-                    return false;
-                }
+            if (!TypeCheckHelper.IsArrayOfNumberOrNumberList(childs))
+            {
+                _errors.Add((ErrorCode.IsNotNumber, $"One or more values are not numbers or array of numbers {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                return false;
+            }
 
             return true;
         }
-
 
         /// <summary>
         /// Check if all parameters are type of  array with numbers (int, long, double, decimal)
@@ -116,12 +114,11 @@ namespace EveryParser
         /// <returns>true if types are array pf numbers (int, long, double, decimal)</returns>
         public bool CheckIsListOfNumbers(ParserRuleContext context, params object[] childs)
         {
-            foreach (var child in childs)
-                if (!(child is List<object> list && list.All(x => x is int || x is long || x is double || x is decimal)))
-                {
-                    _errors.Add((ErrorCode.IsNotNumberArray, $"One or more values are not array of numbers {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
-                    return false;
-                }
+            if (!TypeCheckHelper.IsArrayOfNumberList(childs))
+            {
+                _errors.Add((ErrorCode.IsNotNumberArray, $"One or more values are not array of numbers {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                return false;
+            }
 
             return true;
         }
@@ -134,12 +131,11 @@ namespace EveryParser
         /// <returns>true if types are numbers (int, long, double, decimal)</returns>
         public bool CheckIsStringOrArrayOfStrings(ParserRuleContext context, params object[] childs)
         {
-            foreach (var child in childs)
-                if (!(child is string || (child is List<object> list && list.All(x => x is string))))
-                {
-                    _errors.Add((ErrorCode.IsNotString, $"One or more values are not string or array of strings {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
-                    return false;
-                }
+            if (!TypeCheckHelper.IsArrayOfStringOrStringList(childs))
+            {
+                _errors.Add((ErrorCode.IsNotString, $"One or more values are not string or array of strings {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                return false;
+            }
 
             return true;
         }
@@ -152,12 +148,11 @@ namespace EveryParser
         /// <returns>true if types are boolean</returns>
         public bool CheckIsBoolean(ParserRuleContext context, params object[] childs)
         {
-            foreach (var child in childs)
-                if (bool.TryParse(child.ToString(), out _))
-                {
-                    _errors.Add((ErrorCode.IsNotBoolean, $"One or more values are not boolean {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
-                    return false;
-                }
+            if (!TypeCheckHelper.IsArrayOfBoolean(childs))
+            {
+                _errors.Add((ErrorCode.IsNotBoolean, $"One or more values are not boolean {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                return false;
+            }
 
             return true;
         }
@@ -170,12 +165,11 @@ namespace EveryParser
         /// <returns>true if types are boolean</returns>
         public bool CheckIsList(ParserRuleContext context, params object[] childs)
         {
-            foreach (var child in childs)
-                if (!(child is List<object>))
-                {
-                    _errors.Add((ErrorCode.IsNotArray, $"One or more values are not an array {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
-                    return false;
-                }
+            if (!TypeCheckHelper.IsArrayOfObjectList(childs))
+            {
+                _errors.Add((ErrorCode.IsNotArray, $"One or more values are not an array {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                return false;
+            }
 
             return true;
         }
@@ -203,7 +197,6 @@ namespace EveryParser
 
             return false;
         }
-
 
         /// <summary>
         /// Check if all parameters are type of DateTime

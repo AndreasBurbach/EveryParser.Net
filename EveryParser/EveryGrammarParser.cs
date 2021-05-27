@@ -89,7 +89,7 @@ public partial class EveryGrammarParser : Parser {
 		"'norm('", "'eulernorm('", "'maxnorm('", "'gcd('", "'lcm('", "'dotproduct('", 
 		"'binomial('", "'acot('", "'acoth('", "'acsc('", "'acsch('", "'asec('", 
 		"'asech('", "'cot('", "'coth('", "'csc('", "'csch('", "'sec('", "'sech('", 
-		"'covariance('", "'mean('", "'median('", "'pearson('", "'quantil('", "'spearman'", 
+		"'covariance('", "'mean('", "'median('", "'pearson('", "'quantil('", "'spearman('", 
 		"'std('", "'variance('", "'concat('", "'count('", "'distinct('", "'difference('", 
 		"'duplicates('", "'date('", "'except('", "'indexOf('", "'lower('", "'reverse('", 
 		"'union('", "'upper('", "'any('", "'sort('", "'tonumber('", "'tostring('", 

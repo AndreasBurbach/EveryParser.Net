@@ -301,7 +301,7 @@ MEAN: 'mean(';
 MEDIAN: 'median(';
 PEARSON: 'pearson(';
 QUANTIL: 'quantil(';
-SPEARMAN: 'spearman';
+SPEARMAN: 'spearman(';
 STD: 'std(';
 VARIANCE: 'variance(';
 
