@@ -33,8 +33,7 @@ namespace EveryParser
         {
             if (!ErrorCollector.CheckHasParams(context, Node.Children))
             {
-                Node.Value = null;
-                Node = Node.Parent;
+                SetErrorNodeFor_ExitFactor_DateTimeTerm();
                 return;
             }
 
