@@ -75,6 +75,16 @@ namespace EveryParser.Test.ExpressionTest
             Assert.Equal(ToDecimalArray(new object[] { Math.Truncate(1.234), Math.Truncate(2.234) }), ToDecimalArray(Expression.CalculateArray("truncate([1.234, 2.234])")));
         }
 
+        [Fact]
+        public void MathStatisticsArrayTests()
+        {
+            Assert.Equal(MathNet.Numerics.Statistics.ArrayStatistics.Mean(new double[] { 1, 2, 3, 4, 5.5 }), (double)Expression.CalculateDecimal("mean([1,2,3,4,5.5])"));
+
+            Assert.Equal(MathNet.Numerics.Statistics.ArrayStatistics.MedianInplace(new double[] { 1, 2, 3, 4, 5.5 }), (double)Expression.CalculateDecimal("median([1,2,3,4,5.5])"));
+
+            Assert.Equal(MathNet.Numerics.Statistics.ArrayStatistics.Variance(new double[] { 1, 2, 3, 4, 5.5 }), (double)Expression.CalculateDecimal("variance([1,2,3,4,5.5])"));
+        }
+
         private static decimal[] ToDecimalArray(object[] array)
         {
             decimal[] result = new decimal[array.Length];

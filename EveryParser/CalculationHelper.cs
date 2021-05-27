@@ -129,7 +129,7 @@ namespace EveryParser
         }
 
         /// <summary>
-        /// Calculations for List(obect) with 1 childs in Node
+        /// Calculations for List(object) with 1 childs in Node
         /// </summary>
         /// <param name="context"></param>
         /// <param name="errorCollector"></param>
@@ -146,6 +146,29 @@ namespace EveryParser
             if (!errorCollector.CheckParamsCount(context, 1, childValues) ||
                 errorCollector.CheckIsNull(context, childValues) ||
                 !errorCollector.CheckIsList(context, childValues))
+                return null;
+
+            return calculationExpression.Invoke((List<object>)childValues[0]);
+        }
+
+        /// <summary>
+        /// Calculations for List(number) with 1 childs in Node
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="errorCollector"></param>
+        /// <param name="calculationExpression"></param>
+        /// <param name="children"></param>
+        /// <returns></returns>
+        internal static object CalcListOfNumbersUnary(ParserRuleContext context, AssertErrors errorCollector, Func<List<object>, object> calculationExpression, List<NodeCalculator> children)
+        {
+            if (!errorCollector.CheckHasParams(context, children))
+                return null;
+
+            var childValues = children.Select(child => child.Value).ToArray();
+
+            if (!errorCollector.CheckParamsCount(context, 1, childValues) ||
+                errorCollector.CheckIsNull(context, childValues) ||
+                !errorCollector.CheckIsListOfNumbers(context, childValues))
                 return null;
 
             return calculationExpression.Invoke((List<object>)childValues[0]);

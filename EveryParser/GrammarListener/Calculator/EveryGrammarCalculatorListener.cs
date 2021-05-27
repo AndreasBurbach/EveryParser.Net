@@ -1,5 +1,6 @@
 using Antlr4.Runtime.Misc;
 using EveryParser.Compare;
+using MathNet.Numerics.Statistics;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -2307,7 +2308,12 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMathStatistic_Mean([NotNull] EveryGrammarParser.MathStatistic_MeanContext context) { }
+        public void ExitMathStatistic_Mean([NotNull] EveryGrammarParser.MathStatistic_MeanContext context)
+        {
+            Func<List<object>, object> calculation = list => (object)ArrayStatistics.Mean(Array.ConvertAll(list.ToArray(), x => Convert.ToDouble(x)));
+            Node.Value = CalculationHelper.CalcListUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>MathStatistic_Median</c>
@@ -2326,7 +2332,12 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMathStatistic_Median([NotNull] EveryGrammarParser.MathStatistic_MedianContext context) { }
+        public void ExitMathStatistic_Median([NotNull] EveryGrammarParser.MathStatistic_MedianContext context)
+        {
+            Func<List<object>, object> calculation = list => (object)ArrayStatistics.MedianInplace(Array.ConvertAll(list.ToArray(), x => Convert.ToDouble(x)));
+            Node.Value = CalculationHelper.CalcListUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>MathStatistic_Variance</c>
@@ -2345,7 +2356,12 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMathStatistic_Variance([NotNull] EveryGrammarParser.MathStatistic_VarianceContext context) { }
+        public void ExitMathStatistic_Variance([NotNull] EveryGrammarParser.MathStatistic_VarianceContext context)
+        {
+            Func<List<object>, object> calculation = list => (object)ArrayStatistics.Variance(Array.ConvertAll(list.ToArray(), x => Convert.ToDouble(x)));
+            Node.Value = CalculationHelper.CalcListUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// Enter a parse tree produced by the <c>ArrayCreation_Empty</c>
         /// labeled alternative in <see cref="EveryGrammarParser.array_expr"/>.
