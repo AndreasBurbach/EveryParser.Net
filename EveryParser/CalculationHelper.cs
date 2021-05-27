@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace EveryParser
 {
-    internal static class CalculationHelper
+    public static class CalculationHelper
     {
         /// <summary>
         /// Calculations for Numeric and Numeric Arrays with 1 childs in Node
@@ -195,6 +195,55 @@ namespace EveryParser
                 return null;
 
             return calculationExpression.Invoke((List<object>)childValues[0], (List<object>)childValues[0]);
+        }
+
+        /// <summary>
+        /// Calculate the n-th factorial
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static long CalcFactorial(long n)
+        {
+            switch (n)
+            {
+                case 0:
+                case 1:
+                    return 1;
+
+                case 2:
+                    return 2;
+
+                case 3:
+                    return 6;
+
+                case 4:
+                    return 14;
+
+                case 5:
+                    return 120;
+
+                case 6:
+                    return 720;
+
+                case 7:
+                    return 5040;
+
+                case 8:
+                    return 40320;
+
+                case 9:
+                    return 362880;
+
+                case 10:
+                    return 3628800;
+            }
+
+            long val = 1;
+
+            for (long i = 1; i <= n; i += 1)
+                val *= i;
+
+            return val;
         }
     }
 }

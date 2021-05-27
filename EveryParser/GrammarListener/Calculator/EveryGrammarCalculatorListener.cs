@@ -1216,7 +1216,9 @@ namespace EveryParser
         /// </summary>
         /// <param name="context">The parse tree.</param>
         public void EnterFactor_Factorial([NotNull] EveryGrammarParser.Factor_FactorialContext context)
-        { }
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Factor_Factorial</c>
@@ -1224,7 +1226,11 @@ namespace EveryParser
         /// </summary>
         /// <param name="context">The parse tree.</param>
         public void ExitFactor_Factorial([NotNull] EveryGrammarParser.Factor_FactorialContext context)
-        { }
+        {
+            Func<object, object> calculation = x => (object)CalculationHelper.CalcFactorial(Convert.ToInt64(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Random_Decimal</c>
