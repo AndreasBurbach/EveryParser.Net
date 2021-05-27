@@ -353,5 +353,33 @@ namespace EveryParser
         /// <inheritdoc/>
         /// <remarks>The default implementation does nothing.</remarks>
         public void VisitErrorNode([NotNull] IErrorNode node) { }
+
+        /// <summary>
+        /// Enter a parse tree produced by the <c>Factor_ConvertFunction</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void EnterFactor_ConvertFunction([NotNull] EveryGrammarParser.Factor_ConvertFunctionContext context) { }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>Factor_ConvertFunction</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitFactor_ConvertFunction([NotNull] EveryGrammarParser.Factor_ConvertFunctionContext context) { }
+
+        /// <summary>
+        /// Enter a parse tree produced by the <c>Factor_RandomFunction</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void EnterFactor_RandomFunction([NotNull] EveryGrammarParser.Factor_RandomFunctionContext context) { }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>Factor_RandomFunction</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitFactor_RandomFunction([NotNull] EveryGrammarParser.Factor_RandomFunctionContext context) { }
     }
 }

@@ -556,6 +556,18 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitFactor_Tilde([NotNull] EveryGrammarParser.Factor_TildeContext context);
 	/// <summary>
+	/// Enter a parse tree produced by the <c>Factor_Factorial</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterFactor_Factorial([NotNull] EveryGrammarParser.Factor_FactorialContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Factor_Factorial</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitFactor_Factorial([NotNull] EveryGrammarParser.Factor_FactorialContext context);
+	/// <summary>
 	/// Enter a parse tree produced by the <c>Factor_Brackets</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
 	/// </summary>
@@ -688,6 +700,18 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitFactor_DefaultFunction([NotNull] EveryGrammarParser.Factor_DefaultFunctionContext context);
 	/// <summary>
+	/// Enter a parse tree produced by the <c>Factor_ConvertFunction</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterFactor_ConvertFunction([NotNull] EveryGrammarParser.Factor_ConvertFunctionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Factor_ConvertFunction</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitFactor_ConvertFunction([NotNull] EveryGrammarParser.Factor_ConvertFunctionContext context);
+	/// <summary>
 	/// Enter a parse tree produced by the <c>Factor_MathFunction</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
 	/// </summary>
@@ -700,6 +724,18 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitFactor_MathFunction([NotNull] EveryGrammarParser.Factor_MathFunctionContext context);
 	/// <summary>
+	/// Enter a parse tree produced by the <c>Factor_RandomFunction</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterFactor_RandomFunction([NotNull] EveryGrammarParser.Factor_RandomFunctionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Factor_RandomFunction</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitFactor_RandomFunction([NotNull] EveryGrammarParser.Factor_RandomFunctionContext context);
+	/// <summary>
 	/// Enter a parse tree produced by the <c>Factor_StatisticMathFunction</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
 	/// </summary>
@@ -711,6 +747,186 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitFactor_StatisticMathFunction([NotNull] EveryGrammarParser.Factor_StatisticMathFunctionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Random_Decimal</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRandom_Decimal([NotNull] EveryGrammarParser.Random_DecimalContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Random_Decimal</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRandom_Decimal([NotNull] EveryGrammarParser.Random_DecimalContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Random_DecimalArray</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRandom_DecimalArray([NotNull] EveryGrammarParser.Random_DecimalArrayContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Random_DecimalArray</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRandom_DecimalArray([NotNull] EveryGrammarParser.Random_DecimalArrayContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Random_Integer</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRandom_Integer([NotNull] EveryGrammarParser.Random_IntegerContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Random_Integer</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRandom_Integer([NotNull] EveryGrammarParser.Random_IntegerContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Random_IntegerArray</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRandom_IntegerArray([NotNull] EveryGrammarParser.Random_IntegerArrayContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Random_IntegerArray</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRandom_IntegerArray([NotNull] EveryGrammarParser.Random_IntegerArrayContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Random_Seed</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRandom_Seed([NotNull] EveryGrammarParser.Random_SeedContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Random_Seed</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRandom_Seed([NotNull] EveryGrammarParser.Random_SeedContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Convert_ToArray</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterConvert_ToArray([NotNull] EveryGrammarParser.Convert_ToArrayContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Convert_ToArray</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitConvert_ToArray([NotNull] EveryGrammarParser.Convert_ToArrayContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Convert_ToBoolean</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterConvert_ToBoolean([NotNull] EveryGrammarParser.Convert_ToBooleanContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Convert_ToBoolean</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitConvert_ToBoolean([NotNull] EveryGrammarParser.Convert_ToBooleanContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Convert_ToNumber</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterConvert_ToNumber([NotNull] EveryGrammarParser.Convert_ToNumberContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Convert_ToNumber</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitConvert_ToNumber([NotNull] EveryGrammarParser.Convert_ToNumberContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Convert_ToString</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterConvert_ToString([NotNull] EveryGrammarParser.Convert_ToStringContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Convert_ToString</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitConvert_ToString([NotNull] EveryGrammarParser.Convert_ToStringContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Convert_DegreeToGread</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterConvert_DegreeToGread([NotNull] EveryGrammarParser.Convert_DegreeToGreadContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Convert_DegreeToGread</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitConvert_DegreeToGread([NotNull] EveryGrammarParser.Convert_DegreeToGreadContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Convert_DegreeToRadian</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterConvert_DegreeToRadian([NotNull] EveryGrammarParser.Convert_DegreeToRadianContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Convert_DegreeToRadian</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitConvert_DegreeToRadian([NotNull] EveryGrammarParser.Convert_DegreeToRadianContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Convert_GradToDegree</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterConvert_GradToDegree([NotNull] EveryGrammarParser.Convert_GradToDegreeContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Convert_GradToDegree</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitConvert_GradToDegree([NotNull] EveryGrammarParser.Convert_GradToDegreeContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Convert_GradToRadian</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterConvert_GradToRadian([NotNull] EveryGrammarParser.Convert_GradToRadianContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Convert_GradToRadian</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitConvert_GradToRadian([NotNull] EveryGrammarParser.Convert_GradToRadianContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Convert_RadianToDegree</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterConvert_RadianToDegree([NotNull] EveryGrammarParser.Convert_RadianToDegreeContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Convert_RadianToDegree</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitConvert_RadianToDegree([NotNull] EveryGrammarParser.Convert_RadianToDegreeContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Convert_RadianToGrad</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterConvert_RadianToGrad([NotNull] EveryGrammarParser.Convert_RadianToGradContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Convert_RadianToGrad</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitConvert_RadianToGrad([NotNull] EveryGrammarParser.Convert_RadianToGradContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>DateTime_Expression</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.datetime_term"/>.
@@ -856,6 +1072,18 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitFunction_Distinc([NotNull] EveryGrammarParser.Function_DistincContext context);
 	/// <summary>
+	/// Enter a parse tree produced by the <c>Function_Difference</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterFunction_Difference([NotNull] EveryGrammarParser.Function_DifferenceContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Function_Difference</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitFunction_Difference([NotNull] EveryGrammarParser.Function_DifferenceContext context);
+	/// <summary>
 	/// Enter a parse tree produced by the <c>Function_Duplicates</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
 	/// </summary>
@@ -867,6 +1095,18 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitFunction_Duplicates([NotNull] EveryGrammarParser.Function_DuplicatesContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Function_Except</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterFunction_Except([NotNull] EveryGrammarParser.Function_ExceptContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Function_Except</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitFunction_Except([NotNull] EveryGrammarParser.Function_ExceptContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>Function_IndexOf</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
@@ -915,6 +1155,30 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitFunction_Upper([NotNull] EveryGrammarParser.Function_UpperContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Function_Any</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterFunction_Any([NotNull] EveryGrammarParser.Function_AnyContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Function_Any</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitFunction_Any([NotNull] EveryGrammarParser.Function_AnyContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Function_Sort</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterFunction_Sort([NotNull] EveryGrammarParser.Function_SortContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Function_Sort</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitFunction_Sort([NotNull] EveryGrammarParser.Function_SortContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>Math_Abs</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
@@ -1288,6 +1552,18 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitMath_SinH([NotNull] EveryGrammarParser.Math_SinHContext context);
 	/// <summary>
+	/// Enter a parse tree produced by the <c>Math_Slope</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMath_Slope([NotNull] EveryGrammarParser.Math_SlopeContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Math_Slope</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMath_Slope([NotNull] EveryGrammarParser.Math_SlopeContext context);
+	/// <summary>
 	/// Enter a parse tree produced by the <c>Math_Sqrt</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
 	/// </summary>
@@ -1336,6 +1612,258 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitMath_Truncate([NotNull] EveryGrammarParser.Math_TruncateContext context);
 	/// <summary>
+	/// Enter a parse tree produced by the <c>Math_Distance</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMath_Distance([NotNull] EveryGrammarParser.Math_DistanceContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Math_Distance</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMath_Distance([NotNull] EveryGrammarParser.Math_DistanceContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Math_Norm</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMath_Norm([NotNull] EveryGrammarParser.Math_NormContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Math_Norm</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMath_Norm([NotNull] EveryGrammarParser.Math_NormContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Math_EulerNorm</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMath_EulerNorm([NotNull] EveryGrammarParser.Math_EulerNormContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Math_EulerNorm</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMath_EulerNorm([NotNull] EveryGrammarParser.Math_EulerNormContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Math_MaxNorm</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMath_MaxNorm([NotNull] EveryGrammarParser.Math_MaxNormContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Math_MaxNorm</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMath_MaxNorm([NotNull] EveryGrammarParser.Math_MaxNormContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Math_GreatesCommonDivisor</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMath_GreatesCommonDivisor([NotNull] EveryGrammarParser.Math_GreatesCommonDivisorContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Math_GreatesCommonDivisor</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMath_GreatesCommonDivisor([NotNull] EveryGrammarParser.Math_GreatesCommonDivisorContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Math_LeastCommonMultiple</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMath_LeastCommonMultiple([NotNull] EveryGrammarParser.Math_LeastCommonMultipleContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Math_LeastCommonMultiple</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMath_LeastCommonMultiple([NotNull] EveryGrammarParser.Math_LeastCommonMultipleContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Math_DotProduct</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMath_DotProduct([NotNull] EveryGrammarParser.Math_DotProductContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Math_DotProduct</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMath_DotProduct([NotNull] EveryGrammarParser.Math_DotProductContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Math_Binomila</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMath_Binomila([NotNull] EveryGrammarParser.Math_BinomilaContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Math_Binomila</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMath_Binomila([NotNull] EveryGrammarParser.Math_BinomilaContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Math_ACot</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMath_ACot([NotNull] EveryGrammarParser.Math_ACotContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Math_ACot</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMath_ACot([NotNull] EveryGrammarParser.Math_ACotContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Math_ACotH</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMath_ACotH([NotNull] EveryGrammarParser.Math_ACotHContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Math_ACotH</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMath_ACotH([NotNull] EveryGrammarParser.Math_ACotHContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Math_ACsc</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMath_ACsc([NotNull] EveryGrammarParser.Math_ACscContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Math_ACsc</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMath_ACsc([NotNull] EveryGrammarParser.Math_ACscContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Math_ACscH</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMath_ACscH([NotNull] EveryGrammarParser.Math_ACscHContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Math_ACscH</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMath_ACscH([NotNull] EveryGrammarParser.Math_ACscHContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Math_ASec</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMath_ASec([NotNull] EveryGrammarParser.Math_ASecContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Math_ASec</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMath_ASec([NotNull] EveryGrammarParser.Math_ASecContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Math_ASecH</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMath_ASecH([NotNull] EveryGrammarParser.Math_ASecHContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Math_ASecH</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMath_ASecH([NotNull] EveryGrammarParser.Math_ASecHContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Math_Cot</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMath_Cot([NotNull] EveryGrammarParser.Math_CotContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Math_Cot</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMath_Cot([NotNull] EveryGrammarParser.Math_CotContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Math_CotH</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMath_CotH([NotNull] EveryGrammarParser.Math_CotHContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Math_CotH</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMath_CotH([NotNull] EveryGrammarParser.Math_CotHContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Math_Csc</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMath_Csc([NotNull] EveryGrammarParser.Math_CscContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Math_Csc</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMath_Csc([NotNull] EveryGrammarParser.Math_CscContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Math_CscH</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMath_CscH([NotNull] EveryGrammarParser.Math_CscHContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Math_CscH</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMath_CscH([NotNull] EveryGrammarParser.Math_CscHContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Math_Sec</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMath_Sec([NotNull] EveryGrammarParser.Math_SecContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Math_Sec</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMath_Sec([NotNull] EveryGrammarParser.Math_SecContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Math_SecH</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMath_SecH([NotNull] EveryGrammarParser.Math_SecHContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Math_SecH</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMath_SecH([NotNull] EveryGrammarParser.Math_SecHContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>MathStatistic_CoVariance</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.statistic_math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMathStatistic_CoVariance([NotNull] EveryGrammarParser.MathStatistic_CoVarianceContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>MathStatistic_CoVariance</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.statistic_math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMathStatistic_CoVariance([NotNull] EveryGrammarParser.MathStatistic_CoVarianceContext context);
+	/// <summary>
 	/// Enter a parse tree produced by the <c>MathStatistic_Mean</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.statistic_math_function_term"/>.
 	/// </summary>
@@ -1359,6 +1887,54 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitMathStatistic_Median([NotNull] EveryGrammarParser.MathStatistic_MedianContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>MathStatistic_Pearson</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.statistic_math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMathStatistic_Pearson([NotNull] EveryGrammarParser.MathStatistic_PearsonContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>MathStatistic_Pearson</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.statistic_math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMathStatistic_Pearson([NotNull] EveryGrammarParser.MathStatistic_PearsonContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>MathStatistic_Quantil</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.statistic_math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMathStatistic_Quantil([NotNull] EveryGrammarParser.MathStatistic_QuantilContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>MathStatistic_Quantil</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.statistic_math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMathStatistic_Quantil([NotNull] EveryGrammarParser.MathStatistic_QuantilContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>MathStatistic_Spearman</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.statistic_math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMathStatistic_Spearman([NotNull] EveryGrammarParser.MathStatistic_SpearmanContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>MathStatistic_Spearman</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.statistic_math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMathStatistic_Spearman([NotNull] EveryGrammarParser.MathStatistic_SpearmanContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>MathStatistic_StD</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.statistic_math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMathStatistic_StD([NotNull] EveryGrammarParser.MathStatistic_StDContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>MathStatistic_StD</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.statistic_math_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMathStatistic_StD([NotNull] EveryGrammarParser.MathStatistic_StDContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>MathStatistic_Variance</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.statistic_math_function_term"/>.

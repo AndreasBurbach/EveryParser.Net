@@ -83,7 +83,18 @@ namespace EveryParser.Test.ExpressionTest
             Assert.Equal(MathNet.Numerics.Statistics.ArrayStatistics.MedianInplace(new double[] { 1, 2, 3, 4, 5.5 }), (double)Expression.CalculateDecimal("median([1,2,3,4,5.5])"));
 
             Assert.Equal(MathNet.Numerics.Statistics.ArrayStatistics.Variance(new double[] { 1, 2, 3, 4, 5.5 }), (double)Expression.CalculateDecimal("variance([1,2,3,4,5.5])"));
+
+            Assert.Equal(MathNet.Numerics.Statistics.ArrayStatistics.Covariance(new double[] { 1, 2, 3, 4, 5.5 }, new double[] { 1, 2, 3, 4, 5.5 }), (double)Expression.CalculateDecimal("covariance([1,2,3,4,5.5], [1,2,3,4,5.5])"));
+
+            Assert.Equal(MathNet.Numerics.Statistics.ArrayStatistics.StandardDeviation(new double[] { 1, 2, 3, 4, 5.5 }), (double)Expression.CalculateDecimal("std([1,2,3,4,5.5])"));
+
+            Assert.Equal(MathNet.Numerics.Statistics.ArrayStatistics.QuantileInplace(new double[] { 1, 2, 3, 4, 5.5 }, 0.75), (double)Expression.CalculateDecimal("quantil([1,2,3,4,5.5], 0.75)"));
+
+            Assert.Equal(MathNet.Numerics.Statistics.Correlation.Pearson(new double[] { 1, 2, 3, 4, 5.5 }, new double[] { 1, 2, 3, 4, 5.5 }), (double)Expression.CalculateDecimal("pearson([1,2,3,4,5.5], [1,2,3,4,5.5])"));
+
+            Assert.Equal(MathNet.Numerics.Statistics.Correlation.Spearman(new double[] { 1, 2, 3, 4, 5.5 }, new double[] { 1, 2, 3, 4, 5.5 }), (double)Expression.CalculateDecimal("spearman([1,2,3,4,5.5], [1,2,3,4,5.5])"));
         }
+
 
         private static decimal[] ToDecimalArray(object[] array)
         {
