@@ -16,7 +16,7 @@ namespace EveryParser
     /// of the available methods.
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.9.2")]
-    public partial class EveryGrammarBaseListener : IEveryGrammarListener
+    public partial class EveryGrammarCalculatorListener : IEveryGrammarListener
     {
         internal NodeCalculator Node;
         public AssertErrors ErrorCollector;

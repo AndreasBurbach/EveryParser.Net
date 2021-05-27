@@ -10,7 +10,7 @@ using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 
 namespace EveryParser
 {
-    public partial class EveryGrammarBaseListener
+    public partial class EveryGrammarCalculatorListener
     {
         /// <summary>
         /// Enter a parse tree produced by the <c>Factor_DateTimeTerm</c>

@@ -116,7 +116,7 @@ namespace EveryParser
         {
             SetFormular(formular, checkSyntax);
 
-            var listener = new EveryGrammarBaseListener();
+            var listener = new EveryGrammarCalculatorListener();
             ParseTreeWalker.Default.Walk(listener, GetParser(formular));
 
             return null;
@@ -134,7 +134,7 @@ namespace EveryParser
         {
             SetFormular(formular, checkSyntax);
 
-            var listener = new EveryGrammarBaseListener();
+            var listener = new EveryGrammarCalculatorListener();
             ParseTreeWalker.Default.Walk(listener, GetParser(formular));
 
             return false;
@@ -152,7 +152,7 @@ namespace EveryParser
         {
             SetFormular(formular, checkSyntax);
 
-            var listener = new EveryGrammarBaseListener();
+            var listener = new EveryGrammarCalculatorListener();
             ParseTreeWalker.Default.Walk(listener, GetParser(formular));
 
             return null;
@@ -170,7 +170,7 @@ namespace EveryParser
         {
             SetFormular(formular, checkSyntax);
 
-            var listener = new EveryGrammarBaseListener();
+            var listener = new EveryGrammarCalculatorListener();
             ParseTreeWalker.Default.Walk(listener, GetParser(formular));
 
             if (listener.ErrorCollector.HasErrors)
@@ -191,7 +191,7 @@ namespace EveryParser
         {
             SetFormular(formular, checkSyntax);
 
-            var listener = new EveryGrammarBaseListener();
+            var listener = new EveryGrammarCalculatorListener();
             ParseTreeWalker.Default.Walk(listener, GetParser(formular));
 
             if (listener.ErrorCollector.HasErrors)
