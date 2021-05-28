@@ -1227,7 +1227,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitFactor_Factorial([NotNull] EveryGrammarParser.Factor_FactorialContext context)
         {
-            Func<object, object> calculation = x => (object)CalculationHelper.CalcFactorial(Convert.ToInt64(x));
+            Func<object, object> calculation = x => (object)CalculationHelper.CalcFactorial(Convert.ToInt32(x));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -1287,20 +1287,6 @@ namespace EveryParser
         /// </summary>
         /// <param name="context">The parse tree.</param>
         public void ExitRandom_IntegerArray([NotNull] EveryGrammarParser.Random_IntegerArrayContext context) { }
-
-        /// <summary>
-        /// Enter a parse tree produced by the <c>Random_Seed</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void EnterRandom_Seed([NotNull] EveryGrammarParser.Random_SeedContext context) { }
-
-        /// <summary>
-        /// Exit a parse tree produced by the <c>Random_Seed</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitRandom_Seed([NotNull] EveryGrammarParser.Random_SeedContext context) { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Convert_ToArray</c>

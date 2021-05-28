@@ -91,7 +91,7 @@ namespace EveryParser
                 if (!(list1 is null) && list2 is null)
                     return list1.Select(x => calculationExpression(x, value2)).ToList();
                 else if (list1 is null && !(list2 is null))
-                    return list2.Select(x => calculationExpression(x, value1)).ToList();
+                    return list2.Select(x => calculationExpression(value1, x)).ToList();
                 else if (list1.Count == list2.Count)
                 {
                     var result = new List<object>(list1.Count);
@@ -202,9 +202,11 @@ namespace EveryParser
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        public static long CalcFactorial(long n)
+        public static long CalcFactorial(int n)
         {
-            switch (n)
+            int count = Math.Abs(n);
+
+            switch (count)
             {
                 case 0:
                 case 1:
@@ -240,7 +242,7 @@ namespace EveryParser
 
             long val = 1;
 
-            for (long i = 1; i <= n; i += 1)
+            for (int i = 1; i <= count; i += 1)
                 val *= i;
 
             return val;

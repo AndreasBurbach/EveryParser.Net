@@ -108,6 +108,36 @@ namespace EveryParser.Test.ExpressionTest
             Assert.Equal((decimal)Math.Tanh(1), Expression.CalculateDecimal("tanh(1)"));
 
             Assert.Equal((decimal)Math.Truncate(1.234), Expression.CalculateDecimal("truncate(1.234)"));
+
+            Assert.Equal((decimal)MathNet.Numerics.Euclid.GreatestCommonDivisor(10, 5), Expression.CalculateDecimal("gcd(10,5)"));
+
+            Assert.Equal((decimal)MathNet.Numerics.Euclid.LeastCommonMultiple(10, 5), Expression.CalculateDecimal("lcm(10,5)"));
+
+            Assert.Equal((decimal)MathNet.Numerics.SpecialFunctions.Binomial(3, 2), Expression.CalculateDecimal("binomial(3,2)"));
+
+            Assert.Equal((decimal)MathNet.Numerics.Trig.Acot(1), Expression.CalculateDecimal("acot(1)"));
+
+            Assert.Equal((decimal)MathNet.Numerics.Trig.Acoth(10), Expression.CalculateDecimal("acoth(10)"));
+
+            Assert.Equal((decimal)MathNet.Numerics.Trig.Acsc(1), Expression.CalculateDecimal("acsc(1)"));
+
+            Assert.Equal((decimal)MathNet.Numerics.Trig.Acsch(1), Expression.CalculateDecimal("acsch(1)"));
+
+            Assert.Equal((decimal)MathNet.Numerics.Trig.Asec(1), Expression.CalculateDecimal("asec(1)"));
+
+            Assert.Equal((decimal)MathNet.Numerics.Trig.Asech(1), Expression.CalculateDecimal("asech(1)"));
+
+            Assert.Equal((decimal)MathNet.Numerics.Trig.Cot(1), Expression.CalculateDecimal("cot(1)"));
+
+            Assert.Equal((decimal)MathNet.Numerics.Trig.Coth(1), Expression.CalculateDecimal("coth(1)"));
+
+            Assert.Equal((decimal)MathNet.Numerics.Trig.Csc(1), Expression.CalculateDecimal("csc(1)"));
+
+            Assert.Equal((decimal)MathNet.Numerics.Trig.Csch(1), Expression.CalculateDecimal("csch(1)"));
+
+            Assert.Equal((decimal)MathNet.Numerics.Trig.Sec(1), Expression.CalculateDecimal("sec(1)"));
+
+            Assert.Equal((decimal)MathNet.Numerics.Trig.Sech(1), Expression.CalculateDecimal("sech(1)"));
         }
 
         [Fact]

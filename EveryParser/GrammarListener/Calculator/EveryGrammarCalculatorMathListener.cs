@@ -1,4 +1,5 @@
 ﻿using Antlr4.Runtime.Misc;
+using MathNet.Numerics.LinearAlgebra;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Abs([NotNull] EveryGrammarParser.Math_AbsContext context)
         {
-            Func<object, object> calculation = x => (object)Math.Abs(Convert.ToDecimal(x));
+            Func<object, object> calculation = x => Math.Abs(Convert.ToDecimal(x));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -50,7 +51,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ACos([NotNull] EveryGrammarParser.Math_ACosContext context)
         {
-            Func<object, object> calculation = x => (object)Math.Acos(Convert.ToDouble(x));
+            Func<object, object> calculation = x => Math.Acos(Convert.ToDouble(x));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -74,7 +75,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ACosH([NotNull] EveryGrammarParser.Math_ACosHContext context)
         {
-            Func<object, object> calculation = x => (object)MathNet.Numerics.Trig.Acosh(Convert.ToDouble(x));
+            Func<object, object> calculation = x => MathNet.Numerics.Trig.Acosh(Convert.ToDouble(x));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -98,7 +99,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ASin([NotNull] EveryGrammarParser.Math_ASinContext context)
         {
-            Func<object, object> calculation = x => (object)Math.Asin(Convert.ToDouble(x));
+            Func<object, object> calculation = x => Math.Asin(Convert.ToDouble(x));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -122,7 +123,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ASinH([NotNull] EveryGrammarParser.Math_ASinHContext context)
         {
-            Func<object, object> calculation = x => (object)MathNet.Numerics.Trig.Asinh(Convert.ToDouble(x));
+            Func<object, object> calculation = x => MathNet.Numerics.Trig.Asinh(Convert.ToDouble(x));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -146,7 +147,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ATan([NotNull] EveryGrammarParser.Math_ATanContext context)
         {
-            Func<object, object> calculation = x => (object)Math.Atan(Convert.ToDouble(x));
+            Func<object, object> calculation = x => Math.Atan(Convert.ToDouble(x));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -170,7 +171,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ATan2([NotNull] EveryGrammarParser.Math_ATan2Context context)
         {
-            Func<object, object, object> calculation = (x1, x2) => (object)Math.Atan2(Convert.ToDouble(x1), Convert.ToDouble(x2));
+            Func<object, object, object> calculation = (x1, x2) => Math.Atan2(Convert.ToDouble(x1), Convert.ToDouble(x2));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children, true);
             Node = Node.Parent;
         }
@@ -194,7 +195,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ATanH([NotNull] EveryGrammarParser.Math_ATanHContext context)
         {
-            Func<object, object> calculation = x => (object)MathNet.Numerics.Trig.Atanh(Convert.ToDouble(x));
+            Func<object, object> calculation = x => MathNet.Numerics.Trig.Atanh(Convert.ToDouble(x));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -218,7 +219,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Cbrt([NotNull] EveryGrammarParser.Math_CbrtContext context)
         {
-            Func<object, object> calculation = x => (object)Math.Pow(Convert.ToDouble(x), 1d / 3d);
+            Func<object, object> calculation = x => Math.Pow(Convert.ToDouble(x), 1d / 3d);
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -242,7 +243,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Cos([NotNull] EveryGrammarParser.Math_CosContext context)
         {
-            Func<object, object> calculation = x => (object)Math.Cos(Convert.ToDouble(x));
+            Func<object, object> calculation = x => Math.Cos(Convert.ToDouble(x));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -266,7 +267,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_CosH([NotNull] EveryGrammarParser.Math_CosHContext context)
         {
-            Func<object, object> calculation = x => (object)Math.Cosh(Convert.ToDouble(x));
+            Func<object, object> calculation = x => Math.Cosh(Convert.ToDouble(x));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -290,7 +291,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Ceilling([NotNull] EveryGrammarParser.Math_CeillingContext context)
         {
-            Func<object, object> calculation = x => (object)Math.Ceiling(Convert.ToDecimal(x));
+            Func<object, object> calculation = x => Math.Ceiling(Convert.ToDecimal(x));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -419,7 +420,7 @@ namespace EveryParser
                 long value = 0;
                 foreach (var letter in Convert.ToInt64(x).ToString())
                     value += long.Parse(letter.ToString());
-                return (object)value;
+                return value;
             };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
@@ -463,7 +464,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Exp([NotNull] EveryGrammarParser.Math_ExpContext context)
         {
-            Func<object, object> calculation = x => (object)Math.Exp(Convert.ToDouble(x));
+            Func<object, object> calculation = x => Math.Exp(Convert.ToDouble(x));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -487,7 +488,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Floor([NotNull] EveryGrammarParser.Math_FloorContext context)
         {
-            Func<object, object> calculation = x => (object)Math.Floor(Convert.ToDecimal(x));
+            Func<object, object> calculation = x => Math.Floor(Convert.ToDecimal(x));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -530,7 +531,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Log([NotNull] EveryGrammarParser.Math_LogContext context)
         {
-            Func<object, object, object> calculation = (x1, x2) => (object)Math.Log(Convert.ToDouble(x1), Convert.ToDouble(x2));
+            Func<object, object, object> calculation = (x1, x2) => Math.Log(Convert.ToDouble(x1), Convert.ToDouble(x2));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children, true);
             Node = Node.Parent;
         }
@@ -554,7 +555,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Log2([NotNull] EveryGrammarParser.Math_Log2Context context)
         {
-            Func<object, object> calculation = x => (object)Math.Log(Convert.ToDouble(x), 2d);
+            Func<object, object> calculation = x => Math.Log(Convert.ToDouble(x), 2d);
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -578,7 +579,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Log10([NotNull] EveryGrammarParser.Math_Log10Context context)
         {
-            Func<object, object> calculation = x => (object)Math.Log10(Convert.ToDouble(x));
+            Func<object, object> calculation = x => Math.Log10(Convert.ToDouble(x));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -652,7 +653,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Max_Two([NotNull] EveryGrammarParser.Math_Max_TwoContext context)
         {
-            Func<object, object, object> calculation = (x1, x2) => (object)Math.Max(Convert.ToDouble(x1), Convert.ToDouble(x2));
+            Func<object, object, object> calculation = (x1, x2) => Math.Max(Convert.ToDouble(x1), Convert.ToDouble(x2));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
             Node = Node.Parent;
         }
@@ -726,7 +727,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Min_Two([NotNull] EveryGrammarParser.Math_Min_TwoContext context)
         {
-            Func<object, object, object> calculation = (x1, x2) => (object)Math.Min(Convert.ToDouble(x1), Convert.ToDouble(x2));
+            Func<object, object, object> calculation = (x1, x2) => Math.Min(Convert.ToDouble(x1), Convert.ToDouble(x2));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
             Node = Node.Parent;
         }
@@ -750,7 +751,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Power([NotNull] EveryGrammarParser.Math_PowerContext context)
         {
-            Func<object, object, object> calculation = (x1, x2) => (object)Math.Pow(Convert.ToDouble(x1), Convert.ToDouble(x2));
+            Func<object, object, object> calculation = (x1, x2) => Math.Pow(Convert.ToDouble(x1), Convert.ToDouble(x2));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children, true);
             Node = Node.Parent;
         }
@@ -774,7 +775,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Round_Not_Decimal([NotNull] EveryGrammarParser.Math_Round_Not_DecimalContext context)
         {
-            Func<object, object> calculation = x => (object)Math.Round(Convert.ToDecimal(x));
+            Func<object, object> calculation = x => Math.Round(Convert.ToDecimal(x));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -798,7 +799,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Round_Decimal([NotNull] EveryGrammarParser.Math_Round_DecimalContext context)
         {
-            Func<object, object, object> calculation = (x1, x2) => (object)Math.Round(Convert.ToDecimal(x1), Convert.ToInt32(x2));
+            Func<object, object, object> calculation = (x1, x2) => Math.Round(Convert.ToDecimal(x1), Convert.ToInt32(x2));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children, true);
             Node = Node.Parent;
         }
@@ -822,7 +823,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Root([NotNull] EveryGrammarParser.Math_RootContext context)
         {
-            Func<object, object, object> calculation = (x1, x2) => (object)Math.Pow(Convert.ToDouble(x1), 1 / Convert.ToDouble(x2));
+            Func<object, object, object> calculation = (x1, x2) => Math.Pow(Convert.ToDouble(x1), 1 / Convert.ToDouble(x2));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children, true);
             Node = Node.Parent;
         }
@@ -846,7 +847,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Sin([NotNull] EveryGrammarParser.Math_SinContext context)
         {
-            Func<object, object> calculation = x => (object)Math.Sin(Convert.ToDouble(x));
+            Func<object, object> calculation = x => Math.Sin(Convert.ToDouble(x));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -870,7 +871,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_SinH([NotNull] EveryGrammarParser.Math_SinHContext context)
         {
-            Func<object, object> calculation = x => (object)Math.Sinh(Convert.ToDouble(x));
+            Func<object, object> calculation = x => Math.Sinh(Convert.ToDouble(x));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -894,7 +895,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Sqrt([NotNull] EveryGrammarParser.Math_SqrtContext context)
         {
-            Func<object, object> calculation = x => (object)Math.Sqrt(Convert.ToDouble(x));
+            Func<object, object> calculation = x => Math.Sqrt(Convert.ToDouble(x));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -918,7 +919,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Tan([NotNull] EveryGrammarParser.Math_TanContext context)
         {
-            Func<object, object> calculation = x => (object)Math.Tan(Convert.ToDouble(x));
+            Func<object, object> calculation = x => Math.Tan(Convert.ToDouble(x));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -942,7 +943,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_TanH([NotNull] EveryGrammarParser.Math_TanHContext context)
         {
-            Func<object, object> calculation = x => (object)Math.Tanh(Convert.ToDouble(x));
+            Func<object, object> calculation = x => Math.Tanh(Convert.ToDouble(x));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -966,303 +967,466 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Truncate([NotNull] EveryGrammarParser.Math_TruncateContext context)
         {
-            Func<object, object> calculation = x => (object)Math.Truncate(Convert.ToDecimal(x));
+            Func<object, object> calculation = x => Math.Truncate(Convert.ToDecimal(x));
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
-
-        /// <summary>
-        /// Enter a parse tree produced by the <c>Math_Slope</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void EnterMath_Slope([NotNull] EveryGrammarParser.Math_SlopeContext context) { }
-
-        /// <summary>
-        /// Exit a parse tree produced by the <c>Math_Slope</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitMath_Slope([NotNull] EveryGrammarParser.Math_SlopeContext context) { }
-
-        /// <summary>
-        /// Enter a parse tree produced by the <c>Math_Distance</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void EnterMath_Distance([NotNull] EveryGrammarParser.Math_DistanceContext context) { }
-
-        /// <summary>
-        /// Exit a parse tree produced by the <c>Math_Distance</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitMath_Distance([NotNull] EveryGrammarParser.Math_DistanceContext context) { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Norm</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterMath_Norm([NotNull] EveryGrammarParser.Math_NormContext context) { }
+        public void EnterMath_Norm([NotNull] EveryGrammarParser.Math_NormContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Norm</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_Norm([NotNull] EveryGrammarParser.Math_NormContext context) { }
+        public void ExitMath_Norm([NotNull] EveryGrammarParser.Math_NormContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var list = childValues[0] as List<object>;
+
+            if (list is null)
+            {
+                ErrorCollector.AddError(context, ErrorCode.FirstNotNumberArray, "First parameter must be an Array");
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            if (!double.TryParse(childValues[1].ToString(), out var value))
+            {
+                ErrorCollector.AddError(context, ErrorCode.SecondNotNumber, "Second parameter must be a number");
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            Node.Value = Vector<double>.Build.DenseOfArray(Array.ConvertAll(list.ToArray(), y => Convert.ToDouble(y))).Norm(value);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_EulerNorm</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterMath_EulerNorm([NotNull] EveryGrammarParser.Math_EulerNormContext context) { }
+        public void EnterMath_EulerNorm([NotNull] EveryGrammarParser.Math_EulerNormContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_EulerNorm</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_EulerNorm([NotNull] EveryGrammarParser.Math_EulerNormContext context) { }
+        public void ExitMath_EulerNorm([NotNull] EveryGrammarParser.Math_EulerNormContext context)
+        {
+            Func<List<object>, object> calculation = x => Vector<double>.Build.DenseOfArray(Array.ConvertAll(x.ToArray(), y => Convert.ToDouble(y))).L2Norm();
+            Node.Value = CalculationHelper.CalcListOfNumbersUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_MaxNorm</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterMath_MaxNorm([NotNull] EveryGrammarParser.Math_MaxNormContext context) { }
+        public void EnterMath_MaxNorm([NotNull] EveryGrammarParser.Math_MaxNormContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_MaxNorm</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_MaxNorm([NotNull] EveryGrammarParser.Math_MaxNormContext context) { }
+        public void ExitMath_MaxNorm([NotNull] EveryGrammarParser.Math_MaxNormContext context)
+        {
+            Func<List<object>, object> calculation = x => Vector<double>.Build.DenseOfArray(Array.ConvertAll(x.ToArray(), y => Convert.ToDouble(y))).InfinityNorm();
+            Node.Value = CalculationHelper.CalcListOfNumbersUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_GreatesCommonDivisor</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterMath_GreatesCommonDivisor([NotNull] EveryGrammarParser.Math_GreatesCommonDivisorContext context) { }
+        public void EnterMath_GreatesCommonDivisor([NotNull] EveryGrammarParser.Math_GreatesCommonDivisorContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_GreatesCommonDivisor</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_GreatesCommonDivisor([NotNull] EveryGrammarParser.Math_GreatesCommonDivisorContext context) { }
+        public void ExitMath_GreatesCommonDivisor([NotNull] EveryGrammarParser.Math_GreatesCommonDivisorContext context)
+        {
+            Func<object, object, object> calculation = (x, y) => MathNet.Numerics.Euclid.GreatestCommonDivisor(Convert.ToInt64(x), Convert.ToInt64(y));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_LeastCommonMultiple</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterMath_LeastCommonMultiple([NotNull] EveryGrammarParser.Math_LeastCommonMultipleContext context) { }
+        public void EnterMath_LeastCommonMultiple([NotNull] EveryGrammarParser.Math_LeastCommonMultipleContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_LeastCommonMultiple</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_LeastCommonMultiple([NotNull] EveryGrammarParser.Math_LeastCommonMultipleContext context) { }
+        public void ExitMath_LeastCommonMultiple([NotNull] EveryGrammarParser.Math_LeastCommonMultipleContext context)
+        {
+            Func<object, object, object> calculation = (x, y) => MathNet.Numerics.Euclid.LeastCommonMultiple(Convert.ToInt64(x), Convert.ToInt64(y));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_DotProduct</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterMath_DotProduct([NotNull] EveryGrammarParser.Math_DotProductContext context) { }
+        public void EnterMath_DotProduct([NotNull] EveryGrammarParser.Math_DotProductContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_DotProduct</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_DotProduct([NotNull] EveryGrammarParser.Math_DotProductContext context) { }
+        public void ExitMath_DotProduct([NotNull] EveryGrammarParser.Math_DotProductContext context)
+        {
+            Converter<object, double> converter = y => Convert.ToDouble(y);
+            Func<List<object>, List<object>, object> calculation = (x, z) =>
+                            Vector<double>.Build.DenseOfArray(Array.ConvertAll(x.ToArray(), converter)).DotProduct(
+                            Vector<double>.Build.DenseOfArray(Array.ConvertAll(z.ToArray(), converter)));
+
+            Node.Value = CalculationHelper.CalcListOfNumbersBinary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Binomila</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterMath_Binomila([NotNull] EveryGrammarParser.Math_BinomilaContext context) { }
+        public void EnterMath_Binomila([NotNull] EveryGrammarParser.Math_BinomilaContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Binomila</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_Binomila([NotNull] EveryGrammarParser.Math_BinomilaContext context) { }
+        public void ExitMath_Binomila([NotNull] EveryGrammarParser.Math_BinomilaContext context)
+        {
+            Func<object, object, object> calculation = (x, y) => MathNet.Numerics.SpecialFunctions.Binomial(Convert.ToInt32(x), Convert.ToInt32(y));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_ACot</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterMath_ACot([NotNull] EveryGrammarParser.Math_ACotContext context) { }
+        public void EnterMath_ACot([NotNull] EveryGrammarParser.Math_ACotContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_ACot</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_ACot([NotNull] EveryGrammarParser.Math_ACotContext context) { }
+        public void ExitMath_ACot([NotNull] EveryGrammarParser.Math_ACotContext context)
+        {
+            Func<object, object> calculation = x => MathNet.Numerics.Trig.Acot(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_ACotH</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterMath_ACotH([NotNull] EveryGrammarParser.Math_ACotHContext context) { }
+        public void EnterMath_ACotH([NotNull] EveryGrammarParser.Math_ACotHContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_ACotH</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_ACotH([NotNull] EveryGrammarParser.Math_ACotHContext context) { }
+        public void ExitMath_ACotH([NotNull] EveryGrammarParser.Math_ACotHContext context)
+        {
+            Func<object, object> calculation = x => MathNet.Numerics.Trig.Acoth(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_ACsc</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterMath_ACsc([NotNull] EveryGrammarParser.Math_ACscContext context) { }
+        public void EnterMath_ACsc([NotNull] EveryGrammarParser.Math_ACscContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_ACsc</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_ACsc([NotNull] EveryGrammarParser.Math_ACscContext context) { }
+        public void ExitMath_ACsc([NotNull] EveryGrammarParser.Math_ACscContext context)
+        {
+            Func<object, object> calculation = x => MathNet.Numerics.Trig.Acsc(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_ACscH</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterMath_ACscH([NotNull] EveryGrammarParser.Math_ACscHContext context) { }
+        public void EnterMath_ACscH([NotNull] EveryGrammarParser.Math_ACscHContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_ACscH</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_ACscH([NotNull] EveryGrammarParser.Math_ACscHContext context) { }
+        public void ExitMath_ACscH([NotNull] EveryGrammarParser.Math_ACscHContext context)
+        {
+            Func<object, object> calculation = x => MathNet.Numerics.Trig.Acsch(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_ASec</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterMath_ASec([NotNull] EveryGrammarParser.Math_ASecContext context) { }
+        public void EnterMath_ASec([NotNull] EveryGrammarParser.Math_ASecContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_ASec</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_ASec([NotNull] EveryGrammarParser.Math_ASecContext context) { }
+        public void ExitMath_ASec([NotNull] EveryGrammarParser.Math_ASecContext context)
+        {
+            Func<object, object> calculation = x => MathNet.Numerics.Trig.Asec(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_ASecH</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterMath_ASecH([NotNull] EveryGrammarParser.Math_ASecHContext context) { }
+        public void EnterMath_ASecH([NotNull] EveryGrammarParser.Math_ASecHContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_ASecH</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_ASecH([NotNull] EveryGrammarParser.Math_ASecHContext context) { }
+        public void ExitMath_ASecH([NotNull] EveryGrammarParser.Math_ASecHContext context)
+        {
+            Func<object, object> calculation = x => MathNet.Numerics.Trig.Asech(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Cot</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterMath_Cot([NotNull] EveryGrammarParser.Math_CotContext context) { }
+        public void EnterMath_Cot([NotNull] EveryGrammarParser.Math_CotContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Cot</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_Cot([NotNull] EveryGrammarParser.Math_CotContext context) { }
+        public void ExitMath_Cot([NotNull] EveryGrammarParser.Math_CotContext context)
+        {
+            Func<object, object> calculation = x => MathNet.Numerics.Trig.Cot(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_CotH</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterMath_CotH([NotNull] EveryGrammarParser.Math_CotHContext context) { }
+        public void EnterMath_CotH([NotNull] EveryGrammarParser.Math_CotHContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_CotH</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_CotH([NotNull] EveryGrammarParser.Math_CotHContext context) { }
+        public void ExitMath_CotH([NotNull] EveryGrammarParser.Math_CotHContext context)
+        {
+            Func<object, object> calculation = x => MathNet.Numerics.Trig.Coth(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Csc</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterMath_Csc([NotNull] EveryGrammarParser.Math_CscContext context) { }
+        public void EnterMath_Csc([NotNull] EveryGrammarParser.Math_CscContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Csc</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_Csc([NotNull] EveryGrammarParser.Math_CscContext context) { }
+        public void ExitMath_Csc([NotNull] EveryGrammarParser.Math_CscContext context)
+        {
+            Func<object, object> calculation = x => MathNet.Numerics.Trig.Csc(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_CscH</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterMath_CscH([NotNull] EveryGrammarParser.Math_CscHContext context) { }
+        public void EnterMath_CscH([NotNull] EveryGrammarParser.Math_CscHContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_CscH</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_CscH([NotNull] EveryGrammarParser.Math_CscHContext context) { }
+        public void ExitMath_CscH([NotNull] EveryGrammarParser.Math_CscHContext context)
+        {
+            Func<object, object> calculation = x => MathNet.Numerics.Trig.Csch(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Sec</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterMath_Sec([NotNull] EveryGrammarParser.Math_SecContext context) { }
+        public void EnterMath_Sec([NotNull] EveryGrammarParser.Math_SecContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Sec</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_Sec([NotNull] EveryGrammarParser.Math_SecContext context) { }
+        public void ExitMath_Sec([NotNull] EveryGrammarParser.Math_SecContext context)
+        {
+            Func<object, object> calculation = x => MathNet.Numerics.Trig.Sec(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_SecH</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterMath_SecH([NotNull] EveryGrammarParser.Math_SecHContext context) { }
+        public void EnterMath_SecH([NotNull] EveryGrammarParser.Math_SecHContext context)
+        {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_SecH</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_SecH([NotNull] EveryGrammarParser.Math_SecHContext context) { }
+        public void ExitMath_SecH([NotNull] EveryGrammarParser.Math_SecHContext context)
+        {
+            Func<object, object> calculation = x => MathNet.Numerics.Trig.Sech(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
     }
 }

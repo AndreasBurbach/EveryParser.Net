@@ -22,7 +22,7 @@ namespace EveryParser.Test.ExpressionTests
         [Fact]
         public void DefaultTests()
         {
-            AssertDateTime(DateTime.Now, Expression.CalculateDateTime("date.now"), CompareDateTime.second); //for comparing milliseconds the programm is too slow :-| 
+            AssertDateTime(DateTime.Now, Expression.CalculateDateTime("date.now"), CompareDateTime.second); //for comparing milliseconds the programm is too slow :-|
             AssertDateTime(new DateTime(2021, 1, 1), Expression.CalculateDateTime("date(2021)"), CompareDateTime.day);
             AssertDateTime(new DateTime(2021, 2, 3), Expression.CalculateDateTime("date(2021,2,3)"), CompareDateTime.day);
             AssertDateTime(new DateTime(2021, 2, 3, 4, 0, 0), Expression.CalculateDateTime("date(2021,2,3,4)"), CompareDateTime.second);
@@ -52,21 +52,27 @@ namespace EveryParser.Test.ExpressionTests
                     case CompareDateTime.year:
                         Assert.True(expected.Value.Year == actual.Value.Year, $"Year is not same for expected {expected.ToAssertDateTimeString()} and actual {actual.ToAssertDateTimeString()}");
                         break;
+
                     case CompareDateTime.month:
                         Assert.True(expected.Value.Month == actual.Value.Month, $"Month is not same for expected {expected.ToAssertDateTimeString()} and actual {actual.ToAssertDateTimeString()}");
                         break;
+
                     case CompareDateTime.day:
                         Assert.True(expected.Value.Day == actual.Value.Day, $"Day is not same for expected {expected.ToAssertDateTimeString()} and actual {actual.ToAssertDateTimeString()}");
                         break;
+
                     case CompareDateTime.hour:
                         Assert.True(expected.Value.Hour == actual.Value.Hour, $"Hour is not same for expected {expected.ToAssertDateTimeString()} and actual {actual.ToAssertDateTimeString()}");
                         break;
+
                     case CompareDateTime.minute:
                         Assert.True(expected.Value.Minute == actual.Value.Minute, $"Minute is not same for expected {expected.ToAssertDateTimeString()} and actual {actual.ToAssertDateTimeString()}");
                         break;
+
                     case CompareDateTime.second:
                         Assert.True(expected.Value.Second == actual.Value.Second, $"Second is not same for expected {expected.ToAssertDateTimeString()} and actual {actual.ToAssertDateTimeString()}");
                         break;
+
                     case CompareDateTime.millisecond:
                         Assert.True(expected.Value.Millisecond == actual.Value.Millisecond, $"Millisecond is not same for expected {expected.ToAssertDateTimeString()} and actual {actual.ToAssertDateTimeString()}");
                         break;

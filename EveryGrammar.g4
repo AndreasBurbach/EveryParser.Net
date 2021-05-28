@@ -70,8 +70,7 @@ random_function_term:
 	RndDecimal ROUNDBRACKETCLOSED				# Random_Decimal
 	| RndDecimal expression ROUNDBRACKETCLOSED	# Random_DecimalArray
 	| RndInteger ROUNDBRACKETCLOSED				# Random_Integer
-	| RndInteger expression ROUNDBRACKETCLOSED	# Random_IntegerArray
-	| RndSeed expression ROUNDBRACKETCLOSED		# Random_Seed;
+	| RndInteger expression ROUNDBRACKETCLOSED	# Random_IntegerArray;
 
 convert_function_term:
 	ToArray expr_args ROUNDBRACKETCLOSED			# Convert_ToArray
@@ -145,18 +144,16 @@ math_function_term:
 	| ROOT expression KOMMA expression ROUNDBRACKETCLOSED											# Math_Root
 	| SIN expression ROUNDBRACKETCLOSED																# Math_Sin
 	| SINH expression ROUNDBRACKETCLOSED															# Math_SinH
-	| SLOPE expression KOMMA expression ROUNDBRACKETCLOSED											# Math_Slope
 	| SQRT expression ROUNDBRACKETCLOSED															# Math_Sqrt
 	| TAN expression ROUNDBRACKETCLOSED																# Math_Tan
 	| TANH expression ROUNDBRACKETCLOSED															# Math_TanH
 	| TRUNCATE expression ROUNDBRACKETCLOSED														# Math_Truncate
-	| DISTANCE expression KOMMA expression															# Math_Distance
 	| Norm expression KOMMA expression ROUNDBRACKETCLOSED											# Math_Norm
 	| EulerNorm expression ROUNDBRACKETCLOSED														# Math_EulerNorm
 	| MaxNorm expression ROUNDBRACKETCLOSED															# Math_MaxNorm
-	| GreatestCommonDivisor expression ROUNDBRACKETCLOSED											# Math_GreatesCommonDivisor
-	| LeastCommonMultiple expression ROUNDBRACKETCLOSED												# Math_LeastCommonMultiple
-	| DotProduct expression ROUNDBRACKETCLOSED														# Math_DotProduct
+	| GreatestCommonDivisor expression KOMMA expression ROUNDBRACKETCLOSED							# Math_GreatesCommonDivisor
+	| LeastCommonMultiple expression KOMMA expression ROUNDBRACKETCLOSED							# Math_LeastCommonMultiple
+	| DotProduct expression KOMMA expression ROUNDBRACKETCLOSED										# Math_DotProduct
 	| Binomial expression KOMMA expression ROUNDBRACKETCLOSED										# Math_Binomila
 	| ACOT expression ROUNDBRACKETCLOSED															# Math_ACot
 	| ACOTH expression ROUNDBRACKETCLOSED															# Math_ACotH
@@ -269,12 +266,10 @@ ROUND: 'round(';
 ROOT: 'root(';
 SIN: 'sin(';
 SINH: 'sinh(';
-SLOPE: 'slope(';
 SQRT: 'sqrt(';
 TAN: 'tan(';
 TANH: 'tanh(';
 TRUNCATE: 'truncate(';
-DISTANCE: 'distance(';
 Norm: 'norm(';
 EulerNorm: 'eulernorm(';
 MaxNorm: 'maxnorm(';
@@ -336,4 +331,3 @@ RadianToGrad: 'radiantograd(';
 //random function tokens
 RndDecimal: 'rnddecimal(';
 RndInteger: 'rndinteger(';
-RndSeed: 'rndseed(';

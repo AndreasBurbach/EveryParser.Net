@@ -796,18 +796,6 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitRandom_IntegerArray([NotNull] EveryGrammarParser.Random_IntegerArrayContext context);
 	/// <summary>
-	/// Enter a parse tree produced by the <c>Random_Seed</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterRandom_Seed([NotNull] EveryGrammarParser.Random_SeedContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>Random_Seed</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitRandom_Seed([NotNull] EveryGrammarParser.Random_SeedContext context);
-	/// <summary>
 	/// Enter a parse tree produced by the <c>Convert_ToArray</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
 	/// </summary>
@@ -1552,18 +1540,6 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitMath_SinH([NotNull] EveryGrammarParser.Math_SinHContext context);
 	/// <summary>
-	/// Enter a parse tree produced by the <c>Math_Slope</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterMath_Slope([NotNull] EveryGrammarParser.Math_SlopeContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>Math_Slope</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitMath_Slope([NotNull] EveryGrammarParser.Math_SlopeContext context);
-	/// <summary>
 	/// Enter a parse tree produced by the <c>Math_Sqrt</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
 	/// </summary>
@@ -1611,18 +1587,6 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitMath_Truncate([NotNull] EveryGrammarParser.Math_TruncateContext context);
-	/// <summary>
-	/// Enter a parse tree produced by the <c>Math_Distance</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterMath_Distance([NotNull] EveryGrammarParser.Math_DistanceContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>Math_Distance</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitMath_Distance([NotNull] EveryGrammarParser.Math_DistanceContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>Math_Norm</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
