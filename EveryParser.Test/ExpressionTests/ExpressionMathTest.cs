@@ -42,6 +42,7 @@ namespace EveryParser.Test.ExpressionTest
             Assert.Equal(-1, Expression.CalculateDecimal("-1"));
             Assert.Equal(~1, Expression.CalculateDecimal("~1"));
             Assert.Equal(+1, Expression.CalculateDecimal("+1"));
+            Assert.Equal(39916800, Expression.CalculateDecimal("!11"));
         }
 
         [Fact]
