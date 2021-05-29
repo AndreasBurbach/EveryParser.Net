@@ -1,7 +1,7 @@
 ﻿using System;
 using Xunit;
 
-namespace EveryParser.Test.ExpressionTests
+namespace EveryParser.Test.ExpressionTest
 {
     /// <summary>
     /// Defines to which entity of date two dates should be compared
