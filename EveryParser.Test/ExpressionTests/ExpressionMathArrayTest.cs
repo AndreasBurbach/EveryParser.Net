@@ -7,6 +7,11 @@ namespace EveryParser.Test.ExpressionTest
     public class ExpressionMathArrayTest
     {
         [Fact]
+        public void MathArrayDefaultTest()
+        {
+        }
+
+        [Fact]
         public void MathArrayTests()
         {
             Assert.Equal(ToDecimalArray(new object[] { 100, 1, 4 }), ToDecimalArray(Expression.CalculateArray("abs([-100,1,4])")));
@@ -23,6 +28,7 @@ namespace EveryParser.Test.ExpressionTest
 
             Assert.Equal(ToDecimalArray(new object[] { Math.Atan2(1, 1), Math.Atan2(0.5, 1) }), ToDecimalArray(Expression.CalculateArray("atan2([1, 0.5],1)")));
             Assert.Equal(ToDecimalArray(new object[] { Math.Atan2(1, 1), Math.Atan2(0.5, 0.5) }), ToDecimalArray(Expression.CalculateArray("atan2([1, 0.5],[1, 0.5])")));
+            Assert.Equal(ToDecimalArray(new object[] { Math.Atan2(1, 1), Math.Atan2(1, 0.5) }), ToDecimalArray(Expression.CalculateArray("atan2(1,[1, 0.5])")));
 
             Assert.Equal(ToDecimalArray(new object[] { Math.Atanh(0.5), Math.Atanh(0.3) }), ToDecimalArray(Expression.CalculateArray("atanh([0.5, 0.3])")));
 
@@ -45,6 +51,7 @@ namespace EveryParser.Test.ExpressionTest
 
             Assert.Equal(ToDecimalArray(new object[] { Math.Log(12, 2), Math.Log(16, 2) }), ToDecimalArray(Expression.CalculateArray("log([12, 16], 2)")));
             Assert.Equal(ToDecimalArray(new object[] { Math.Log(12, 2), Math.Log(27, 3) }), ToDecimalArray(Expression.CalculateArray("log([12, 27], [2, 3])")));
+            Assert.Equal(ToDecimalArray(new object[] { Math.Log(12, 2), Math.Log(12, 3) }), ToDecimalArray(Expression.CalculateArray("log(12, [2, 3])")));
 
             Assert.Equal(ToDecimalArray(new object[] { Math.Log2(12), Math.Log2(15) }), ToDecimalArray(Expression.CalculateArray("log2([12, 15])")));
 
@@ -55,14 +62,17 @@ namespace EveryParser.Test.ExpressionTest
 
             Assert.Equal(ToDecimalArray(new object[] { Math.Pow(3, 2), Math.Pow(2, 2) }), ToDecimalArray(Expression.CalculateArray("pow([3,2],2)")));
             Assert.Equal(ToDecimalArray(new object[] { Math.Pow(3, 2), Math.Pow(2, 3) }), ToDecimalArray(Expression.CalculateArray("pow([3,2],[2,3])")));
+            Assert.Equal(ToDecimalArray(new object[] { Math.Pow(3, 2), Math.Pow(3, 3) }), ToDecimalArray(Expression.CalculateArray("pow(3,[2,3])")));
 
             Assert.Equal(ToDecimalArray(new object[] { Math.Pow(9, 1 / 2d), Math.Pow(4, 1 / 2d) }), ToDecimalArray(Expression.CalculateArray("root([9, 4],2)")));
             Assert.Equal(ToDecimalArray(new object[] { Math.Pow(9, 1 / 2d), Math.Pow(27, 1 / 3d) }), ToDecimalArray(Expression.CalculateArray("root([9,27],[2,3])")));
+            Assert.Equal(ToDecimalArray(new object[] { Math.Pow(9, 1 / 2d), Math.Pow(9, 1 / 3d) }), ToDecimalArray(Expression.CalculateArray("root(9,[2,3])")));
 
             Assert.Equal(ToDecimalArray(new object[] { Math.Round(2.2), Math.Round(3.3) }), ToDecimalArray(Expression.CalculateArray("round([2.2, 3.3])")));
 
             Assert.Equal(ToDecimalArray(new object[] { Math.Round(2.234, 2), Math.Round(1.234, 2) }), ToDecimalArray(Expression.CalculateArray("round([2.234, 1.234],2)")));
             Assert.Equal(ToDecimalArray(new object[] { Math.Round(2.234, 2), Math.Round(1.234, 1) }), ToDecimalArray(Expression.CalculateArray("round([2.234, 1.234],[2, 1])")));
+            Assert.Equal(ToDecimalArray(new object[] { Math.Round(2.234, 2), Math.Round(2.234, 1) }), ToDecimalArray(Expression.CalculateArray("round(2.234,[2, 1])")));
 
             Assert.Equal(ToDecimalArray(new object[] { Math.Sin(1), Math.Sin(0.5) }), ToDecimalArray(Expression.CalculateArray("sin([1, 0.5])")));
 

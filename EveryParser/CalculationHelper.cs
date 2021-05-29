@@ -40,9 +40,8 @@ namespace EveryParser
         /// <param name="errorCollector"></param>
         /// <param name="calculationExpression"></param>
         /// <param name="children"></param>
-        /// <param name="secondChildIsInconsitent">if second child can be an array of numbers or a number, without thinking of the first child type. Example: Math.Pow(... , ...) should be true.</param>
         /// <returns></returns>
-        internal static object CalcNumericOrNumericArrayBinary(ParserRuleContext context, AssertErrors errorCollector, Func<object, object, object> calculationExpression, List<NodeCalculator> children, bool secondChildIsInconsitent = false)
+        internal static object CalcNumericOrNumericArrayBinary(ParserRuleContext context, AssertErrors errorCollector, Func<object, object, object> calculationExpression, List<NodeCalculator> children)
         {
             if (!errorCollector.CheckHasParams(context, children))
                 return double.NaN;
@@ -67,41 +66,20 @@ namespace EveryParser
             if (list1 is null && list2 is null)
                 return calculationExpression.Invoke(value1, value2);
 
-            if (secondChildIsInconsitent)
+            if (!(list1 is null) && list2 is null)
+                return list1.Select(x => calculationExpression(x, value2)).ToList();
+            else if (list1 is null && !(list2 is null))
+                return list2.Select(x => calculationExpression(value1, x)).ToList();
+            else if (list1.Count == list2.Count)
             {
-                if (!(list1 is null))
-                {
-                    if (list2 is null)
-                        return list1.Select(x => calculationExpression(x, value2)).ToList();
-                    else if (list1.Count == list2.Count)
-                    {
-                        var result = new List<object>(list1.Count);
-                        for (int i = 0; i < list1.Count; i += 1)
-                            result.Add(calculationExpression.Invoke(list1[i], list2[i]));
-                        return result;
-                    }
-                    else
-                        errorCollector.AddError(context, ErrorCode.NotEqualArayCount, $"Array count must be equal: Array1 Count {list1.Count} Array2 Count {list2.Count}");
-                }
-                else
-                    errorCollector.AddError(context, ErrorCode.NotEqualArayCount, "If second parameter is an array, all parameters must be an array");
+                var result = new List<object>(list1.Count);
+                for (int i = 0; i < list1.Count; i += 1)
+                    result.Add(calculationExpression.Invoke(list1[i], list2[i]));
+                return result;
             }
             else
-            {
-                if (!(list1 is null) && list2 is null)
-                    return list1.Select(x => calculationExpression(x, value2)).ToList();
-                else if (list1 is null && !(list2 is null))
-                    return list2.Select(x => calculationExpression(value1, x)).ToList();
-                else if (list1.Count == list2.Count)
-                {
-                    var result = new List<object>(list1.Count);
-                    for (int i = 0; i < list1.Count; i += 1)
-                        result.Add(calculationExpression.Invoke(list1[i], list2[i]));
-                    return result;
-                }
-                else
-                    errorCollector.AddError(context, ErrorCode.NotEqualArayCount, $"Array count must be equal: Array1 Count {list1.Count} Array2 Count {list2.Count}");
-            }
+                errorCollector.AddError(context, ErrorCode.NotEqualArayCount, $"Array count must be equal: Array1 Count {list1.Count} Array2 Count {list2.Count}");
+
             return double.NaN;
         }
 
