@@ -1,11 +1,6 @@
 ﻿using Antlr4.Runtime.Misc;
-using EveryParser.Compare;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using IErrorNode = Antlr4.Runtime.Tree.IErrorNode;
-using ITerminalNode = Antlr4.Runtime.Tree.ITerminalNode;
 using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 
 namespace EveryParser
@@ -266,6 +261,5 @@ namespace EveryParser
             Node.Value = date;
             Node = Node.Parent;
         }
-
     }
 }

@@ -67,10 +67,14 @@ factor:
 	| statistic_math_function_term						# Factor_StatisticMathFunction;
 
 random_function_term:
-	RndDecimal ROUNDBRACKETCLOSED				# Random_Decimal
-	| RndDecimal expression ROUNDBRACKETCLOSED	# Random_DecimalArray
-	| RndInteger ROUNDBRACKETCLOSED				# Random_Integer
-	| RndInteger expression ROUNDBRACKETCLOSED	# Random_IntegerArray;
+	RndDecimal ROUNDBRACKETCLOSED													# Random_Decimal
+	| RndDecimal expression ROUNDBRACKETCLOSED										# Random_DecimalArray
+	| RndDecimal expression KOMMA expression ROUNDBRACKETCLOSED						# Random_DecimalMinMax
+	| RndDecimal expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED	# Random_DecimalArrayMinMax
+	| RndInteger ROUNDBRACKETCLOSED													# Random_Integer
+	| RndInteger expression ROUNDBRACKETCLOSED										# Random_IntegerArray
+	| RndInteger expression KOMMA expression ROUNDBRACKETCLOSED						# Random_IntegerMinMax
+	| RndInteger expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED	# Random_IntegerArrayMinMax;
 
 convert_function_term:
 	ToArray expr_args ROUNDBRACKETCLOSED			# Convert_ToArray

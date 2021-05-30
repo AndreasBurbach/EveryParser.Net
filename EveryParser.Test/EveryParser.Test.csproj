@@ -24,10 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Argument\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\EveryParser\EveryParser.csproj" />
   </ItemGroup>
 

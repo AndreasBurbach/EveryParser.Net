@@ -772,6 +772,30 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitRandom_DecimalArray([NotNull] EveryGrammarParser.Random_DecimalArrayContext context);
 	/// <summary>
+	/// Enter a parse tree produced by the <c>Random_DecimalMinMax</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRandom_DecimalMinMax([NotNull] EveryGrammarParser.Random_DecimalMinMaxContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Random_DecimalMinMax</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRandom_DecimalMinMax([NotNull] EveryGrammarParser.Random_DecimalMinMaxContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Random_DecimalArrayMinMax</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRandom_DecimalArrayMinMax([NotNull] EveryGrammarParser.Random_DecimalArrayMinMaxContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Random_DecimalArrayMinMax</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRandom_DecimalArrayMinMax([NotNull] EveryGrammarParser.Random_DecimalArrayMinMaxContext context);
+	/// <summary>
 	/// Enter a parse tree produced by the <c>Random_Integer</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
 	/// </summary>
@@ -795,6 +819,30 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitRandom_IntegerArray([NotNull] EveryGrammarParser.Random_IntegerArrayContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Random_IntegerMinMax</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRandom_IntegerMinMax([NotNull] EveryGrammarParser.Random_IntegerMinMaxContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Random_IntegerMinMax</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRandom_IntegerMinMax([NotNull] EveryGrammarParser.Random_IntegerMinMaxContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Random_IntegerArrayMinMax</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRandom_IntegerArrayMinMax([NotNull] EveryGrammarParser.Random_IntegerArrayMinMaxContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Random_IntegerArrayMinMax</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRandom_IntegerArrayMinMax([NotNull] EveryGrammarParser.Random_IntegerArrayMinMaxContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>Convert_ToArray</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.

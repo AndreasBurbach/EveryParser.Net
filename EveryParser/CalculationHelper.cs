@@ -210,8 +210,74 @@ namespace EveryParser
             return calculationStringExpression(childValues[0].ToString(), childValues[0].ToString());
         }
 
+        /// <summary>
+        /// Calculations for Numeric with 1 childs in Node
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="errorCollector"></param>
+        /// <param name="calculationExpression"></param>
+        /// <param name="children"></param>
+        /// <returns></returns>
+        internal static object CalcNumericUnary(ParserRuleContext context, AssertErrors errorCollector, Func<object, object> calculationExpression, List<NodeCalculator> children)
+        {
+            if (!errorCollector.CheckHasParams(context, children))
+                return double.NaN;
 
+            var childValues = children.Select(child => child.Value).ToArray();
 
+            if (!errorCollector.CheckParamsCount(context, 1, childValues) ||
+                errorCollector.CheckIsNull(context, childValues) ||
+                !errorCollector.CheckIsNumber(context, childValues))
+                return double.NaN;
+
+            return calculationExpression(childValues[0]);
+        }
+
+        /// <summary>
+        /// Calculations for Numeric with 2 childs in Node
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="errorCollector"></param>
+        /// <param name="calculationExpression"></param>
+        /// <param name="children"></param>
+        /// <returns></returns>
+        internal static object CalcNumericBinary(ParserRuleContext context, AssertErrors errorCollector, Func<object, object, object> calculationExpression, List<NodeCalculator> children)
+        {
+            if (!errorCollector.CheckHasParams(context, children))
+                return double.NaN;
+
+            var childValues = children.Select(child => child.Value).ToArray();
+
+            if (!errorCollector.CheckParamsCount(context, 2, childValues) ||
+                errorCollector.CheckIsNull(context, childValues) ||
+                !errorCollector.CheckIsNumber(context, childValues))
+                return double.NaN;
+
+            return calculationExpression(childValues[0], childValues[1]);
+        }
+
+        /// <summary>
+        /// Calculations for Numeric with 3 childs in Node
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="errorCollector"></param>
+        /// <param name="calculationExpression"></param>
+        /// <param name="children"></param>
+        /// <returns></returns>
+        internal static object CalcNumericTri(ParserRuleContext context, AssertErrors errorCollector, Func<object, object, object, object> calculationExpression, List<NodeCalculator> children)
+        {
+            if (!errorCollector.CheckHasParams(context, children))
+                return double.NaN;
+
+            var childValues = children.Select(child => child.Value).ToArray();
+
+            if (!errorCollector.CheckParamsCount(context, 3, childValues) ||
+                errorCollector.CheckIsNull(context, childValues) ||
+                !errorCollector.CheckIsNumber(context, childValues))
+                return double.NaN;
+
+            return calculationExpression(childValues[0], childValues[1], childValues[2]);
+        }
 
         /// <summary>
         /// Calculations for string or List(object) with 1 child in Node
