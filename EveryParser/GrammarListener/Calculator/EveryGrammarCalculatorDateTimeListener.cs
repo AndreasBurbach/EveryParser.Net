@@ -36,8 +36,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsDateTime(context, childValues)
-                )
+                !ErrorCollector.CheckIsDateTime(context, childValues))
             {
                 SetErrorNodeFor_ExitFactor_DateTimeTerm();
                 return;
@@ -208,8 +207,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, expectedDateParameters, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues)
-                )
+                !ErrorCollector.CheckIsNumber(context, childValues))
             {
                 SetErrorNodeFor_ExitFactor_DateTimeTerm();
                 return;
