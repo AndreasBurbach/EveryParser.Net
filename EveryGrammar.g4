@@ -98,19 +98,20 @@ array_slicing_term:
 	| EDGEBRACKETOPEN expression COLON expression COLON expression EDGEBRACKETCLOSED	# ArraySlicing_StepSlicing;
 
 default_function_term:
-	CONCAT expression KOMMA expression ROUNDBRACKETCLOSED		# Function_Concat
-	| COUNT expression ROUNDBRACKETCLOSED						# Function_Count
-	| DISTINCT expression ROUNDBRACKETCLOSED					# Function_Distinc
-	| DIFFERENCE expression KOMMA expression ROUNDBRACKETCLOSED	# Function_Difference
-	| DUPLICATES expression ROUNDBRACKETCLOSED					# Function_Duplicates
-	| Except expression KOMMA expression ROUNDBRACKETCLOSED		# Function_Except
-	| INDEXOF expression ROUNDBRACKETCLOSED						# Function_IndexOf
-	| LOWERCASE expression ROUNDBRACKETCLOSED					# Function_Lower
-	| REVERSE expression ROUNDBRACKETCLOSED						# Function_Reverse
-	| UNION expression KOMMA expression ROUNDBRACKETCLOSED		# Function_Concat
-	| UPPERCASE expression ROUNDBRACKETCLOSED					# Function_Upper
-	| ANY expression ROUNDBRACKETCLOSED							# Function_Any
-	| SORT expression ROUNDBRACKETCLOSED						# Function_Sort;
+	CONCAT expression KOMMA expression ROUNDBRACKETCLOSED										# Function_Concat
+	| COUNT expression ROUNDBRACKETCLOSED														# Function_Count
+	| DISTINCT expression ROUNDBRACKETCLOSED													# Function_Distinc
+	| DIFFERENCE expression KOMMA expression ROUNDBRACKETCLOSED									# Function_Difference
+	| DUPLICATES expression ROUNDBRACKETCLOSED													# Function_Duplicates
+	| Except expression KOMMA expression ROUNDBRACKETCLOSED										# Function_Except
+	| INDEXOF expression KOMMA expression ROUNDBRACKETCLOSED									# Function_IndexOf
+	| INDEXOF expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED					# Function_IndexOfStart
+	| INDEXOF expression KOMMA expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED	# Function_IndexOfStartEnd
+	| LOWERCASE expression ROUNDBRACKETCLOSED													# Function_Lower
+	| REVERSE expression ROUNDBRACKETCLOSED														# Function_Reverse
+	| UPPERCASE expression ROUNDBRACKETCLOSED													# Function_Upper
+	| ANY expression ROUNDBRACKETCLOSED															# Function_Any
+	| SORT expression ROUNDBRACKETCLOSED														# Function_Sort;
 
 math_function_term:
 	ABS expression ROUNDBRACKETCLOSED																# Math_Abs
@@ -311,7 +312,6 @@ Except: 'except(';
 INDEXOF: 'indexOf(';
 LOWERCASE: 'lower(';
 REVERSE: 'reverse(';
-UNION: 'union(';
 UPPERCASE: 'upper(';
 ANY: 'any(';
 SORT: 'sort(';

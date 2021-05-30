@@ -30,7 +30,7 @@ namespace EveryParser
             if (childValues[0] is List<object> list)
                 return list.Select(calculationExpression).ToList();
 
-            return calculationExpression.Invoke(childValues[0]);
+            return calculationExpression(childValues[0]);
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace EveryParser
                 value2 = Convert.ToDecimal(childValues[1]);
 
             if (list1 is null && list2 is null)
-                return calculationExpression.Invoke(value1, value2);
+                return calculationExpression(value1, value2);
 
             if (!(list1 is null) && list2 is null)
                 return list1.Select(x => calculationExpression(x, value2)).ToList();
@@ -74,7 +74,7 @@ namespace EveryParser
             {
                 var result = new List<object>(list1.Count);
                 for (int i = 0; i < list1.Count; i += 1)
-                    result.Add(calculationExpression.Invoke(list1[i], list2[i]));
+                    result.Add(calculationExpression(list1[i], list2[i]));
                 return result;
             }
             else
@@ -103,7 +103,7 @@ namespace EveryParser
                 !errorCollector.CheckIsBoolean(context, childValues))
                 return null;
 
-            return calculationExpression.Invoke(Convert.ToBoolean(childValues[0]), Convert.ToBoolean(childValues[1]));
+            return calculationExpression(Convert.ToBoolean(childValues[0]), Convert.ToBoolean(childValues[1]));
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace EveryParser
                 !errorCollector.CheckIsList(context, childValues))
                 return null;
 
-            return calculationExpression.Invoke((List<object>)childValues[0]);
+            return calculationExpression((List<object>)childValues[0]);
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace EveryParser
                 !errorCollector.CheckIsListOfNumbers(context, childValues))
                 return null;
 
-            return calculationExpression.Invoke((List<object>)childValues[0]);
+            return calculationExpression((List<object>)childValues[0]);
         }
 
         /// <summary>
@@ -172,7 +172,101 @@ namespace EveryParser
                 !errorCollector.CheckIsListOfNumbers(context, childValues))
                 return null;
 
-            return calculationExpression.Invoke((List<object>)childValues[0], (List<object>)childValues[0]);
+            return calculationExpression((List<object>)childValues[0], (List<object>)childValues[0]);
+        }
+
+        /// <summary>
+        /// Calculations for string or List(object) with 2 childs in Node, but all can only be string or List
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="errorCollector"></param>
+        /// <param name="calculationExpression"></param>
+        /// <param name="children"></param>
+        /// <returns></returns>
+        internal static object CalcStringOrListBinary(ParserRuleContext context, AssertErrors errorCollector, Func<List<object>, List<object>, object> calculationListExpression, Func<string, string, object> calculationStringExpression, List<NodeCalculator> children)
+        {
+            if (!errorCollector.CheckHasParams(context, children))
+                return null;
+
+            var childValues = children.Select(child => child.Value).ToArray();
+
+            if (!errorCollector.CheckParamsCount(context, 2, childValues) ||
+                errorCollector.CheckIsNull(context, childValues) ||
+                !errorCollector.CheckIsStringOrList(context, childValues))
+                return null;
+
+            object value1 = childValues[0];
+            object value2 = childValues[1];
+
+            if ((value1 is List<object> && !(value2 is List<object>)) || (!(value1 is List<object>) && value2 is List<object>))
+            {
+                errorCollector.AddError(context, ErrorCode.CanBeEitherStringOrList, "Both parameters can be either string or List");
+                return null;
+            }
+
+            if (value1 is List<object> list1 && value2 is List<object> list2)
+                return calculationListExpression(list1, list2);
+
+            return calculationStringExpression(childValues[0].ToString(), childValues[0].ToString());
+        }
+
+
+
+
+        /// <summary>
+        /// Calculations for string or List(object) with 1 child in Node
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="errorCollector"></param>
+        /// <param name="calculationExpression"></param>
+        /// <param name="children"></param>
+        /// <returns></returns>
+        internal static object CalcStringOrListUnary(ParserRuleContext context, AssertErrors errorCollector, Func<List<object>, object> calculationListExpression, Func<string, object> calculationStringExpression, List<NodeCalculator> children)
+        {
+            if (!errorCollector.CheckHasParams(context, children))
+                return null;
+
+            var childValues = children.Select(child => child.Value).ToArray();
+
+            if (!errorCollector.CheckParamsCount(context, 1, childValues) ||
+                errorCollector.CheckIsNull(context, childValues) ||
+                !errorCollector.CheckIsStringOrList(context, childValues))
+                return null;
+
+            object value1 = childValues[0];
+
+            if (value1 is List<object> list1)
+                return calculationListExpression(list1);
+
+            return calculationStringExpression(childValues[0].ToString());
+        }
+
+        /// <summary>
+        /// Calculations for string or List(string) with 1 child in Node
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="errorCollector"></param>
+        /// <param name="calculationExpression"></param>
+        /// <param name="children"></param>
+        /// <returns></returns>
+        internal static object CalcStringOrStringListUnary(ParserRuleContext context, AssertErrors errorCollector, Func<string, object> calculationStringExpression, List<NodeCalculator> children)
+        {
+            if (!errorCollector.CheckHasParams(context, children))
+                return null;
+
+            var childValues = children.Select(child => child.Value).ToArray();
+
+            if (!errorCollector.CheckParamsCount(context, 1, childValues) ||
+                errorCollector.CheckIsNull(context, childValues) ||
+                !errorCollector.CheckIsStringOrListOfStrings(context, childValues))
+                return null;
+
+            object value1 = childValues[0];
+
+            if (value1 is List<object> list1)
+                return list1.Select(x => calculationStringExpression(x.ToString()));
+
+            return calculationStringExpression(childValues[0].ToString());
         }
 
         /// <summary>

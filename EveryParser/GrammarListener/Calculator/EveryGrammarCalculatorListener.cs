@@ -290,7 +290,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsStringOrArrayOfStrings(context, childValues))
+                !ErrorCollector.CheckIsStringOrListOfStrings(context, childValues))
             {
                 Node.Value = null;
                 Node = Node.Parent;
@@ -433,7 +433,7 @@ namespace EveryParser
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsStringOrArrayOfStrings(context, childValues))
+                !ErrorCollector.CheckIsStringOrListOfStrings(context, childValues))
             {
                 Node.Value = null;
                 Node = Node.Parent;

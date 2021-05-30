@@ -27,7 +27,11 @@ namespace EveryParser
         IsNotDateTime,
         IsNotNumberArray,
         FirstNotNumberArray,
-        SecondNotNumber
+        SecondNotNumber,
+        IsNotStringOrArray,
+        CanBeEitherStringOrList,
+        ThridNotNumber,
+        ForthNotNumber
     }
 
     public class AssertErrors
@@ -129,9 +133,9 @@ namespace EveryParser
         /// <param name="context">Context for line recognition</param>
         /// <param name="childs">All childs which are comitted to the calculation</param>
         /// <returns>true if types are numbers (int, long, double, decimal)</returns>
-        public bool CheckIsStringOrArrayOfStrings(ParserRuleContext context, params object[] childs)
+        public bool CheckIsStringOrListOfStrings(ParserRuleContext context, params object[] childs)
         {
-            if (!TypeCheckHelper.IsArrayOfStringOrStringList(childs))
+            if (!TypeCheckHelper.IsStringOrStringList(childs))
             {
                 _errors.Add((ErrorCode.IsNotString, $"One or more values are not string or array of strings {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
                 return false;
@@ -168,6 +172,23 @@ namespace EveryParser
             if (!TypeCheckHelper.IsArrayOfObjectList(childs))
             {
                 _errors.Add((ErrorCode.IsNotArray, $"One or more values are not an array {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Check if all parameters are type of string or List(obect)
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="childs"></param>
+        /// <returns></returns>
+        public bool CheckIsStringOrList(ParserRuleContext context, params object[] childs)
+        {
+            if (!TypeCheckHelper.IsStringOrList(childs))
+            {
+                _errors.Add((ErrorCode.IsNotStringOrArray, $"One or more values are not a string or array {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
                 return false;
             }
 

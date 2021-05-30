@@ -23,7 +23,14 @@ namespace EveryParser
         /// </summary>
         /// <param name="objs"></param>
         /// <returns></returns>
-        internal static bool IsArrayOfStringOrStringList(object[] objs) => !objs.Any(obj => !(obj is string || (obj is List<object> list && list.All(x => x is string))));
+        internal static bool IsStringOrStringList(object[] objs) => !objs.Any(obj => !(obj is string || (obj is List<object> list && list.All(x => x is string))));
+
+        /// <summary>
+        /// Checks if all objects are type of string or List(object)
+        /// </summary>
+        /// <param name="objs"></param>
+        /// <returns></returns>
+        internal static bool IsStringOrList(object[] objs) => !objs.Any(obj => !(obj is string || obj is List<object> list));
 
         /// <summary>
         /// Checks if all objects are type of List(number)

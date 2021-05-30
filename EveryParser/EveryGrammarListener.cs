@@ -1108,6 +1108,30 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitFunction_IndexOf([NotNull] EveryGrammarParser.Function_IndexOfContext context);
 	/// <summary>
+	/// Enter a parse tree produced by the <c>Function_IndexOfStart</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterFunction_IndexOfStart([NotNull] EveryGrammarParser.Function_IndexOfStartContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Function_IndexOfStart</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitFunction_IndexOfStart([NotNull] EveryGrammarParser.Function_IndexOfStartContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Function_IndexOfStartEnd</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterFunction_IndexOfStartEnd([NotNull] EveryGrammarParser.Function_IndexOfStartEndContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Function_IndexOfStartEnd</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitFunction_IndexOfStartEnd([NotNull] EveryGrammarParser.Function_IndexOfStartEndContext context);
+	/// <summary>
 	/// Enter a parse tree produced by the <c>Function_Lower</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
 	/// </summary>
