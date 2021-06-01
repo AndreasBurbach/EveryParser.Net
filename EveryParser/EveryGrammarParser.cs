@@ -2952,6 +2952,24 @@ public partial class EveryGrammarParser : Parser {
 			if (typedListener != null) typedListener.ExitConvert_ToArray(this);
 		}
 	}
+	public partial class Convert_DegreeToGradContext : Convert_function_termContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DegreeToGrad() { return GetToken(EveryGrammarParser.DegreeToGrad, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
+			return GetRuleContext<ExpressionContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ROUNDBRACKETCLOSED() { return GetToken(EveryGrammarParser.ROUNDBRACKETCLOSED, 0); }
+		public Convert_DegreeToGradContext(Convert_function_termContext context) { CopyFrom(context); }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
+			if (typedListener != null) typedListener.EnterConvert_DegreeToGrad(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
+			if (typedListener != null) typedListener.ExitConvert_DegreeToGrad(this);
+		}
+	}
 	public partial class Convert_DegreeToRadianContext : Convert_function_termContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DegreeToRadian() { return GetToken(EveryGrammarParser.DegreeToRadian, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
@@ -2986,24 +3004,6 @@ public partial class EveryGrammarParser : Parser {
 		public override void ExitRule(IParseTreeListener listener) {
 			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
 			if (typedListener != null) typedListener.ExitConvert_RadianToGrad(this);
-		}
-	}
-	public partial class Convert_DegreeToGreadContext : Convert_function_termContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DegreeToGrad() { return GetToken(EveryGrammarParser.DegreeToGrad, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
-			return GetRuleContext<ExpressionContext>(0);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ROUNDBRACKETCLOSED() { return GetToken(EveryGrammarParser.ROUNDBRACKETCLOSED, 0); }
-		public Convert_DegreeToGreadContext(Convert_function_termContext context) { CopyFrom(context); }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
-			if (typedListener != null) typedListener.EnterConvert_DegreeToGread(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
-			if (typedListener != null) typedListener.ExitConvert_DegreeToGread(this);
 		}
 	}
 	public partial class Convert_GradToRadianContext : Convert_function_termContext {
@@ -3100,7 +3100,7 @@ public partial class EveryGrammarParser : Parser {
 				}
 				break;
 			case DegreeToGrad:
-				_localctx = new Convert_DegreeToGreadContext(_localctx);
+				_localctx = new Convert_DegreeToGradContext(_localctx);
 				EnterOuterAlt(_localctx, 5);
 				{
 				State = 300;

@@ -892,17 +892,17 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitConvert_ToString([NotNull] EveryGrammarParser.Convert_ToStringContext context);
 	/// <summary>
-	/// Enter a parse tree produced by the <c>Convert_DegreeToGread</c>
+	/// Enter a parse tree produced by the <c>Convert_DegreeToGrad</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterConvert_DegreeToGread([NotNull] EveryGrammarParser.Convert_DegreeToGreadContext context);
+	void EnterConvert_DegreeToGrad([NotNull] EveryGrammarParser.Convert_DegreeToGradContext context);
 	/// <summary>
-	/// Exit a parse tree produced by the <c>Convert_DegreeToGread</c>
+	/// Exit a parse tree produced by the <c>Convert_DegreeToGrad</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitConvert_DegreeToGread([NotNull] EveryGrammarParser.Convert_DegreeToGreadContext context);
+	void ExitConvert_DegreeToGrad([NotNull] EveryGrammarParser.Convert_DegreeToGradContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>Convert_DegreeToRadian</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.

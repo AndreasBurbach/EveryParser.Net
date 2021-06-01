@@ -81,7 +81,7 @@ convert_function_term:
 	| ToBoolean expression ROUNDBRACKETCLOSED		# Convert_ToBoolean
 	| ToNumber expression ROUNDBRACKETCLOSED		# Convert_ToNumber
 	| ToString expression ROUNDBRACKETCLOSED		# Convert_ToString
-	| DegreeToGrad expression ROUNDBRACKETCLOSED	# Convert_DegreeToGread
+	| DegreeToGrad expression ROUNDBRACKETCLOSED	# Convert_DegreeToGrad
 	| DegreeToRadian expression ROUNDBRACKETCLOSED	# Convert_DegreeToRadian
 	| GradToDegree expression ROUNDBRACKETCLOSED	# Convert_GradToDegree
 	| GradToRadian expression ROUNDBRACKETCLOSED	# Convert_GradToRadian

@@ -1,4 +1,5 @@
 ﻿using Antlr4.Runtime.Misc;
+using System;
 
 namespace EveryParser
 {
@@ -19,7 +20,7 @@ namespace EveryParser
         /// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitConvert_ToArray([NotNull] EveryGrammarParser.Convert_ToArrayContext context) { }
+        public void ExitConvert_ToArray([NotNull] EveryGrammarParser.Convert_ToArrayContext context) { nur für strings oder einem array das nur ein element mit string enthält }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Convert_ToBoolean</c>
@@ -36,7 +37,7 @@ namespace EveryParser
         /// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitConvert_ToBoolean([NotNull] EveryGrammarParser.Convert_ToBooleanContext context) { }
+        public void ExitConvert_ToBoolean([NotNull] EveryGrammarParser.Convert_ToBooleanContext context) { alles was nicht leer oder über 0 ist }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Convert_ToNumber</c>
@@ -53,7 +54,7 @@ namespace EveryParser
         /// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitConvert_ToNumber([NotNull] EveryGrammarParser.Convert_ToNumberContext context) { }
+        public void ExitConvert_ToNumber([NotNull] EveryGrammarParser.Convert_ToNumberContext context) { nur mit strings, oder array mit nur einem element das eine nummer ist }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Convert_ToString</c>
@@ -70,14 +71,14 @@ namespace EveryParser
         /// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitConvert_ToString([NotNull] EveryGrammarParser.Convert_ToStringContext context) { }
+        public void ExitConvert_ToString([NotNull] EveryGrammarParser.Convert_ToStringContext context) { tostring }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Convert_DegreeToGread</c>
         /// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterConvert_DegreeToGread([NotNull] EveryGrammarParser.Convert_DegreeToGreadContext context)
+        public void EnterConvert_DegreeToGrad([NotNull] EveryGrammarParser.Convert_DegreeToGradContext context)
         {
             Node = Node.AddChildNode();
         }
@@ -87,7 +88,12 @@ namespace EveryParser
         /// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitConvert_DegreeToGread([NotNull] EveryGrammarParser.Convert_DegreeToGreadContext context) { }
+        public void ExitConvert_DegreeToGrad([NotNull] EveryGrammarParser.Convert_DegreeToGradContext context)
+        {
+            Func<object, object> calculation = x => (object)MathNet.Numerics.Trig.DegreeToGrad(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Convert_DegreeToRadian</c>
@@ -104,7 +110,12 @@ namespace EveryParser
         /// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitConvert_DegreeToRadian([NotNull] EveryGrammarParser.Convert_DegreeToRadianContext context) { }
+        public void ExitConvert_DegreeToRadian([NotNull] EveryGrammarParser.Convert_DegreeToRadianContext context)
+        {
+            Func<object, object> calculation = x => (object)MathNet.Numerics.Trig.DegreeToRadian(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Convert_GradToDegree</c>
@@ -121,7 +132,12 @@ namespace EveryParser
         /// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitConvert_GradToDegree([NotNull] EveryGrammarParser.Convert_GradToDegreeContext context) { }
+        public void ExitConvert_GradToDegree([NotNull] EveryGrammarParser.Convert_GradToDegreeContext context)
+        {
+            Func<object, object> calculation = x => (object)MathNet.Numerics.Trig.GradToDegree(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Convert_GradToRadian</c>
@@ -138,7 +154,12 @@ namespace EveryParser
         /// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitConvert_GradToRadian([NotNull] EveryGrammarParser.Convert_GradToRadianContext context) { }
+        public void ExitConvert_GradToRadian([NotNull] EveryGrammarParser.Convert_GradToRadianContext context)
+        {
+            Func<object, object> calculation = x => (object)MathNet.Numerics.Trig.GradToRadian(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Convert_RadianToDegree</c>
@@ -155,7 +176,12 @@ namespace EveryParser
         /// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitConvert_RadianToDegree([NotNull] EveryGrammarParser.Convert_RadianToDegreeContext context) { }
+        public void ExitConvert_RadianToDegree([NotNull] EveryGrammarParser.Convert_RadianToDegreeContext context)
+        {
+            Func<object, object> calculation = x => (object)MathNet.Numerics.Trig.RadianToDegree(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Convert_RadianToGrad</c>
@@ -172,6 +198,11 @@ namespace EveryParser
         /// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitConvert_RadianToGrad([NotNull] EveryGrammarParser.Convert_RadianToGradContext context) { }
+        public void ExitConvert_RadianToGrad([NotNull] EveryGrammarParser.Convert_RadianToGradContext context)
+        {
+            Func<object, object> calculation = x => (object)MathNet.Numerics.Trig.RadianToGrad(Convert.ToDouble(x));
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
     }
 }
