@@ -1,5 +1,7 @@
 ﻿using Antlr4.Runtime.Misc;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EveryParser
 {
@@ -20,7 +22,43 @@ namespace EveryParser
         /// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitConvert_ToArray([NotNull] EveryGrammarParser.Convert_ToArrayContext context) { nur für strings oder einem array das nur ein element mit string enthält }
+        public void ExitConvert_ToArray([NotNull] EveryGrammarParser.Convert_ToArrayContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = null;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues))
+            {
+                Node.Value = null;
+                Node = Node.Parent;
+                return;
+            }
+
+            object value = childValues[0];
+
+            try
+            {
+                if (value is List<object>)
+                    Node.Value = value;
+
+                if (value is string sValue)
+                    Node.Value = sValue.Select(x => (object)x).ToArray();
+
+                if (TypeCheckHelper.IsNumber(value) || TypeCheckHelper.IsBoolean(value))
+                    Node.Value = new List<object>() { value };
+            }
+            finally
+            {
+                Node = Node.Parent;
+            }
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Convert_ToBoolean</c>
@@ -37,7 +75,46 @@ namespace EveryParser
         /// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitConvert_ToBoolean([NotNull] EveryGrammarParser.Convert_ToBooleanContext context) { alles was nicht leer oder über 0 ist }
+        public void ExitConvert_ToBoolean([NotNull] EveryGrammarParser.Convert_ToBooleanContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = null;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues))
+            {
+                Node.Value = null;
+                Node = Node.Parent;
+                return;
+            }
+
+            object value = childValues[0];
+
+            try
+            {
+                if (value is List<object> listValue)
+                    Node.Value = listValue.Any();
+
+                if (value is string sValue)
+                    Node.Value = !string.IsNullOrWhiteSpace(sValue);
+
+                if (TypeCheckHelper.IsNumber(value))
+                    Node.Value = Convert.ToDecimal(value) > 0;
+
+                if (TypeCheckHelper.IsBoolean(value))
+                    Node.Value = value;
+            }
+            finally
+            {
+                Node = Node.Parent;
+            }
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Convert_ToNumber</c>
@@ -54,7 +131,46 @@ namespace EveryParser
         /// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitConvert_ToNumber([NotNull] EveryGrammarParser.Convert_ToNumberContext context) { nur mit strings, oder array mit nur einem element das eine nummer ist }
+        public void ExitConvert_ToNumber([NotNull] EveryGrammarParser.Convert_ToNumberContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = null;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues))
+            {
+                Node.Value = null;
+                Node = Node.Parent;
+                return;
+            }
+
+            object value = childValues[0];
+
+            try
+            {
+                if (value is List<object>)
+                    Node.Value = double.NaN;
+
+                if (TypeCheckHelper.IsNumber(value))
+                    Node.Value = Convert.ToDecimal(value) > 0;
+
+                if (TypeCheckHelper.IsBoolean(value))
+                    Node.Value = Convert.ToBoolean(value) ? 1 : 0;
+
+                if (decimal.TryParse(value.ToString(), out var number))
+                    Node.Value = number;
+            }
+            finally
+            {
+                Node = Node.Parent;
+            }
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Convert_ToString</c>
@@ -71,7 +187,36 @@ namespace EveryParser
         /// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitConvert_ToString([NotNull] EveryGrammarParser.Convert_ToStringContext context) { tostring }
+        public void ExitConvert_ToString([NotNull] EveryGrammarParser.Convert_ToStringContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = null;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues))
+            {
+                Node.Value = null;
+                Node = Node.Parent;
+                return;
+            }
+
+            object value = childValues[0];
+
+            try
+            {
+                Node.Value = value.ToString();
+            }
+            finally
+            {
+                Node = Node.Parent;
+            }
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Convert_DegreeToGread</c>

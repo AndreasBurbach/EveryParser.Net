@@ -16,7 +16,7 @@ namespace EveryParser
         /// Checks if all objects are type of boolean
         /// </summary>
         /// <param name="objs"></param>
-        internal static bool IsArrayOfBoolean(object[] objs) => !objs.Any(obj => !bool.TryParse(obj.ToString(), out _));
+        internal static bool IsArrayOfBoolean(object[] objs) => !objs.Any(obj => !IsBoolean(obj));
 
         /// <summary>
         /// Checks if all objects are type of string or List(string)
@@ -37,7 +37,7 @@ namespace EveryParser
         /// </summary>
         /// <param name="objs"></param>
         /// <returns></returns>
-        internal static bool IsArrayOfNumberList(object[] objs) => !objs.Any(obj => !(obj is List<object> list && list.All(x => x is int || x is long || x is double || x is decimal)));
+        internal static bool IsArrayOfNumberList(object[] objs) => !objs.Any(obj => !(obj is List<object> list && list.All(x => IsNumber(x))));
 
         /// <summary>
         /// Checks if all objects are type of number and/or List(number)
@@ -53,7 +53,7 @@ namespace EveryParser
         /// </summary>
         /// <param name="objs"></param>
         /// <returns></returns>
-        internal static bool IsArrayOfNumber(object[] objs) => !objs.Any(obj => !(obj is int || obj is long || obj is double || obj is decimal));
+        internal static bool IsArrayOfNumber(object[] objs) => !objs.Any(obj => !IsNumber(obj));
 
         /// <summary>
         /// Checks if one object of the array is null
@@ -61,5 +61,19 @@ namespace EveryParser
         /// <param name="objs"></param>
         /// <returns></returns>
         internal static bool IsOneOfNull(object[] objs) => objs.Any(obj => obj is null);
+
+        /// <summary>
+        /// Checks if object is type of number
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        internal static bool IsNumber(object obj) => obj is int || obj is long || obj is double || obj is decimal;
+
+        /// <summary>
+        /// Checks if object is type of boolean
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        internal static bool IsBoolean(object obj) => bool.TryParse(obj.ToString(), out _);
     }
 }
