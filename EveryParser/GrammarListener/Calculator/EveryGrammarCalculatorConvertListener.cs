@@ -46,10 +46,14 @@ namespace EveryParser
             try
             {
                 if (value is List<object>)
-                    Node.Value = value;
+                {
+                    Node.Value = value; return;
+                }
 
                 if (value is string sValue)
-                    Node.Value = sValue.Select(x => (object)x).ToArray();
+                {
+                    Node.Value = sValue.Select(x => (object)x).ToArray(); return;
+                }
 
                 if (TypeCheckHelper.IsNumber(value) || TypeCheckHelper.IsBoolean(value))
                     Node.Value = new List<object>() { value };
@@ -99,13 +103,20 @@ namespace EveryParser
             try
             {
                 if (value is List<object> listValue)
+                {
                     Node.Value = listValue.Any();
+                    return;
+                }
 
                 if (value is string sValue)
-                    Node.Value = !string.IsNullOrWhiteSpace(sValue);
+                {
+                    Node.Value = !string.IsNullOrWhiteSpace(sValue); return;
+                }
 
                 if (TypeCheckHelper.IsNumber(value))
-                    Node.Value = Convert.ToDecimal(value) > 0;
+                {
+                    Node.Value = Convert.ToDecimal(value) > 0; return;
+                }
 
                 if (TypeCheckHelper.IsBoolean(value))
                     Node.Value = value;
@@ -155,13 +166,19 @@ namespace EveryParser
             try
             {
                 if (value is List<object>)
-                    Node.Value = double.NaN;
+                {
+                    Node.Value = double.NaN; return;
+                }
 
                 if (TypeCheckHelper.IsNumber(value))
-                    Node.Value = Convert.ToDecimal(value) > 0;
+                {
+                    Node.Value = Convert.ToDecimal(value) > 0; return;
+                }
 
                 if (TypeCheckHelper.IsBoolean(value))
-                    Node.Value = Convert.ToBoolean(value) ? 1 : 0;
+                {
+                    Node.Value = Convert.ToBoolean(value) ? 1 : 0; return;
+                }
 
                 if (decimal.TryParse(value.ToString(), out var number))
                     Node.Value = number;

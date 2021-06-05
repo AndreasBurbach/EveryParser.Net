@@ -150,7 +150,7 @@ namespace EveryParser.Test.ExpressionTest
             Assert.Equal(MathNet.Numerics.Statistics.Correlation.Spearman(new double[] { 1, 2, 3, 4, 5.5 }, new double[] { 1, 2, 3, 4, 5.5 }), (double)Expression.CalculateDecimal("spearman([1,2,3,4,5.5], [1,2,3,4,5.5])"));
         }
 
-        private static decimal[] ToDecimalArray(object[] array)
+        public static decimal[] ToDecimalArray(object[] array)
         {
             decimal[] result = new decimal[array.Length];
             for (int i = 0; i < array.Length; ++i)

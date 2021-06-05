@@ -197,7 +197,7 @@ namespace EveryParser
             object value2 = childValues[1];
             object value3 = childValues[2];
 
-            if (int.TryParse(value3.ToString(), out int startIndex))
+            if (!int.TryParse(value3.ToString(), out int startIndex))
             {
                 ErrorCollector.AddError(context, ErrorCode.ThridNotNumber, "Third parameter must be a number");
                 Node.Value = double.NaN;
@@ -250,7 +250,7 @@ namespace EveryParser
             List<object> list = childValues[0] as List<object>;
             object value2 = childValues[1];
 
-            if (int.TryParse(childValues[2].ToString(), out int startIndex))
+            if (!int.TryParse(childValues[2].ToString(), out int startIndex))
             {
                 ErrorCollector.AddError(context, ErrorCode.ThridNotNumber, "Third parameter must be a number");
                 Node.Value = double.NaN;
@@ -258,7 +258,7 @@ namespace EveryParser
                 return;
             }
 
-            if (int.TryParse(childValues[3].ToString(), out int endIndex))
+            if (!int.TryParse(childValues[3].ToString(), out int endIndex))
             {
                 ErrorCollector.AddError(context, ErrorCode.ForthNotNumber, "Forth parameter must be a number");
                 Node.Value = double.NaN;
@@ -371,11 +371,7 @@ namespace EveryParser
                 var uv = new List<object>(xWithoutY);
                 uv.AddRange(yWithoutX);
 
-                var xy = new List<object>(x.Count + y.Count);
-                xy.AddRange(x);
-                xy.AddRange(y);
-
-                return xy.Except(uv).ToList();
+                return uv;
             };
             Func<string, string, object> stringCalculation = (x, y) =>
             {
