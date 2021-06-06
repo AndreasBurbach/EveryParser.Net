@@ -109,7 +109,10 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitFunction_Duplicates([NotNull] EveryGrammarParser.Function_DuplicatesContext context)
         {
-            //War hier gemeint, ob es duplikate im array gibt?
+            Func<List<object>, object> listCalculation = list => list.Distinct().Count() < list.Count;
+            Func<string, object> stringCalculation = x => x.Distinct().Count() < x.Length;
+            Node.Value = CalculationHelper.CalcStringOrListUnary(context, ErrorCollector, listCalculation, stringCalculation, Node.Children);
+            Node = Node.Parent;
         }
 
         /// <summary>

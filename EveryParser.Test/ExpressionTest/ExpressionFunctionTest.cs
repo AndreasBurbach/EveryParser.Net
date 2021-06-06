@@ -16,8 +16,8 @@ namespace EveryParser.Test.ExpressionTest
 
             Assert.Equal(ExpressionMathArrayTest.ToDecimalArray(new object[] { 4 }), ExpressionMathArrayTest.ToDecimalArray(Expression.CalculateArray("difference([1,2,3], [1,2,3,4])")));
 
-            //Assert.Equal(true, Expression.CalculateBoolean("duplicates([1,1,1])"));
-            //Assert.Equal(false, Expression.CalculateBoolean("duplicates([1,2,3])"));
+            Assert.Equal(true, Expression.CalculateBoolean("duplicates([1,1,1])"));
+            Assert.Equal(false, Expression.CalculateBoolean("duplicates([1,2,3])"));
 
             Assert.Equal(ExpressionMathArrayTest.ToDecimalArray(new object[] { 3 }), ExpressionMathArrayTest.ToDecimalArray(Expression.CalculateArray("except([1,2,3], [1,2])")));
 
