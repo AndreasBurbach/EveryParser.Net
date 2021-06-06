@@ -209,7 +209,6 @@ namespace EveryParser
                 list = childValues[0].ToString().ToList().ConvertAll(x => (object)x);
 
             Node.Value = list.IndexOf(value2, startIndex);
-
             Node = Node.Parent;
         }
 

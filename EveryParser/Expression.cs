@@ -201,7 +201,7 @@ namespace EveryParser
             if (listener.ErrorCollector.HasErrors)
                 return null;
 
-            return null;
+            return listener.Result.ToString();
         }
 
         public decimal? CalculateDecimal()

@@ -7,7 +7,7 @@ namespace EveryParser.Test.ExpressionTest
         [Fact]
         public void DefaultFunctionTest()
         {
-            Assert.Equal(ExpressionMathArrayTest.ToDecimalArray(new object[] { 1,2 }), ExpressionMathArrayTest.ToDecimalArray(Expression.CalculateArray("concat([1], [2])")));
+            Assert.Equal(ExpressionMathArrayTest.ToDecimalArray(new object[] { 1, 2 }), ExpressionMathArrayTest.ToDecimalArray(Expression.CalculateArray("concat([1], [2])")));
 
             Assert.Equal(3, Expression.CalculateDecimal("count([1,2,3])"));
 
@@ -27,14 +27,14 @@ namespace EveryParser.Test.ExpressionTest
             Assert.Equal(1, Expression.CalculateDecimal("indexOf([1,2,3], 2, 1)"));
             Assert.Equal(-1, Expression.CalculateDecimal("indexOf([1,2,3], 1, 1)"));
 
-            //Assert.Equal(1, Expression.CalculateDecimal("indexOf([1,2,3], 2, 1, 1)"));
-            Assert.Equal(-1, Expression.CalculateDecimal("indexOf([1,2,3], 1, 1, 1"));
+            Assert.Equal(1, Expression.CalculateDecimal("indexOf([1,2,3], 2, 1, 1)"));
+            Assert.Equal(-1, Expression.CalculateDecimal("indexOf([1,2,3], 1, 1, 1)"));
 
             Assert.Equal("test", Expression.CalculateString("lower(\"TEST\")"));
 
             Assert.Equal(ExpressionMathArrayTest.ToDecimalArray(new object[] { 3, 2, 1 }), ExpressionMathArrayTest.ToDecimalArray(Expression.CalculateArray("reverse([1,2,3])")));
 
-            Assert.Equal("TEST", Expression.CalculateString("lower(\"test\")"));
+            Assert.Equal("TEST", Expression.CalculateString("upper(\"test\")"));
 
             Assert.Equal(true, Expression.CalculateBoolean("any([1,2,3])"));
             Assert.Equal(false, Expression.CalculateBoolean("any([])"));
