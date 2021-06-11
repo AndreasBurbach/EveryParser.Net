@@ -362,10 +362,43 @@ namespace EveryParser
                         return (object)(valueX < min ? min : valueX > max ? max : value);
                     }).ToList();
                 }
-                else if (minList is null || maxList is null)
+                else if (minList is null && !(maxList is null))
                 {
-                    ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, "If any parameter is an array, all parameters must be an array");
-                    Node.Value = new List<object>();
+                    if (valueList.Count == maxList.Count)
+                    {
+                        var result = new List<object>(valueList.Count);
+                        for (int i = 0; i < valueList.Count; ++i)
+                        {
+                            value = Convert.ToDecimal(valueList[i]);
+                            max = Convert.ToDecimal(maxList[i]);
+                            result.Add((value < min ? min : value > max ? max : value));
+                        }
+                        Node.Value = result;
+                    }
+                    else
+                    {
+                        ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, $"Array count must be equal: Array1 Count {valueList.Count} Array3 Count {maxList.Count}");
+                        Node.Value = null;
+                    }
+                }
+                else if (!(minList is null) && maxList is null)
+                {
+                    if (valueList.Count == maxList.Count)
+                    {
+                        var result = new List<object>(valueList.Count);
+                        for (int i = 0; i < valueList.Count; ++i)
+                        {
+                            value = Convert.ToDecimal(valueList[i]);
+                            min = Convert.ToDecimal(minList[i]);
+                            result.Add((value < min ? min : value > max ? max : value));
+                        }
+                        Node.Value = result;
+                    }
+                    else
+                    {
+                        ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, $"Array count must be equal: Array1 Count {valueList.Count} Array3 Count {maxList.Count}");
+                        Node.Value = null;
+                    }
                 }
                 else if (valueList.Count == minList.Count && minList.Count == maxList.Count)
                 {
@@ -382,15 +415,9 @@ namespace EveryParser
                 }
                 else
                 {
-                    ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount,
-                        $"Array count must be equal: Array1 Count {valueList.Count} Array2 Count {minList.Count} Array3 Count {maxList.Count}");
-                    Node.Value = new List<object>();
+                    ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, $"Array count must be equal: Array1 Count {valueList.Count} Array2 Count {minList.Count} Array3 Count {maxList.Count}");
+                    Node.Value = null;
                 }
-            }
-            else
-            {
-                ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, "If any parameter is an array, all parameters must be an array");
-                Node.Value = new List<object>();
             }
 
             Node = Node.Parent;

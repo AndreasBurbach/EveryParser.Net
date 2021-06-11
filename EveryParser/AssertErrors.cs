@@ -31,7 +31,13 @@ namespace EveryParser
         IsNotStringOrArray,
         CanBeEitherStringOrList,
         ThridNotNumber,
-        ForthNotNumber
+        ForthNotNumber,
+        ArraySlicingNotCorrect,
+        FirstIsNotArray,
+        FirstIsNotNumberOrNumberArray,
+        SecondIsNotNumberOrNumberArray,
+        StepNotCorrect,
+        StartEndIndexNotCorrect
     }
 
     public class AssertErrors

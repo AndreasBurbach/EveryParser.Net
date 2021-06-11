@@ -46,21 +46,61 @@ namespace EveryParser
                 Result = null;
         }
 
-        /// <summary>
-        /// Enter a parse tree produced by the <c>ArraySlicing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.if_else"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void EnterArraySlicing([NotNull] EveryGrammarParser.ArraySlicingContext context) { }
+        
 
         /// <summary>
-        /// Exit a parse tree produced by the <c>ArraySlicing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.if_else"/>.
+        /// Enter a parse tree produced by the <c>ArraySlicing_Indexing</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitArraySlicing([NotNull] EveryGrammarParser.ArraySlicingContext context) { }
+        public void EnterArraySlicing_Indexing([NotNull] EveryGrammarParser.ArraySlicing_IndexingContext context)
+        {
+        }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>ArraySlicing_Indexing</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
+        /// <para>The default implementation does nothing.</para>
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitArraySlicing_Indexing([NotNull] EveryGrammarParser.ArraySlicing_IndexingContext context) { }
+
+        /// <summary>
+        /// Enter a parse tree produced by the <c>ArraySlicing_Slicing</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
+        /// <para>The default implementation does nothing.</para>
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void EnterArraySlicing_Slicing([NotNull] EveryGrammarParser.ArraySlicing_SlicingContext context)
+        {
+        }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>ArraySlicing_Slicing</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
+        /// <para>The default implementation does nothing.</para>
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitArraySlicing_Slicing([NotNull] EveryGrammarParser.ArraySlicing_SlicingContext context) { }
+
+        /// <summary>
+        /// Enter a parse tree produced by the <c>ArraySlicing_StepSlicing</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
+        /// <para>The default implementation does nothing.</para>
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void EnterArraySlicing_StepSlicing([NotNull] EveryGrammarParser.ArraySlicing_StepSlicingContext context)
+        {
+        }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>ArraySlicing_StepSlicing</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
+        /// <para>The default implementation does nothing.</para>
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitArraySlicing_StepSlicing([NotNull] EveryGrammarParser.ArraySlicing_StepSlicingContext context) { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>IfElse</c>
@@ -68,7 +108,9 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterIfElse([NotNull] EveryGrammarParser.IfElseContext context) { }
+        public void EnterIfElse([NotNull] EveryGrammarParser.IfElseContext context)
+        {
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>IfElse</c>
@@ -1193,7 +1235,7 @@ namespace EveryParser
         {
             if (!ErrorCollector.CheckHasParams(context, Node.Children))
             {
-                Node.Value = new List<object>();
+                Node.Value = null;
                 Node = Node.Parent;
                 return;
             }
@@ -1202,7 +1244,7 @@ namespace EveryParser
 
             if (ErrorCollector.CheckIsNull(context, childValues))
             {
-                Node.Value = new List<object>();
+                Node.Value = null;
                 Node = Node.Parent;
                 return;
             }
