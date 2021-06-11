@@ -53,10 +53,16 @@ namespace EveryParser
             var array = childValues[0] as List<object>;
             if (array is null)
             {
-                ErrorCollector.AddError(context, ErrorCode.FirstIsNotArray, "The first parameter musst be an array!");
-                Node.Value = null;
-                Node = Node.Parent;
-                return;
+                string text = childValues[0] as string;
+                if (string.IsNullOrWhiteSpace(text))
+                {
+                    ErrorCollector.AddError(context, ErrorCode.FirstIsNotArray, "The first parameter musst be an array or string!");
+                    Node.Value = null;
+                    Node = Node.Parent;
+                    return;
+                }
+
+                array = Array.ConvertAll(text.ToArray(), x => (object)x).ToList();
             }
 
             switch (childValues.Length)
