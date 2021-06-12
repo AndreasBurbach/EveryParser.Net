@@ -46,8 +46,6 @@ namespace EveryParser
                 Result = null;
         }
 
-        
-
         /// <summary>
         /// Enter a parse tree produced by the <c>IfElse</c>
         /// labeled alternative in <see cref="EveryGrammarParser.if_else"/>.

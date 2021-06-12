@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace EveryParser
 {
@@ -12,9 +10,12 @@ namespace EveryParser
         public string ChildCaluclationName;
         public List<NodeCalculator> Children;
 
-        public NodeCalculator() { }
+        public NodeCalculator()
+        {
+        }
 
-        public NodeCalculator(NodeCalculator parent, int index) {
+        public NodeCalculator(NodeCalculator parent, int index)
+        {
             Parent = parent;
             Index = index;
         }
@@ -24,7 +25,8 @@ namespace EveryParser
             Value = value;
         }
 
-        public NodeCalculator(NodeCalculator parent, int index, object value) {
+        public NodeCalculator(NodeCalculator parent, int index, object value)
+        {
             Parent = parent;
             Index = index;
             Value = value;
@@ -39,6 +41,5 @@ namespace EveryParser
             Children.Add(newNode);
             return newNode;
         }
-
     }
 }
