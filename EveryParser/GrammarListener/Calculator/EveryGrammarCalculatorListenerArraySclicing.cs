@@ -42,7 +42,7 @@ namespace EveryParser
                 return;
             }
 
-            if (childValues.Length < 2 || childValues.Length > 3)
+            if (childValues.Length < 2 || childValues.Length > 4)
             {
                 ErrorCollector.AddError(context, ErrorCode.ArraySlicingNotCorrect, "The parameter count for slicing the array is not correct!");
                 Node.Value = null;
@@ -95,10 +95,42 @@ namespace EveryParser
             if (indexList is null)
             {
                 int index = Convert.ToInt32(indexObj);
+                if (index < 0)
+                    index = array.Count + index;
+
+                if (index >= array.Count)
+                {
+                    ErrorCollector.AddError(context, ErrorCode.IndexNotCorrect, "The index can't be higher or equal to the length of the array!");
+                    return null;
+                }
+                else if (index < 0)
+                {
+                    ErrorCollector.AddError(context, ErrorCode.IndexNotCorrect, "The index can't be less than 0!");
+                    return null;
+                }
+
                 return array[index];
             }
 
-            return indexList.Select(x => array[Convert.ToInt32(x.ToString())]);
+            return indexList.Select(x =>
+            {
+                int index = Convert.ToInt32(x);
+                if (index < 0)
+                    index = array.Count + index;
+
+                if (index >= array.Count)
+                {
+                    ErrorCollector.AddError(context, ErrorCode.IndexNotCorrect, "The index can't be higher or equal to the length of the array!");
+                    return null;
+                }
+                else if (index < 0)
+                {
+                    ErrorCollector.AddError(context, ErrorCode.IndexNotCorrect, "The index can't be less than 0!");
+                    return null;
+                }
+
+                return array[index];
+            }).ToList();
         }
 
         private object SliceArrayFromTo(ParserRuleContext context, List<object> array, object indexStartObj, object indexEndObj)
@@ -110,30 +142,26 @@ namespace EveryParser
             {
                 int indexStart = Convert.ToInt32(indexStartObj);
                 int indexEnd = Convert.ToInt32(indexEndObj);
-                return array.GetRange(indexStart, indexEnd - indexStart);
+                return GetFromTo(context, array, indexStart, indexEnd);
             }
             else if (indexStartList is null)
             {
                 int indexStart = Convert.ToInt32(indexStartObj);
-                return indexEndList.Select(indexEndX => array.GetRange(indexStart, Convert.ToInt32(indexEndX) - indexStart)).ToList();
+                return indexEndList.Select(indexEndX => (object)GetFromTo(context, array, indexStart, Convert.ToInt32(indexEndX))).ToList();
             }
             else if (indexEndList is null)
             {
                 int indexEnd = Convert.ToInt32(indexEndObj);
-                return indexStartList.Select(indexStartX =>
-                {
-                    int indexStart = Convert.ToInt32(indexStartX);
-                    return array.GetRange(indexStart, indexEnd - indexStart);
-                }).ToList();
+                return indexStartList.Select(indexStartX => (object)GetFromTo(context, array, Convert.ToInt32(indexStartX), indexEnd)).ToList();
             }
             else if (indexStartList.Count == indexEndList.Count)
             {
                 var result = new List<object>(indexEndList.Count);
                 for (int i = 0; i < indexEndList.Count; i += 1)
                 {
-                    int indexStart = Convert.ToInt32(indexStartObj);
-                    int indexEnd = Convert.ToInt32(indexEndObj);
-                    result.Add(array.GetRange(indexStart, indexEnd - indexStart));
+                    int indexStart = Convert.ToInt32(indexStartList[i]);
+                    int indexEnd = Convert.ToInt32(indexEndList[i]);
+                    result.Add(GetFromTo(context, array, indexStart, indexEnd));
                 }
                 return result;
             }
@@ -153,35 +181,92 @@ namespace EveryParser
             {
                 int indexStart = Convert.ToInt32(indexStartObj);
                 int indexEnd = Convert.ToInt32(indexEndObj);
-                return array.GetRange(indexStart, indexEnd - indexStart);
+                int step = Convert.ToInt32(stepObj);
+                return GetFromTo(context, array, indexStart, indexEnd, step);
+            }
+            else if (indexStartList is null && indexEndList is null)
+            {
+                int indexStart = Convert.ToInt32(indexStartObj);
+                int indexEnd = Convert.ToInt32(indexEndObj);
+                return stepList.Select(stepX => (object)GetFromTo(context, array, indexStart, indexEnd, Convert.ToInt32(stepX))).ToList();
+            }
+            else if (indexStartList is null && stepList is null)
+            {
+                int indexStart = Convert.ToInt32(indexStartObj);
+                int step = Convert.ToInt32(stepObj);
+                return indexEndList.Select(indexEndX => (object)GetFromTo(context, array, indexStart, Convert.ToInt32(indexEndX), step)).ToList();
+            }
+            else if (indexEndList is null && stepList is null)
+            {
+                int indexEnd = Convert.ToInt32(indexEndObj);
+                int step = Convert.ToInt32(stepObj);
+                return indexStartList.Select(indexStartX => (object)GetFromTo(context, array, Convert.ToInt32(indexStartX), indexEnd, step)).ToList();
             }
             else if (indexStartList is null)
             {
-                int indexStart = Convert.ToInt32(indexStartObj);
-                return indexEndList.Select(indexEndX => array.GetRange(indexStart, Convert.ToInt32(indexEndX) - indexStart)).ToList();
+                if (indexEndList.Count == stepList.Count)
+                {
+                    int indexStart = Convert.ToInt32(indexStartObj);
+                    var result = new List<object>(indexEndList.Count);
+                    for (int i = 0; i < indexEndList.Count; i += 1)
+                    {
+                        int indexEnd = Convert.ToInt32(indexEndList[i]);
+                        int step = Convert.ToInt32(stepList[i]);
+                        result.Add((object)GetFromTo(context, array, indexStart, indexEnd, step));
+                    }
+                    return result;
+                }
+
+                ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, $"Array count must be equal: IndexEnd Array Count {indexEndList.Count} Step Array Count {stepList.Count}");
             }
             else if (indexEndList is null)
             {
-                int indexEnd = Convert.ToInt32(indexEndObj);
-                return indexStartList.Select(indexStartX =>
+                if (indexStartList.Count == stepList.Count)
                 {
-                    int indexStart = Convert.ToInt32(indexStartX);
-                    return array.GetRange(indexStart, indexEnd - indexStart);
-                }).ToList();
-            }
-            else if (indexStartList.Count == indexEndList.Count)
-            {
-                var result = new List<object>(indexEndList.Count);
-                for (int i = 0; i < indexEndList.Count; i += 1)
-                {
-                    int indexStart = Convert.ToInt32(indexStartObj);
                     int indexEnd = Convert.ToInt32(indexEndObj);
-                    result.Add(array.GetRange(indexStart, indexEnd - indexStart));
+                    var result = new List<object>(indexStartList.Count);
+                    for (int i = 0; i < indexStartList.Count; i += 1)
+                    {
+                        int indexStart = Convert.ToInt32(indexStartList[i]);
+                        int step = Convert.ToInt32(stepList[i]);
+                        result.Add((object)GetFromTo(context, array, indexStart, indexEnd, step));
+                    }
+                    return result;
+                }
+
+                ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, $"Array count must be equal: IndexStart Array Count {indexStartList.Count} Step Array Count {stepList.Count}");
+            }
+            else if (stepList is null)
+            {
+                if (indexStartList.Count == indexEndList.Count)
+                {
+                    int step = Convert.ToInt32(stepObj);
+                    var result = new List<object>(indexStartList.Count);
+                    for (int i = 0; i < indexStartList.Count; i += 1)
+                    {
+                        int indexStart = Convert.ToInt32(indexStartList[i]);
+                        int indexEnd = Convert.ToInt32(indexEndList[i]);
+                        result.Add((object)GetFromTo(context, array, indexStart, indexEnd, step));
+                    }
+                    return result;
+                }
+
+                ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, $"Array count must be equal: IndexStart Array Count {indexStartList.Count} IndexEnd Array Count {indexEndList.Count}");
+            }
+            else if (indexStartList.Count == indexEndList.Count && indexStartList.Count == stepList.Count)
+            {
+                var result = new List<object>(indexStartList.Count);
+                for (int i = 0; i < indexStartList.Count; i += 1)
+                {
+                    int indexStart = Convert.ToInt32(indexStartList[i]);
+                    int indexEnd = Convert.ToInt32(indexEndList[i]);
+                    int step = Convert.ToInt32(stepList[i]);
+                    result.Add((object)GetFromTo(context, array, indexStart, indexEnd, step));
                 }
                 return result;
             }
-
-            ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, $"Array count must be equal: IndexStart Array Count {indexStartList.Count} IndexEnd Array Count {indexEndList.Count}");
+            else
+                ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, $"Array count must be equal: IndexStart Array Count {indexStartList.Count} IndexEnd Array Count {indexEndList.Count} Step Array Count {stepList.Count}");
 
             return null;
         }
@@ -222,9 +307,14 @@ namespace EveryParser
                 }
             }
 
-            if (startIndex >= list.Count || endIndex >= list.Count)
+            if (startIndex >= list.Count || endIndex > list.Count)
             {
-                ErrorCollector.AddError(context, ErrorCode.StartEndIndexNotCorrect, "The startIndex/endIndex can't be higher or equal to the length of the array!");
+                ErrorCollector.AddError(context, ErrorCode.StartEndIndexNotCorrect, "The startIndex/endIndex can't be higher to the length of the array!");
+                return null;
+            }
+            else if (startIndex < 0 || endIndex < 0)
+            {
+                ErrorCollector.AddError(context, ErrorCode.StartEndIndexNotCorrect, "The startIndex/endIndex can't be less than 0!");
                 return null;
             }
 
