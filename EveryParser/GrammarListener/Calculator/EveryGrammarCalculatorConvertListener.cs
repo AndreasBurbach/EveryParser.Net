@@ -43,25 +43,14 @@ namespace EveryParser
 
             object value = childValues[0];
 
-            try
-            {
-                if (value is List<object>)
-                {
-                    Node.Value = value; return;
-                }
+            if (value is List<object>)
+                Node.Value = value;
+            else if (value is string sValue)
+                Node.Value = sValue.Select(x => (object)x.ToString()).ToList();
+            else if (TypeCheckHelper.IsNumber(value) || TypeCheckHelper.IsBoolean(value))
+                Node.Value = new List<object>() { value };
 
-                if (value is string sValue)
-                {
-                    Node.Value = sValue.Select(x => (object)x).ToArray(); return;
-                }
-
-                if (TypeCheckHelper.IsNumber(value) || TypeCheckHelper.IsBoolean(value))
-                    Node.Value = new List<object>() { value };
-            }
-            finally
-            {
-                Node = Node.Parent;
-            }
+            Node = Node.Parent;
         }
 
         /// <summary>
@@ -100,31 +89,16 @@ namespace EveryParser
 
             object value = childValues[0];
 
-            try
-            {
-                if (value is List<object> listValue)
-                {
-                    Node.Value = listValue.Any();
-                    return;
-                }
+            if (value is List<object> listValue)
+                Node.Value = listValue.Any();
+            else if (value is string sValue)
+                Node.Value = !string.IsNullOrWhiteSpace(sValue);
+            else if (TypeCheckHelper.IsNumber(value))
+                Node.Value = Convert.ToDecimal(value) > 0;
+            else if (TypeCheckHelper.IsBoolean(value))
+                Node.Value = value;
 
-                if (value is string sValue)
-                {
-                    Node.Value = !string.IsNullOrWhiteSpace(sValue); return;
-                }
-
-                if (TypeCheckHelper.IsNumber(value))
-                {
-                    Node.Value = Convert.ToDecimal(value) > 0; return;
-                }
-
-                if (TypeCheckHelper.IsBoolean(value))
-                    Node.Value = value;
-            }
-            finally
-            {
-                Node = Node.Parent;
-            }
+            Node = Node.Parent;
         }
 
         /// <summary>
@@ -163,30 +137,16 @@ namespace EveryParser
 
             object value = childValues[0];
 
-            try
-            {
-                if (value is List<object>)
-                {
-                    Node.Value = double.NaN; return;
-                }
+            if (value is List<object>)
+                Node.Value = double.NaN;
+            else if (TypeCheckHelper.IsNumber(value))
+                Node.Value = Convert.ToDecimal(value) > 0;
+            else if (TypeCheckHelper.IsBoolean(value))
+                Node.Value = Convert.ToBoolean(value) ? 1 : 0;
+            else if (decimal.TryParse(value.ToString(), out var number))
+                Node.Value = number;
 
-                if (TypeCheckHelper.IsNumber(value))
-                {
-                    Node.Value = Convert.ToDecimal(value) > 0; return;
-                }
-
-                if (TypeCheckHelper.IsBoolean(value))
-                {
-                    Node.Value = Convert.ToBoolean(value) ? 1 : 0; return;
-                }
-
-                if (decimal.TryParse(value.ToString(), out var number))
-                    Node.Value = number;
-            }
-            finally
-            {
-                Node = Node.Parent;
-            }
+            Node = Node.Parent;
         }
 
         /// <summary>
@@ -223,16 +183,12 @@ namespace EveryParser
                 return;
             }
 
-            object value = childValues[0];
+            if (childValues[0] is List<object>)
+                Node.Value = null;
+            else
+                Node.Value = childValues[0].ToString();
 
-            try
-            {
-                Node.Value = value.ToString();
-            }
-            finally
-            {
-                Node = Node.Parent;
-            }
+            Node = Node.Parent;
         }
 
         /// <summary>
