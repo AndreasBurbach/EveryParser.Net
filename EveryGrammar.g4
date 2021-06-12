@@ -61,6 +61,7 @@ factor:
 	| datetime_term										# Factor_DateTimeTerm
 	| array_expr										# Factor_Array
 	| default_function_term								# Factor_DefaultFunction
+	| check_type_function_term							# Factor_CheckFunction
 	| convert_function_term								# Factor_ConvertFunction
 	| math_function_term								# Factor_MathFunction
 	| random_function_term								# Factor_RandomFunction
@@ -100,11 +101,20 @@ array_slicing_term:
 	EDGEBRACKETOPEN expression EDGEBRACKETCLOSED										# ArraySlicing_Indexing
 	| EDGEBRACKETOPEN expression COLON expression EDGEBRACKETCLOSED						# ArraySlicing_Slicing
 	| EDGEBRACKETOPEN expression COLON expression COLON expression EDGEBRACKETCLOSED	# ArraySlicing_StepSlicing
-	| EDGEBRACKETOPEN expression COLON EDGEBRACKETCLOSED # ArraySlicing_StartSlicing
-	| EDGEBRACKETOPEN expression COLON COLON expression EDGEBRACKETCLOSED #ArraySlicing_StartStepSlicing
-	| EDGEBRACKETOPEN COLON expression EDGEBRACKETCLOSED #ArraySlicing_EndSlicing
-	| EDGEBRACKETOPEN COLON expression COLON expression EDGEBRACKETCLOSED # ArraySlicing_EndStepSlicing
-	| EDGEBRACKETOPEN COLON COLON expression EDGEBRACKETCLOSED # ArraySlicing_AllStepSlicing;
+	| EDGEBRACKETOPEN expression COLON EDGEBRACKETCLOSED								# ArraySlicing_StartSlicing
+	| EDGEBRACKETOPEN expression COLON COLON expression EDGEBRACKETCLOSED				# ArraySlicing_StartStepSlicing
+	| EDGEBRACKETOPEN COLON expression EDGEBRACKETCLOSED								# ArraySlicing_EndSlicing
+	| EDGEBRACKETOPEN COLON expression COLON expression EDGEBRACKETCLOSED				# ArraySlicing_EndStepSlicing
+	| EDGEBRACKETOPEN COLON COLON expression EDGEBRACKETCLOSED							# ArraySlicing_AllStepSlicing;
+
+check_type_function_term:
+	IsArray expression ROUNDBRACKETCLOSED			# CheckFunction_IsArray
+	| IsBoolean expression ROUNDBRACKETCLOSED		# CheckFunction_IsBoolean
+	| IsDateTime expression ROUNDBRACKETCLOSED		# CheckFunction_IsDateTime
+	| IsNull expression ROUNDBRACKETCLOSED			# CheckFunction_IsNull
+	| IsNumber expression ROUNDBRACKETCLOSED		# CheckFunction_IsNumber
+	| IsString expression ROUNDBRACKETCLOSED		# CheckFunction_IsString
+	| IsWhitespace expression ROUNDBRACKETCLOSED	# CheckFunction_IsWhitespace;
 
 default_function_term:
 	CONCAT expression KOMMA expression ROUNDBRACKETCLOSED										# Function_Concat
@@ -120,7 +130,8 @@ default_function_term:
 	| REVERSE expression ROUNDBRACKETCLOSED														# Function_Reverse
 	| UPPERCASE expression ROUNDBRACKETCLOSED													# Function_Upper
 	| ANY expression ROUNDBRACKETCLOSED															# Function_Any
-	| SORT expression ROUNDBRACKETCLOSED														# Function_Sort;
+	| SORT expression ROUNDBRACKETCLOSED														# Function_Sort
+	| Trim expression ROUNDBRACKETCLOSED														# Function_Trime;
 
 math_function_term:
 	ABS expression ROUNDBRACKETCLOSED																# Math_Abs
@@ -324,6 +335,16 @@ REVERSE: 'reverse(';
 UPPERCASE: 'upper(';
 ANY: 'any(';
 SORT: 'sort(';
+Trim: 'trim(';
+
+//check type function tokens
+IsString: 'isstring(';
+IsNumber: 'isnumber(';
+IsBoolean: 'isboolean(';
+IsDateTime: 'isdatetime(';
+IsArray: 'isarray(';
+IsNull: 'isnull(';
+IsWhitespace: 'iswhitespace(';
 
 //converter function tokens
 ToNumber: 'tonumber(';
