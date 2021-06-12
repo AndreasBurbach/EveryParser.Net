@@ -99,7 +99,12 @@ datetime_term:
 array_slicing_term:
 	EDGEBRACKETOPEN expression EDGEBRACKETCLOSED										# ArraySlicing_Indexing
 	| EDGEBRACKETOPEN expression COLON expression EDGEBRACKETCLOSED						# ArraySlicing_Slicing
-	| EDGEBRACKETOPEN expression COLON expression COLON expression EDGEBRACKETCLOSED	# ArraySlicing_StepSlicing;
+	| EDGEBRACKETOPEN expression COLON expression COLON expression EDGEBRACKETCLOSED	# ArraySlicing_StepSlicing
+	| EDGEBRACKETOPEN expression COLON EDGEBRACKETCLOSED # ArraySlicing_StartSlicing
+	| EDGEBRACKETOPEN expression COLON COLON expression EDGEBRACKETCLOSED #ArraySlicing_StartStepSlicing
+	| EDGEBRACKETOPEN COLON expression EDGEBRACKETCLOSED #ArraySlicing_EndSlicing
+	| EDGEBRACKETOPEN COLON expression COLON expression EDGEBRACKETCLOSED # ArraySlicing_EndStepSlicing
+	| EDGEBRACKETOPEN COLON COLON expression EDGEBRACKETCLOSED # ArraySlicing_AllStepSlicing;
 
 default_function_term:
 	CONCAT expression KOMMA expression ROUNDBRACKETCLOSED										# Function_Concat

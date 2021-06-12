@@ -61,7 +61,7 @@ namespace EveryParser.Test.ExpressionTest
             Assert.Equal(1, Expression.CalculateDecimal("[1,2,3,4,5][-5]"));
             Assert.Equal(ExpressionMathArrayTest.ToDecimalArray(new object[] { 5, 4 }), ExpressionMathArrayTest.ToDecimalArray(Expression.CalculateArray("[1,2,3,4,5][[-1,-2]]")));
 
-            Assert.Equal(ExpressionMathArrayTest.ToDecimalArray(new object[] { 3, 4}), ExpressionMathArrayTest.ToDecimalArray(Expression.CalculateArray("[1,2,3,4,5][-3:-1]")));
+            Assert.Equal(ExpressionMathArrayTest.ToDecimalArray(new object[] { 3, 4 }), ExpressionMathArrayTest.ToDecimalArray(Expression.CalculateArray("[1,2,3,4,5][-3:-1]")));
 
             var result = Expression.CalculateArray("[1,2,3,4,5][[0,-5]:2]");
             Assert.Equal(2, result.Length);
@@ -76,7 +76,19 @@ namespace EveryParser.Test.ExpressionTest
             result = Expression.CalculateArray("[1,2,3,4,5][[0,-5]:[-3,2]]");
             Assert.Equal(2, result.Length);
             Assert.Equal(ExpressionMathArrayTest.ToDecimalArray(new object[] { 1, 2 }), ExpressionMathArrayTest.ToDecimalArray((result[0] as List<object>).ToArray()));
-            Assert.Equal(ExpressionMathArrayTest.ToDecimalArray(new object[] { 1,2 }), ExpressionMathArrayTest.ToDecimalArray((result[1] as List<object>).ToArray()));
+            Assert.Equal(ExpressionMathArrayTest.ToDecimalArray(new object[] { 1, 2 }), ExpressionMathArrayTest.ToDecimalArray((result[1] as List<object>).ToArray()));
+        }
+
+        [Fact]
+        public void TestArraySlicingWithEmptyExpressions()
+        {
+            Assert.Equal(ExpressionMathArrayTest.ToDecimalArray(new object[] { 1, 2, 3, 4 }), ExpressionMathArrayTest.ToDecimalArray(Expression.CalculateArray("[1,2,3,4,5][:-1]")));
+            Assert.Equal(ExpressionMathArrayTest.ToDecimalArray(new object[] { 1, 3 }), ExpressionMathArrayTest.ToDecimalArray(Expression.CalculateArray("[1,2,3,4,5][:-1:2]")));
+
+            Assert.Equal(ExpressionMathArrayTest.ToDecimalArray(new object[] { 2, 3, 4, 5 }), ExpressionMathArrayTest.ToDecimalArray(Expression.CalculateArray("[1,2,3,4,5][1:]")));
+            Assert.Equal(ExpressionMathArrayTest.ToDecimalArray(new object[] { 2, 4 }), ExpressionMathArrayTest.ToDecimalArray(Expression.CalculateArray("[1,2,3,4,5][1::2]")));
+
+            Assert.Equal(ExpressionMathArrayTest.ToDecimalArray(new object[] { 1, 3, 5 }), ExpressionMathArrayTest.ToDecimalArray(Expression.CalculateArray("[1,2,3,4,5][::2]")));
         }
     }
 }

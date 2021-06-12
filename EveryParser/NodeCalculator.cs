@@ -9,6 +9,7 @@ namespace EveryParser
         public NodeCalculator Parent;
         public int Index;
         public object Value;
+        public string ChildCaluclationName;
         public List<NodeCalculator> Children;
 
         public NodeCalculator() { }

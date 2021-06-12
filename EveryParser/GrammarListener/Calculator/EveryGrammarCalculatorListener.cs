@@ -49,60 +49,6 @@ namespace EveryParser
         
 
         /// <summary>
-        /// Enter a parse tree produced by the <c>ArraySlicing_Indexing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void EnterArraySlicing_Indexing([NotNull] EveryGrammarParser.ArraySlicing_IndexingContext context)
-        {
-        }
-
-        /// <summary>
-        /// Exit a parse tree produced by the <c>ArraySlicing_Indexing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitArraySlicing_Indexing([NotNull] EveryGrammarParser.ArraySlicing_IndexingContext context) { }
-
-        /// <summary>
-        /// Enter a parse tree produced by the <c>ArraySlicing_Slicing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void EnterArraySlicing_Slicing([NotNull] EveryGrammarParser.ArraySlicing_SlicingContext context)
-        {
-        }
-
-        /// <summary>
-        /// Exit a parse tree produced by the <c>ArraySlicing_Slicing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitArraySlicing_Slicing([NotNull] EveryGrammarParser.ArraySlicing_SlicingContext context) { }
-
-        /// <summary>
-        /// Enter a parse tree produced by the <c>ArraySlicing_StepSlicing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void EnterArraySlicing_StepSlicing([NotNull] EveryGrammarParser.ArraySlicing_StepSlicingContext context)
-        {
-        }
-
-        /// <summary>
-        /// Exit a parse tree produced by the <c>ArraySlicing_StepSlicing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitArraySlicing_StepSlicing([NotNull] EveryGrammarParser.ArraySlicing_StepSlicingContext context) { }
-
-        /// <summary>
         /// Enter a parse tree produced by the <c>IfElse</c>
         /// labeled alternative in <see cref="EveryGrammarParser.if_else"/>.
         /// <para>The default implementation does nothing.</para>
