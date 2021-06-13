@@ -207,7 +207,7 @@ namespace EveryParser
             if (value1 is List<object> list1 && value2 is List<object> list2)
                 return calculationListExpression(list1, list2);
 
-            return calculationStringExpression(childValues[0].ToString(), childValues[0].ToString());
+            return calculationStringExpression(value1.ToString(), value2.ToString());
         }
 
         /// <summary>
@@ -304,7 +304,7 @@ namespace EveryParser
             if (value1 is List<object> list1)
                 return calculationListExpression(list1);
 
-            return calculationStringExpression(childValues[0].ToString());
+            return calculationStringExpression(value1.ToString());
         }
 
         /// <summary>
@@ -332,7 +332,7 @@ namespace EveryParser
             if (value1 is List<object> list1)
                 return list1.Select(x => calculationStringExpression(x.ToString()));
 
-            return calculationStringExpression(childValues[0].ToString());
+            return calculationStringExpression(value1.ToString());
         }
 
         /// <summary>
@@ -384,6 +384,28 @@ namespace EveryParser
                 val *= i;
 
             return val;
+        }
+
+        /// <summary>
+        /// Calculations for any types with 1 child in Node
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="errorCollector"></param>
+        /// <param name="calculationExpression"></param>
+        /// <param name="children"></param>
+        /// <returns></returns>
+        internal static object CalcAnyUnary(ParserRuleContext context, AssertErrors errorCollector, Func<object, object> calculationExpression, List<NodeCalculator> children)
+        {
+            if (!errorCollector.CheckHasParams(context, children))
+                return null;
+
+            var childValues = children.Select(child => child.Value).ToArray();
+
+            if (!errorCollector.CheckParamsCount(context, 1, childValues) ||
+                errorCollector.CheckIsNull(context, childValues))
+                return null;
+
+            return calculationExpression(childValues[0]);
         }
     }
 }

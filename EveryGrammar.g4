@@ -61,7 +61,7 @@ factor:
 	| datetime_term										# Factor_DateTimeTerm
 	| array_expr										# Factor_Array
 	| default_function_term								# Factor_DefaultFunction
-	| check_type_function_term							# Factor_CheckFunction
+	| check_function_term							# Factor_CheckFunction
 	| convert_function_term								# Factor_ConvertFunction
 	| math_function_term								# Factor_MathFunction
 	| random_function_term								# Factor_RandomFunction
@@ -107,21 +107,22 @@ array_slicing_term:
 	| EDGEBRACKETOPEN COLON expression COLON expression EDGEBRACKETCLOSED				# ArraySlicing_EndStepSlicing
 	| EDGEBRACKETOPEN COLON COLON expression EDGEBRACKETCLOSED							# ArraySlicing_AllStepSlicing;
 
-check_type_function_term:
+check_function_term:
 	IsArray expression ROUNDBRACKETCLOSED			# CheckFunction_IsArray
 	| IsBoolean expression ROUNDBRACKETCLOSED		# CheckFunction_IsBoolean
 	| IsDateTime expression ROUNDBRACKETCLOSED		# CheckFunction_IsDateTime
 	| IsNull expression ROUNDBRACKETCLOSED			# CheckFunction_IsNull
 	| IsNumber expression ROUNDBRACKETCLOSED		# CheckFunction_IsNumber
 	| IsString expression ROUNDBRACKETCLOSED		# CheckFunction_IsString
-	| IsWhitespace expression ROUNDBRACKETCLOSED	# CheckFunction_IsWhitespace;
+	| IsWhitespace expression ROUNDBRACKETCLOSED	# CheckFunction_IsWhitespace
+	| HASANY expression ROUNDBRACKETCLOSED			# CheckFunction_HasAny
+	| HASDUPLICATES expression ROUNDBRACKETCLOSED	# CheckFunction_HasDuplicates;
 
 default_function_term:
 	CONCAT expression KOMMA expression ROUNDBRACKETCLOSED										# Function_Concat
 	| COUNT expression ROUNDBRACKETCLOSED														# Function_Count
 	| DISTINCT expression ROUNDBRACKETCLOSED													# Function_Distinc
 	| DIFFERENCE expression KOMMA expression ROUNDBRACKETCLOSED									# Function_Difference
-	| DUPLICATES expression ROUNDBRACKETCLOSED													# Function_Duplicates
 	| Except expression KOMMA expression ROUNDBRACKETCLOSED										# Function_Except
 	| INDEXOF expression KOMMA expression ROUNDBRACKETCLOSED									# Function_IndexOf
 	| INDEXOF expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED					# Function_IndexOfStart
@@ -129,9 +130,8 @@ default_function_term:
 	| LOWERCASE expression ROUNDBRACKETCLOSED													# Function_Lower
 	| REVERSE expression ROUNDBRACKETCLOSED														# Function_Reverse
 	| UPPERCASE expression ROUNDBRACKETCLOSED													# Function_Upper
-	| ANY expression ROUNDBRACKETCLOSED															# Function_Any
 	| SORT expression ROUNDBRACKETCLOSED														# Function_Sort
-	| Trim expression ROUNDBRACKETCLOSED														# Function_Trime;
+	| Trim expression ROUNDBRACKETCLOSED														# Function_Trim;
 
 math_function_term:
 	ABS expression ROUNDBRACKETCLOSED																# Math_Abs
@@ -326,14 +326,14 @@ CONCAT: 'concat(';
 COUNT: 'count(';
 DISTINCT: 'distinct(';
 DIFFERENCE: 'difference(';
-DUPLICATES: 'duplicates(';
+HASDUPLICATES: 'hasduplicates(';
 DATETIME: 'date(';
 Except: 'except(';
 INDEXOF: 'indexOf(';
 LOWERCASE: 'lower(';
 REVERSE: 'reverse(';
 UPPERCASE: 'upper(';
-ANY: 'any(';
+HASANY: 'hasany(';
 SORT: 'sort(';
 Trim: 'trim(';
 

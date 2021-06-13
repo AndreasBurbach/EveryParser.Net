@@ -53,26 +53,26 @@ public partial class EveryGrammarParser : Parser {
 		Binomial=83, ACOT=84, ACOTH=85, ACSC=86, ACSCH=87, ASEC=88, ASECH=89, 
 		COT=90, COTH=91, CSC=92, CSCH=93, SEC=94, SECH=95, COVARIANCE=96, MEAN=97, 
 		MEDIAN=98, PEARSON=99, QUANTIL=100, SPEARMAN=101, STD=102, VARIANCE=103, 
-		CONCAT=104, COUNT=105, DISTINCT=106, DIFFERENCE=107, DUPLICATES=108, DATETIME=109, 
-		Except=110, INDEXOF=111, LOWERCASE=112, REVERSE=113, UPPERCASE=114, ANY=115, 
-		SORT=116, Trim=117, IsString=118, IsNumber=119, IsBoolean=120, IsDateTime=121, 
-		IsArray=122, IsNull=123, IsWhitespace=124, ToNumber=125, ToString=126, 
-		ToBoolean=127, ToArray=128, DegreeToGrad=129, DegreeToRadian=130, GradToDegree=131, 
-		GradToRadian=132, RadianToDegree=133, RadianToGrad=134, RndDecimal=135, 
-		RndInteger=136;
+		CONCAT=104, COUNT=105, DISTINCT=106, DIFFERENCE=107, HASDUPLICATES=108, 
+		DATETIME=109, Except=110, INDEXOF=111, LOWERCASE=112, REVERSE=113, UPPERCASE=114, 
+		HASANY=115, SORT=116, Trim=117, IsString=118, IsNumber=119, IsBoolean=120, 
+		IsDateTime=121, IsArray=122, IsNull=123, IsWhitespace=124, ToNumber=125, 
+		ToString=126, ToBoolean=127, ToArray=128, DegreeToGrad=129, DegreeToRadian=130, 
+		GradToDegree=131, GradToRadian=132, RadianToDegree=133, RadianToGrad=134, 
+		RndDecimal=135, RndInteger=136;
 	public const int
 		RULE_startRule = 0, RULE_expression = 1, RULE_if_else = 2, RULE_inner_if_else = 3, 
 		RULE_bool_or_term = 4, RULE_bool_xor_term = 5, RULE_bool_and_term = 6, 
 		RULE_equality = 7, RULE_check = 8, RULE_bit_or_term = 9, RULE_bit_and_term = 10, 
 		RULE_line_term = 11, RULE_point_term = 12, RULE_factor = 13, RULE_random_function_term = 14, 
 		RULE_convert_function_term = 15, RULE_datetime_term = 16, RULE_array_slicing_term = 17, 
-		RULE_check_type_function_term = 18, RULE_default_function_term = 19, RULE_math_function_term = 20, 
+		RULE_check_function_term = 18, RULE_default_function_term = 19, RULE_math_function_term = 20, 
 		RULE_statistic_math_function_term = 21, RULE_expr_args = 22, RULE_array_expr = 23;
 	public static readonly string[] ruleNames = {
 		"startRule", "expression", "if_else", "inner_if_else", "bool_or_term", 
 		"bool_xor_term", "bool_and_term", "equality", "check", "bit_or_term", 
 		"bit_and_term", "line_term", "point_term", "factor", "random_function_term", 
-		"convert_function_term", "datetime_term", "array_slicing_term", "check_type_function_term", 
+		"convert_function_term", "datetime_term", "array_slicing_term", "check_function_term", 
 		"default_function_term", "math_function_term", "statistic_math_function_term", 
 		"expr_args", "array_expr"
 	};
@@ -92,9 +92,9 @@ public partial class EveryGrammarParser : Parser {
 		"'acoth('", "'acsc('", "'acsch('", "'asec('", "'asech('", "'cot('", "'coth('", 
 		"'csc('", "'csch('", "'sec('", "'sech('", "'covariance('", "'mean('", 
 		"'median('", "'pearson('", "'quantil('", "'spearman('", "'std('", "'variance('", 
-		"'concat('", "'count('", "'distinct('", "'difference('", "'duplicates('", 
+		"'concat('", "'count('", "'distinct('", "'difference('", "'hasduplicates('", 
 		"'date('", "'except('", "'indexOf('", "'lower('", "'reverse('", "'upper('", 
-		"'any('", "'sort('", "'trim('", "'isstring('", "'isnumber('", "'isboolean('", 
+		"'hasany('", "'sort('", "'trim('", "'isstring('", "'isnumber('", "'isboolean('", 
 		"'isdatetime('", "'isarray('", "'isnull('", "'iswhitespace('", "'tonumber('", 
 		"'tostring('", "'toboolean('", "'toarray('", "'degreetograd('", "'degreetoradian('", 
 		"'gradtodegree('", "'gradtoradian('", "'radiantodegree('", "'radiantograd('", 
@@ -116,8 +116,8 @@ public partial class EveryGrammarParser : Parser {
 		"DotProduct", "Binomial", "ACOT", "ACOTH", "ACSC", "ACSCH", "ASEC", "ASECH", 
 		"COT", "COTH", "CSC", "CSCH", "SEC", "SECH", "COVARIANCE", "MEAN", "MEDIAN", 
 		"PEARSON", "QUANTIL", "SPEARMAN", "STD", "VARIANCE", "CONCAT", "COUNT", 
-		"DISTINCT", "DIFFERENCE", "DUPLICATES", "DATETIME", "Except", "INDEXOF", 
-		"LOWERCASE", "REVERSE", "UPPERCASE", "ANY", "SORT", "Trim", "IsString", 
+		"DISTINCT", "DIFFERENCE", "HASDUPLICATES", "DATETIME", "Except", "INDEXOF", 
+		"LOWERCASE", "REVERSE", "UPPERCASE", "HASANY", "SORT", "Trim", "IsString", 
 		"IsNumber", "IsBoolean", "IsDateTime", "IsArray", "IsNull", "IsWhitespace", 
 		"ToNumber", "ToString", "ToBoolean", "ToArray", "DegreeToGrad", "DegreeToRadian", 
 		"GradToDegree", "GradToRadian", "RadianToDegree", "RadianToGrad", "RndDecimal", 
@@ -194,7 +194,7 @@ public partial class EveryGrammarParser : Parser {
 			State = 53;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ADD) | (1L << SUBTRACT) | (1L << NOT) | (1L << TILDE) | (1L << FACTORIAL) | (1L << TRUE) | (1L << FALSE) | (1L << ROUNDBRACKETOPEN) | (1L << EDGEBRACKETOPEN) | (1L << DOUBLE) | (1L << STRING) | (1L << VARIABLE) | (1L << OBJECTSVARIABLE) | (1L << INT) | (1L << ABS) | (1L << ACOS) | (1L << ACOSH) | (1L << ASIN) | (1L << ASINH) | (1L << ATAN) | (1L << ATAN2) | (1L << ATANH) | (1L << CBRT) | (1L << COS) | (1L << COSH) | (1L << CEILLING) | (1L << CLAMP) | (1L << CROSSSUM) | (1L << DERIVATIVE) | (1L << EXP) | (1L << FLOOR) | (1L << INTEGRATION) | (1L << LOG))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (LOG2 - 64)) | (1L << (LOG10 - 64)) | (1L << (MAX - 64)) | (1L << (MIN - 64)) | (1L << (POWER - 64)) | (1L << (ROUND - 64)) | (1L << (ROOT - 64)) | (1L << (SIN - 64)) | (1L << (SINH - 64)) | (1L << (SQRT - 64)) | (1L << (TAN - 64)) | (1L << (TANH - 64)) | (1L << (TRUNCATE - 64)) | (1L << (Norm - 64)) | (1L << (EulerNorm - 64)) | (1L << (MaxNorm - 64)) | (1L << (GreatestCommonDivisor - 64)) | (1L << (LeastCommonMultiple - 64)) | (1L << (DotProduct - 64)) | (1L << (Binomial - 64)) | (1L << (ACOT - 64)) | (1L << (ACOTH - 64)) | (1L << (ACSC - 64)) | (1L << (ACSCH - 64)) | (1L << (ASEC - 64)) | (1L << (ASECH - 64)) | (1L << (COT - 64)) | (1L << (COTH - 64)) | (1L << (CSC - 64)) | (1L << (CSCH - 64)) | (1L << (SEC - 64)) | (1L << (SECH - 64)) | (1L << (COVARIANCE - 64)) | (1L << (MEAN - 64)) | (1L << (MEDIAN - 64)) | (1L << (PEARSON - 64)) | (1L << (QUANTIL - 64)) | (1L << (SPEARMAN - 64)) | (1L << (STD - 64)) | (1L << (VARIANCE - 64)) | (1L << (CONCAT - 64)) | (1L << (COUNT - 64)) | (1L << (DISTINCT - 64)) | (1L << (DIFFERENCE - 64)) | (1L << (DUPLICATES - 64)) | (1L << (DATETIME - 64)) | (1L << (Except - 64)) | (1L << (INDEXOF - 64)) | (1L << (LOWERCASE - 64)) | (1L << (REVERSE - 64)) | (1L << (UPPERCASE - 64)) | (1L << (ANY - 64)) | (1L << (SORT - 64)) | (1L << (Trim - 64)) | (1L << (IsString - 64)) | (1L << (IsNumber - 64)) | (1L << (IsBoolean - 64)) | (1L << (IsDateTime - 64)) | (1L << (IsArray - 64)) | (1L << (IsNull - 64)) | (1L << (IsWhitespace - 64)) | (1L << (ToNumber - 64)) | (1L << (ToString - 64)) | (1L << (ToBoolean - 64)))) != 0) || ((((_la - 128)) & ~0x3f) == 0 && ((1L << (_la - 128)) & ((1L << (ToArray - 128)) | (1L << (DegreeToGrad - 128)) | (1L << (DegreeToRadian - 128)) | (1L << (GradToDegree - 128)) | (1L << (GradToRadian - 128)) | (1L << (RadianToDegree - 128)) | (1L << (RadianToGrad - 128)) | (1L << (RndDecimal - 128)) | (1L << (RndInteger - 128)))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ADD) | (1L << SUBTRACT) | (1L << NOT) | (1L << TILDE) | (1L << FACTORIAL) | (1L << TRUE) | (1L << FALSE) | (1L << ROUNDBRACKETOPEN) | (1L << EDGEBRACKETOPEN) | (1L << DOUBLE) | (1L << STRING) | (1L << VARIABLE) | (1L << OBJECTSVARIABLE) | (1L << INT) | (1L << ABS) | (1L << ACOS) | (1L << ACOSH) | (1L << ASIN) | (1L << ASINH) | (1L << ATAN) | (1L << ATAN2) | (1L << ATANH) | (1L << CBRT) | (1L << COS) | (1L << COSH) | (1L << CEILLING) | (1L << CLAMP) | (1L << CROSSSUM) | (1L << DERIVATIVE) | (1L << EXP) | (1L << FLOOR) | (1L << INTEGRATION) | (1L << LOG))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (LOG2 - 64)) | (1L << (LOG10 - 64)) | (1L << (MAX - 64)) | (1L << (MIN - 64)) | (1L << (POWER - 64)) | (1L << (ROUND - 64)) | (1L << (ROOT - 64)) | (1L << (SIN - 64)) | (1L << (SINH - 64)) | (1L << (SQRT - 64)) | (1L << (TAN - 64)) | (1L << (TANH - 64)) | (1L << (TRUNCATE - 64)) | (1L << (Norm - 64)) | (1L << (EulerNorm - 64)) | (1L << (MaxNorm - 64)) | (1L << (GreatestCommonDivisor - 64)) | (1L << (LeastCommonMultiple - 64)) | (1L << (DotProduct - 64)) | (1L << (Binomial - 64)) | (1L << (ACOT - 64)) | (1L << (ACOTH - 64)) | (1L << (ACSC - 64)) | (1L << (ACSCH - 64)) | (1L << (ASEC - 64)) | (1L << (ASECH - 64)) | (1L << (COT - 64)) | (1L << (COTH - 64)) | (1L << (CSC - 64)) | (1L << (CSCH - 64)) | (1L << (SEC - 64)) | (1L << (SECH - 64)) | (1L << (COVARIANCE - 64)) | (1L << (MEAN - 64)) | (1L << (MEDIAN - 64)) | (1L << (PEARSON - 64)) | (1L << (QUANTIL - 64)) | (1L << (SPEARMAN - 64)) | (1L << (STD - 64)) | (1L << (VARIANCE - 64)) | (1L << (CONCAT - 64)) | (1L << (COUNT - 64)) | (1L << (DISTINCT - 64)) | (1L << (DIFFERENCE - 64)) | (1L << (HASDUPLICATES - 64)) | (1L << (DATETIME - 64)) | (1L << (Except - 64)) | (1L << (INDEXOF - 64)) | (1L << (LOWERCASE - 64)) | (1L << (REVERSE - 64)) | (1L << (UPPERCASE - 64)) | (1L << (HASANY - 64)) | (1L << (SORT - 64)) | (1L << (Trim - 64)) | (1L << (IsString - 64)) | (1L << (IsNumber - 64)) | (1L << (IsBoolean - 64)) | (1L << (IsDateTime - 64)) | (1L << (IsArray - 64)) | (1L << (IsNull - 64)) | (1L << (IsWhitespace - 64)) | (1L << (ToNumber - 64)) | (1L << (ToString - 64)) | (1L << (ToBoolean - 64)))) != 0) || ((((_la - 128)) & ~0x3f) == 0 && ((1L << (_la - 128)) & ((1L << (ToArray - 128)) | (1L << (DegreeToGrad - 128)) | (1L << (DegreeToRadian - 128)) | (1L << (GradToDegree - 128)) | (1L << (GradToRadian - 128)) | (1L << (RadianToDegree - 128)) | (1L << (RadianToGrad - 128)) | (1L << (RndDecimal - 128)) | (1L << (RndInteger - 128)))) != 0)) {
 				{
 				{
 				State = 48;
@@ -1959,8 +1959,8 @@ public partial class EveryGrammarParser : Parser {
 		}
 	}
 	public partial class Factor_CheckFunctionContext : FactorContext {
-		[System.Diagnostics.DebuggerNonUserCode] public Check_type_function_termContext check_type_function_term() {
-			return GetRuleContext<Check_type_function_termContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public Check_function_termContext check_function_term() {
+			return GetRuleContext<Check_function_termContext>(0);
 		}
 		public Factor_CheckFunctionContext(FactorContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
@@ -2434,13 +2434,11 @@ public partial class EveryGrammarParser : Parser {
 			case COUNT:
 			case DISTINCT:
 			case DIFFERENCE:
-			case DUPLICATES:
 			case Except:
 			case INDEXOF:
 			case LOWERCASE:
 			case REVERSE:
 			case UPPERCASE:
-			case ANY:
 			case SORT:
 			case Trim:
 				_localctx = new Factor_DefaultFunctionContext(_localctx);
@@ -2450,6 +2448,8 @@ public partial class EveryGrammarParser : Parser {
 				default_function_term();
 				}
 				break;
+			case HASDUPLICATES:
+			case HASANY:
 			case IsString:
 			case IsNumber:
 			case IsBoolean:
@@ -2461,7 +2461,7 @@ public partial class EveryGrammarParser : Parser {
 				EnterOuterAlt(_localctx, 17);
 				{
 				State = 238;
-				check_type_function_term();
+				check_function_term();
 				}
 				break;
 			case ToNumber:
@@ -3890,25 +3890,25 @@ public partial class EveryGrammarParser : Parser {
 		return _localctx;
 	}
 
-	public partial class Check_type_function_termContext : ParserRuleContext {
-		public Check_type_function_termContext(ParserRuleContext parent, int invokingState)
+	public partial class Check_function_termContext : ParserRuleContext {
+		public Check_function_termContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_check_type_function_term; } }
+		public override int RuleIndex { get { return RULE_check_function_term; } }
 	 
-		public Check_type_function_termContext() { }
-		public virtual void CopyFrom(Check_type_function_termContext context) {
+		public Check_function_termContext() { }
+		public virtual void CopyFrom(Check_function_termContext context) {
 			base.CopyFrom(context);
 		}
 	}
-	public partial class CheckFunction_IsStringContext : Check_type_function_termContext {
+	public partial class CheckFunction_IsStringContext : Check_function_termContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IsString() { return GetToken(EveryGrammarParser.IsString, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ROUNDBRACKETCLOSED() { return GetToken(EveryGrammarParser.ROUNDBRACKETCLOSED, 0); }
-		public CheckFunction_IsStringContext(Check_type_function_termContext context) { CopyFrom(context); }
+		public CheckFunction_IsStringContext(Check_function_termContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
@@ -3920,13 +3920,13 @@ public partial class EveryGrammarParser : Parser {
 			if (typedListener != null) typedListener.ExitCheckFunction_IsString(this);
 		}
 	}
-	public partial class CheckFunction_IsArrayContext : Check_type_function_termContext {
+	public partial class CheckFunction_IsArrayContext : Check_function_termContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IsArray() { return GetToken(EveryGrammarParser.IsArray, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ROUNDBRACKETCLOSED() { return GetToken(EveryGrammarParser.ROUNDBRACKETCLOSED, 0); }
-		public CheckFunction_IsArrayContext(Check_type_function_termContext context) { CopyFrom(context); }
+		public CheckFunction_IsArrayContext(Check_function_termContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
@@ -3938,13 +3938,13 @@ public partial class EveryGrammarParser : Parser {
 			if (typedListener != null) typedListener.ExitCheckFunction_IsArray(this);
 		}
 	}
-	public partial class CheckFunction_IsBooleanContext : Check_type_function_termContext {
+	public partial class CheckFunction_IsBooleanContext : Check_function_termContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IsBoolean() { return GetToken(EveryGrammarParser.IsBoolean, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ROUNDBRACKETCLOSED() { return GetToken(EveryGrammarParser.ROUNDBRACKETCLOSED, 0); }
-		public CheckFunction_IsBooleanContext(Check_type_function_termContext context) { CopyFrom(context); }
+		public CheckFunction_IsBooleanContext(Check_function_termContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
@@ -3956,13 +3956,13 @@ public partial class EveryGrammarParser : Parser {
 			if (typedListener != null) typedListener.ExitCheckFunction_IsBoolean(this);
 		}
 	}
-	public partial class CheckFunction_IsDateTimeContext : Check_type_function_termContext {
+	public partial class CheckFunction_IsDateTimeContext : Check_function_termContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IsDateTime() { return GetToken(EveryGrammarParser.IsDateTime, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ROUNDBRACKETCLOSED() { return GetToken(EveryGrammarParser.ROUNDBRACKETCLOSED, 0); }
-		public CheckFunction_IsDateTimeContext(Check_type_function_termContext context) { CopyFrom(context); }
+		public CheckFunction_IsDateTimeContext(Check_function_termContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
@@ -3974,13 +3974,13 @@ public partial class EveryGrammarParser : Parser {
 			if (typedListener != null) typedListener.ExitCheckFunction_IsDateTime(this);
 		}
 	}
-	public partial class CheckFunction_IsWhitespaceContext : Check_type_function_termContext {
+	public partial class CheckFunction_IsWhitespaceContext : Check_function_termContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IsWhitespace() { return GetToken(EveryGrammarParser.IsWhitespace, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ROUNDBRACKETCLOSED() { return GetToken(EveryGrammarParser.ROUNDBRACKETCLOSED, 0); }
-		public CheckFunction_IsWhitespaceContext(Check_type_function_termContext context) { CopyFrom(context); }
+		public CheckFunction_IsWhitespaceContext(Check_function_termContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
@@ -3992,13 +3992,49 @@ public partial class EveryGrammarParser : Parser {
 			if (typedListener != null) typedListener.ExitCheckFunction_IsWhitespace(this);
 		}
 	}
-	public partial class CheckFunction_IsNullContext : Check_type_function_termContext {
+	public partial class CheckFunction_HasDuplicatesContext : Check_function_termContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode HASDUPLICATES() { return GetToken(EveryGrammarParser.HASDUPLICATES, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
+			return GetRuleContext<ExpressionContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ROUNDBRACKETCLOSED() { return GetToken(EveryGrammarParser.ROUNDBRACKETCLOSED, 0); }
+		public CheckFunction_HasDuplicatesContext(Check_function_termContext context) { CopyFrom(context); }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
+			if (typedListener != null) typedListener.EnterCheckFunction_HasDuplicates(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
+			if (typedListener != null) typedListener.ExitCheckFunction_HasDuplicates(this);
+		}
+	}
+	public partial class CheckFunction_HasAnyContext : Check_function_termContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode HASANY() { return GetToken(EveryGrammarParser.HASANY, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
+			return GetRuleContext<ExpressionContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ROUNDBRACKETCLOSED() { return GetToken(EveryGrammarParser.ROUNDBRACKETCLOSED, 0); }
+		public CheckFunction_HasAnyContext(Check_function_termContext context) { CopyFrom(context); }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
+			if (typedListener != null) typedListener.EnterCheckFunction_HasAny(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
+			if (typedListener != null) typedListener.ExitCheckFunction_HasAny(this);
+		}
+	}
+	public partial class CheckFunction_IsNullContext : Check_function_termContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IsNull() { return GetToken(EveryGrammarParser.IsNull, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ROUNDBRACKETCLOSED() { return GetToken(EveryGrammarParser.ROUNDBRACKETCLOSED, 0); }
-		public CheckFunction_IsNullContext(Check_type_function_termContext context) { CopyFrom(context); }
+		public CheckFunction_IsNullContext(Check_function_termContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
@@ -4010,13 +4046,13 @@ public partial class EveryGrammarParser : Parser {
 			if (typedListener != null) typedListener.ExitCheckFunction_IsNull(this);
 		}
 	}
-	public partial class CheckFunction_IsNumberContext : Check_type_function_termContext {
+	public partial class CheckFunction_IsNumberContext : Check_function_termContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IsNumber() { return GetToken(EveryGrammarParser.IsNumber, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ROUNDBRACKETCLOSED() { return GetToken(EveryGrammarParser.ROUNDBRACKETCLOSED, 0); }
-		public CheckFunction_IsNumberContext(Check_type_function_termContext context) { CopyFrom(context); }
+		public CheckFunction_IsNumberContext(Check_function_termContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
 			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
@@ -4030,11 +4066,11 @@ public partial class EveryGrammarParser : Parser {
 	}
 
 	[RuleVersion(0)]
-	public Check_type_function_termContext check_type_function_term() {
-		Check_type_function_termContext _localctx = new Check_type_function_termContext(Context, State);
-		EnterRule(_localctx, 36, RULE_check_type_function_term);
+	public Check_function_termContext check_function_term() {
+		Check_function_termContext _localctx = new Check_function_termContext(Context, State);
+		EnterRule(_localctx, 36, RULE_check_function_term);
 		try {
-			State = 473;
+			State = 481;
 			ErrorHandler.Sync(this);
 			switch (TokenStream.LA(1)) {
 			case IsArray:
@@ -4121,6 +4157,30 @@ public partial class EveryGrammarParser : Parser {
 				Match(ROUNDBRACKETCLOSED);
 				}
 				break;
+			case HASANY:
+				_localctx = new CheckFunction_HasAnyContext(_localctx);
+				EnterOuterAlt(_localctx, 8);
+				{
+				State = 473;
+				Match(HASANY);
+				State = 474;
+				expression();
+				State = 475;
+				Match(ROUNDBRACKETCLOSED);
+				}
+				break;
+			case HASDUPLICATES:
+				_localctx = new CheckFunction_HasDuplicatesContext(_localctx);
+				EnterOuterAlt(_localctx, 9);
+				{
+				State = 477;
+				Match(HASDUPLICATES);
+				State = 478;
+				expression();
+				State = 479;
+				Match(ROUNDBRACKETCLOSED);
+				}
+				break;
 			default:
 				throw new NoViableAltException(this);
 			}
@@ -4190,24 +4250,6 @@ public partial class EveryGrammarParser : Parser {
 		public override void ExitRule(IParseTreeListener listener) {
 			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
 			if (typedListener != null) typedListener.ExitFunction_Difference(this);
-		}
-	}
-	public partial class Function_DuplicatesContext : Default_function_termContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DUPLICATES() { return GetToken(EveryGrammarParser.DUPLICATES, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
-			return GetRuleContext<ExpressionContext>(0);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ROUNDBRACKETCLOSED() { return GetToken(EveryGrammarParser.ROUNDBRACKETCLOSED, 0); }
-		public Function_DuplicatesContext(Default_function_termContext context) { CopyFrom(context); }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
-			if (typedListener != null) typedListener.EnterFunction_Duplicates(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
-			if (typedListener != null) typedListener.ExitFunction_Duplicates(this);
 		}
 	}
 	public partial class Function_ConcatContext : Default_function_termContext {
@@ -4308,6 +4350,24 @@ public partial class EveryGrammarParser : Parser {
 			if (typedListener != null) typedListener.ExitFunction_Upper(this);
 		}
 	}
+	public partial class Function_TrimContext : Default_function_termContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode Trim() { return GetToken(EveryGrammarParser.Trim, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
+			return GetRuleContext<ExpressionContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ROUNDBRACKETCLOSED() { return GetToken(EveryGrammarParser.ROUNDBRACKETCLOSED, 0); }
+		public Function_TrimContext(Default_function_termContext context) { CopyFrom(context); }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void EnterRule(IParseTreeListener listener) {
+			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
+			if (typedListener != null) typedListener.EnterFunction_Trim(this);
+		}
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override void ExitRule(IParseTreeListener listener) {
+			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
+			if (typedListener != null) typedListener.ExitFunction_Trim(this);
+		}
+	}
 	public partial class Function_IndexOfStartContext : Default_function_termContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode INDEXOF() { return GetToken(EveryGrammarParser.INDEXOF, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext[] expression() {
@@ -4333,24 +4393,6 @@ public partial class EveryGrammarParser : Parser {
 			if (typedListener != null) typedListener.ExitFunction_IndexOfStart(this);
 		}
 	}
-	public partial class Function_TrimeContext : Default_function_termContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode Trim() { return GetToken(EveryGrammarParser.Trim, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
-			return GetRuleContext<ExpressionContext>(0);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ROUNDBRACKETCLOSED() { return GetToken(EveryGrammarParser.ROUNDBRACKETCLOSED, 0); }
-		public Function_TrimeContext(Default_function_termContext context) { CopyFrom(context); }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
-			if (typedListener != null) typedListener.EnterFunction_Trime(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
-			if (typedListener != null) typedListener.ExitFunction_Trime(this);
-		}
-	}
 	public partial class Function_IndexOfStartEndContext : Default_function_termContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode INDEXOF() { return GetToken(EveryGrammarParser.INDEXOF, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext[] expression() {
@@ -4374,24 +4416,6 @@ public partial class EveryGrammarParser : Parser {
 		public override void ExitRule(IParseTreeListener listener) {
 			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
 			if (typedListener != null) typedListener.ExitFunction_IndexOfStartEnd(this);
-		}
-	}
-	public partial class Function_AnyContext : Default_function_termContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ANY() { return GetToken(EveryGrammarParser.ANY, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
-			return GetRuleContext<ExpressionContext>(0);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ROUNDBRACKETCLOSED() { return GetToken(EveryGrammarParser.ROUNDBRACKETCLOSED, 0); }
-		public Function_AnyContext(Default_function_termContext context) { CopyFrom(context); }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void EnterRule(IParseTreeListener listener) {
-			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
-			if (typedListener != null) typedListener.EnterFunction_Any(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override void ExitRule(IParseTreeListener listener) {
-			IEveryGrammarListener typedListener = listener as IEveryGrammarListener;
-			if (typedListener != null) typedListener.ExitFunction_Any(this);
 		}
 	}
 	public partial class Function_SortContext : Default_function_termContext {
@@ -4461,15 +4485,15 @@ public partial class EveryGrammarParser : Parser {
 				_localctx = new Function_ConcatContext(_localctx);
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 475;
+				State = 483;
 				Match(CONCAT);
-				State = 476;
+				State = 484;
 				expression();
-				State = 477;
+				State = 485;
 				Match(KOMMA);
-				State = 478;
+				State = 486;
 				expression();
-				State = 479;
+				State = 487;
 				Match(ROUNDBRACKETCLOSED);
 				}
 				break;
@@ -4477,11 +4501,11 @@ public partial class EveryGrammarParser : Parser {
 				_localctx = new Function_CountContext(_localctx);
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 481;
+				State = 489;
 				Match(COUNT);
-				State = 482;
+				State = 490;
 				expression();
-				State = 483;
+				State = 491;
 				Match(ROUNDBRACKETCLOSED);
 				}
 				break;
@@ -4489,11 +4513,11 @@ public partial class EveryGrammarParser : Parser {
 				_localctx = new Function_DistincContext(_localctx);
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 485;
+				State = 493;
 				Match(DISTINCT);
-				State = 486;
+				State = 494;
 				expression();
-				State = 487;
+				State = 495;
 				Match(ROUNDBRACKETCLOSED);
 				}
 				break;
@@ -4501,96 +4525,76 @@ public partial class EveryGrammarParser : Parser {
 				_localctx = new Function_DifferenceContext(_localctx);
 				EnterOuterAlt(_localctx, 4);
 				{
-				State = 489;
+				State = 497;
 				Match(DIFFERENCE);
-				State = 490;
+				State = 498;
 				expression();
-				State = 491;
+				State = 499;
 				Match(KOMMA);
-				State = 492;
+				State = 500;
 				expression();
-				State = 493;
+				State = 501;
 				Match(ROUNDBRACKETCLOSED);
 				}
 				break;
 			case 5:
-				_localctx = new Function_DuplicatesContext(_localctx);
+				_localctx = new Function_ExceptContext(_localctx);
 				EnterOuterAlt(_localctx, 5);
 				{
-				State = 495;
-				Match(DUPLICATES);
-				State = 496;
+				State = 503;
+				Match(Except);
+				State = 504;
 				expression();
-				State = 497;
+				State = 505;
+				Match(KOMMA);
+				State = 506;
+				expression();
+				State = 507;
 				Match(ROUNDBRACKETCLOSED);
 				}
 				break;
 			case 6:
-				_localctx = new Function_ExceptContext(_localctx);
+				_localctx = new Function_IndexOfContext(_localctx);
 				EnterOuterAlt(_localctx, 6);
 				{
-				State = 499;
-				Match(Except);
-				State = 500;
+				State = 509;
+				Match(INDEXOF);
+				State = 510;
 				expression();
-				State = 501;
+				State = 511;
 				Match(KOMMA);
-				State = 502;
+				State = 512;
 				expression();
-				State = 503;
+				State = 513;
 				Match(ROUNDBRACKETCLOSED);
 				}
 				break;
 			case 7:
-				_localctx = new Function_IndexOfContext(_localctx);
+				_localctx = new Function_IndexOfStartContext(_localctx);
 				EnterOuterAlt(_localctx, 7);
 				{
-				State = 505;
+				State = 515;
 				Match(INDEXOF);
-				State = 506;
+				State = 516;
 				expression();
-				State = 507;
+				State = 517;
 				Match(KOMMA);
-				State = 508;
+				State = 518;
 				expression();
-				State = 509;
+				State = 519;
+				Match(KOMMA);
+				State = 520;
+				expression();
+				State = 521;
 				Match(ROUNDBRACKETCLOSED);
 				}
 				break;
 			case 8:
-				_localctx = new Function_IndexOfStartContext(_localctx);
+				_localctx = new Function_IndexOfStartEndContext(_localctx);
 				EnterOuterAlt(_localctx, 8);
 				{
-				State = 511;
-				Match(INDEXOF);
-				State = 512;
-				expression();
-				State = 513;
-				Match(KOMMA);
-				State = 514;
-				expression();
-				State = 515;
-				Match(KOMMA);
-				State = 516;
-				expression();
-				State = 517;
-				Match(ROUNDBRACKETCLOSED);
-				}
-				break;
-			case 9:
-				_localctx = new Function_IndexOfStartEndContext(_localctx);
-				EnterOuterAlt(_localctx, 9);
-				{
-				State = 519;
-				Match(INDEXOF);
-				State = 520;
-				expression();
-				State = 521;
-				Match(KOMMA);
-				State = 522;
-				expression();
 				State = 523;
-				Match(KOMMA);
+				Match(INDEXOF);
 				State = 524;
 				expression();
 				State = 525;
@@ -4598,60 +4602,56 @@ public partial class EveryGrammarParser : Parser {
 				State = 526;
 				expression();
 				State = 527;
-				Match(ROUNDBRACKETCLOSED);
-				}
-				break;
-			case 10:
-				_localctx = new Function_LowerContext(_localctx);
-				EnterOuterAlt(_localctx, 10);
-				{
+				Match(KOMMA);
+				State = 528;
+				expression();
 				State = 529;
-				Match(LOWERCASE);
+				Match(KOMMA);
 				State = 530;
 				expression();
 				State = 531;
 				Match(ROUNDBRACKETCLOSED);
 				}
 				break;
-			case 11:
-				_localctx = new Function_ReverseContext(_localctx);
-				EnterOuterAlt(_localctx, 11);
+			case 9:
+				_localctx = new Function_LowerContext(_localctx);
+				EnterOuterAlt(_localctx, 9);
 				{
 				State = 533;
-				Match(REVERSE);
+				Match(LOWERCASE);
 				State = 534;
 				expression();
 				State = 535;
 				Match(ROUNDBRACKETCLOSED);
 				}
 				break;
-			case 12:
-				_localctx = new Function_UpperContext(_localctx);
-				EnterOuterAlt(_localctx, 12);
+			case 10:
+				_localctx = new Function_ReverseContext(_localctx);
+				EnterOuterAlt(_localctx, 10);
 				{
 				State = 537;
-				Match(UPPERCASE);
+				Match(REVERSE);
 				State = 538;
 				expression();
 				State = 539;
 				Match(ROUNDBRACKETCLOSED);
 				}
 				break;
-			case 13:
-				_localctx = new Function_AnyContext(_localctx);
-				EnterOuterAlt(_localctx, 13);
+			case 11:
+				_localctx = new Function_UpperContext(_localctx);
+				EnterOuterAlt(_localctx, 11);
 				{
 				State = 541;
-				Match(ANY);
+				Match(UPPERCASE);
 				State = 542;
 				expression();
 				State = 543;
 				Match(ROUNDBRACKETCLOSED);
 				}
 				break;
-			case 14:
+			case 12:
 				_localctx = new Function_SortContext(_localctx);
-				EnterOuterAlt(_localctx, 14);
+				EnterOuterAlt(_localctx, 12);
 				{
 				State = 545;
 				Match(SORT);
@@ -4661,9 +4661,9 @@ public partial class EveryGrammarParser : Parser {
 				Match(ROUNDBRACKETCLOSED);
 				}
 				break;
-			case 15:
-				_localctx = new Function_TrimeContext(_localctx);
-				EnterOuterAlt(_localctx, 15);
+			case 13:
+				_localctx = new Function_TrimContext(_localctx);
+				EnterOuterAlt(_localctx, 13);
 				{
 				State = 549;
 				Match(Trim);
@@ -7122,9 +7122,9 @@ public partial class EveryGrammarParser : Parser {
 		'\x3', '\x14', '\x3', '\x14', '\x3', '\x14', '\x3', '\x14', '\x3', '\x14', 
 		'\x3', '\x14', '\x3', '\x14', '\x3', '\x14', '\x3', '\x14', '\x3', '\x14', 
 		'\x3', '\x14', '\x3', '\x14', '\x3', '\x14', '\x3', '\x14', '\x3', '\x14', 
-		'\x3', '\x14', '\x5', '\x14', '\x1DC', '\n', '\x14', '\x3', '\x15', '\x3', 
-		'\x15', '\x3', '\x15', '\x3', '\x15', '\x3', '\x15', '\x3', '\x15', '\x3', 
-		'\x15', '\x3', '\x15', '\x3', '\x15', '\x3', '\x15', '\x3', '\x15', '\x3', 
+		'\x3', '\x14', '\x3', '\x14', '\x3', '\x14', '\x3', '\x14', '\x3', '\x14', 
+		'\x3', '\x14', '\x3', '\x14', '\x3', '\x14', '\x3', '\x14', '\x5', '\x14', 
+		'\x1E4', '\n', '\x14', '\x3', '\x15', '\x3', '\x15', '\x3', '\x15', '\x3', 
 		'\x15', '\x3', '\x15', '\x3', '\x15', '\x3', '\x15', '\x3', '\x15', '\x3', 
 		'\x15', '\x3', '\x15', '\x3', '\x15', '\x3', '\x15', '\x3', '\x15', '\x3', 
 		'\x15', '\x3', '\x15', '\x3', '\x15', '\x3', '\x15', '\x3', '\x15', '\x3', 
@@ -7216,7 +7216,7 @@ public partial class EveryGrammarParser : Parser {
 		'\x2', '\x2', '\x2', '\x1A', '\xBB', '\x3', '\x2', '\x2', '\x2', '\x1C', 
 		'\xF5', '\x3', '\x2', '\x2', '\x2', '\x1E', '\x11F', '\x3', '\x2', '\x2', 
 		'\x2', ' ', '\x149', '\x3', '\x2', '\x2', '\x2', '\"', '\x18B', '\x3', 
-		'\x2', '\x2', '\x2', '$', '\x1BD', '\x3', '\x2', '\x2', '\x2', '&', '\x1DB', 
+		'\x2', '\x2', '\x2', '$', '\x1BD', '\x3', '\x2', '\x2', '\x2', '&', '\x1E3', 
 		'\x3', '\x2', '\x2', '\x2', '(', '\x22B', '\x3', '\x2', '\x2', '\x2', 
 		'*', '\x32B', '\x3', '\x2', '\x2', '\x2', ',', '\x359', '\x3', '\x2', 
 		'\x2', '\x2', '.', '\x360', '\x3', '\x2', '\x2', '\x2', '\x30', '\x368', 
@@ -7503,80 +7503,80 @@ public partial class EveryGrammarParser : Parser {
 		'\x3', '\x2', '\x2', '\x2', '\x1BD', '\x1B7', '\x3', '\x2', '\x2', '\x2', 
 		'\x1BE', '%', '\x3', '\x2', '\x2', '\x2', '\x1BF', '\x1C0', '\a', '|', 
 		'\x2', '\x2', '\x1C0', '\x1C1', '\x5', '\x4', '\x3', '\x2', '\x1C1', '\x1C2', 
-		'\a', '$', '\x2', '\x2', '\x1C2', '\x1DC', '\x3', '\x2', '\x2', '\x2', 
+		'\a', '$', '\x2', '\x2', '\x1C2', '\x1E4', '\x3', '\x2', '\x2', '\x2', 
 		'\x1C3', '\x1C4', '\a', 'z', '\x2', '\x2', '\x1C4', '\x1C5', '\x5', '\x4', 
-		'\x3', '\x2', '\x1C5', '\x1C6', '\a', '$', '\x2', '\x2', '\x1C6', '\x1DC', 
+		'\x3', '\x2', '\x1C5', '\x1C6', '\a', '$', '\x2', '\x2', '\x1C6', '\x1E4', 
 		'\x3', '\x2', '\x2', '\x2', '\x1C7', '\x1C8', '\a', '{', '\x2', '\x2', 
 		'\x1C8', '\x1C9', '\x5', '\x4', '\x3', '\x2', '\x1C9', '\x1CA', '\a', 
-		'$', '\x2', '\x2', '\x1CA', '\x1DC', '\x3', '\x2', '\x2', '\x2', '\x1CB', 
+		'$', '\x2', '\x2', '\x1CA', '\x1E4', '\x3', '\x2', '\x2', '\x2', '\x1CB', 
 		'\x1CC', '\a', '}', '\x2', '\x2', '\x1CC', '\x1CD', '\x5', '\x4', '\x3', 
-		'\x2', '\x1CD', '\x1CE', '\a', '$', '\x2', '\x2', '\x1CE', '\x1DC', '\x3', 
+		'\x2', '\x1CD', '\x1CE', '\a', '$', '\x2', '\x2', '\x1CE', '\x1E4', '\x3', 
 		'\x2', '\x2', '\x2', '\x1CF', '\x1D0', '\a', 'y', '\x2', '\x2', '\x1D0', 
 		'\x1D1', '\x5', '\x4', '\x3', '\x2', '\x1D1', '\x1D2', '\a', '$', '\x2', 
-		'\x2', '\x1D2', '\x1DC', '\x3', '\x2', '\x2', '\x2', '\x1D3', '\x1D4', 
+		'\x2', '\x1D2', '\x1E4', '\x3', '\x2', '\x2', '\x2', '\x1D3', '\x1D4', 
 		'\a', 'x', '\x2', '\x2', '\x1D4', '\x1D5', '\x5', '\x4', '\x3', '\x2', 
-		'\x1D5', '\x1D6', '\a', '$', '\x2', '\x2', '\x1D6', '\x1DC', '\x3', '\x2', 
+		'\x1D5', '\x1D6', '\a', '$', '\x2', '\x2', '\x1D6', '\x1E4', '\x3', '\x2', 
 		'\x2', '\x2', '\x1D7', '\x1D8', '\a', '~', '\x2', '\x2', '\x1D8', '\x1D9', 
 		'\x5', '\x4', '\x3', '\x2', '\x1D9', '\x1DA', '\a', '$', '\x2', '\x2', 
-		'\x1DA', '\x1DC', '\x3', '\x2', '\x2', '\x2', '\x1DB', '\x1BF', '\x3', 
-		'\x2', '\x2', '\x2', '\x1DB', '\x1C3', '\x3', '\x2', '\x2', '\x2', '\x1DB', 
-		'\x1C7', '\x3', '\x2', '\x2', '\x2', '\x1DB', '\x1CB', '\x3', '\x2', '\x2', 
-		'\x2', '\x1DB', '\x1CF', '\x3', '\x2', '\x2', '\x2', '\x1DB', '\x1D3', 
-		'\x3', '\x2', '\x2', '\x2', '\x1DB', '\x1D7', '\x3', '\x2', '\x2', '\x2', 
-		'\x1DC', '\'', '\x3', '\x2', '\x2', '\x2', '\x1DD', '\x1DE', '\a', 'j', 
-		'\x2', '\x2', '\x1DE', '\x1DF', '\x5', '\x4', '\x3', '\x2', '\x1DF', '\x1E0', 
-		'\a', ' ', '\x2', '\x2', '\x1E0', '\x1E1', '\x5', '\x4', '\x3', '\x2', 
-		'\x1E1', '\x1E2', '\a', '$', '\x2', '\x2', '\x1E2', '\x22C', '\x3', '\x2', 
-		'\x2', '\x2', '\x1E3', '\x1E4', '\a', 'k', '\x2', '\x2', '\x1E4', '\x1E5', 
-		'\x5', '\x4', '\x3', '\x2', '\x1E5', '\x1E6', '\a', '$', '\x2', '\x2', 
-		'\x1E6', '\x22C', '\x3', '\x2', '\x2', '\x2', '\x1E7', '\x1E8', '\a', 
-		'l', '\x2', '\x2', '\x1E8', '\x1E9', '\x5', '\x4', '\x3', '\x2', '\x1E9', 
-		'\x1EA', '\a', '$', '\x2', '\x2', '\x1EA', '\x22C', '\x3', '\x2', '\x2', 
-		'\x2', '\x1EB', '\x1EC', '\a', 'm', '\x2', '\x2', '\x1EC', '\x1ED', '\x5', 
-		'\x4', '\x3', '\x2', '\x1ED', '\x1EE', '\a', ' ', '\x2', '\x2', '\x1EE', 
-		'\x1EF', '\x5', '\x4', '\x3', '\x2', '\x1EF', '\x1F0', '\a', '$', '\x2', 
-		'\x2', '\x1F0', '\x22C', '\x3', '\x2', '\x2', '\x2', '\x1F1', '\x1F2', 
-		'\a', 'n', '\x2', '\x2', '\x1F2', '\x1F3', '\x5', '\x4', '\x3', '\x2', 
-		'\x1F3', '\x1F4', '\a', '$', '\x2', '\x2', '\x1F4', '\x22C', '\x3', '\x2', 
-		'\x2', '\x2', '\x1F5', '\x1F6', '\a', 'p', '\x2', '\x2', '\x1F6', '\x1F7', 
-		'\x5', '\x4', '\x3', '\x2', '\x1F7', '\x1F8', '\a', ' ', '\x2', '\x2', 
-		'\x1F8', '\x1F9', '\x5', '\x4', '\x3', '\x2', '\x1F9', '\x1FA', '\a', 
-		'$', '\x2', '\x2', '\x1FA', '\x22C', '\x3', '\x2', '\x2', '\x2', '\x1FB', 
-		'\x1FC', '\a', 'q', '\x2', '\x2', '\x1FC', '\x1FD', '\x5', '\x4', '\x3', 
-		'\x2', '\x1FD', '\x1FE', '\a', ' ', '\x2', '\x2', '\x1FE', '\x1FF', '\x5', 
-		'\x4', '\x3', '\x2', '\x1FF', '\x200', '\a', '$', '\x2', '\x2', '\x200', 
-		'\x22C', '\x3', '\x2', '\x2', '\x2', '\x201', '\x202', '\a', 'q', '\x2', 
-		'\x2', '\x202', '\x203', '\x5', '\x4', '\x3', '\x2', '\x203', '\x204', 
-		'\a', ' ', '\x2', '\x2', '\x204', '\x205', '\x5', '\x4', '\x3', '\x2', 
-		'\x205', '\x206', '\a', ' ', '\x2', '\x2', '\x206', '\x207', '\x5', '\x4', 
-		'\x3', '\x2', '\x207', '\x208', '\a', '$', '\x2', '\x2', '\x208', '\x22C', 
-		'\x3', '\x2', '\x2', '\x2', '\x209', '\x20A', '\a', 'q', '\x2', '\x2', 
-		'\x20A', '\x20B', '\x5', '\x4', '\x3', '\x2', '\x20B', '\x20C', '\a', 
-		' ', '\x2', '\x2', '\x20C', '\x20D', '\x5', '\x4', '\x3', '\x2', '\x20D', 
-		'\x20E', '\a', ' ', '\x2', '\x2', '\x20E', '\x20F', '\x5', '\x4', '\x3', 
-		'\x2', '\x20F', '\x210', '\a', ' ', '\x2', '\x2', '\x210', '\x211', '\x5', 
-		'\x4', '\x3', '\x2', '\x211', '\x212', '\a', '$', '\x2', '\x2', '\x212', 
-		'\x22C', '\x3', '\x2', '\x2', '\x2', '\x213', '\x214', '\a', 'r', '\x2', 
-		'\x2', '\x214', '\x215', '\x5', '\x4', '\x3', '\x2', '\x215', '\x216', 
-		'\a', '$', '\x2', '\x2', '\x216', '\x22C', '\x3', '\x2', '\x2', '\x2', 
-		'\x217', '\x218', '\a', 's', '\x2', '\x2', '\x218', '\x219', '\x5', '\x4', 
-		'\x3', '\x2', '\x219', '\x21A', '\a', '$', '\x2', '\x2', '\x21A', '\x22C', 
-		'\x3', '\x2', '\x2', '\x2', '\x21B', '\x21C', '\a', 't', '\x2', '\x2', 
-		'\x21C', '\x21D', '\x5', '\x4', '\x3', '\x2', '\x21D', '\x21E', '\a', 
-		'$', '\x2', '\x2', '\x21E', '\x22C', '\x3', '\x2', '\x2', '\x2', '\x21F', 
-		'\x220', '\a', 'u', '\x2', '\x2', '\x220', '\x221', '\x5', '\x4', '\x3', 
-		'\x2', '\x221', '\x222', '\a', '$', '\x2', '\x2', '\x222', '\x22C', '\x3', 
-		'\x2', '\x2', '\x2', '\x223', '\x224', '\a', 'v', '\x2', '\x2', '\x224', 
-		'\x225', '\x5', '\x4', '\x3', '\x2', '\x225', '\x226', '\a', '$', '\x2', 
-		'\x2', '\x226', '\x22C', '\x3', '\x2', '\x2', '\x2', '\x227', '\x228', 
-		'\a', 'w', '\x2', '\x2', '\x228', '\x229', '\x5', '\x4', '\x3', '\x2', 
-		'\x229', '\x22A', '\a', '$', '\x2', '\x2', '\x22A', '\x22C', '\x3', '\x2', 
-		'\x2', '\x2', '\x22B', '\x1DD', '\x3', '\x2', '\x2', '\x2', '\x22B', '\x1E3', 
-		'\x3', '\x2', '\x2', '\x2', '\x22B', '\x1E7', '\x3', '\x2', '\x2', '\x2', 
-		'\x22B', '\x1EB', '\x3', '\x2', '\x2', '\x2', '\x22B', '\x1F1', '\x3', 
-		'\x2', '\x2', '\x2', '\x22B', '\x1F5', '\x3', '\x2', '\x2', '\x2', '\x22B', 
-		'\x1FB', '\x3', '\x2', '\x2', '\x2', '\x22B', '\x201', '\x3', '\x2', '\x2', 
-		'\x2', '\x22B', '\x209', '\x3', '\x2', '\x2', '\x2', '\x22B', '\x213', 
+		'\x1DA', '\x1E4', '\x3', '\x2', '\x2', '\x2', '\x1DB', '\x1DC', '\a', 
+		'u', '\x2', '\x2', '\x1DC', '\x1DD', '\x5', '\x4', '\x3', '\x2', '\x1DD', 
+		'\x1DE', '\a', '$', '\x2', '\x2', '\x1DE', '\x1E4', '\x3', '\x2', '\x2', 
+		'\x2', '\x1DF', '\x1E0', '\a', 'n', '\x2', '\x2', '\x1E0', '\x1E1', '\x5', 
+		'\x4', '\x3', '\x2', '\x1E1', '\x1E2', '\a', '$', '\x2', '\x2', '\x1E2', 
+		'\x1E4', '\x3', '\x2', '\x2', '\x2', '\x1E3', '\x1BF', '\x3', '\x2', '\x2', 
+		'\x2', '\x1E3', '\x1C3', '\x3', '\x2', '\x2', '\x2', '\x1E3', '\x1C7', 
+		'\x3', '\x2', '\x2', '\x2', '\x1E3', '\x1CB', '\x3', '\x2', '\x2', '\x2', 
+		'\x1E3', '\x1CF', '\x3', '\x2', '\x2', '\x2', '\x1E3', '\x1D3', '\x3', 
+		'\x2', '\x2', '\x2', '\x1E3', '\x1D7', '\x3', '\x2', '\x2', '\x2', '\x1E3', 
+		'\x1DB', '\x3', '\x2', '\x2', '\x2', '\x1E3', '\x1DF', '\x3', '\x2', '\x2', 
+		'\x2', '\x1E4', '\'', '\x3', '\x2', '\x2', '\x2', '\x1E5', '\x1E6', '\a', 
+		'j', '\x2', '\x2', '\x1E6', '\x1E7', '\x5', '\x4', '\x3', '\x2', '\x1E7', 
+		'\x1E8', '\a', ' ', '\x2', '\x2', '\x1E8', '\x1E9', '\x5', '\x4', '\x3', 
+		'\x2', '\x1E9', '\x1EA', '\a', '$', '\x2', '\x2', '\x1EA', '\x22C', '\x3', 
+		'\x2', '\x2', '\x2', '\x1EB', '\x1EC', '\a', 'k', '\x2', '\x2', '\x1EC', 
+		'\x1ED', '\x5', '\x4', '\x3', '\x2', '\x1ED', '\x1EE', '\a', '$', '\x2', 
+		'\x2', '\x1EE', '\x22C', '\x3', '\x2', '\x2', '\x2', '\x1EF', '\x1F0', 
+		'\a', 'l', '\x2', '\x2', '\x1F0', '\x1F1', '\x5', '\x4', '\x3', '\x2', 
+		'\x1F1', '\x1F2', '\a', '$', '\x2', '\x2', '\x1F2', '\x22C', '\x3', '\x2', 
+		'\x2', '\x2', '\x1F3', '\x1F4', '\a', 'm', '\x2', '\x2', '\x1F4', '\x1F5', 
+		'\x5', '\x4', '\x3', '\x2', '\x1F5', '\x1F6', '\a', ' ', '\x2', '\x2', 
+		'\x1F6', '\x1F7', '\x5', '\x4', '\x3', '\x2', '\x1F7', '\x1F8', '\a', 
+		'$', '\x2', '\x2', '\x1F8', '\x22C', '\x3', '\x2', '\x2', '\x2', '\x1F9', 
+		'\x1FA', '\a', 'p', '\x2', '\x2', '\x1FA', '\x1FB', '\x5', '\x4', '\x3', 
+		'\x2', '\x1FB', '\x1FC', '\a', ' ', '\x2', '\x2', '\x1FC', '\x1FD', '\x5', 
+		'\x4', '\x3', '\x2', '\x1FD', '\x1FE', '\a', '$', '\x2', '\x2', '\x1FE', 
+		'\x22C', '\x3', '\x2', '\x2', '\x2', '\x1FF', '\x200', '\a', 'q', '\x2', 
+		'\x2', '\x200', '\x201', '\x5', '\x4', '\x3', '\x2', '\x201', '\x202', 
+		'\a', ' ', '\x2', '\x2', '\x202', '\x203', '\x5', '\x4', '\x3', '\x2', 
+		'\x203', '\x204', '\a', '$', '\x2', '\x2', '\x204', '\x22C', '\x3', '\x2', 
+		'\x2', '\x2', '\x205', '\x206', '\a', 'q', '\x2', '\x2', '\x206', '\x207', 
+		'\x5', '\x4', '\x3', '\x2', '\x207', '\x208', '\a', ' ', '\x2', '\x2', 
+		'\x208', '\x209', '\x5', '\x4', '\x3', '\x2', '\x209', '\x20A', '\a', 
+		' ', '\x2', '\x2', '\x20A', '\x20B', '\x5', '\x4', '\x3', '\x2', '\x20B', 
+		'\x20C', '\a', '$', '\x2', '\x2', '\x20C', '\x22C', '\x3', '\x2', '\x2', 
+		'\x2', '\x20D', '\x20E', '\a', 'q', '\x2', '\x2', '\x20E', '\x20F', '\x5', 
+		'\x4', '\x3', '\x2', '\x20F', '\x210', '\a', ' ', '\x2', '\x2', '\x210', 
+		'\x211', '\x5', '\x4', '\x3', '\x2', '\x211', '\x212', '\a', ' ', '\x2', 
+		'\x2', '\x212', '\x213', '\x5', '\x4', '\x3', '\x2', '\x213', '\x214', 
+		'\a', ' ', '\x2', '\x2', '\x214', '\x215', '\x5', '\x4', '\x3', '\x2', 
+		'\x215', '\x216', '\a', '$', '\x2', '\x2', '\x216', '\x22C', '\x3', '\x2', 
+		'\x2', '\x2', '\x217', '\x218', '\a', 'r', '\x2', '\x2', '\x218', '\x219', 
+		'\x5', '\x4', '\x3', '\x2', '\x219', '\x21A', '\a', '$', '\x2', '\x2', 
+		'\x21A', '\x22C', '\x3', '\x2', '\x2', '\x2', '\x21B', '\x21C', '\a', 
+		's', '\x2', '\x2', '\x21C', '\x21D', '\x5', '\x4', '\x3', '\x2', '\x21D', 
+		'\x21E', '\a', '$', '\x2', '\x2', '\x21E', '\x22C', '\x3', '\x2', '\x2', 
+		'\x2', '\x21F', '\x220', '\a', 't', '\x2', '\x2', '\x220', '\x221', '\x5', 
+		'\x4', '\x3', '\x2', '\x221', '\x222', '\a', '$', '\x2', '\x2', '\x222', 
+		'\x22C', '\x3', '\x2', '\x2', '\x2', '\x223', '\x224', '\a', 'v', '\x2', 
+		'\x2', '\x224', '\x225', '\x5', '\x4', '\x3', '\x2', '\x225', '\x226', 
+		'\a', '$', '\x2', '\x2', '\x226', '\x22C', '\x3', '\x2', '\x2', '\x2', 
+		'\x227', '\x228', '\a', 'w', '\x2', '\x2', '\x228', '\x229', '\x5', '\x4', 
+		'\x3', '\x2', '\x229', '\x22A', '\a', '$', '\x2', '\x2', '\x22A', '\x22C', 
+		'\x3', '\x2', '\x2', '\x2', '\x22B', '\x1E5', '\x3', '\x2', '\x2', '\x2', 
+		'\x22B', '\x1EB', '\x3', '\x2', '\x2', '\x2', '\x22B', '\x1EF', '\x3', 
+		'\x2', '\x2', '\x2', '\x22B', '\x1F3', '\x3', '\x2', '\x2', '\x2', '\x22B', 
+		'\x1F9', '\x3', '\x2', '\x2', '\x2', '\x22B', '\x1FF', '\x3', '\x2', '\x2', 
+		'\x2', '\x22B', '\x205', '\x3', '\x2', '\x2', '\x2', '\x22B', '\x20D', 
 		'\x3', '\x2', '\x2', '\x2', '\x22B', '\x217', '\x3', '\x2', '\x2', '\x2', 
 		'\x22B', '\x21B', '\x3', '\x2', '\x2', '\x2', '\x22B', '\x21F', '\x3', 
 		'\x2', '\x2', '\x2', '\x22B', '\x223', '\x3', '\x2', '\x2', '\x2', '\x22B', 
@@ -7817,7 +7817,7 @@ public partial class EveryGrammarParser : Parser {
 		'\x2', '\x2', '\x2', '\x369', '\x31', '\x3', '\x2', '\x2', '\x2', '\x1D', 
 		'\x37', '\x46', 'M', 'T', '[', '\x65', '~', '\x80', '\x92', '\x94', '\x9F', 
 		'\xAA', '\xB6', '\xB8', '\xD3', '\xD5', '\xF5', '\x11F', '\x149', '\x18B', 
-		'\x1BD', '\x1DB', '\x22B', '\x32B', '\x359', '\x360', '\x368',
+		'\x1BD', '\x1E3', '\x22B', '\x32B', '\x359', '\x360', '\x368',
 	};
 
 	public static readonly ATN _ATN =

@@ -333,5 +333,19 @@ namespace EveryParser
         /// </summary>
         /// <param name="context">The parse tree.</param>
         public void ExitFactor_RandomFunction([NotNull] EveryGrammarParser.Factor_RandomFunctionContext context) { }
+
+        /// <summary>
+        /// Enter a parse tree produced by the <c>Factor_CheckFunction</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void EnterFactor_CheckFunction([NotNull] EveryGrammarParser.Factor_CheckFunctionContext context) { }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>Factor_CheckFunction</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitFactor_CheckFunction([NotNull] EveryGrammarParser.Factor_CheckFunctionContext context) { }
     }
 }

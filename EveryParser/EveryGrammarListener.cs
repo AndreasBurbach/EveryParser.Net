@@ -1145,88 +1145,112 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	void ExitArraySlicing_AllStepSlicing([NotNull] EveryGrammarParser.ArraySlicing_AllStepSlicingContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>CheckFunction_IsArray</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.check_type_function_term"/>.
+	/// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void EnterCheckFunction_IsArray([NotNull] EveryGrammarParser.CheckFunction_IsArrayContext context);
 	/// <summary>
 	/// Exit a parse tree produced by the <c>CheckFunction_IsArray</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.check_type_function_term"/>.
+	/// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitCheckFunction_IsArray([NotNull] EveryGrammarParser.CheckFunction_IsArrayContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>CheckFunction_IsBoolean</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.check_type_function_term"/>.
+	/// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void EnterCheckFunction_IsBoolean([NotNull] EveryGrammarParser.CheckFunction_IsBooleanContext context);
 	/// <summary>
 	/// Exit a parse tree produced by the <c>CheckFunction_IsBoolean</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.check_type_function_term"/>.
+	/// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitCheckFunction_IsBoolean([NotNull] EveryGrammarParser.CheckFunction_IsBooleanContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>CheckFunction_IsDateTime</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.check_type_function_term"/>.
+	/// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void EnterCheckFunction_IsDateTime([NotNull] EveryGrammarParser.CheckFunction_IsDateTimeContext context);
 	/// <summary>
 	/// Exit a parse tree produced by the <c>CheckFunction_IsDateTime</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.check_type_function_term"/>.
+	/// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitCheckFunction_IsDateTime([NotNull] EveryGrammarParser.CheckFunction_IsDateTimeContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>CheckFunction_IsNull</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.check_type_function_term"/>.
+	/// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void EnterCheckFunction_IsNull([NotNull] EveryGrammarParser.CheckFunction_IsNullContext context);
 	/// <summary>
 	/// Exit a parse tree produced by the <c>CheckFunction_IsNull</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.check_type_function_term"/>.
+	/// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitCheckFunction_IsNull([NotNull] EveryGrammarParser.CheckFunction_IsNullContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>CheckFunction_IsNumber</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.check_type_function_term"/>.
+	/// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void EnterCheckFunction_IsNumber([NotNull] EveryGrammarParser.CheckFunction_IsNumberContext context);
 	/// <summary>
 	/// Exit a parse tree produced by the <c>CheckFunction_IsNumber</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.check_type_function_term"/>.
+	/// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitCheckFunction_IsNumber([NotNull] EveryGrammarParser.CheckFunction_IsNumberContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>CheckFunction_IsString</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.check_type_function_term"/>.
+	/// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void EnterCheckFunction_IsString([NotNull] EveryGrammarParser.CheckFunction_IsStringContext context);
 	/// <summary>
 	/// Exit a parse tree produced by the <c>CheckFunction_IsString</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.check_type_function_term"/>.
+	/// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitCheckFunction_IsString([NotNull] EveryGrammarParser.CheckFunction_IsStringContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>CheckFunction_IsWhitespace</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.check_type_function_term"/>.
+	/// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void EnterCheckFunction_IsWhitespace([NotNull] EveryGrammarParser.CheckFunction_IsWhitespaceContext context);
 	/// <summary>
 	/// Exit a parse tree produced by the <c>CheckFunction_IsWhitespace</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.check_type_function_term"/>.
+	/// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitCheckFunction_IsWhitespace([NotNull] EveryGrammarParser.CheckFunction_IsWhitespaceContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>CheckFunction_HasAny</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCheckFunction_HasAny([NotNull] EveryGrammarParser.CheckFunction_HasAnyContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>CheckFunction_HasAny</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCheckFunction_HasAny([NotNull] EveryGrammarParser.CheckFunction_HasAnyContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>CheckFunction_HasDuplicates</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCheckFunction_HasDuplicates([NotNull] EveryGrammarParser.CheckFunction_HasDuplicatesContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>CheckFunction_HasDuplicates</c>
+	/// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCheckFunction_HasDuplicates([NotNull] EveryGrammarParser.CheckFunction_HasDuplicatesContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>Function_Concat</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
@@ -1275,18 +1299,6 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitFunction_Difference([NotNull] EveryGrammarParser.Function_DifferenceContext context);
-	/// <summary>
-	/// Enter a parse tree produced by the <c>Function_Duplicates</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterFunction_Duplicates([NotNull] EveryGrammarParser.Function_DuplicatesContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>Function_Duplicates</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitFunction_Duplicates([NotNull] EveryGrammarParser.Function_DuplicatesContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>Function_Except</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
@@ -1372,18 +1384,6 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitFunction_Upper([NotNull] EveryGrammarParser.Function_UpperContext context);
 	/// <summary>
-	/// Enter a parse tree produced by the <c>Function_Any</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterFunction_Any([NotNull] EveryGrammarParser.Function_AnyContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>Function_Any</c>
-	/// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitFunction_Any([NotNull] EveryGrammarParser.Function_AnyContext context);
-	/// <summary>
 	/// Enter a parse tree produced by the <c>Function_Sort</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
 	/// </summary>
@@ -1396,17 +1396,17 @@ public interface IEveryGrammarListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitFunction_Sort([NotNull] EveryGrammarParser.Function_SortContext context);
 	/// <summary>
-	/// Enter a parse tree produced by the <c>Function_Trime</c>
+	/// Enter a parse tree produced by the <c>Function_Trim</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterFunction_Trime([NotNull] EveryGrammarParser.Function_TrimeContext context);
+	void EnterFunction_Trim([NotNull] EveryGrammarParser.Function_TrimContext context);
 	/// <summary>
-	/// Exit a parse tree produced by the <c>Function_Trime</c>
+	/// Exit a parse tree produced by the <c>Function_Trim</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitFunction_Trime([NotNull] EveryGrammarParser.Function_TrimeContext context);
+	void ExitFunction_Trim([NotNull] EveryGrammarParser.Function_TrimContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>Math_Abs</c>
 	/// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.

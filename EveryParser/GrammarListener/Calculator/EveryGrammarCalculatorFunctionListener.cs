@@ -96,7 +96,7 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterFunction_Duplicates([NotNull] EveryGrammarParser.Function_DuplicatesContext context)
+        public void EnterCheckFunction_HasDuplicates([NotNull] EveryGrammarParser.CheckFunction_HasDuplicatesContext context)
         {
             Node = Node.AddChildNode();
         }
@@ -107,7 +107,7 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitFunction_Duplicates([NotNull] EveryGrammarParser.Function_DuplicatesContext context)
+        public void ExitCheckFunction_HasDuplicates([NotNull] EveryGrammarParser.CheckFunction_HasDuplicatesContext context)
         {
             Func<List<object>, object> listCalculation = list => list.Distinct().Count() < list.Count;
             Func<string, object> stringCalculation = x => x.Distinct().Count() < x.Length;
@@ -417,7 +417,7 @@ namespace EveryParser
         /// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterFunction_Any([NotNull] EveryGrammarParser.Function_AnyContext context)
+        public void EnterCheckFunction_HasAny([NotNull] EveryGrammarParser.CheckFunction_HasAnyContext context)
         {
             Node = Node.AddChildNode();
         }
@@ -427,7 +427,7 @@ namespace EveryParser
         /// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitFunction_Any([NotNull] EveryGrammarParser.Function_AnyContext context)
+        public void ExitCheckFunction_HasAny([NotNull] EveryGrammarParser.CheckFunction_HasAnyContext context)
         {
             Func<List<object>, object> listCalculation = list => list.Any();
             Func<string, object> stringCalculation = x => x.Any();
@@ -464,6 +464,210 @@ namespace EveryParser
                 result.Sort();
                 return new string(result.ToArray());
             };
+            Node.Value = CalculationHelper.CalcStringOrListUnary(context, ErrorCollector, listCalculation, stringCalculation, Node.Children);
+            Node = Node.Parent;
+        }
+
+        /// <summary>
+        /// Enter a parse tree produced by the <c>CheckFunction_IsArray</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void EnterCheckFunction_IsArray([NotNull] EveryGrammarParser.CheckFunction_IsArrayContext context)
+        {
+            Node = Node.AddChildNode();
+        }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>CheckFunction_IsArray</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitCheckFunction_IsArray([NotNull] EveryGrammarParser.CheckFunction_IsArrayContext context)
+        {
+            Func<object, object> calculation = x => x is List<object>;
+            Node.Value = CalculationHelper.CalcAnyUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
+
+        /// <summary>
+        /// Enter a parse tree produced by the <c>CheckFunction_IsBoolean</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void EnterCheckFunction_IsBoolean([NotNull] EveryGrammarParser.CheckFunction_IsBooleanContext context)
+        {
+            Node = Node.AddChildNode();
+        }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>CheckFunction_IsBoolean</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitCheckFunction_IsBoolean([NotNull] EveryGrammarParser.CheckFunction_IsBooleanContext context)
+        {
+            Func<object, object> calculation = x => TypeCheckHelper.IsBoolean(x);
+            Node.Value = CalculationHelper.CalcAnyUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
+
+        /// <summary>
+        /// Enter a parse tree produced by the <c>CheckFunction_IsDateTime</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void EnterCheckFunction_IsDateTime([NotNull] EveryGrammarParser.CheckFunction_IsDateTimeContext context)
+        {
+            Node = Node.AddChildNode();
+        }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>CheckFunction_IsDateTime</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitCheckFunction_IsDateTime([NotNull] EveryGrammarParser.CheckFunction_IsDateTimeContext context)
+        {
+            Func<object, object> calculation = x => x is DateTime;
+            Node.Value = CalculationHelper.CalcAnyUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
+
+        /// <summary>
+        /// Enter a parse tree produced by the <c>CheckFunction_IsNull</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void EnterCheckFunction_IsNull([NotNull] EveryGrammarParser.CheckFunction_IsNullContext context)
+        {
+            Node = Node.AddChildNode();
+        }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>CheckFunction_IsNull</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitCheckFunction_IsNull([NotNull] EveryGrammarParser.CheckFunction_IsNullContext context)
+        {
+            Func<object, object> calculation = x => x is null;
+            Node.Value = CalculationHelper.CalcAnyUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
+
+        /// <summary>
+        /// Enter a parse tree produced by the <c>CheckFunction_IsNumber</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void EnterCheckFunction_IsNumber([NotNull] EveryGrammarParser.CheckFunction_IsNumberContext context)
+        {
+            Node = Node.AddChildNode();
+        }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>CheckFunction_IsNumber</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitCheckFunction_IsNumber([NotNull] EveryGrammarParser.CheckFunction_IsNumberContext context)
+        {
+            Func<object, object> calculation = x => TypeCheckHelper.IsNumber(x);
+            Node.Value = CalculationHelper.CalcAnyUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
+
+        /// <summary>
+        /// Enter a parse tree produced by the <c>CheckFunction_IsString</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void EnterCheckFunction_IsString([NotNull] EveryGrammarParser.CheckFunction_IsStringContext context)
+        {
+            Node = Node.AddChildNode();
+        }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>CheckFunction_IsString</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitCheckFunction_IsString([NotNull] EveryGrammarParser.CheckFunction_IsStringContext context)
+        {
+            Func<object, object> calculation = x => x is string;
+            Node.Value = CalculationHelper.CalcAnyUnary(context, ErrorCollector, calculation, Node.Children);
+            Node = Node.Parent;
+        }
+
+        /// <summary>
+        /// Enter a parse tree produced by the <c>CheckFunction_IsWhitespace</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void EnterCheckFunction_IsWhitespace([NotNull] EveryGrammarParser.CheckFunction_IsWhitespaceContext context)
+        {
+            Node = Node.AddChildNode();
+        }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>CheckFunction_IsWhitespace</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.check_function_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitCheckFunction_IsWhitespace([NotNull] EveryGrammarParser.CheckFunction_IsWhitespaceContext context)
+        {
+            Func<string, object> stringCalculation = x => !(x is null) && string.IsNullOrWhiteSpace(x);
+            Node.Value = CalculationHelper.CalcStringOrStringListUnary(context, ErrorCollector, stringCalculation, Node.Children);
+            Node = Node.Parent;
+        }
+
+        /// <summary>
+        /// Enter a parse tree produced by the <c>Function_Trim</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void EnterFunction_Trim([NotNull] EveryGrammarParser.Function_TrimContext context)
+        {
+            Node = Node.AddChildNode();
+        }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>Function_Trim</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.default_function_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitFunction_Trim([NotNull] EveryGrammarParser.Function_TrimContext context)
+        {
+            Func<List<object>, object> listCalculation = list =>
+            {
+                int i = 0;
+                for (; i < list.Count; i += 1)
+                {
+                    var obj = list[i];
+                    if (obj is null || (obj is string sValue && string.IsNullOrWhiteSpace(sValue)))
+                        continue;
+
+                    break;
+                }
+
+                int k = list.Count - 1;
+                for (; k > -1; k -= 1)
+                {
+                    var obj = list[k];
+                    if (obj is null || (obj is string sValue && string.IsNullOrWhiteSpace(sValue)))
+                        continue;
+                    break;
+                }
+
+                if (i == list.Count || k == -1)
+                    return new List<object>();
+
+                k += 1;
+
+                return list.GetRange(i, k - i);
+            };
+            Func<string, object> stringCalculation = x => x.Trim();
             Node.Value = CalculationHelper.CalcStringOrListUnary(context, ErrorCollector, listCalculation, stringCalculation, Node.Children);
             Node = Node.Parent;
         }

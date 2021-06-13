@@ -16,8 +16,8 @@ namespace EveryParser.Test.ExpressionTest
 
             Assert.Equal(ExpressionMathArrayTest.ToDecimalArray(new object[] { 4 }), ExpressionMathArrayTest.ToDecimalArray(Expression.CalculateArray("difference([1,2,3], [1,2,3,4])")));
 
-            Assert.Equal(true, Expression.CalculateBoolean("duplicates([1,1,1])"));
-            Assert.Equal(false, Expression.CalculateBoolean("duplicates([1,2,3])"));
+            Assert.Equal(true, Expression.CalculateBoolean("hasduplicates([1,1,1])"));
+            Assert.Equal(false, Expression.CalculateBoolean("hasduplicates([1,2,3])"));
 
             Assert.Equal(ExpressionMathArrayTest.ToDecimalArray(new object[] { 3 }), ExpressionMathArrayTest.ToDecimalArray(Expression.CalculateArray("except([1,2,3], [1,2])")));
 
@@ -36,10 +36,30 @@ namespace EveryParser.Test.ExpressionTest
 
             Assert.Equal("TEST", Expression.CalculateString("upper(\"test\")"));
 
-            Assert.Equal(true, Expression.CalculateBoolean("any([1,2,3])"));
-            Assert.Equal(false, Expression.CalculateBoolean("any([])"));
+            Assert.Equal(true, Expression.CalculateBoolean("hasany([1,2,3])"));
+            Assert.Equal(false, Expression.CalculateBoolean("hasany([])"));
 
             Assert.Equal(ExpressionMathArrayTest.ToDecimalArray(new object[] { 1, 2, 3 }), ExpressionMathArrayTest.ToDecimalArray(Expression.CalculateArray("sort([3,2,1])")));
+
+            Assert.Equal("test", Expression.CalculateString("trim(\" test \")"));
+            Assert.Single(Expression.CalculateArray("trim([ \" \",\"test\", \" \"])"));
+            Assert.Equal("test", Expression.CalculateArray("trim([ \" \",\"test\", \" \"])")[0].ToString());
+
+            Assert.Equal(true, Expression.CalculateBoolean("isboolean(true)"));
+            Assert.Equal(true, Expression.CalculateBoolean("isboolean(false)"));
+            Assert.Equal(false, Expression.CalculateBoolean("isboolean(1)"));
+
+            Assert.Equal(true, Expression.CalculateBoolean("isnumber(1)"));
+            Assert.Equal(false, Expression.CalculateBoolean("isnumber(true)"));
+
+            Assert.Equal(true, Expression.CalculateBoolean("isstring(\"test\")"));
+            Assert.Equal(false, Expression.CalculateBoolean("isstring(1)"));
+
+            Assert.Equal(true, Expression.CalculateBoolean("isarray([1,2])"));
+            Assert.Equal(false, Expression.CalculateBoolean("isarray(1)"));
+
+            Assert.Equal(true, Expression.CalculateBoolean("iswhitespace(\" \")"));
+            Assert.Equal(false, Expression.CalculateBoolean("iswhitespace(\" xy  \")"));
         }
     }
 }

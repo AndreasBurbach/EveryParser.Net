@@ -186,7 +186,7 @@ namespace EveryParser
         }
 
         /// <summary>
-        /// Check if all parameters are type of string or List(obect)
+        /// Check if all parameters are type of string or List(object)
         /// </summary>
         /// <param name="context"></param>
         /// <param name="childs"></param>
@@ -351,7 +351,46 @@ namespace EveryParser
                 return null;
             }
 
-            return value;
+            return CheckConvertArgument(context, value);
+        }
+
+        private object CheckConvertArgument(ParserRuleContext context, object value)
+        {
+            if (value is null)
+            {
+                AddError(context, ErrorCode.IsNull, "Argument variable is null!");
+                return null;
+            }
+
+            if (TypeCheckHelper.IsBoolean(value) || TypeCheckHelper.IsNumber(value) || value is string || value is DateTime)
+                return value;
+
+            if (value is char)
+                return value.ToString();
+
+            if (value is IEnumerable<string> sListValue)
+                return sListValue.Select(x => (object)x).ToList();
+            if (value is IEnumerable<decimal> deciListValue)
+                return deciListValue.Select(x => (object)x).ToList();
+            if (value is IEnumerable<int> iListValue)
+                return iListValue.Select(x => (object)x).ToList();
+            if (value is IEnumerable<double> dListValue)
+                return dListValue.Select(x => (object)x).ToList();
+            if (value is IEnumerable<float> fListValue)
+                return fListValue.Select(x => (object)x).ToList();
+            if (value is IEnumerable<short> shortListValue)
+                return shortListValue.Select(x => (object)x).ToList();
+            if (value is IEnumerable<byte> byteListValue)
+                return byteListValue.Select(x => (object)x).ToList();
+            if (value is IEnumerable<char> charListValue)
+                return charListValue.Select(x => (object)x.ToString()).ToList();
+            if (value is IEnumerable<bool> boolListValue)
+                return boolListValue.Select(x => (object)x).ToList();
+            if (value is IEnumerable<DateTime> dtListValue)
+                return dtListValue.Select(x => (object)x).ToList();
+
+            AddError(context, ErrorCode.TypeConversion, $"Could not recognize type of {value.GetType()}");
+            return null;
         }
 
         /// <summary>
@@ -397,7 +436,7 @@ namespace EveryParser
                 return null;
             }
 
-            return value;
+            return CheckConvertArgument(context, value);
         }
 
         /// <summary>
