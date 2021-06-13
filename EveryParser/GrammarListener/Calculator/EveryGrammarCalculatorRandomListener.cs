@@ -17,13 +17,6 @@ namespace EveryParser
         }
 
         /// <summary>
-        /// Exit a parse tree produced by the <c>Random_Decimal</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitRandom_Decimal([NotNull] EveryGrammarParser.Random_DecimalContext context) { }
-
-        /// <summary>
         /// Enter a parse tree produced by the <c>Random_DecimalArray</c>
         /// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
         /// </summary>
@@ -140,13 +133,6 @@ namespace EveryParser
         {
             Node.AddChildNode(_randomizer.Next());
         }
-
-        /// <summary>
-        /// Exit a parse tree produced by the <c>Random_Integer</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitRandom_Integer([NotNull] EveryGrammarParser.Random_IntegerContext context) { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Random_IntegerArray</c>

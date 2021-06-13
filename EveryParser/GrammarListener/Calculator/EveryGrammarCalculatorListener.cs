@@ -52,9 +52,7 @@ namespace EveryParser
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterIfElse([NotNull] EveryGrammarParser.IfElseContext context)
-        {
-        }
+        public void EnterIfElse([NotNull] EveryGrammarParser.IfElseContext context) { }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>IfElse</c>
@@ -878,14 +876,6 @@ namespace EveryParser
         }
 
         /// <summary>
-        /// Exit a parse tree produced by the <c>Factor_Not</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitFactor_Not([NotNull] EveryGrammarParser.Factor_NotContext context) { }
-
-        /// <summary>
         /// Enter a parse tree produced by the <c>Factor_Minus</c>
         /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
         /// <para>The default implementation does nothing.</para>
@@ -986,14 +976,6 @@ namespace EveryParser
         }
 
         /// <summary>
-        /// Exit a parse tree produced by the <c>Factor_True</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitFactor_True([NotNull] EveryGrammarParser.Factor_TrueContext context) { }
-
-        /// <summary>
         /// Enter a parse tree produced by the <c>Factor_False</c>
         /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
         /// <para>The default implementation does nothing.</para>
@@ -1003,14 +985,6 @@ namespace EveryParser
         {
             Node.AddChildNode(false);
         }
-
-        /// <summary>
-        /// Exit a parse tree produced by the <c>Factor_False</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitFactor_False([NotNull] EveryGrammarParser.Factor_FalseContext context) { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Factor_Integer</c>
@@ -1031,14 +1005,6 @@ namespace EveryParser
         }
 
         /// <summary>
-        /// Exit a parse tree produced by the <c>Factor_Integer</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitFactor_Integer([NotNull] EveryGrammarParser.Factor_IntegerContext context) { }
-
-        /// <summary>
         /// Enter a parse tree produced by the <c>Factor_Double</c>
         /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
         /// <para>The default implementation does nothing.</para>
@@ -1055,14 +1021,6 @@ namespace EveryParser
                 Node.AddChildNode(double.NaN);
             }
         }
-
-        /// <summary>
-        /// Exit a parse tree produced by the <c>Factor_Double</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitFactor_Double([NotNull] EveryGrammarParser.Factor_DoubleContext context) { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Factor_Variable</c>
@@ -1086,14 +1044,6 @@ namespace EveryParser
         }
 
         /// <summary>
-        /// Exit a parse tree produced by the <c>Factor_Variable</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitFactor_Variable([NotNull] EveryGrammarParser.Factor_VariableContext context) { }
-
-        /// <summary>
         /// Enter a parse tree produced by the <c>Factor_ObjectVariables</c>
         /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
         /// <para>The default implementation does nothing.</para>
@@ -1113,14 +1063,6 @@ namespace EveryParser
         }
 
         /// <summary>
-        /// Exit a parse tree produced by the <c>Factor_ObjectVariables</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitFactor_ObjectVariables([NotNull] EveryGrammarParser.Factor_ObjectVariablesContext context) { }
-
-        /// <summary>
         /// Enter a parse tree produced by the <c>Factor_String</c>
         /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
         /// <para>The default implementation does nothing.</para>
@@ -1137,14 +1079,6 @@ namespace EveryParser
             Node.AddChildNode(text);
         }
 
-        /// <summary>
-        /// Exit a parse tree produced by the <c>Factor_String</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitFactor_String([NotNull] EveryGrammarParser.Factor_StringContext context) { }
-
         /// Enter a parse tree produced by the <c>ArrayCreation_Empty</c>
         /// labeled alternative in <see cref="EveryGrammarParser.array_expr"/>.
         /// </summary>
@@ -1153,13 +1087,6 @@ namespace EveryParser
         {
             Node.AddChildNode(new List<object>());
         }
-
-        /// <summary>
-        /// Exit a parse tree produced by the <c>ArrayCreation_Empty</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_expr"/>.
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitArrayCreation_Empty([NotNull] EveryGrammarParser.ArrayCreation_EmptyContext context) { }
 
         /// Enter a parse tree produced by the <c>ArrayCreation</c>
         /// labeled alternative in <see cref="EveryGrammarParser.array_expr"/>.

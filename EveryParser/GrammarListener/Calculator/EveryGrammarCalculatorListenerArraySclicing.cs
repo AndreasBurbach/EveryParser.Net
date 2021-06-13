@@ -20,14 +20,6 @@ namespace EveryParser
         }
 
         /// <summary>
-        /// Exit a parse tree produced by the <c>ArraySlicing_Indexing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitArraySlicing_Indexing([NotNull] EveryGrammarParser.ArraySlicing_IndexingContext context) { }
-
-        /// <summary>
         /// Enter a parse tree produced by the <c>ArraySlicing_Slicing</c>
         /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
         /// <para>The default implementation does nothing.</para>
@@ -39,14 +31,6 @@ namespace EveryParser
         }
 
         /// <summary>
-        /// Exit a parse tree produced by the <c>ArraySlicing_Slicing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitArraySlicing_Slicing([NotNull] EveryGrammarParser.ArraySlicing_SlicingContext context) { }
-
-        /// <summary>
         /// Enter a parse tree produced by the <c>ArraySlicing_StepSlicing</c>
         /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
         /// <para>The default implementation does nothing.</para>
@@ -56,14 +40,6 @@ namespace EveryParser
         {
             Node.ChildCaluclationName = "ArraySlicing_StepSlicing";
         }
-
-        /// <summary>
-        /// Exit a parse tree produced by the <c>ArraySlicing_StepSlicing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitArraySlicing_StepSlicing([NotNull] EveryGrammarParser.ArraySlicing_StepSlicingContext context) { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>ArraySlicing_StartSlicing</c>
@@ -95,13 +71,6 @@ namespace EveryParser
         }
 
         /// <summary>
-        /// Exit a parse tree produced by the <c>ArraySlicing_StartStepSlicing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitArraySlicing_StartStepSlicing([NotNull] EveryGrammarParser.ArraySlicing_StartStepSlicingContext context) { }
-
-        /// <summary>
         /// Enter a parse tree produced by the <c>ArraySlicing_EndSlicing</c>
         /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
         /// </summary>
@@ -110,13 +79,6 @@ namespace EveryParser
         {
             Node.ChildCaluclationName = "ArraySlicing_EndSlicing";
         }
-
-        /// <summary>
-        /// Exit a parse tree produced by the <c>ArraySlicing_EndSlicing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitArraySlicing_EndSlicing([NotNull] EveryGrammarParser.ArraySlicing_EndSlicingContext context) { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>ArraySlicing_EndStepSlicing</c>
@@ -129,13 +91,6 @@ namespace EveryParser
         }
 
         /// <summary>
-        /// Exit a parse tree produced by the <c>ArraySlicing_EndStepSlicing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitArraySlicing_EndStepSlicing([NotNull] EveryGrammarParser.ArraySlicing_EndStepSlicingContext context) { }
-
-        /// <summary>
         /// Enter a parse tree produced by the <c>ArraySlicing_AllStepSlicing</c>
         /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
         /// </summary>
@@ -144,13 +99,6 @@ namespace EveryParser
         {
             Node.ChildCaluclationName = "ArraySlicing_AllStepSlicing";
         }
-
-        /// <summary>
-        /// Exit a parse tree produced by the <c>ArraySlicing_AllStepSlicing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitArraySlicing_AllStepSlicing([NotNull] EveryGrammarParser.ArraySlicing_AllStepSlicingContext context) { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>ArraySlicing</c>
