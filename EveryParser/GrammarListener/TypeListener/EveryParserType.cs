@@ -18,4 +18,16 @@ namespace EveryParser.GrammarListener.TypeListener
         EmptyArray = 512,
         Array = 1024,
     }
+
+    public static class EveryParserTypeHelper
+    {
+        public static bool IsNumber(this EveryParserType type) => (type & EveryParserType.Number) == EveryParserType.Number;
+
+        public static bool IsNumberArray(this EveryParserType type) => (type & EveryParserType.ArrayOfNumber) == EveryParserType.ArrayOfNumber;
+
+        public static bool IsNumberOrArrayOfNumbers(this EveryParserType type) => (type & (EveryParserType.Number | EveryParserType.ArrayOfNumber)) == (EveryParserType.Number | EveryParserType.ArrayOfNumber);
+
+        public static bool IsEmptyArray(this EveryParserType type) => (type & EveryParserType.EmptyArray) == EveryParserType.EmptyArray;
+
+    }
 }

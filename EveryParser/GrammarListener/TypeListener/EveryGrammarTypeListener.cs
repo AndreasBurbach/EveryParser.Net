@@ -140,7 +140,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterBoolOr([NotNull] EveryGrammarParser.BoolOrContext context)
         {
-            Node.AddChildNode(EveryParserType.Boolean | EveryParserType.ArrayOfBoolean);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -148,7 +148,9 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.bool_or_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitBoolOr([NotNull] EveryGrammarParser.BoolOrContext context) { }
+        public void ExitBoolOr([NotNull] EveryGrammarParser.BoolOrContext context) {
+            CheckBoolBinary(context, EveryParserType.Boolean);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>BoolXOr_Next</c>
@@ -171,7 +173,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterBoolXOr([NotNull] EveryGrammarParser.BoolXOrContext context)
         {
-            Node.AddChildNode(EveryParserType.Boolean | EveryParserType.ArrayOfBoolean);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -179,7 +181,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.bool_xor_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitBoolXOr([NotNull] EveryGrammarParser.BoolXOrContext context) { }
+        public void ExitBoolXOr([NotNull] EveryGrammarParser.BoolXOrContext context)
+        {
+            CheckBoolBinary(context, EveryParserType.Boolean);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>BoolAnd_Next</c>
@@ -202,7 +207,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterBoolAnd([NotNull] EveryGrammarParser.BoolAndContext context)
         {
-            Node.AddChildNode(EveryParserType.Boolean | EveryParserType.ArrayOfBoolean);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -210,7 +215,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.bool_and_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitBoolAnd([NotNull] EveryGrammarParser.BoolAndContext context) { }
+        public void ExitBoolAnd([NotNull] EveryGrammarParser.BoolAndContext context)
+        {
+            CheckBoolBinary(context, EveryParserType.Boolean);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Equality_Contains</c>
@@ -219,7 +227,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterEquality_Contains([NotNull] EveryGrammarParser.Equality_ContainsContext context)
         {
-            Node.AddChildNode(EveryParserType.Boolean | EveryParserType.ArrayOfBoolean);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -250,7 +258,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterEquality_Equal([NotNull] EveryGrammarParser.Equality_EqualContext context)
         {
-            Node.AddChildNode(EveryParserType.Boolean | EveryParserType.ArrayOfBoolean);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -267,7 +275,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterEquality_NotEqualIgnoreCase([NotNull] EveryGrammarParser.Equality_NotEqualIgnoreCaseContext context)
         {
-            Node.AddChildNode(EveryParserType.Boolean | EveryParserType.ArrayOfBoolean);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -284,7 +292,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterEquality_NotEqual([NotNull] EveryGrammarParser.Equality_NotEqualContext context)
         {
-            Node.AddChildNode(EveryParserType.Boolean | EveryParserType.ArrayOfBoolean);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -301,7 +309,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterEquality_NotContains([NotNull] EveryGrammarParser.Equality_NotContainsContext context)
         {
-            Node.AddChildNode(EveryParserType.Boolean | EveryParserType.ArrayOfBoolean);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -318,7 +326,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterEquality_EqualIgnoreCase([NotNull] EveryGrammarParser.Equality_EqualIgnoreCaseContext context)
         {
-            Node.AddChildNode(EveryParserType.Boolean | EveryParserType.ArrayOfBoolean);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -349,7 +357,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterCheck_Greater([NotNull] EveryGrammarParser.Check_GreaterContext context)
         {
-            Node.AddChildNode(EveryParserType.Boolean | EveryParserType.ArrayOfBoolean);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -357,7 +365,8 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.check"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitCheck_Greater([NotNull] EveryGrammarParser.Check_GreaterContext context) { }
+        public void ExitCheck_Greater([NotNull] EveryGrammarParser.Check_GreaterContext context) { CheckNumberOrArrayOfNumbersBinary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Check_GreaterEqual</c>
@@ -366,7 +375,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterCheck_GreaterEqual([NotNull] EveryGrammarParser.Check_GreaterEqualContext context)
         {
-            Node.AddChildNode(EveryParserType.Boolean | EveryParserType.ArrayOfBoolean);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -374,7 +383,9 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.check"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitCheck_GreaterEqual([NotNull] EveryGrammarParser.Check_GreaterEqualContext context) { }
+        public void ExitCheck_GreaterEqual([NotNull] EveryGrammarParser.Check_GreaterEqualContext context) {
+            CheckNumberOrArrayOfNumbersBinary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Check_Lower</c>
@@ -383,7 +394,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterCheck_Lower([NotNull] EveryGrammarParser.Check_LowerContext context)
         {
-            Node.AddChildNode(EveryParserType.Boolean | EveryParserType.ArrayOfBoolean);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -391,7 +402,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.check"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitCheck_Lower([NotNull] EveryGrammarParser.Check_LowerContext context) { }
+        public void ExitCheck_Lower([NotNull] EveryGrammarParser.Check_LowerContext context)
+        {
+            CheckNumberOrArrayOfNumbersBinary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Check_LowerEqual</c>
@@ -400,7 +414,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterCheck_LowerEqual([NotNull] EveryGrammarParser.Check_LowerEqualContext context)
         {
-            Node.AddChildNode(EveryParserType.Boolean | EveryParserType.ArrayOfBoolean);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -408,7 +422,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.check"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitCheck_LowerEqual([NotNull] EveryGrammarParser.Check_LowerEqualContext context) { }
+        public void ExitCheck_LowerEqual([NotNull] EveryGrammarParser.Check_LowerEqualContext context)
+        {
+            CheckNumberOrArrayOfNumbersBinary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>BitOR</c>
@@ -417,7 +434,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterBitOR([NotNull] EveryGrammarParser.BitORContext context)
         {
-            Node.AddChildNode(EveryParserType.Number | EveryParserType.ArrayOfNumber);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -448,7 +465,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterBitAnd([NotNull] EveryGrammarParser.BitAndContext context)
         {
-            Node.AddChildNode(EveryParserType.Number | EveryParserType.ArrayOfNumber);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -479,7 +496,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterLine_Addition([NotNull] EveryGrammarParser.Line_AdditionContext context)
         {
-            Node.AddChildNode(EveryParserType.Number | EveryParserType.ArrayOfNumber);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -487,7 +504,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.line_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitLine_Addition([NotNull] EveryGrammarParser.Line_AdditionContext context) { }
+        public void ExitLine_Addition([NotNull] EveryGrammarParser.Line_AdditionContext context)
+        {
+            CheckNumberOrArrayOfNumbersBinary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Line_Subtraction</c>
@@ -496,7 +516,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterLine_Subtraction([NotNull] EveryGrammarParser.Line_SubtractionContext context)
         {
-            Node.AddChildNode(EveryParserType.Number | EveryParserType.ArrayOfNumber);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -504,7 +524,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.line_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitLine_Subtraction([NotNull] EveryGrammarParser.Line_SubtractionContext context) { }
+        public void ExitLine_Subtraction([NotNull] EveryGrammarParser.Line_SubtractionContext context)
+        {
+            CheckNumberOrArrayOfNumbersBinary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Line_Next</c>
@@ -527,7 +550,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterPointTerm_PowerOperator([NotNull] EveryGrammarParser.PointTerm_PowerOperatorContext context)
         {
-            Node.AddChildNode(EveryParserType.Number | EveryParserType.ArrayOfNumber);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -537,7 +560,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitPointTerm_PowerOperator([NotNull] EveryGrammarParser.PointTerm_PowerOperatorContext context)
         {
-            Node.AddChildNode(EveryParserType.Number | EveryParserType.ArrayOfNumber);
+            CheckNumberOrArrayOfNumbersBinary(context);
         }
 
         /// <summary>
@@ -547,7 +570,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterPointTerm_Modulo([NotNull] EveryGrammarParser.PointTerm_ModuloContext context)
         {
-            Node.AddChildNode(EveryParserType.Number | EveryParserType.ArrayOfNumber);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -555,7 +578,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.point_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitPointTerm_Modulo([NotNull] EveryGrammarParser.PointTerm_ModuloContext context) { }
+        public void ExitPointTerm_Modulo([NotNull] EveryGrammarParser.PointTerm_ModuloContext context)
+        {
+            CheckNumberOrArrayOfNumbersBinary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>PointTerm_Multiply</c>
@@ -564,7 +590,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterPointTerm_Multiply([NotNull] EveryGrammarParser.PointTerm_MultiplyContext context)
         {
-            Node.AddChildNode(EveryParserType.Number | EveryParserType.ArrayOfNumber);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -572,7 +598,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.point_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitPointTerm_Multiply([NotNull] EveryGrammarParser.PointTerm_MultiplyContext context) { }
+        public void ExitPointTerm_Multiply([NotNull] EveryGrammarParser.PointTerm_MultiplyContext context)
+        {
+            CheckNumberOrArrayOfNumbersBinary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>PointTerm_BitShiftLeft</c>
@@ -581,7 +610,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterPointTerm_BitShiftLeft([NotNull] EveryGrammarParser.PointTerm_BitShiftLeftContext context)
         {
-            Node.AddChildNode(EveryParserType.Number | EveryParserType.ArrayOfNumber);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -589,7 +618,9 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.point_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitPointTerm_BitShiftLeft([NotNull] EveryGrammarParser.PointTerm_BitShiftLeftContext context) { }
+        public void ExitPointTerm_BitShiftLeft([NotNull] EveryGrammarParser.PointTerm_BitShiftLeftContext context)
+        {
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>PointTerm_IntegerDivision</c>
@@ -598,7 +629,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterPointTerm_IntegerDivision([NotNull] EveryGrammarParser.PointTerm_IntegerDivisionContext context)
         {
-            Node.AddChildNode(EveryParserType.Number | EveryParserType.ArrayOfNumber);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -606,7 +637,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.point_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitPointTerm_IntegerDivision([NotNull] EveryGrammarParser.PointTerm_IntegerDivisionContext context) { }
+        public void ExitPointTerm_IntegerDivision([NotNull] EveryGrammarParser.PointTerm_IntegerDivisionContext context)
+        {
+            CheckNumberOrArrayOfNumbersBinary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>PointTerm_BitShiftRight</c>
@@ -615,7 +649,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterPointTerm_BitShiftRight([NotNull] EveryGrammarParser.PointTerm_BitShiftRightContext context)
         {
-            Node.AddChildNode(EveryParserType.Number | EveryParserType.ArrayOfNumber);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -623,7 +657,9 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.point_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitPointTerm_BitShiftRight([NotNull] EveryGrammarParser.PointTerm_BitShiftRightContext context) { }
+        public void ExitPointTerm_BitShiftRight([NotNull] EveryGrammarParser.PointTerm_BitShiftRightContext context)
+        {
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>PointTerm_Divide</c>
@@ -632,7 +668,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterPointTerm_Divide([NotNull] EveryGrammarParser.PointTerm_DivideContext context)
         {
-            Node.AddChildNode(EveryParserType.Number | EveryParserType.ArrayOfNumber);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -640,7 +676,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.point_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitPointTerm_Divide([NotNull] EveryGrammarParser.PointTerm_DivideContext context) { }
+        public void ExitPointTerm_Divide([NotNull] EveryGrammarParser.PointTerm_DivideContext context)
+        {
+            CheckNumberOrArrayOfNumbersBinary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>PointTerm_Next</c>
@@ -663,7 +702,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterFactor_Not([NotNull] EveryGrammarParser.Factor_NotContext context)
         {
-            Node.AddChildNode(EveryParserType.Boolean | EveryParserType.ArrayOfBoolean);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -680,7 +719,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterFactor_Minus([NotNull] EveryGrammarParser.Factor_MinusContext context)
         {
-            Node.AddChildNode(EveryParserType.Number | EveryParserType.ArrayOfNumber);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -688,7 +727,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitFactor_Minus([NotNull] EveryGrammarParser.Factor_MinusContext context) { }
+        public void ExitFactor_Minus([NotNull] EveryGrammarParser.Factor_MinusContext context)
+        {
+            CheckNumberOrArrayOfNumbersUnary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Factor_Plus</c>
@@ -697,7 +739,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterFactor_Plus([NotNull] EveryGrammarParser.Factor_PlusContext context)
         {
-            Node.AddChildNode(EveryParserType.Number | EveryParserType.ArrayOfNumber);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -705,7 +747,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitFactor_Plus([NotNull] EveryGrammarParser.Factor_PlusContext context) { }
+        public void ExitFactor_Plus([NotNull] EveryGrammarParser.Factor_PlusContext context)
+        {
+            CheckNumberOrArrayOfNumbersUnary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Factor_Tilde</c>
@@ -714,7 +759,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterFactor_Tilde([NotNull] EveryGrammarParser.Factor_TildeContext context)
         {
-            Node.AddChildNode(EveryParserType.Number | EveryParserType.ArrayOfNumber);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -722,7 +767,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitFactor_Tilde([NotNull] EveryGrammarParser.Factor_TildeContext context) { }
+        public void ExitFactor_Tilde([NotNull] EveryGrammarParser.Factor_TildeContext context)
+        {
+            CheckNumberOrArrayOfNumbersUnary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Factor_Factorial</c>
@@ -731,7 +779,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterFactor_Factorial([NotNull] EveryGrammarParser.Factor_FactorialContext context)
         {
-            Node.AddChildNode(EveryParserType.Number | EveryParserType.ArrayOfNumber);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -739,7 +787,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitFactor_Factorial([NotNull] EveryGrammarParser.Factor_FactorialContext context) { }
+        public void ExitFactor_Factorial([NotNull] EveryGrammarParser.Factor_FactorialContext context)
+        {
+            CheckNumberOrArrayOfNumbersUnary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Factor_Brackets</c>
@@ -1017,7 +1068,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterRandom_DecimalArray([NotNull] EveryGrammarParser.Random_DecimalArrayContext context)
         {
-            Node.AddChildNode();
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1037,7 +1088,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterRandom_DecimalMinMax([NotNull] EveryGrammarParser.Random_DecimalMinMaxContext context)
         {
-            Node.AddChildNode();
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1057,7 +1108,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterRandom_DecimalArrayMinMax([NotNull] EveryGrammarParser.Random_DecimalArrayMinMaxContext context)
         {
-            Node.AddChildNode();
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1094,7 +1145,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterRandom_IntegerArray([NotNull] EveryGrammarParser.Random_IntegerArrayContext context)
         {
-            Node.AddChildNode();
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1114,7 +1165,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterRandom_IntegerMinMax([NotNull] EveryGrammarParser.Random_IntegerMinMaxContext context)
         {
-            Node.AddChildNode();
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1134,7 +1185,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterRandom_IntegerArrayMinMax([NotNull] EveryGrammarParser.Random_IntegerArrayMinMaxContext context)
         {
-            Node.AddChildNode();
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1170,7 +1221,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterConvert_ToBoolean([NotNull] EveryGrammarParser.Convert_ToBooleanContext context)
         {
-            Node.AddChildNode(EveryParserType.Boolean);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1187,7 +1238,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterConvert_ToNumber([NotNull] EveryGrammarParser.Convert_ToNumberContext context)
         {
-            Node.AddChildNode(EveryParserType.Number);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1204,7 +1255,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterConvert_ToString([NotNull] EveryGrammarParser.Convert_ToStringContext context)
         {
-            Node.AddChildNode(EveryParserType.String);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1221,7 +1272,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterConvert_DegreeToGrad([NotNull] EveryGrammarParser.Convert_DegreeToGradContext context)
         {
-            Node.AddChildNode(EveryParserType.Number);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1229,7 +1280,9 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitConvert_DegreeToGrad([NotNull] EveryGrammarParser.Convert_DegreeToGradContext context) { }
+        public void ExitConvert_DegreeToGrad([NotNull] EveryGrammarParser.Convert_DegreeToGradContext context) {
+            CheckNumberOrArrayOfNumbersUnary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Convert_DegreeToRadian</c>
@@ -1238,7 +1291,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterConvert_DegreeToRadian([NotNull] EveryGrammarParser.Convert_DegreeToRadianContext context)
         {
-            Node.AddChildNode(EveryParserType.Number);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1246,7 +1299,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitConvert_DegreeToRadian([NotNull] EveryGrammarParser.Convert_DegreeToRadianContext context) { }
+        public void ExitConvert_DegreeToRadian([NotNull] EveryGrammarParser.Convert_DegreeToRadianContext context)
+        {
+            CheckNumberOrArrayOfNumbersUnary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Convert_GradToDegree</c>
@@ -1255,7 +1311,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterConvert_GradToDegree([NotNull] EveryGrammarParser.Convert_GradToDegreeContext context)
         {
-            Node.AddChildNode(EveryParserType.Number);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1263,7 +1319,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitConvert_GradToDegree([NotNull] EveryGrammarParser.Convert_GradToDegreeContext context) { }
+        public void ExitConvert_GradToDegree([NotNull] EveryGrammarParser.Convert_GradToDegreeContext context)
+        {
+            CheckNumberOrArrayOfNumbersUnary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Convert_GradToRadian</c>
@@ -1272,7 +1331,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterConvert_GradToRadian([NotNull] EveryGrammarParser.Convert_GradToRadianContext context)
         {
-            Node.AddChildNode(EveryParserType.Number);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1280,7 +1339,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitConvert_GradToRadian([NotNull] EveryGrammarParser.Convert_GradToRadianContext context) { }
+        public void ExitConvert_GradToRadian([NotNull] EveryGrammarParser.Convert_GradToRadianContext context)
+        {
+            CheckNumberOrArrayOfNumbersUnary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Convert_RadianToDegree</c>
@@ -1289,7 +1351,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterConvert_RadianToDegree([NotNull] EveryGrammarParser.Convert_RadianToDegreeContext context)
         {
-            Node.AddChildNode(EveryParserType.Number);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1297,7 +1359,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitConvert_RadianToDegree([NotNull] EveryGrammarParser.Convert_RadianToDegreeContext context) { }
+        public void ExitConvert_RadianToDegree([NotNull] EveryGrammarParser.Convert_RadianToDegreeContext context)
+        {
+            CheckNumberOrArrayOfNumbersUnary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Convert_RadianToGrad</c>
@@ -1306,7 +1371,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterConvert_RadianToGrad([NotNull] EveryGrammarParser.Convert_RadianToGradContext context)
         {
-            Node.AddChildNode(EveryParserType.Number);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1314,7 +1379,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.convert_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitConvert_RadianToGrad([NotNull] EveryGrammarParser.Convert_RadianToGradContext context) { }
+        public void ExitConvert_RadianToGrad([NotNull] EveryGrammarParser.Convert_RadianToGradContext context)
+        {
+            CheckNumberOrArrayOfNumbersUnary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>DateTime_Expression</c>
@@ -1536,7 +1604,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterCheckFunction_IsArray([NotNull] EveryGrammarParser.CheckFunction_IsArrayContext context)
         {
-            Node.AddChildNode(EveryParserType.Boolean | EveryParserType.ArrayOfBoolean);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1553,7 +1621,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterCheckFunction_IsBoolean([NotNull] EveryGrammarParser.CheckFunction_IsBooleanContext context)
         {
-            Node.AddChildNode(EveryParserType.Boolean | EveryParserType.ArrayOfBoolean);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1570,7 +1638,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterCheckFunction_IsDateTime([NotNull] EveryGrammarParser.CheckFunction_IsDateTimeContext context)
         {
-            Node.AddChildNode(EveryParserType.Boolean | EveryParserType.ArrayOfBoolean);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1587,7 +1655,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterCheckFunction_IsNull([NotNull] EveryGrammarParser.CheckFunction_IsNullContext context)
         {
-            Node.AddChildNode(EveryParserType.Boolean | EveryParserType.ArrayOfBoolean);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1604,7 +1672,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterCheckFunction_IsNumber([NotNull] EveryGrammarParser.CheckFunction_IsNumberContext context)
         {
-            Node.AddChildNode(EveryParserType.Boolean | EveryParserType.ArrayOfBoolean);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1621,7 +1689,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterCheckFunction_IsString([NotNull] EveryGrammarParser.CheckFunction_IsStringContext context)
         {
-            Node.AddChildNode(EveryParserType.Boolean | EveryParserType.ArrayOfBoolean);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1638,7 +1706,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterCheckFunction_IsWhitespace([NotNull] EveryGrammarParser.CheckFunction_IsWhitespaceContext context)
         {
-            Node.AddChildNode(EveryParserType.Boolean | EveryParserType.ArrayOfBoolean);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1655,7 +1723,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterCheckFunction_HasAny([NotNull] EveryGrammarParser.CheckFunction_HasAnyContext context)
         {
-            Node.AddChildNode(EveryParserType.Boolean | EveryParserType.ArrayOfBoolean);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1672,7 +1740,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterCheckFunction_HasDuplicates([NotNull] EveryGrammarParser.CheckFunction_HasDuplicatesContext context)
         {
-            Node.AddChildNode(EveryParserType.Boolean | EveryParserType.ArrayOfBoolean);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1703,7 +1771,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterFunction_Count([NotNull] EveryGrammarParser.Function_CountContext context)
         {
-            Node.AddChildNode(EveryParserType.Number);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1762,7 +1830,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterFunction_IndexOf([NotNull] EveryGrammarParser.Function_IndexOfContext context)
         {
-            Node.AddChildNode(EveryParserType.Number);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1779,7 +1847,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterFunction_IndexOfStart([NotNull] EveryGrammarParser.Function_IndexOfStartContext context)
         {
-            Node.AddChildNode(EveryParserType.Number);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1796,7 +1864,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterFunction_IndexOfStartEnd([NotNull] EveryGrammarParser.Function_IndexOfStartEndContext context)
         {
-            Node.AddChildNode(EveryParserType.Number);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1813,7 +1881,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterFunction_Lower([NotNull] EveryGrammarParser.Function_LowerContext context)
         {
-            Node.AddChildNode(EveryParserType.String);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -1844,7 +1912,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterFunction_Upper([NotNull] EveryGrammarParser.Function_UpperContext context)
         {
-            Node.AddChildNode(EveryParserType.String);
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
@@ -2017,7 +2085,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_ATan2([NotNull] EveryGrammarParser.Math_ATan2Context context) { }
+        public void ExitMath_ATan2([NotNull] EveryGrammarParser.Math_ATan2Context context)
+        {
+            CheckNumberOrArrayOfNumbersBinary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_ATanH</c>
@@ -2245,7 +2316,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_Log([NotNull] EveryGrammarParser.Math_LogContext context) { }
+        public void ExitMath_Log([NotNull] EveryGrammarParser.Math_LogContext context)
+        {
+            CheckNumberOrArrayOfNumbersBinary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Log2</c>
@@ -2309,14 +2383,19 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterMath_Max_Two([NotNull] EveryGrammarParser.Math_Max_TwoContext context) { }
+        public void EnterMath_Max_Two([NotNull] EveryGrammarParser.Math_Max_TwoContext context) {
+            Node = Node.AddChildNode();
+        }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>Math_Max_Two</c>
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_Max_Two([NotNull] EveryGrammarParser.Math_Max_TwoContext context) { }
+        public void ExitMath_Max_Two([NotNull] EveryGrammarParser.Math_Max_TwoContext context)
+        {
+            CheckNumberOrArrayOfNumbersBinary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Min_Array</c>
@@ -2350,7 +2429,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_Min_Two([NotNull] EveryGrammarParser.Math_Min_TwoContext context) { }
+        public void ExitMath_Min_Two([NotNull] EveryGrammarParser.Math_Min_TwoContext context)
+        {
+            CheckNumberOrArrayOfNumbersBinary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Power</c>
@@ -2367,7 +2449,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_Power([NotNull] EveryGrammarParser.Math_PowerContext context) { }
+        public void ExitMath_Power([NotNull] EveryGrammarParser.Math_PowerContext context)
+        {
+            CheckNumberOrArrayOfNumbersBinary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Round_Not_Decimal</c>
@@ -2404,7 +2489,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_Round_Decimal([NotNull] EveryGrammarParser.Math_Round_DecimalContext context) { }
+        public void ExitMath_Round_Decimal([NotNull] EveryGrammarParser.Math_Round_DecimalContext context)
+        {
+            CheckNumberOrArrayOfNumbersBinary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Root</c>
@@ -2421,7 +2509,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_Root([NotNull] EveryGrammarParser.Math_RootContext context) { }
+        public void ExitMath_Root([NotNull] EveryGrammarParser.Math_RootContext context)
+        {
+            CheckNumberOrArrayOfNumbersBinary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Sin</c>
@@ -2612,7 +2703,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_GreatesCommonDivisor([NotNull] EveryGrammarParser.Math_GreatesCommonDivisorContext context) { }
+        public void ExitMath_GreatesCommonDivisor([NotNull] EveryGrammarParser.Math_GreatesCommonDivisorContext context)
+        {
+            CheckNumberOrArrayOfNumbersBinary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_LeastCommonMultiple</c>
@@ -2629,7 +2723,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_LeastCommonMultiple([NotNull] EveryGrammarParser.Math_LeastCommonMultipleContext context) { }
+        public void ExitMath_LeastCommonMultiple([NotNull] EveryGrammarParser.Math_LeastCommonMultipleContext context)
+        {
+            CheckNumberOrArrayOfNumbersBinary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_DotProduct</c>
@@ -2666,7 +2763,10 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_Binomila([NotNull] EveryGrammarParser.Math_BinomilaContext context) { }
+        public void ExitMath_Binomila([NotNull] EveryGrammarParser.Math_BinomilaContext context)
+        {
+            CheckNumberOrArrayOfNumbersBinary(context);
+        }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_ACot</c>
@@ -3101,7 +3201,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void EnterArrayCreation([NotNull] EveryGrammarParser.ArrayCreationContext context)
         {
-            Node.AddChildNode();
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
