@@ -161,6 +161,7 @@ namespace EveryParser
 
                 return result;
             };
+
             Node.Value = CalculationHelper.CalcNumericUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }

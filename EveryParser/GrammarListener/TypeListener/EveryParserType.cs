@@ -15,5 +15,7 @@ namespace EveryParser.GrammarListener.TypeListener
         ArrayOfString = 64,
         ArrayOfDateTime = 128,
         All = 256,
+        EmptyArray = 512,
+        Array = 1024,
     }
 }
