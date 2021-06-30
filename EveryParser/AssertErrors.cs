@@ -38,7 +38,8 @@ namespace EveryParser
         SecondIsNotNumberOrNumberArray,
         StepNotCorrect,
         StartEndIndexNotCorrect,
-        IndexNotCorrect
+        IndexNotCorrect,
+        IsNotStringOrArrayOfStrings
     }
 
     public class AssertErrors

@@ -47,7 +47,7 @@ namespace EveryParser
                 Node.Value = value;
             else if (value is string sValue)
                 Node.Value = sValue.Select(x => (object)x.ToString()).ToList();
-            else if (TypeCheckHelper.IsNumber(value) || TypeCheckHelper.IsBoolean(value))
+            else if (TypeCheckHelper.IsNumber(value) || TypeCheckHelper.IsBoolean(value) || TypeCheckHelper.IsDateTime(value))
                 Node.Value = new List<object>() { value };
 
             Node = Node.Parent;
@@ -140,7 +140,7 @@ namespace EveryParser
             if (value is List<object>)
                 Node.Value = double.NaN;
             else if (TypeCheckHelper.IsNumber(value))
-                Node.Value = Convert.ToDecimal(value) > 0;
+                Node.Value = Convert.ToDecimal(value);
             else if (TypeCheckHelper.IsBoolean(value))
                 Node.Value = Convert.ToBoolean(value) ? 1 : 0;
             else if (decimal.TryParse(value.ToString(), out var number))

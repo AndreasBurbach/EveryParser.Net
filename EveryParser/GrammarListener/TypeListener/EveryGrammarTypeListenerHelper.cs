@@ -6,7 +6,7 @@ namespace EveryParser.GrammarListener.TypeListener
 {
     public partial class EveryGrammarTypeListener
     {
-        private void CheckNumberOrArrayOfNumbersUnary(ParserRuleContext context)
+        private void CheckNumberOrArrayOfNumbersUnary(ParserRuleContext context, EveryParserType resultType = EveryParserType.Number, EveryParserType resultArrayType = EveryParserType.ArrayOfNumber, EveryParserType resultEmptyArray = EveryParserType.EmptyArray)
         {
             if (!ErrorCollector.CheckParamsCount(context, 1, Node.Children))
             {
@@ -17,13 +17,13 @@ namespace EveryParser.GrammarListener.TypeListener
             var parameterType = Node.Children[0].ValueType;
 
             if (parameterType.IsNumber())
-                Node.ValueType = EveryParserType.Number;
+                Node.ValueType = resultType;
             if (parameterType.IsNumberArray())
-                Node.ValueType = EveryParserType.ArrayOfNumber;
+                Node.ValueType = resultArrayType;
             if (parameterType.IsNumberOrArrayOfNumbers())
-                Node.ValueType = EveryParserType.Number | EveryParserType.ArrayOfNumber;
+                Node.ValueType = resultType | resultArrayType;
             if (parameterType.IsEmptyArray())
-                Node.ValueType = EveryParserType.EmptyArray;
+                Node.ValueType = resultEmptyArray;
 
             if (Node.ValueType == EveryParserType.None)
                 ErrorCollector.AddError(context, ErrorCode.IsNotNumberOrArrayOfNumbers, "Parameter is not a Number or an Array of Numbers");
@@ -70,12 +70,11 @@ namespace EveryParser.GrammarListener.TypeListener
             Node = Node.Parent;
         }
 
-
         private void CheckListOfNumbersBinary(ParserRuleContext context, EveryParserType resultType)
         {
             if (ErrorCollector.CheckParamsCount(context, 2, Node.Children))
             {
-                if (Node.Children[0].ValueType != EveryParserType.ArrayOfNumber || Node.Children[1].ValueType != EveryParserType.ArrayOfNumber)
+                if (!Node.Children[0].ValueType.IsNumberArray() || !Node.Children[1].ValueType.IsNumberArray())
                     ErrorCollector.AddError(context, ErrorCode.IsNotNumberArray, "One or all Parameters are not Array of Numbers!");
                 else
                     Node.ValueType = resultType;
@@ -84,13 +83,12 @@ namespace EveryParser.GrammarListener.TypeListener
             Node = Node.Parent;
         }
 
-        private void CheckNumericUnary(ParserRuleContext context,  EveryParserType resultType)
+        private void CheckNumericUnary(ParserRuleContext context, EveryParserType resultType)
         {
-
             if (ErrorCollector.CheckParamsCount(context, 1, Node.Children))
             {
-                if (Node.Children[0].ValueType != EveryParserType.Number)
-                    ErrorCollector.AddError(context, ErrorCode.IsNotNumber, "Parameter is not a Numbers!");
+                if (!Node.Children[0].ValueType.IsNumber())
+                    ErrorCollector.AddError(context, ErrorCode.IsNotNumber, "Parameter is not a Number!");
                 else
                     Node.ValueType = resultType;
             }
@@ -102,7 +100,7 @@ namespace EveryParser.GrammarListener.TypeListener
         {
             if (ErrorCollector.CheckParamsCount(context, 2, Node.Children))
             {
-                if (Node.Children[0].ValueType != EveryParserType.Number || Node.Children[1].ValueType != EveryParserType.Number)
+                if (!Node.Children[0].ValueType.IsNumber() || !Node.Children[1].ValueType.IsNumber())
                     ErrorCollector.AddError(context, ErrorCode.IsNotNumber, "One or all Parameters are not Numbers!");
                 else
                     Node.ValueType = resultType;
@@ -115,7 +113,7 @@ namespace EveryParser.GrammarListener.TypeListener
         {
             if (ErrorCollector.CheckParamsCount(context, 3, Node.Children))
             {
-                if (Node.Children[0].ValueType != EveryParserType.Number || Node.Children[1].ValueType != EveryParserType.Number || Node.Children[2].ValueType != EveryParserType.Number)
+                if (!Node.Children[0].ValueType.IsNumber() || !Node.Children[1].ValueType.IsNumber() || !Node.Children[2].ValueType.IsNumber())
                     ErrorCollector.AddError(context, ErrorCode.IsNotNumber, "One or all Parameters are not Numbers!");
                 else
                     Node.ValueType = resultType;
@@ -128,7 +126,7 @@ namespace EveryParser.GrammarListener.TypeListener
         {
             if (ErrorCollector.CheckParamsCount(context, 2, Node.Children))
             {
-                if (Node.Children[0].ValueType != EveryParserType.Boolean || Node.Children[1].ValueType != EveryParserType.Boolean)
+                if (!Node.Children[0].ValueType.IsBoolean() || !Node.Children[1].ValueType.IsBoolean())
                     ErrorCollector.AddError(context, ErrorCode.IsNotNumber, "One or all Parameters are not Boolean!");
                 else
                     Node.ValueType = resultType;
@@ -137,6 +135,87 @@ namespace EveryParser.GrammarListener.TypeListener
             Node = Node.Parent;
         }
 
+        private void CheckStringOrListUnary(ParserRuleContext context, EveryParserType stringResultType, EveryParserType listResultType)
+        {
+            if (ErrorCollector.CheckParamsCount(context, 1, Node.Children))
+            {
+                if (!Node.Children[0].ValueType.IsString() && !Node.Children[0].ValueType.IsArrayType())
+                    ErrorCollector.AddError(context, ErrorCode.IsNotNumber, "Parameter is not a string or an Array!");
+                else if (Node.Children[0].ValueType == EveryParserType.String)
+                    Node.ValueType = stringResultType;
+                else if (Node.Children[0].ValueType.IsArrayType())
+                    Node.ValueType = listResultType.IsArray() ? Node.Children[0].ValueType : listResultType;
+            }
+
+            Node = Node.Parent;
+        }
+
+        private void CheckStringOrArrayOfStringsUnary(ParserRuleContext context, EveryParserType stringResultType, EveryParserType listResultType)
+        {
+            if (ErrorCollector.CheckParamsCount(context, 1, Node.Children))
+            {
+                if (!Node.Children[0].ValueType.IsString() && !Node.Children[0].ValueType.IsArrayType())
+                    ErrorCollector.AddError(context, ErrorCode.IsNotNumber, "Parameter is not a string or an Array of Strings!");
+                else if (Node.Children[0].ValueType == EveryParserType.String)
+                    Node.ValueType = stringResultType;
+                else if (Node.Children[0].ValueType.IsStringArray())
+                    Node.ValueType = listResultType;
+            }
+
+            Node = Node.Parent;
+        }
+
+        private void CheckStringOrArrayOfStringsBinary(ParserRuleContext context, EveryParserType stringResultType, EveryParserType listResultType)
+        {
+            if (!ErrorCollector.CheckParamsCount(context, 2, Node.Children))
+            {
+                Node = Node.Parent;
+                return;
+            }
+
+            var parameterType1 = Node.Children[0].ValueType;
+            var parameterType2 = Node.Children[1].ValueType;
+
+            if (parameterType1.IsString() && parameterType2.IsString())
+                Node.ValueType = stringResultType;
+            if ((parameterType1.IsString() && parameterType2.IsStringArray()) || parameterType1.IsStringArray() && parameterType2.IsString())
+                Node.ValueType = listResultType;
+            if (parameterType1.IsStringOrArrayOfStrings() && parameterType2.IsStringOrArrayOfStrings())
+                Node.ValueType = stringResultType | listResultType;
+            if (parameterType1.IsEmptyArray() && parameterType2.IsEmptyArray())
+                Node.ValueType = stringResultType;
+
+            if (Node.ValueType == EveryParserType.None)
+                ErrorCollector.AddError(context, ErrorCode.IsNotStringOrArrayOfStrings, "Parameters are not Strings or Arrays of Strings");
+
+            Node = Node.Parent;
+        }
+
+        private void CheckAnyUnary(ParserRuleContext context, EveryParserType resultType)
+        {
+            if (ErrorCollector.CheckParamsCount(context, 1, Node.Children))
+            {
+                if (Node.Children[0].ValueType == EveryParserType.None)
+                    ErrorCollector.AddError(context, ErrorCode.IsNotNumber, "Parameter has no type!");
+                else
+                    Node.ValueType = resultType;
+            }
+
+            Node = Node.Parent;
+        }
+
+        private void CheckAnyBinary(ParserRuleContext context, EveryParserType resultType)
+        {
+            if (ErrorCollector.CheckParamsCount(context, 2, Node.Children))
+            {
+                if (Node.Children[0].ValueType == EveryParserType.None || Node.Children[1].ValueType == EveryParserType.None)
+                    ErrorCollector.AddError(context, ErrorCode.IsNotNumber, "One or all Parameters has no type!");
+                else
+                    Node.ValueType = resultType;
+            }
+
+            Node = Node.Parent;
+        }
 
         private EveryParserType GetArrayType(List<TypeNode> children)
         {

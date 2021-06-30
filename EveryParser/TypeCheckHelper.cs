@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace EveryParser
@@ -75,5 +76,12 @@ namespace EveryParser
         /// <param name="obj"></param>
         /// <returns></returns>
         internal static bool IsBoolean(object obj) => bool.TryParse(obj.ToString(), out _);
+
+        /// <summary>
+        /// Checks if object is type of DateTime
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        internal static bool IsDateTime(object obj) => obj is DateTime;
     }
 }
