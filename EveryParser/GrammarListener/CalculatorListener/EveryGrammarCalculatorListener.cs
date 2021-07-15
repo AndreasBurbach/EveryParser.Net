@@ -17,9 +17,12 @@ namespace EveryParser
     {
         private Random _randomizer = new Random();
         internal NodeCalculator Node;
-        public AssertErrors ErrorCollector;
-        public object Result = null;
+        private object _result;
         private readonly SortedList<string, object> _arguments;
+
+        public object Result => _result;
+
+        public AssertErrors ErrorCollector;
 
         public EveryGrammarCalculatorListener(SortedList<string, object> arguments)
         {
@@ -35,7 +38,7 @@ namespace EveryParser
         {
             Node = new NodeCalculator();
             ErrorCollector = new AssertErrors();
-            Result = null;
+            _result = null;
         }
 
         /// <summary>
@@ -45,10 +48,7 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitStartRule([NotNull] EveryGrammarParser.StartRuleContext context)
         {
-            if (ErrorCollector.CheckHasParams(context, Node.Children))
-                Result = Node.Children[0].Value;
-            else
-                Result = null;
+            _result = ErrorCollector.CheckHasParams(context, Node.Children) ? _result = Node.Children[0].Value : _result = null;
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 ﻿using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using EveryParser.ArgumentsListener;
+using EveryParser.GrammarListener.TypeListener;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -334,6 +335,20 @@ namespace EveryParser
         }
 
         #endregion Caluclator
+
+        public EveryParserType GetPossibleResultingType()
+        {
+            CheckFormular();
+
+            _errorsOfLastCalculation = null;
+
+            var listener = new EveryGrammarTypeListener(_arguments);
+            ParseTreeWalker.Default.Walk(listener, GetParser(_formular));
+
+            _errorsOfLastCalculation = listener.ErrorCollector.GetErrors();
+
+            return listener.Result;
+        }
 
         /// <summary>
         /// Set the formular for the expression

@@ -13,9 +13,17 @@ namespace EveryParser.GrammarListener.TypeListener
     public partial class EveryGrammarTypeListener : IEveryGrammarListener
     {
         internal TypeNode Node;
-        private EveryParserType Result = EveryParserType.None;
+        private EveryParserType _result = EveryParserType.None;
+        private SortedList<string, object> _arguments;
+
         public AssertErrors ErrorCollector;
-        public SortedList<string, object> Arguments;
+
+        public EveryParserType Result => _result;
+
+        public EveryGrammarTypeListener(SortedList<string, object> arguments)
+        {
+            _arguments = arguments;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by <see cref="EveryGrammarParser.startRule"/>.
@@ -25,7 +33,7 @@ namespace EveryParser.GrammarListener.TypeListener
         {
             Node = new TypeNode();
             ErrorCollector = new AssertErrors();
-            Result = EveryParserType.None;
+            _result = EveryParserType.None;
         }
 
         /// <summary>
@@ -34,7 +42,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitStartRule([NotNull] EveryGrammarParser.StartRuleContext context)
         {
-            Result = Node.Children[0].ValueType;
+            _result = Node.Children[0].ValueType;
         }
 
         /// <summary>
@@ -978,7 +986,7 @@ namespace EveryParser.GrammarListener.TypeListener
                 type = EveryParserType.Number;
             else
             {
-                var value = ErrorCollector.GetCheckedArgument(context, Arguments, text);
+                var value = ErrorCollector.GetCheckedArgument(context, _arguments, text);
 
                 if (value is IEnumerable<string>)
                     type = EveryParserType.ArrayOfString;
@@ -1025,7 +1033,7 @@ namespace EveryParser.GrammarListener.TypeListener
                 type = EveryParserType.DateTime;
             else
             {
-                var value = ErrorCollector.GetCheckedObjectArgument(context, Arguments, text);
+                var value = ErrorCollector.GetCheckedObjectArgument(context, _arguments, text);
 
                 if (value is IEnumerable<string>)
                     type = EveryParserType.ArrayOfString;
