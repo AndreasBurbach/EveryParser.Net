@@ -2511,23 +2511,15 @@ namespace EveryParser.ArgumentsListener
         public void ExitFactor_ObjectVariables([NotNull] EveryGrammarParser.Factor_ObjectVariablesContext context) { }
 
         public void VisitTerminal(ITerminalNode node)
-        {
-            throw new System.NotImplementedException();
-        }
+        { }
 
         public void VisitErrorNode(IErrorNode node)
-        {
-            throw new System.NotImplementedException();
-        }
+        { }
 
         public void EnterEveryRule(ParserRuleContext ctx)
-        {
-            throw new System.NotImplementedException();
-        }
+        { }
 
         public void ExitEveryRule(ParserRuleContext ctx)
-        {
-            throw new System.NotImplementedException();
-        }
+        { }
     }
 }

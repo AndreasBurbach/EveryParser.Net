@@ -19,7 +19,12 @@ namespace EveryParser
         internal NodeCalculator Node;
         public AssertErrors ErrorCollector;
         public object Result = null;
-        public SortedList<string, object> Arguments;
+        private readonly SortedList<string, object> _arguments;
+
+        public EveryGrammarCalculatorListener(SortedList<string, object> arguments)
+        {
+            _arguments = arguments;
+        }
 
         /// <summary>
         /// Enter a parse tree produced by <see cref="EveryGrammarParser.startRule"/>.
@@ -1038,7 +1043,7 @@ namespace EveryParser
             else if (text.Equals("pi", StringComparison.InvariantCultureIgnoreCase))
                 value = 3.14159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534211706798214m;
             else
-                value = ErrorCollector.GetCheckedArgument(context, Arguments, text);
+                value = ErrorCollector.GetCheckedArgument(context, _arguments, text);
 
             Node.AddChildNode(value);
         }
@@ -1057,7 +1062,7 @@ namespace EveryParser
             if (text.Equals("date.now", StringComparison.InvariantCultureIgnoreCase))
                 value = DateTime.Now;
             else
-                value = ErrorCollector.GetCheckedObjectArgument(context, Arguments, text);
+                value = ErrorCollector.GetCheckedObjectArgument(context, _arguments, text);
 
             Node.AddChildNode(value);
         }

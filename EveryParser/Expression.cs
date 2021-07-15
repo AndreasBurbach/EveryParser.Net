@@ -1,5 +1,6 @@
 ﻿using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
+using EveryParser.ArgumentsListener;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,296 +10,356 @@ namespace EveryParser
     public class Expression
     {
         private string _formular;
-        private SortedList<string, object> _baseArguments;
-        private List<string> _missingArguments;
+
+        private SortedList<string, object> _arguments;
         private (ErrorCode, string)[] _errorsOfLastCalculation;
 
         public bool HasErrors => !(_errorsOfLastCalculation is null) && _errorsOfLastCalculation.Any();
 
+        /// <summary>
+        /// Creates the Expression without a formular
+        /// </summary>
         public Expression()
         {
-            _baseArguments = new SortedList<string, object>();
-            _missingArguments = new List<string>();
+            _arguments = new SortedList<string, object>();
             _errorsOfLastCalculation = null;
         }
 
-        public Expression(string formular, bool checkSyntax = true) : this()
+        /// <summary>
+        /// Creates the Expression with a formular
+        /// </summary>
+        /// <param name="formular">Text of the formular</param>
+        public Expression(string formular) : this()
         {
-            SetFormular(formular, checkSyntax);
+            SetFormular(formular);
         }
 
+        #region Static Methods
+
+        /// <summary>
+        /// Calculates the formular
+        /// </summary>
+        /// <returns>object</returns>
         public static object Calculate(string formular)
         {
             return new Expression(formular).Calculate();
         }
 
+        /// <summary>
+        /// Calculates the formular
+        /// </summary>
+        /// <returns>boolean</returns>
         public static bool? CalculateBoolean(string formular)
         {
             return new Expression(formular).CalculateBoolean();
         }
 
+        /// <summary>
+        /// Calculates the formular
+        /// </summary>
+        /// <returns>string</returns>
         public static string CalculateString(string formular)
         {
             return new Expression(formular).CalculateString();
         }
 
+        /// <summary>
+        /// Calculates the formular
+        /// </summary>
+        /// <returns>decimal</returns>
         public static decimal? CalculateDecimal(string formular)
         {
             return new Expression(formular).CalculateDecimal();
         }
 
+        /// <summary>
+        /// Calculates the formular
+        /// </summary>
+        /// <returns>dateTime</returns>
         public static DateTime? CalculateDateTime(string formular)
         {
             return new Expression(formular).CalculateDateTime();
         }
 
+        /// <summary>
+        /// Calculates the formular
+        /// </summary>
+        /// <returns>object array</returns>
         public static object[] CalculateArray(string formular)
         {
             return new Expression(formular).CalculateArray();
         }
 
+        public static string[] GetArgumentNames(string formular)
+        {
+            return new Expression(formular).GetArgumentNames();
+        }
+
+        #endregion Static Methods
+
         #region arguments
 
+        /// <summary>
+        /// Adds a string as an argument for the calculation
+        /// </summary>
+        /// <param name="name">Name of the argument</param>
+        /// <param name="value">value of the Argument</param>
         public void AddArgument(string name, string value)
         {
             AddArgument(name, (object)value);
         }
 
+        /// <summary>
+        /// Adds a double as an argument for the calculation
+        /// </summary>
+        /// <param name="name">Name of the argument</param>
+        /// <param name="value">value of the Argument</param>
         public void AddArgument(string name, double value)
         {
             AddArgument(name, (object)value);
         }
 
+        /// <summary>
+        /// Adds a int as an argument for the calculation
+        /// </summary>
+        /// <param name="name">Name of the argument</param>
+        /// <param name="value">value of the Argument</param>
         public void AddArgument(string name, int value)
         {
             AddArgument(name, (object)value);
         }
 
+        /// <summary>
+        /// Adds a decimal as an argument for the calculation
+        /// </summary>
+        /// <param name="name">Name of the argument</param>
+        /// <param name="value">value of the Argument</param>
         public void AddArgument(string name, decimal value)
         {
             AddArgument(name, (object)value);
         }
 
+        /// <summary>
+        /// Adds a float as an argument for the calculation
+        /// </summary>
+        /// <param name="name">Name of the argument</param>
+        /// <param name="value">value of the Argument</param>
         public void AddArgument(string name, float value)
         {
             AddArgument(name, (object)value);
         }
 
+        /// <summary>
+        /// Adds a string array as an argument for the calculation
+        /// </summary>
+        /// <param name="name">Name of the argument</param>
+        /// <param name="value">value of the Argument</param>
         public void AddArgument(string name, string[] value)
         {
             AddArgument(name, (object)value);
         }
 
+        /// <summary>
+        /// Adds a double array as an argument for the calculation
+        /// </summary>
+        /// <param name="name">Name of the argument</param>
+        /// <param name="value">value of the Argument</param>
         public void AddArgument(string name, double[] value)
         {
             AddArgument(name, (object)value);
         }
 
+        /// <summary>
+        /// Adds a int array as an argument for the calculation
+        /// </summary>
+        /// <param name="name">Name of the argument</param>
+        /// <param name="value">value of the Argument</param>
         public void AddArgument(string name, int[] value)
         {
             AddArgument(name, (object)value);
         }
 
+        /// <summary>
+        /// Adds a decimal array as an argument for the calculation
+        /// </summary>
+        /// <param name="name">Name of the argument</param>
+        /// <param name="value">value of the Argument</param>
         public void AddArgument(string name, decimal[] value)
         {
             AddArgument(name, (object)value);
         }
 
+        /// <summary>
+        /// Adds a float array as an argument for the calculation
+        /// </summary>
+        /// <param name="name">Name of the argument</param>
+        /// <param name="value">value of the Argument</param>
         public void AddArgument(string name, float[] value)
         {
             AddArgument(name, (object)value);
         }
 
-        private void AddArgument(string name, object value)
+        /// <summary>
+        /// Adds a object as an argument for the calculation
+        /// </summary>
+        /// <param name="name">Name of the argument</param>
+        /// <param name="value">value of the Argument</param>
+        public void AddArgument(string name, object value)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentNullException(nameof(name));
 
-            if (_baseArguments.ContainsKey(name))
-                _baseArguments[name] = value;
+            if (_arguments.ContainsKey(name))
+                _arguments[name] = value;
             else
-                _baseArguments.Add(name, value);
+                _arguments.Add(name, value);
         }
 
-        public List<string> GetMissingUserDefinedArguments()
+        /// <summary>
+        /// Returns the names of the variables inside of the formular
+        /// </summary>
+        /// <returns>string array</returns>
+        public string[] GetArgumentNames()
         {
-            return _missingArguments ?? new List<string>();
+            var listener = new EveryGrammarArgumentsListener();
+            ParseTreeWalker.Default.Walk(listener, GetParser(_formular));
+
+            return listener.Arguments;
         }
 
         #endregion arguments
 
         #region Caluclator
 
+        /// <summary>
+        /// Calculates the setted formular
+        /// </summary>
+        /// <returns>object</returns>
         public object Calculate()
         {
-            if (string.IsNullOrWhiteSpace(_formular))
-                throw new ArgumentNullException();
+            var result = CalculateFormular();
 
-            return Calculate(_formular, false);
+            if (HasErrors)
+                return null;
+
+            return result;
         }
 
-        public object Calculate(string formular, bool checkSyntax = true)
+        /// <summary>
+        /// Calculates the setted formular
+        /// </summary>
+        /// <returns>boolean</returns>
+        public bool? CalculateBoolean()
         {
+            var result = CalculateFormular();
+
+            if (HasErrors)
+                return null;
+
+            return Convert.ToBoolean(result);
+        }
+
+        /// <summary>
+        /// Calculates the setted formular
+        /// </summary>
+        /// <returns>string</returns>
+        public string CalculateString()
+        {
+            var result = CalculateFormular();
+
+            if (HasErrors)
+                return null;
+
+            return result.ToString();
+        }
+
+        /// <summary>
+        /// Calculates the setted formular
+        /// </summary>
+        /// <returns>decimal</returns>
+        public decimal? CalculateDecimal()
+        {
+            var result = CalculateFormular();
+
+            if (HasErrors)
+                return null;
+
+            return Convert.ToDecimal(result);
+        }
+
+        /// <summary>
+        /// Calculates the setted formular
+        /// </summary>
+        /// <returns>dateTime</returns>
+        public DateTime? CalculateDateTime()
+        {
+            var result = CalculateFormular();
+
+            if (HasErrors)
+                return null;
+
+            return Convert.ToDateTime(result);
+        }
+
+        /// <summary>
+        /// Calculates the setted formular
+        /// </summary>
+        /// <returns>object array</returns>
+        public object[] CalculateArray()
+        {
+            var result = CalculateFormular();
+
+            if (HasErrors)
+                return null;
+
+            return (result as List<object>)?.ToArray();
+        }
+
+        /// <summary>
+        /// Calculate
+        /// </summary>
+        /// <returns>object</returns>
+        private object CalculateFormular()
+        {
+            CheckFormular();
+
             _errorsOfLastCalculation = null;
 
-            SetFormular(formular, checkSyntax);
-
-            var listener = new EveryGrammarCalculatorListener();
-            ParseTreeWalker.Default.Walk(listener, GetParser(formular));
+            var listener = new EveryGrammarCalculatorListener(_arguments);
+            ParseTreeWalker.Default.Walk(listener, GetParser(_formular));
 
             _errorsOfLastCalculation = listener.ErrorCollector.GetErrors();
-
-            if (listener.ErrorCollector.HasErrors)
-                return null;
 
             return listener.Result;
         }
 
-        public bool? CalculateBoolean()
-        {
-            if (string.IsNullOrWhiteSpace(_formular))
-                throw new ArgumentNullException();
-
-            return CalculateBoolean(_formular, false);
-        }
-
-        public bool? CalculateBoolean(string formular, bool checkSyntax = true)
-        {
-            _errorsOfLastCalculation = null;
-
-            SetFormular(formular, checkSyntax);
-
-            var listener = new EveryGrammarCalculatorListener();
-            ParseTreeWalker.Default.Walk(listener, GetParser(formular));
-
-            _errorsOfLastCalculation = listener.ErrorCollector.GetErrors();
-
-            if (listener.ErrorCollector.HasErrors)
-                return null;
-
-            return Convert.ToBoolean(listener.Result);
-        }
-
-        public string CalculateString()
-        {
-            if (string.IsNullOrWhiteSpace(_formular))
-                throw new ArgumentNullException();
-
-            return CalculateString(_formular, false);
-        }
-
-        public string CalculateString(string formular, bool checkSyntax = true)
-        {
-            _errorsOfLastCalculation = null;
-
-            SetFormular(formular, checkSyntax);
-
-            var listener = new EveryGrammarCalculatorListener();
-            ParseTreeWalker.Default.Walk(listener, GetParser(formular));
-
-            _errorsOfLastCalculation = listener.ErrorCollector.GetErrors();
-
-            if (listener.ErrorCollector.HasErrors)
-                return null;
-
-            return listener.Result.ToString();
-        }
-
-        public decimal? CalculateDecimal()
-        {
-            if (string.IsNullOrWhiteSpace(_formular))
-                throw new ArgumentNullException();
-
-            return CalculateDecimal(_formular, false);
-        }
-
-        public decimal? CalculateDecimal(string formular, bool checkSyntax = true)
-        {
-            _errorsOfLastCalculation = null;
-
-            SetFormular(formular, checkSyntax);
-
-            var listener = new EveryGrammarCalculatorListener();
-            ParseTreeWalker.Default.Walk(listener, GetParser(formular));
-
-            _errorsOfLastCalculation = listener.ErrorCollector.GetErrors();
-
-            if (listener.ErrorCollector.HasErrors)
-                return null;
-
-            return Convert.ToDecimal(listener.Result);
-        }
-
-        public DateTime? CalculateDateTime()
-        {
-            if (string.IsNullOrWhiteSpace(_formular))
-                throw new ArgumentNullException();
-
-            return CalculateDateTime(_formular, false);
-        }
-
-        public DateTime? CalculateDateTime(string formular, bool checkSyntax = true)
-        {
-            _errorsOfLastCalculation = null;
-
-            SetFormular(formular, checkSyntax);
-
-            var listener = new EveryGrammarCalculatorListener();
-            ParseTreeWalker.Default.Walk(listener, GetParser(formular));
-
-            _errorsOfLastCalculation = listener.ErrorCollector.GetErrors();
-
-            if (listener.ErrorCollector.HasErrors)
-                return null;
-
-            return Convert.ToDateTime(listener.Result);
-        }
-
-        public object[] CalculateArray()
-        {
-            if (string.IsNullOrWhiteSpace(_formular))
-                throw new ArgumentNullException();
-
-            return CalculateArray(_formular, false);
-        }
-
-        public object[] CalculateArray(string formular, bool checkSyntax = true)
-        {
-            _errorsOfLastCalculation = null;
-
-            SetFormular(formular, checkSyntax);
-
-            var listener = new EveryGrammarCalculatorListener();
-            ParseTreeWalker.Default.Walk(listener, GetParser(formular));
-
-            _errorsOfLastCalculation = listener.ErrorCollector.GetErrors();
-
-            if (listener.ErrorCollector.HasErrors)
-                return null;
-
-            return (listener.Result as List<object>)?.ToArray();
-        }
-
         #endregion Caluclator
 
-        public void SetFormular(string formular, bool checkSyntax = true)
+        /// <summary>
+        /// Set the formular for the expression
+        /// </summary>
+        /// <param name="formular">Text of the formular</param>
+        public void SetFormular(string formular)
         {
             if (string.IsNullOrWhiteSpace(formular))
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(formular));
 
             if (_formular == formular)
                 return;
 
-            //if (checkSyntax)
-            //    ParseTreeWalker.Default.Walk(new EveryGrammarValidatorListener(), GetParser(formular));
-
             _formular = formular;
         }
 
-        public (ErrorCode, string)[] GetErrors()
-        {
-            return _errorsOfLastCalculation.ToArray();//Create new instace with ToArray()
-        }
+        /// <summary>
+        /// Errors from the last calculation
+        /// </summary>
+        public (ErrorCode, string)[] CalculationErrors => _errorsOfLastCalculation.ToArray();
+
+        /// <summary>
+        /// Is the formular already set?
+        /// </summary>
+        /// <returns>True if the formular was set</returns>
+        public bool HasFormular() => !string.IsNullOrWhiteSpace(_formular);
 
         private static EveryGrammarParser.StartRuleContext GetParser(string formular)
         {
@@ -312,6 +373,12 @@ namespace EveryParser
             };
 
             return parser.startRule();
+        }
+
+        private void CheckFormular()
+        {
+            if (!HasFormular())
+                throw new ArgumentNullException(nameof(_formular));
         }
     }
 }
