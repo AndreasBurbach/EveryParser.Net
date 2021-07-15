@@ -1,9 +1,9 @@
 using Antlr4.Runtime.Misc;
 using EveryParser.Compare;
+using EveryParser.LinQReplaces;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 
 namespace EveryParser
 {

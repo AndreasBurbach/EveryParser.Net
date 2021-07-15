@@ -1,7 +1,7 @@
 ﻿using Antlr4.Runtime;
 using Antlr4.Runtime.Misc;
+using EveryParser.LinQReplaces;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace EveryParser.GrammarListener.TypeListener
 {

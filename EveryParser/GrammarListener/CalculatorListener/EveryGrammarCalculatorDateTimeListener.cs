@@ -1,7 +1,7 @@
 ﻿using Antlr4.Runtime.Misc;
+using EveryParser.LinQReplaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 
 namespace EveryParser
@@ -241,7 +241,7 @@ namespace EveryParser
             if (valueList is null)
             {
                 if (currentDateList.Any())
-                    currentDateList = currentDateList.Select(d => expression.Invoke(d, value)).ToList();
+                    currentDateList = currentDateList.Select(d => expression.Invoke(d, value));
                 else
                     currentDate = expression.Invoke(currentDate, value);
             }

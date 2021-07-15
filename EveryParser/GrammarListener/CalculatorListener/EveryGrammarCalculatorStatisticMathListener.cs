@@ -1,8 +1,8 @@
 ﻿using Antlr4.Runtime.Misc;
+using EveryParser.LinQReplaces;
 using MathNet.Numerics.Statistics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace EveryParser
 {

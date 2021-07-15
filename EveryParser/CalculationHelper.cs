@@ -1,7 +1,7 @@
 ﻿using Antlr4.Runtime;
+using EveryParser.LinQReplaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace EveryParser
 {
@@ -28,7 +28,7 @@ namespace EveryParser
                 return double.NaN;
 
             if (childValues[0] is List<object> list)
-                return list.Select(calculationExpression).ToList();
+                return list.Select(calculationExpression);
 
             return calculationExpression(childValues[0]);
         }
@@ -67,9 +67,9 @@ namespace EveryParser
                 return calculationExpression(value1, value2);
 
             if (!(list1 is null) && list2 is null)
-                return list1.Select(x => calculationExpression(x, value2)).ToList();
+                return list1.Select(x => calculationExpression(x, value2));
             else if (list1 is null && !(list2 is null))
-                return list2.Select(x => calculationExpression(value1, x)).ToList();
+                return list2.Select(x => calculationExpression(value1, x));
             else if (list1.Count == list2.Count)
             {
                 var result = new List<object>(list1.Count);

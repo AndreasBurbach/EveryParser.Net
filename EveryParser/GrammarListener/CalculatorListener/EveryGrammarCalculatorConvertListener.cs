@@ -1,7 +1,7 @@
 ﻿using Antlr4.Runtime.Misc;
+using EveryParser.LinQReplaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace EveryParser
 {
@@ -46,7 +46,7 @@ namespace EveryParser
             if (value is List<object>)
                 Node.Value = value;
             else if (value is string sValue)
-                Node.Value = sValue.Select(x => (object)x.ToString()).ToList();
+                Node.Value = sValue.Select(x => (object)x.ToString());
             else if (TypeCheckHelper.IsNumber(value) || TypeCheckHelper.IsBoolean(value) || TypeCheckHelper.IsDateTime(value))
                 Node.Value = new List<object>() { value };
 

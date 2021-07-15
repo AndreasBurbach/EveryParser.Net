@@ -1,7 +1,7 @@
 ﻿using Antlr4.Runtime;
+using EveryParser.LinQReplaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace EveryParser
 {
@@ -370,25 +370,25 @@ namespace EveryParser
                 return value.ToString();
 
             if (value is IEnumerable<string> sListValue)
-                return sListValue.Select(x => (object)x).ToList();
+                return sListValue.Select(x => (object)x);
             if (value is IEnumerable<decimal> deciListValue)
-                return deciListValue.Select(x => (object)x).ToList();
+                return deciListValue.Select(x => (object)x);
             if (value is IEnumerable<int> iListValue)
-                return iListValue.Select(x => (object)x).ToList();
+                return iListValue.Select(x => (object)x);
             if (value is IEnumerable<double> dListValue)
-                return dListValue.Select(x => (object)x).ToList();
+                return dListValue.Select(x => (object)x);
             if (value is IEnumerable<float> fListValue)
-                return fListValue.Select(x => (object)x).ToList();
+                return fListValue.Select(x => (object)x);
             if (value is IEnumerable<short> shortListValue)
-                return shortListValue.Select(x => (object)x).ToList();
+                return shortListValue.Select(x => (object)x);
             if (value is IEnumerable<byte> byteListValue)
-                return byteListValue.Select(x => (object)x).ToList();
+                return byteListValue.Select(x => (object)x);
             if (value is IEnumerable<char> charListValue)
-                return charListValue.Select(x => (object)x.ToString()).ToList();
+                return charListValue.Select(x => (object)x.ToString());
             if (value is IEnumerable<bool> boolListValue)
-                return boolListValue.Select(x => (object)x).ToList();
+                return boolListValue.Select(x => (object)x);
             if (value is IEnumerable<DateTime> dtListValue)
-                return dtListValue.Select(x => (object)x).ToList();
+                return dtListValue.Select(x => (object)x);
 
             AddError(context, ErrorCode.TypeConversion, $"Could not recognize type of {value.GetType()}");
             return null;

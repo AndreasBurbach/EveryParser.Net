@@ -1,8 +1,8 @@
 ﻿using Antlr4.Runtime;
 using Antlr4.Runtime.Misc;
+using EveryParser.LinQReplaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace EveryParser
 {
@@ -146,7 +146,7 @@ namespace EveryParser
                     return;
                 }
 
-                array = Array.ConvertAll(text.ToArray(), x => (object)x).ToList();
+                array = new List<object>(Array.ConvertAll(text.ToCharArray(), x => (object)x));
             }
 
             switch (Node.ChildCaluclationName)
@@ -311,7 +311,7 @@ namespace EveryParser
                 }
 
                 return array[index];
-            }).ToList();
+            });
         }
 
         private object SliceArrayFromTo(ParserRuleContext context, List<object> array, object indexStartObj, object indexEndObj)
@@ -328,12 +328,12 @@ namespace EveryParser
             else if (indexStartList is null)
             {
                 int indexStart = Convert.ToInt32(indexStartObj);
-                return indexEndList.Select(indexEndX => (object)GetFromTo(context, array, indexStart, Convert.ToInt32(indexEndX))).ToList();
+                return indexEndList.Select(indexEndX => (object)GetFromTo(context, array, indexStart, Convert.ToInt32(indexEndX)));
             }
             else if (indexEndList is null)
             {
                 int indexEnd = Convert.ToInt32(indexEndObj);
-                return indexStartList.Select(indexStartX => (object)GetFromTo(context, array, Convert.ToInt32(indexStartX), indexEnd)).ToList();
+                return indexStartList.Select(indexStartX => (object)GetFromTo(context, array, Convert.ToInt32(indexStartX), indexEnd));
             }
             else if (indexStartList.Count == indexEndList.Count)
             {
@@ -369,19 +369,19 @@ namespace EveryParser
             {
                 int indexStart = Convert.ToInt32(indexStartObj);
                 int indexEnd = Convert.ToInt32(indexEndObj);
-                return stepList.Select(stepX => (object)GetFromTo(context, array, indexStart, indexEnd, Convert.ToInt32(stepX))).ToList();
+                return stepList.Select(stepX => (object)GetFromTo(context, array, indexStart, indexEnd, Convert.ToInt32(stepX)));
             }
             else if (indexStartList is null && stepList is null)
             {
                 int indexStart = Convert.ToInt32(indexStartObj);
                 int step = Convert.ToInt32(stepObj);
-                return indexEndList.Select(indexEndX => (object)GetFromTo(context, array, indexStart, Convert.ToInt32(indexEndX), step)).ToList();
+                return indexEndList.Select(indexEndX => (object)GetFromTo(context, array, indexStart, Convert.ToInt32(indexEndX), step));
             }
             else if (indexEndList is null && stepList is null)
             {
                 int indexEnd = Convert.ToInt32(indexEndObj);
                 int step = Convert.ToInt32(stepObj);
-                return indexStartList.Select(indexStartX => (object)GetFromTo(context, array, Convert.ToInt32(indexStartX), indexEnd, step)).ToList();
+                return indexStartList.Select(indexStartX => (object)GetFromTo(context, array, Convert.ToInt32(indexStartX), indexEnd, step));
             }
             else if (indexStartList is null)
             {

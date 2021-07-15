@@ -1,4 +1,5 @@
 ﻿using Antlr4.Runtime.Misc;
+using EveryParser.LinQReplaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -319,8 +320,8 @@ namespace EveryParser
         /// <param name="context">The parse tree.</param>
         public void ExitFunction_Reverse([NotNull] EveryGrammarParser.Function_ReverseContext context)
         {
-            Func<List<object>, object> listCalculation = list => list.Reverse<object>().ToList();
-            Func<string, object> stringCalculation = x => new string(x.Reverse().ToList().ConvertAll(y => (char)y).ToArray());
+            Func<List<object>, object> listCalculation = list => list.ToReverse();
+            Func<string, object> stringCalculation = x => x.ToReverse();
             Node.Value = CalculationHelper.CalcStringOrListUnary(context, ErrorCollector, listCalculation, stringCalculation, Node.Children);
             Node = Node.Parent;
         }

@@ -2,7 +2,7 @@
 using MathNet.Numerics.LinearAlgebra;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using EveryParser.LinQReplaces;
 
 namespace EveryParser
 {
@@ -360,7 +360,7 @@ namespace EveryParser
                     {
                         decimal valueX = Convert.ToDecimal(x);
                         return (object)(valueX < min ? min : valueX > max ? max : value);
-                    }).ToList();
+                    });
                 }
                 else if (minList is null && !(maxList is null))
                 {
