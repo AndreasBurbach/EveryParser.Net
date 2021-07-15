@@ -2,7 +2,7 @@
 using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
 
-namespace EveryParser
+namespace EveryParser.CalculatorListener
 {
     public partial class EveryGrammarCalculatorListener
     {

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using EveryParser.LinQReplaces;
 
-namespace EveryParser
+namespace EveryParser.CalculatorListener
 {
     public partial class EveryGrammarCalculatorListener
     {

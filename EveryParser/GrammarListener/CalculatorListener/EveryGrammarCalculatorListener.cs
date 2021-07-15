@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace EveryParser
+namespace EveryParser.CalculatorListener
 {
     /// <summary>
     /// This class provides an empty implementation of <see cref="IEveryGrammarListener"/>,

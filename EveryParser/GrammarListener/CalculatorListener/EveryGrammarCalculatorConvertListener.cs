@@ -3,7 +3,7 @@ using EveryParser.LinQReplaces;
 using System;
 using System.Collections.Generic;
 
-namespace EveryParser
+namespace EveryParser.CalculatorListener
 {
     public partial class EveryGrammarCalculatorListener
     {

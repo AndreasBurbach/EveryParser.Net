@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 
-namespace EveryParser
+namespace EveryParser.CalculatorListener
 {
     public partial class EveryGrammarCalculatorListener
     {
