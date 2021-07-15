@@ -22,7 +22,10 @@ namespace EveryParser.Test.ExpressionTest
         [Fact]
         public void DefaultTests()
         {
-            AssertDateTime(DateTime.Now, Expression.CalculateDateTime("date.now"), CompareDateTime.second); //for comparing milliseconds the programm is too slow :-|
+            var nowActual = Expression.CalculateDateTime("date.now");
+            var nowExpected = DateTime.Now;
+
+            AssertDateTime(nowExpected, nowActual, CompareDateTime.second); //for comparing milliseconds the programm is too slow :-|
             AssertDateTime(new DateTime(2021, 1, 1), Expression.CalculateDateTime("date(2021)"), CompareDateTime.day);
             AssertDateTime(new DateTime(2021, 2, 3), Expression.CalculateDateTime("date(2021,2,3)"), CompareDateTime.day);
             AssertDateTime(new DateTime(2021, 2, 3, 4, 0, 0), Expression.CalculateDateTime("date(2021,2,3,4)"), CompareDateTime.second);

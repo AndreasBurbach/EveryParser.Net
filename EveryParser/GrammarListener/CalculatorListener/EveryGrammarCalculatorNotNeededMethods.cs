@@ -491,5 +491,21 @@ namespace EveryParser
         /// </summary>
         /// <param name="context">The parse tree.</param>
         public void ExitRandom_Integer([NotNull] EveryGrammarParser.Random_IntegerContext context) { }
+
+        /// <summary>
+        /// Enter a parse tree produced by the <c>Factor_DateTimeTerm</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
+        /// <para>The default implementation does nothing.</para>
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void EnterFactor_DateTimeTerm([NotNull] EveryGrammarParser.Factor_DateTimeTermContext context) { }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>Factor_DateTimeTerm</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
+        /// <para>The default implementation does nothing.</para>
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitFactor_DateTimeTerm([NotNull] EveryGrammarParser.Factor_DateTimeTermContext context) { }
     }
 }

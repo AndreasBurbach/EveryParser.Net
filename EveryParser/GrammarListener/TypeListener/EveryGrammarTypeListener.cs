@@ -1463,109 +1463,133 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <summary>
         /// Enter a parse tree produced by the <c>DateTime_Expression</c>
         /// labeled alternative in <see cref="EveryGrammarParser.datetime_term"/>.
+        /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
         public void EnterDateTime_Expression([NotNull] EveryGrammarParser.DateTime_ExpressionContext context)
-        { //todo
+        {
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>DateTime_Expression</c>
         /// labeled alternative in <see cref="EveryGrammarParser.datetime_term"/>.
+        /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
         public void ExitDateTime_Expression([NotNull] EveryGrammarParser.DateTime_ExpressionContext context)
-        { //todo
+        {
+            SetNodeForDateTimeValue(context, 1);
         }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>DateTime_DateEntry</c>
         /// labeled alternative in <see cref="EveryGrammarParser.datetime_term"/>.
+        /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
         public void EnterDateTime_DateEntry([NotNull] EveryGrammarParser.DateTime_DateEntryContext context)
-        { //todo
+        {
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>DateTime_DateEntry</c>
         /// labeled alternative in <see cref="EveryGrammarParser.datetime_term"/>.
+        /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
         public void ExitDateTime_DateEntry([NotNull] EveryGrammarParser.DateTime_DateEntryContext context)
-        { //todo
+        {
+            SetNodeForDateTimeValue(context, 3);
         }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>DateTime_DateHour</c>
         /// labeled alternative in <see cref="EveryGrammarParser.datetime_term"/>.
+        /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
         public void EnterDateTime_DateHour([NotNull] EveryGrammarParser.DateTime_DateHourContext context)
-        { //todo
+        {
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>DateTime_DateHour</c>
         /// labeled alternative in <see cref="EveryGrammarParser.datetime_term"/>.
+        /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
         public void ExitDateTime_DateHour([NotNull] EveryGrammarParser.DateTime_DateHourContext context)
-        { //todo
+        {
+            SetNodeForDateTimeValue(context, 4);
         }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>DateTime_DateHourMinute</c>
         /// labeled alternative in <see cref="EveryGrammarParser.datetime_term"/>.
+        /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
         public void EnterDateTime_DateHourMinute([NotNull] EveryGrammarParser.DateTime_DateHourMinuteContext context)
-        { //todo
+        {
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>DateTime_DateHourMinute</c>
         /// labeled alternative in <see cref="EveryGrammarParser.datetime_term"/>.
+        /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
         public void ExitDateTime_DateHourMinute([NotNull] EveryGrammarParser.DateTime_DateHourMinuteContext context)
-        { //todo
+        {
+            SetNodeForDateTimeValue(context, 5);
         }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>DateTime_DateHourMinuteSeconds</c>
         /// labeled alternative in <see cref="EveryGrammarParser.datetime_term"/>.
+        /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
         public void EnterDateTime_DateHourMinuteSeconds([NotNull] EveryGrammarParser.DateTime_DateHourMinuteSecondsContext context)
-        { //todo
+        {
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>DateTime_DateHourMinuteSeconds</c>
         /// labeled alternative in <see cref="EveryGrammarParser.datetime_term"/>.
+        /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
         public void ExitDateTime_DateHourMinuteSeconds([NotNull] EveryGrammarParser.DateTime_DateHourMinuteSecondsContext context)
-        { //todo
+        {
+            SetNodeForDateTimeValue(context, 6);
         }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>DateTime_Full</c>
         /// labeled alternative in <see cref="EveryGrammarParser.datetime_term"/>.
+        /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
         public void EnterDateTime_Full([NotNull] EveryGrammarParser.DateTime_FullContext context)
-        { //todo
+        {
+            Node = Node.AddChildNode();
         }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>DateTime_Full</c>
         /// labeled alternative in <see cref="EveryGrammarParser.datetime_term"/>.
+        /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
         public void ExitDateTime_Full([NotNull] EveryGrammarParser.DateTime_FullContext context)
-        { //todo
+        {
+            SetNodeForDateTimeValue(context, 7);
         }
 
         /// <summary>

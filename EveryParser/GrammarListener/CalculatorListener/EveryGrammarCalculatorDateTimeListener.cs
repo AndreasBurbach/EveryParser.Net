@@ -1,5 +1,6 @@
 ﻿using Antlr4.Runtime.Misc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 
@@ -7,45 +8,6 @@ namespace EveryParser
 {
     public partial class EveryGrammarCalculatorListener
     {
-        /// <summary>
-        /// Enter a parse tree produced by the <c>Factor_DateTimeTerm</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void EnterFactor_DateTimeTerm([NotNull] EveryGrammarParser.Factor_DateTimeTermContext context)
-        {
-            Node = Node.AddChildNode();
-        }
-
-        /// <summary>
-        /// Exit a parse tree produced by the <c>Factor_DateTimeTerm</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitFactor_DateTimeTerm([NotNull] EveryGrammarParser.Factor_DateTimeTermContext context)
-        {
-            if (!ErrorCollector.CheckHasParams(context, Node.Children))
-            {
-                SetErrorNodeFor_ExitFactor_DateTimeTerm();
-                return;
-            }
-
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
-
-            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsDateTime(context, childValues))
-            {
-                SetErrorNodeFor_ExitFactor_DateTimeTerm();
-                return;
-            }
-
-            Node.Value = Convert.ToDateTime(childValues[0]);
-            Node = Node.Parent;
-        }
-
         /// <summary>
         /// Enter a parse tree produced by the <c>DateTime_Expression</c>
         /// labeled alternative in <see cref="EveryGrammarParser.datetime_term"/>.
@@ -180,7 +142,6 @@ namespace EveryParser
 
         /// <summary>
         /// Sets the value of the node and goes up to parent, if some error is done
-        /// TODO add errors
         /// </summary>
         private void SetErrorNodeFor_ExitFactor_DateTimeTerm()
         {
@@ -203,61 +164,105 @@ namespace EveryParser
             }
 
             var childValues = Node.Children.Select(child => child.Value).ToArray();
-            var childValuesLength = childValues.Length;
 
             if (!ErrorCollector.CheckParamsCount(context, expectedDateParameters, childValues) ||
                 ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumber(context, childValues))
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 SetErrorNodeFor_ExitFactor_DateTimeTerm();
                 return;
             }
 
             var date = new DateTime();
-            for (var datePartIndex = 0; datePartIndex < childValuesLength; datePartIndex++)
+            var dateList = new List<DateTime>();
+            for (var datePartIndex = 0; datePartIndex < childValues.Length; datePartIndex++)
             {
-                var datePartChildString = childValues[datePartIndex].ToString();
-                if (!int.TryParse(datePartChildString, out var datePart))
-                {
-                    ErrorCollector.AddTypeConversionError(context, datePartChildString, typeof(int));
-                    SetErrorNodeFor_ExitFactor_DateTimeTerm();
-                    return;
-                }
+                var datePartList = childValues[datePartIndex] as List<object>;
+                var datePart = -1;
+                if (datePartList is null)
+                    datePart = Convert.ToInt32(childValues[datePartIndex]);
+
+                Func<DateTime, int, DateTime> expression;
 
                 switch (datePartIndex)
                 {
                     case 0:
-                        date = date.AddYears(datePart - date.Year);
+                        expression = (d, v) => d.AddYears(v - d.Year);
                         break;
 
                     case 1:
-                        date = date.AddMonths(datePart - date.Month);
+                        expression = (d, v) => d.AddMonths(v - d.Month);
                         break;
 
                     case 2:
-                        date = date.AddDays(datePart - date.Day);
+                        expression = (d, v) => d.AddDays(v - d.Day);
                         break;
 
                     case 3:
-                        date = date.AddHours(datePart - date.Hour);
+                        expression = (d, v) => d.AddHours(v - d.Hour);
                         break;
 
                     case 4:
-                        date = date.AddMinutes(datePart - date.Minute);
+                        expression = (d, v) => d.AddMinutes(v - d.Minute);
                         break;
 
                     case 5:
-                        date = date.AddSeconds(datePart - date.Second);
+                        expression = (d, v) => d.AddSeconds(v - d.Second);
                         break;
 
                     case 6:
-                        date = date.AddMilliseconds(datePart - date.Millisecond);
+                        expression = (d, v) => d.AddMilliseconds(v - d.Millisecond);
                         break;
+
+                    default:
+                        SetErrorNodeFor_ExitFactor_DateTimeTerm();
+                        return;
                 }
+
+                var result = GetDateTimeResult(context, date, dateList, datePart, datePartList, expression);
+
+                if (!result.result)
+                {
+                    SetErrorNodeFor_ExitFactor_DateTimeTerm();
+                    return;
+                }
+
+                date = result.dateResult;
+                dateList = result.dateResultList;
             }
 
             Node.Value = date;
             Node = Node.Parent;
+        }
+
+        private (bool result, DateTime dateResult, List<DateTime> dateResultList) GetDateTimeResult(ParserRuleContext context, DateTime currentDate,
+            List<DateTime> currentDateList, int value, List<object> valueList, Func<DateTime, int, DateTime> expression)
+        {
+            if (valueList is null)
+            {
+                if (currentDateList.Any())
+                    currentDateList = currentDateList.Select(d => expression.Invoke(d, value)).ToList();
+                else
+                    currentDate = expression.Invoke(currentDate, value);
+            }
+            else
+            {
+                if (currentDateList.Count != 0 && currentDateList.Count != valueList.Count)
+                {
+                    ErrorCollector.AddError(context, ErrorCode.NotEqualArayCount, "Count of arrays are not equal!");
+                    return (false, DateTime.MinValue, null);
+                }
+
+                var result = new List<DateTime>();
+                for (int i = 0; i < valueList.Count; i += 1)
+                {
+                    var d = currentDateList.Count == 0 ? currentDate : currentDateList[i];
+                    result.Add(expression.Invoke(d, Convert.ToInt32(valueList[i])));
+                }
+                currentDateList = result;
+            }
+
+            return (true, currentDate, currentDateList);
         }
     }
 }

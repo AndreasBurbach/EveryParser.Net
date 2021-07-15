@@ -1,4 +1,5 @@
 ﻿using Antlr4.Runtime;
+using Antlr4.Runtime.Misc;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,7 +7,7 @@ namespace EveryParser.GrammarListener.TypeListener
 {
     public partial class EveryGrammarTypeListener
     {
-        private void CheckNumberOrArrayOfNumbersUnary(ParserRuleContext context, EveryParserType resultType = EveryParserType.Number, EveryParserType resultArrayType = EveryParserType.ArrayOfNumber, EveryParserType resultEmptyArray = EveryParserType.EmptyArray)
+        private void CheckNumberOrArrayOfNumbersUnary([NotNull] ParserRuleContext context, EveryParserType resultType = EveryParserType.Number, EveryParserType resultArrayType = EveryParserType.ArrayOfNumber, EveryParserType resultEmptyArray = EveryParserType.EmptyArray)
         {
             if (!ErrorCollector.CheckParamsCount(context, 1, Node.Children))
             {
@@ -31,7 +32,7 @@ namespace EveryParser.GrammarListener.TypeListener
             Node = Node.Parent;
         }
 
-        private void CheckNumberOrArrayOfNumbersBinary(ParserRuleContext context)
+        private void CheckNumberOrArrayOfNumbersBinary([NotNull] ParserRuleContext context)
         {
             if (!ErrorCollector.CheckParamsCount(context, 2, Node.Children))
             {
@@ -57,7 +58,7 @@ namespace EveryParser.GrammarListener.TypeListener
             Node = Node.Parent;
         }
 
-        private void CheckListOfNumbersUnary(ParserRuleContext context)
+        private void CheckListOfNumbersUnary([NotNull] ParserRuleContext context)
         {
             if (ErrorCollector.CheckParamsCount(context, 1, Node.Children))
             {
@@ -70,7 +71,7 @@ namespace EveryParser.GrammarListener.TypeListener
             Node = Node.Parent;
         }
 
-        private void CheckListOfNumbersBinary(ParserRuleContext context, EveryParserType resultType)
+        private void CheckListOfNumbersBinary([NotNull] ParserRuleContext context, EveryParserType resultType)
         {
             if (ErrorCollector.CheckParamsCount(context, 2, Node.Children))
             {
@@ -83,7 +84,7 @@ namespace EveryParser.GrammarListener.TypeListener
             Node = Node.Parent;
         }
 
-        private void CheckNumericUnary(ParserRuleContext context, EveryParserType resultType)
+        private void CheckNumericUnary([NotNull] ParserRuleContext context, EveryParserType resultType)
         {
             if (ErrorCollector.CheckParamsCount(context, 1, Node.Children))
             {
@@ -96,7 +97,7 @@ namespace EveryParser.GrammarListener.TypeListener
             Node = Node.Parent;
         }
 
-        private void CheckNumericBinary(ParserRuleContext context, EveryParserType resultType)
+        private void CheckNumericBinary([NotNull] ParserRuleContext context, EveryParserType resultType)
         {
             if (ErrorCollector.CheckParamsCount(context, 2, Node.Children))
             {
@@ -109,7 +110,7 @@ namespace EveryParser.GrammarListener.TypeListener
             Node = Node.Parent;
         }
 
-        private void CheckNumericTri(ParserRuleContext context, EveryParserType resultType)
+        private void CheckNumericTri([NotNull] ParserRuleContext context, EveryParserType resultType)
         {
             if (ErrorCollector.CheckParamsCount(context, 3, Node.Children))
             {
@@ -122,7 +123,7 @@ namespace EveryParser.GrammarListener.TypeListener
             Node = Node.Parent;
         }
 
-        private void CheckBoolBinary(ParserRuleContext context, EveryParserType resultType)
+        private void CheckBoolBinary([NotNull] ParserRuleContext context, EveryParserType resultType)
         {
             if (ErrorCollector.CheckParamsCount(context, 2, Node.Children))
             {
@@ -135,7 +136,7 @@ namespace EveryParser.GrammarListener.TypeListener
             Node = Node.Parent;
         }
 
-        private void CheckStringOrListUnary(ParserRuleContext context, EveryParserType stringResultType, EveryParserType listResultType)
+        private void CheckStringOrListUnary([NotNull] ParserRuleContext context, EveryParserType stringResultType, EveryParserType listResultType)
         {
             if (ErrorCollector.CheckParamsCount(context, 1, Node.Children))
             {
@@ -150,7 +151,7 @@ namespace EveryParser.GrammarListener.TypeListener
             Node = Node.Parent;
         }
 
-        private void CheckStringOrArrayOfStringsUnary(ParserRuleContext context, EveryParserType stringResultType, EveryParserType listResultType)
+        private void CheckStringOrArrayOfStringsUnary([NotNull] ParserRuleContext context, EveryParserType stringResultType, EveryParserType listResultType)
         {
             if (ErrorCollector.CheckParamsCount(context, 1, Node.Children))
             {
@@ -165,7 +166,7 @@ namespace EveryParser.GrammarListener.TypeListener
             Node = Node.Parent;
         }
 
-        private void CheckStringOrArrayOfStringsBinary(ParserRuleContext context, EveryParserType stringResultType, EveryParserType listResultType)
+        private void CheckStringOrArrayOfStringsBinary([NotNull] ParserRuleContext context, EveryParserType stringResultType, EveryParserType listResultType)
         {
             if (!ErrorCollector.CheckParamsCount(context, 2, Node.Children))
             {
@@ -191,7 +192,7 @@ namespace EveryParser.GrammarListener.TypeListener
             Node = Node.Parent;
         }
 
-        private void CheckAnyUnary(ParserRuleContext context, EveryParserType resultType)
+        private void CheckAnyUnary([NotNull] ParserRuleContext context, EveryParserType resultType)
         {
             if (ErrorCollector.CheckParamsCount(context, 1, Node.Children))
             {
@@ -204,7 +205,7 @@ namespace EveryParser.GrammarListener.TypeListener
             Node = Node.Parent;
         }
 
-        private void CheckAnyBinary(ParserRuleContext context, EveryParserType resultType)
+        private void CheckAnyBinary([NotNull] ParserRuleContext context, EveryParserType resultType)
         {
             if (ErrorCollector.CheckParamsCount(context, 2, Node.Children))
             {
@@ -244,5 +245,35 @@ namespace EveryParser.GrammarListener.TypeListener
         private bool IsBooleanArray(List<TypeNode> children) => !children.Any(x => x.ValueType != EveryParserType.Boolean);
 
         private bool IsDateTimeArray(List<TypeNode> children) => !children.Any(x => x.ValueType != EveryParserType.DateTime);
+
+        /// <summary>
+        /// Method to use in order to create the date value.
+        /// Therefore the date methods are very similar, it's everything here inside one method
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="expectedDateParameters"></param>
+        private void SetNodeForDateTimeValue([NotNull] ParserRuleContext context, int expectedDateParameters)
+        {
+            if (ErrorCollector.CheckParamsCount(context, expectedDateParameters, Node.Children))
+            {
+                Node.ValueType = EveryParserType.None;
+                Node = Node.Parent;
+                return;
+            }
+
+            if (Node.Children.Any(v => !v.ValueType.IsNumber() && !v.ValueType.IsNumberArray() && !v.ValueType.IsNumberOrArrayOfNumbers()))
+            {
+                Node.ValueType = EveryParserType.None;
+                Node = Node.Parent;
+                return;
+            }
+
+            if (Node.Children.Any(v => v.ValueType.IsNumberArray()))
+                Node.ValueType = EveryParserType.ArrayOfNumber;
+            else
+                Node.ValueType = EveryParserType.Number;
+
+            Node = Node.Parent;
+        }
     }
 }

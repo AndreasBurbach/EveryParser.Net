@@ -52,7 +52,6 @@ namespace EveryParser.Test
             timer.Stop();
             Console.WriteLine("Time linq Any expression function.: " + timer.Elapsed);
 
-
             timer.Start();
             OwnSelect(testList, x => x * 5);
             timer.Stop();
@@ -69,7 +68,7 @@ namespace EveryParser.Test
             return list.Count > 0;
         }
 
-        public static bool OwnAny(List<int> list, Func<int, bool> expression)
+        public static bool OwnAny<T>(List<T> list, Func<T, bool> expression)
         {
             foreach (var x in list)
                 if (expression.Invoke(x))
@@ -78,13 +77,13 @@ namespace EveryParser.Test
             return false;
         }
 
-        public static List<int> OwnSelect(List<int> list, Func<int, int> expression)
+        public static List<TResult> OwnSelect<T1, TResult>(List<T1> list, Func<T1, TResult> expression)
         {
-            var result = new int[list.Count];
-            for (int i = 0; i < result.Length; i += 1)
-                result[i] = expression.Invoke(list[i]);
+            var result = new List<TResult>(list.Count);
+            foreach(T1 value in list)
+                result.Add(expression.Invoke(value));
 
-            return new List<int>(result);
+            return result;
         }
     }
 }
