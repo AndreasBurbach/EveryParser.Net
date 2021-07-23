@@ -1933,20 +1933,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitFunction_Concat([NotNull] EveryGrammarParser.Function_ConcatContext context)
         {
-            if (ErrorCollector.CheckParamsCount(context, 2, Node.Children))
-            {
-                var type1 = Node.Children[0].ValueType;
-                var type2 = Node.Children[1].ValueType;
-
-                if ((!type1.IsString() && !type2.IsString()) || (!type1.IsArrayType() && !type2.IsArrayType()))
-                    ErrorCollector.AddError(context, ErrorCode.IsNotNumberOrArrayOfNumbers, "Parameters are not both string or not both Arrays!");
-                else if (type1.IsString() && type2.IsString())
-                    Node.ValueType = EveryParserType.String;
-                else
-                    Node.ValueType = type1;
-            }
-
-            Node = Node.Parent;
+            CheckOnlyStringOrOnlyArraySameResult(context);
         }
 
         /// <summary>
@@ -2006,20 +1993,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitFunction_Difference([NotNull] EveryGrammarParser.Function_DifferenceContext context)
         {
-            if (ErrorCollector.CheckParamsCount(context, 2, Node.Children))
-            {
-                var type1 = Node.Children[0].ValueType;
-                var type2 = Node.Children[1].ValueType;
-
-                if ((!type1.IsString() && !type2.IsString()) || (!type1.IsArrayType() && !type2.IsArrayType()))
-                    ErrorCollector.AddError(context, ErrorCode.IsNotNumberOrArrayOfNumbers, "Parameters are not both string or not both Arrays!");
-                else if (type1.IsString() && type2.IsString())
-                    Node.ValueType = EveryParserType.String;
-                else
-                    Node.ValueType = type1;
-            }
-
-            Node = Node.Parent;
+            CheckOnlyStringOrOnlyArraySameResult(context);
         }
 
         /// <summary>
@@ -2039,20 +2013,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitFunction_Except([NotNull] EveryGrammarParser.Function_ExceptContext context)
         {
-            if (ErrorCollector.CheckParamsCount(context, 2, Node.Children))
-            {
-                var type1 = Node.Children[0].ValueType;
-                var type2 = Node.Children[1].ValueType;
-
-                if ((!type1.IsString() && !type2.IsString()) || (!type1.IsArrayType() && !type2.IsArrayType()))
-                    ErrorCollector.AddError(context, ErrorCode.IsNotNumberOrArrayOfNumbers, "Parameters are not both string or not both Arrays!");
-                else if (type1.IsString() && type2.IsString())
-                    Node.ValueType = EveryParserType.String;
-                else
-                    Node.ValueType = type1;
-            }
-
-            Node = Node.Parent;
+            CheckOnlyStringOrOnlyArraySameResult(context);
         }
 
         /// <summary>
@@ -2983,7 +2944,7 @@ namespace EveryParser.GrammarListener.TypeListener
             {
                 if (!Node.Children[0].ValueType.IsNumberArray())
                     ErrorCollector.AddError(context, ErrorCode.FirstNotNumberArray, "First parameter must be an Array");
-                else if (!Node.Children[0].ValueType.IsNumber())
+                else if (!Node.Children[1].ValueType.IsNumber())
                     ErrorCollector.AddError(context, ErrorCode.SecondNotNumber, "Second parameter must be a number");
                 else
                     Node.ValueType = EveryParserType.Number;
@@ -3453,7 +3414,7 @@ namespace EveryParser.GrammarListener.TypeListener
             {
                 if (!Node.Children[0].ValueType.IsNumberArray())
                     ErrorCollector.AddError(context, ErrorCode.FirstNotNumberArray, "First parameter must be an Array");
-                else if (!Node.Children[0].ValueType.IsNumber())
+                else if (!Node.Children[1].ValueType.IsNumber())
                     ErrorCollector.AddError(context, ErrorCode.SecondNotNumber, "Second parameter must be a number");
                 else
                     Node.ValueType = EveryParserType.Number;

@@ -15,6 +15,7 @@ namespace EveryParser
 
         private SortedList<string, object> _arguments;
         private (ErrorCode, string)[] _errorsOfLastCalculation;
+        private SyntaxErrorListener _syntaxErrorListener;
 
         public bool HasErrors => !(_errorsOfLastCalculation is null) && _errorsOfLastCalculation.Any();
 
@@ -25,6 +26,7 @@ namespace EveryParser
         {
             _arguments = new SortedList<string, object>();
             _errorsOfLastCalculation = null;
+            _syntaxErrorListener = new SyntaxErrorListener();
         }
 
         /// <summary>
@@ -42,60 +44,45 @@ namespace EveryParser
         /// Calculates the formular
         /// </summary>
         /// <returns>object</returns>
-        public static object Calculate(string formular)
-        {
-            return new Expression(formular).Calculate();
-        }
+        public static object Calculate(string formular) => new Expression(formular).Calculate();
 
         /// <summary>
         /// Calculates the formular
         /// </summary>
         /// <returns>boolean</returns>
-        public static bool? CalculateBoolean(string formular)
-        {
-            return new Expression(formular).CalculateBoolean();
-        }
+        public static bool? CalculateBoolean(string formular) => new Expression(formular).CalculateBoolean();
 
         /// <summary>
         /// Calculates the formular
         /// </summary>
         /// <returns>string</returns>
-        public static string CalculateString(string formular)
-        {
-            return new Expression(formular).CalculateString();
-        }
+        public static string CalculateString(string formular) => new Expression(formular).CalculateString();
 
         /// <summary>
         /// Calculates the formular
         /// </summary>
         /// <returns>decimal</returns>
-        public static decimal? CalculateDecimal(string formular)
-        {
-            return new Expression(formular).CalculateDecimal();
-        }
+        public static decimal? CalculateDecimal(string formular) => new Expression(formular).CalculateDecimal();
 
         /// <summary>
         /// Calculates the formular
         /// </summary>
         /// <returns>dateTime</returns>
-        public static DateTime? CalculateDateTime(string formular)
-        {
-            return new Expression(formular).CalculateDateTime();
-        }
+        public static DateTime? CalculateDateTime(string formular) => new Expression(formular).CalculateDateTime();
 
         /// <summary>
         /// Calculates the formular
         /// </summary>
         /// <returns>object array</returns>
-        public static object[] CalculateArray(string formular)
-        {
-            return new Expression(formular).CalculateArray();
-        }
+        public static object[] CalculateArray(string formular) => new Expression(formular).CalculateArray();
 
-        public static string[] GetArgumentNames(string formular)
-        {
-            return new Expression(formular).GetArgumentNames();
-        }
+        public static string[] GetArgumentNames(string formular) => new Expression(formular).GetArgumentNames();
+
+        /// <summary>
+        /// Returns the possible type of the result of the formular, e.g. string, number, etc.
+        /// </summary>
+        /// <returns>Type of result</returns>
+        public static EveryParserType GetPossibleResultingType(string formular) => new Expression(formular).GetPossibleResultingType();
 
         #endregion Static Methods
 
@@ -330,13 +317,19 @@ namespace EveryParser
             var listener = new EveryGrammarCalculatorListener(_arguments);
             ParseTreeWalker.Default.Walk(listener, GetParser(_formular));
 
-            _errorsOfLastCalculation = listener.ErrorCollector.GetErrors();
+            var errors = new List<(ErrorCode, string)>(_syntaxErrorListener.GetErrors());
+            errors.AddRange(listener.ErrorCollector.GetErrors());
+            _errorsOfLastCalculation = errors.ToArray();
 
             return listener.Result;
         }
 
         #endregion Caluclator
 
+        /// <summary>
+        /// Returns the possible type of the result of the formular, e.g. string, number, etc.
+        /// </summary>
+        /// <returns>Type of result</returns>
         public EveryParserType GetPossibleResultingType()
         {
             CheckFormular();
@@ -377,16 +370,25 @@ namespace EveryParser
         /// <returns>True if the formular was set</returns>
         public bool HasFormular() => !string.IsNullOrWhiteSpace(_formular);
 
-        private static EveryGrammarParser.StartRuleContext GetParser(string formular)
+        private EveryGrammarParser.StartRuleContext GetParser(string formular)
         {
+            _syntaxErrorListener.ClearErrors();
+
             var stream = CharStreams.fromString(formular);
             //var upper = new CaseChangingCharStream(stream, true); //https://github.com/antlr/antlr4/blob/master/doc/case-insensitive-lexing.md
+
             var lexer = new EveryGrammarLexer(stream);
+            lexer.RemoveErrorListeners();
+
             var tokens = new CommonTokenStream(lexer);
+
             var parser = new EveryGrammarParser(tokens)
             {
                 BuildParseTree = true
             };
+
+            parser.RemoveErrorListeners();
+            parser.AddErrorListener(_syntaxErrorListener);
 
             return parser.startRule();
         }

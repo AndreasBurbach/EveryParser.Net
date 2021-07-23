@@ -1,5 +1,5 @@
 grammar EveryGrammar;
-startRule: (expression NEWLINE)*;
+startRule: expression; //Multiline not allowed
 expression: if_else;
 
 if_else: inner_if_else # IfElse_Next | inner_if_else array_slicing_term # ArraySlicing | inner_if_else QUESTIONMARK inner_if_else COLON inner_if_else # IfElse;
@@ -61,7 +61,7 @@ factor:
 	| datetime_term										# Factor_DateTimeTerm
 	| array_expr										# Factor_Array
 	| default_function_term								# Factor_DefaultFunction
-	| check_function_term							# Factor_CheckFunction
+	| check_function_term								# Factor_CheckFunction
 	| convert_function_term								# Factor_ConvertFunction
 	| math_function_term								# Factor_MathFunction
 	| random_function_term								# Factor_RandomFunction
@@ -236,11 +236,11 @@ BITSHIFTRIGHT: '>>';
 CONTAINS: 'in';
 FACTORIAL: '!';
 
-//default types and constants
-NEWLINE: [\r\n]+;
+//default types and constants NEWLINE: [\r\n]+; //Multiline is not allowed in the grammar
 KOMMA: ',';
 TRUE: 'true';
 FALSE: 'false';
+//WHITESPACE: [\s]+;
 
 //brackets
 ROUNDBRACKETOPEN: '(';

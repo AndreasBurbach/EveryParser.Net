@@ -2,7 +2,7 @@
 
 namespace EveryParser.Test.ExpressionTest
 {
-    public class ExpressionArgumentTest
+    public class ArgumentTest
     {
         [Fact]
         public void TestArgumentRecognition()

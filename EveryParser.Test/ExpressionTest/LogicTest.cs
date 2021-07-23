@@ -2,7 +2,7 @@ using Xunit;
 
 namespace EveryParser.Test.ExpressionTest
 {
-    public class ExpressionLogicTest
+    public class LogicTest
     {
         [Fact]
         public void Test1()

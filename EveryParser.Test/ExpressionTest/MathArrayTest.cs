@@ -4,7 +4,7 @@ using Xunit;
 
 namespace EveryParser.Test.ExpressionTest
 {
-    public class ExpressionMathArrayTest
+    public class MathArrayTest
     {
         [Fact]
         public void MathArrayDefaultTest()

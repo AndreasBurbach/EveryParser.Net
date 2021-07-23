@@ -39,7 +39,8 @@ namespace EveryParser
         StepNotCorrect,
         StartEndIndexNotCorrect,
         IndexNotCorrect,
-        IsNotStringOrArrayOfStrings
+        IsNotStringOrArrayOfStrings,
+        SyntaxError
     }
 
     public class AssertErrors
@@ -77,7 +78,7 @@ namespace EveryParser
         {
             if (TypeCheckHelper.IsOneOfNull(childs))
             {
-                _errors.Add((ErrorCode.IsNull, $"One or more values are null {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                AddError(context, ErrorCode.IsNull, $"One or more values are null");
                 return true;
             }
 
@@ -94,7 +95,7 @@ namespace EveryParser
         {
             if (!TypeCheckHelper.IsArrayOfNumber(childs))
             {
-                _errors.Add((ErrorCode.IsNotNumber, $"One or more values are not numbers {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                AddError(context, ErrorCode.IsNotNumber, $"One or more values are not numbers");
                 return false;
             }
 
@@ -111,7 +112,7 @@ namespace EveryParser
         {
             if (!TypeCheckHelper.IsArrayOfNumberOrNumberList(childs))
             {
-                _errors.Add((ErrorCode.IsNotNumber, $"One or more values are not numbers or array of numbers {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                AddError(context, ErrorCode.IsNotNumber, $"One or more values are not numbers or array of numbers");
                 return false;
             }
 
@@ -128,7 +129,7 @@ namespace EveryParser
         {
             if (!TypeCheckHelper.IsArrayOfNumberList(childs))
             {
-                _errors.Add((ErrorCode.IsNotNumberArray, $"One or more values are not array of numbers {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                AddError(context, ErrorCode.IsNotNumberArray, $"One or more values are not array of numbers");
                 return false;
             }
 
@@ -145,7 +146,7 @@ namespace EveryParser
         {
             if (!TypeCheckHelper.IsStringOrStringList(childs))
             {
-                _errors.Add((ErrorCode.IsNotString, $"One or more values are not string or array of strings {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                AddError(context, ErrorCode.IsNotString, $"One or more values are not string or array of strings");
                 return false;
             }
 
@@ -162,7 +163,7 @@ namespace EveryParser
         {
             if (!TypeCheckHelper.IsArrayOfBoolean(childs))
             {
-                _errors.Add((ErrorCode.IsNotBoolean, $"One or more values are not boolean {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                AddError(context, ErrorCode.IsNotBoolean, $"One or more values are not boolean");
                 return false;
             }
 
@@ -179,7 +180,7 @@ namespace EveryParser
         {
             if (!TypeCheckHelper.IsArrayOfObjectList(childs))
             {
-                _errors.Add((ErrorCode.IsNotArray, $"One or more values are not an array {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                AddError(context, ErrorCode.IsNotArray, $"One or more values are not an array");
                 return false;
             }
 
@@ -196,7 +197,7 @@ namespace EveryParser
         {
             if (!TypeCheckHelper.IsStringOrList(childs))
             {
-                _errors.Add((ErrorCode.IsNotStringOrArray, $"One or more values are not a string or array {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                AddError(context, ErrorCode.IsNotStringOrArray, $"One or more values are not a string or array");
                 return false;
             }
 
@@ -238,7 +239,7 @@ namespace EveryParser
             foreach (var child in childs)
                 if (!(child is DateTime))
                 {
-                    _errors.Add((ErrorCode.IsNotDateTime, $"One or more values are not numbers {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                    AddError(context, ErrorCode.IsNotDateTime, $"One or more values are not numbers");
                     return false;
                 }
 
@@ -252,11 +253,29 @@ namespace EveryParser
         /// <param name="paramsCount">The count of parameters the calculation needs </param>
         /// <param name="childs">All childs which are comitted to the calculation</param>
         /// <returns>true if count is correct</returns>
-        public bool CheckParamsCount(ParserRuleContext context, int paramsCount, params object[] childs)
+        public bool CheckParamsCount<T>(ParserRuleContext context, int paramsCount, params T[] childs)
         {
             if ((childs?.Length ?? 0) != paramsCount)
             {
-                _errors.Add((ErrorCode.ParamsCountNotCorrect, $"No {paramsCount} {(paramsCount == 1 ? "value" : "values")} {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                AddError(context, ErrorCode.ParamsCountNotCorrect, $"No {paramsCount} {(paramsCount == 1 ? "value" : "values")}");
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Checks if the count of child params is same as the params count which is need for a calculation
+        /// </summary>
+        /// <param name="context">Context for line recognition</param>
+        /// <param name="paramsCount">The count of parameters the calculation needs </param>
+        /// <param name="childs">All childs which are comitted to the calculation</param>
+        /// <returns>true if count is correct</returns>
+        public bool CheckParamsCount<T>(ParserRuleContext context, int paramsCount, List<T> childs)
+        {
+            if ((childs?.Count ?? 0) != paramsCount)
+            {
+                AddError(context, ErrorCode.ParamsCountNotCorrect, $"No {paramsCount} {(paramsCount == 1 ? "value" : "values")}");
                 return false;
             }
 
@@ -274,7 +293,7 @@ namespace EveryParser
         {
             if ((childs?.Length ?? 0) < paramsCount)
             {
-                _errors.Add((ErrorCode.ParamsCountNotCorrect, $"No {paramsCount} {(paramsCount == 1 ? "value" : "values")} or greater {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                AddError(context, ErrorCode.ParamsCountNotCorrect, $"No {paramsCount} {(paramsCount == 1 ? "value" : "values")} or greater");
                 return false;
             }
 
@@ -293,7 +312,7 @@ namespace EveryParser
             var childsCount = childs?.Length ?? 0;
             if (childsCount > paramsCount)
             {
-                _errors.Add((ErrorCode.ParamsCountNotCorrect, $"Too many values. Accepted {paramsCount}, but has {childsCount} {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                AddError(context, ErrorCode.ParamsCountNotCorrect, $"Too many values. Accepted {paramsCount}, but has {childsCount}");
                 return false;
             }
 
@@ -310,7 +329,7 @@ namespace EveryParser
         {
             if (childs is null || !childs.Any() || childs[0] is null)
             {
-                _errors.Add((ErrorCode.NoParameter, $"No Parameter was comitted to the calculation {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                AddError(context, ErrorCode.NoParameter, $"No Parameter was comitted to the calculation");
                 return false;
             }
 
@@ -327,7 +346,7 @@ namespace EveryParser
         {
             if (arguments is null || !arguments.Any())
             {
-                _errors.Add((ErrorCode.NoArguments, $"No Arguments was given for the calculation {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                AddError(context, ErrorCode.NoArguments, $"No Arguments was given for the calculation");
                 return false;
             }
 
@@ -348,7 +367,7 @@ namespace EveryParser
 
             if (!arguments.TryGetValue(variable, out var value))
             {
-                _errors.Add((ErrorCode.VariableNotInArguments, $"Variable {variable} was not committed for the calculation {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                AddError(context, ErrorCode.NoArguments, $"Variable {variable} was not committed for the calculation");
                 return null;
             }
 
@@ -410,7 +429,7 @@ namespace EveryParser
 
             if (!arguments.TryGetValue(variableNames[0], out var value))
             {
-                _errors.Add((ErrorCode.VariableNotInArguments, $"Variable {variable} was not committed for the calculation {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                AddError(context, ErrorCode.VariableNotInArguments, $"Variable {variable} was not committed for the calculation");
                 return null;
             }
 
@@ -424,7 +443,7 @@ namespace EveryParser
 
                     if (property is null)
                     {
-                        _errors.Add((ErrorCode.VariableNotInArguments, $"Variable {variable} was not found inside the base object {variableNames[0]} {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                        AddError(context, ErrorCode.VariableNotInArguments, $"Variable {variable} was not found inside the base object {variableNames[0]}");
                         return null;
                     }
 
@@ -433,7 +452,7 @@ namespace EveryParser
             }
             catch
             {
-                _errors.Add((ErrorCode.VariableNotInArguments, $"Variable {variable} was not found inside the base object {variableNames[0]} {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+                AddError(context, ErrorCode.VariableNotInArguments, $"Variable {variable} was not found inside the base object {variableNames[0]}");
                 return null;
             }
 
@@ -448,7 +467,7 @@ namespace EveryParser
         /// <param name="targetedType">Type the text should be converted to</param>
         public void AddTypeConversionError(ParserRuleContext context, string text, Type targetedType)
         {
-            _errors.Add((ErrorCode.TypeConversion, $"Could not convert { text}  to type of {targetedType.Name}  {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+            _errors.Add((ErrorCode.TypeConversion, $"Could not convert { text}  to type of {targetedType.Name} "));
         }
 
         /// <summary>
@@ -459,7 +478,7 @@ namespace EveryParser
         /// <param name="text">Text to convert to a type</param>
         public void AddError(ParserRuleContext context, ErrorCode errorCode, string text)
         {
-            _errors.Add((errorCode, $"{text} {context.Start.Line}:{context.Start.StartIndex}, {context.Stop.Line}:{context.Stop.StartIndex}"));
+            _errors.Add((errorCode, $"{text}, {context.Stop.Line}:{context.Stop.StartIndex}:{context.Stop.StopIndex}"));
         }
     }
 }

@@ -2,10 +2,10 @@
 
 namespace EveryParser.Test.ExpressionTest
 {
-    public class ExpressionRandomTest
+    public class RandomTest
     {
         [Fact]
-        public void RandomTest()
+        public void Test()
         {
             Assert.NotNull(Expression.CalculateDecimal("rnddecimal()"));
             Assert.NotNull(Expression.CalculateDecimal("rnddecimal(1,10)"));

@@ -3,7 +3,7 @@ using Xunit;
 
 namespace EveryParser.Test.ExpressionTest
 {
-    public class ExpressionMathTest
+    public class MathTest
     {
         [Fact]
         public void DefaultTests()

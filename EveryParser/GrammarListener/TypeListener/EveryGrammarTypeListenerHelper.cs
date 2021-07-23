@@ -45,7 +45,9 @@ namespace EveryParser.GrammarListener.TypeListener
 
             if (parameterType1.IsNumber() && parameterType2.IsNumber())
                 Node.ValueType = EveryParserType.Number;
-            if ((parameterType1.IsNumber() && parameterType2.IsNumberArray()) || parameterType1.IsNumberArray() && parameterType2.IsNumber())
+            if ((parameterType1.IsNumber() && parameterType2.IsNumberArray()) ||
+                parameterType1.IsNumberArray() && parameterType2.IsNumber() ||
+                parameterType1.IsNumberArray() && parameterType2.IsNumberArray())
                 Node.ValueType = EveryParserType.ArrayOfNumber;
             if (parameterType1.IsNumberOrArrayOfNumbers() && parameterType2.IsNumberOrArrayOfNumbers())
                 Node.ValueType = EveryParserType.Number | EveryParserType.ArrayOfNumber;
@@ -142,7 +144,7 @@ namespace EveryParser.GrammarListener.TypeListener
             {
                 if (!Node.Children[0].ValueType.IsString() && !Node.Children[0].ValueType.IsArrayType())
                     ErrorCollector.AddError(context, ErrorCode.IsNotNumber, "Parameter is not a string or an Array!");
-                else if (Node.Children[0].ValueType == EveryParserType.String)
+                else if (Node.Children[0].ValueType.IsString())
                     Node.ValueType = stringResultType;
                 else if (Node.Children[0].ValueType.IsArrayType())
                     Node.ValueType = listResultType.IsArray() ? Node.Children[0].ValueType : listResultType;
@@ -218,6 +220,23 @@ namespace EveryParser.GrammarListener.TypeListener
             Node = Node.Parent;
         }
 
+
+        private void CheckOnlyStringOrOnlyArraySameResult([NotNull] ParserRuleContext context)
+        {
+            if (ErrorCollector.CheckParamsCount(context, 2, Node.Children))
+            {
+                var type1 = Node.Children[0].ValueType;
+                var type2 = Node.Children[1].ValueType;
+
+                if ((!type1.IsString() && !type2.IsString()) && (!type1.IsArrayType() && !type2.IsArrayType()))
+                    ErrorCollector.AddError(context, ErrorCode.IsNotNumberOrArrayOfNumbers, "Parameters are not both string or not both Arrays!");
+                else
+                    Node.ValueType = type1;
+            }
+
+            Node = Node.Parent;
+        }
+
         private EveryParserType GetArrayType(List<TypeNode> children)
         {
             if (children is null || !children.Any())
@@ -230,7 +249,7 @@ namespace EveryParser.GrammarListener.TypeListener
                 return EveryParserType.ArrayOfBoolean;
 
             if (IsStringArray(children))
-                return EveryParserType.ArrayOfBoolean;
+                return EveryParserType.ArrayOfString;
 
             if (IsDateTimeArray(children))
                 return EveryParserType.ArrayOfDateTime;

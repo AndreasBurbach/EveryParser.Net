@@ -17,7 +17,7 @@ namespace EveryParser.Test.ExpressionTest
         millisecond
     }
 
-    public class ExpressionDateTest
+    public class DateTest
     {
         [Fact]
         public void DefaultTests()
