@@ -125,14 +125,16 @@ namespace EveryParser.GrammarListener.TypeListener
             Node = Node.Parent;
         }
 
-        private void CheckBoolBinary([NotNull] ParserRuleContext context, EveryParserType resultType)
+        private void CalcBooleanOrBooleanArrayBinary([NotNull] ParserRuleContext context, EveryParserType resultType, EveryParserType listResultType)
         {
             if (ErrorCollector.CheckParamsCount(context, 2, Node.Children))
             {
-                if (!Node.Children[0].ValueType.IsBoolean() || !Node.Children[1].ValueType.IsBoolean())
-                    ErrorCollector.AddError(context, ErrorCode.IsNotNumber, "One or all Parameters are not Boolean!");
-                else
+                if (Node.Children[0].ValueType.IsBoolean() && Node.Children[1].ValueType.IsBoolean())
                     Node.ValueType = resultType;
+                else if (Node.Children[0].ValueType.IsBooleanArray() && Node.Children[1].ValueType.IsBooleanArray())
+                    Node.ValueType = listResultType;
+                else
+                    ErrorCollector.AddError(context, ErrorCode.IsNotNumber, "One or all Parameters are not Boolean!");
             }
 
             Node = Node.Parent;

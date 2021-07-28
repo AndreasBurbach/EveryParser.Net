@@ -40,7 +40,8 @@ namespace EveryParser.GrammarListener
         StartEndIndexNotCorrect,
         IndexNotCorrect,
         IsNotStringOrArrayOfStrings,
-        SyntaxError
+        SyntaxError,
+        CanBeEitherBooleanOrListBoolean
     }
 
     public class ErrorCollector
@@ -164,6 +165,23 @@ namespace EveryParser.GrammarListener
             if (!TypeCheckHelper.IsArrayOfBoolean(childs))
             {
                 AddError(context, ErrorCode.IsNotBoolean, $"One or more values are not boolean");
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Check if all parameters are type of boolean
+        /// </summary>
+        /// <param name="context">Context for line recognition</param>
+        /// <param name="childs">All childs which are comitted to the calculation</param>
+        /// <returns>true if types are boolean</returns>
+        public bool CheckIsBooleanOrArrayOfBoolean(ParserRuleContext context, params object[] childs)
+        {
+            if (!TypeCheckHelper.IsArrayOfBooleanOrBooleanList(childs))
+            {
+                AddError(context, ErrorCode.IsNotBoolean, $"One or more values are not boolean or list of booleans");
                 return false;
             }
 

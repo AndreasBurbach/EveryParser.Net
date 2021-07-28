@@ -84,14 +84,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         }
 
         /// <summary>
-        /// Calculations for Boolean with 2 childs in Node
+        /// Calculations for 2 Boolean childs or 2 childs of List(boolean)
         /// </summary>
         /// <param name="context"></param>
         /// <param name="errorCollector"></param>
         /// <param name="calculationExpression"></param>
         /// <param name="children"></param>
         /// <returns></returns>
-        internal static object CalcBooleanBinary(ParserRuleContext context, ErrorCollector errorCollector, Func<bool, bool, object> calculationExpression, List<NodeCalculator> children)
+        internal static object CalcBooleanOrBooleanArrayBinary(ParserRuleContext context, ErrorCollector errorCollector, Func<bool, bool, object> calculationExpression, List<NodeCalculator> children)
         {
             if (!errorCollector.CheckHasParams(context, children))
                 return null;
@@ -100,10 +100,30 @@ namespace EveryParser.GrammarListener.CalculatorListener
 
             if (!errorCollector.CheckParamsCount(context, 2, childValues) ||
                 errorCollector.CheckIsNull(context, childValues) ||
-                !errorCollector.CheckIsBoolean(context, childValues))
+                !errorCollector.CheckIsBooleanOrArrayOfBoolean(context, childValues))
                 return null;
 
-            return calculationExpression(Convert.ToBoolean(childValues[0]), Convert.ToBoolean(childValues[1]));
+            var list1 = childValues[0] as List<object>;
+            var list2 = childValues[1] as List<object>;
+
+            if (list1 is null && list2 is null)
+                return calculationExpression(Convert.ToBoolean(childValues[0]), Convert.ToBoolean(childValues[1]));
+            else if ((list1 is null && !(list2 is null)) || (!(list1 is null) && list2 is null))
+            {
+                errorCollector.AddError(context, ErrorCode.CanBeEitherBooleanOrListBoolean, "Both parameters can be either boolean or List of boolean");
+                return null;
+            }
+
+            if (list1.Count != list2.Count)
+            {
+                errorCollector.AddError(context, ErrorCode.NotEqualArayCount, $"Array count must be equal: Array1 Count {list1.Count} Array2 Count {list2.Count}");
+                return null;
+            }
+
+            var result = new List<object>(list1.Count);
+            for (int i = 0; i < list1.Count; i += 1)
+                result.Add(calculationExpression(Convert.ToBoolean(list1[i]), Convert.ToBoolean(list2[i])));
+            return result;
         }
 
         /// <summary>

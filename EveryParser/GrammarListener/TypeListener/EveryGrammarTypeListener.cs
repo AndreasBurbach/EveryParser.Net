@@ -91,7 +91,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitBoolOr([NotNull] EveryGrammarParser.BoolOrContext context)
         {
-            CheckBoolBinary(context, EveryParserType.Boolean);
+            CalcBooleanOrBooleanArrayBinary(context, EveryParserType.Boolean, EveryParserType.ArrayOfBoolean);
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitBoolXOr([NotNull] EveryGrammarParser.BoolXOrContext context)
         {
-            CheckBoolBinary(context, EveryParserType.Boolean);
+            CalcBooleanOrBooleanArrayBinary(context, EveryParserType.Boolean, EveryParserType.ArrayOfBoolean);
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitBoolAnd([NotNull] EveryGrammarParser.BoolAndContext context)
         {
-            CheckBoolBinary(context, EveryParserType.Boolean);
+            CalcBooleanOrBooleanArrayBinary(context, EveryParserType.Boolean, EveryParserType.ArrayOfBoolean);
         }
 
         /// <summary>

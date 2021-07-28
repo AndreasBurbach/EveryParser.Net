@@ -54,6 +54,8 @@ namespace EveryParser.GrammarListener.TypeListener
 
         public static bool IsBoolean(this EveryParserType type) => (type & EveryParserType.Boolean) == EveryParserType.Boolean;
 
+        public static bool IsBooleanArray(this EveryParserType type) => (type & EveryParserType.ArrayOfBoolean) == EveryParserType.ArrayOfBoolean;
+
         public static bool IsDateTime(this EveryParserType type) => (type & EveryParserType.DateTime) == EveryParserType.DateTime;
     }
 }

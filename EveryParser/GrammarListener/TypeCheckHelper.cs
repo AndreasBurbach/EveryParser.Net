@@ -20,6 +20,13 @@ namespace EveryParser.GrammarListener
         internal static bool IsArrayOfBoolean(object[] objs) => !objs.Any(obj => !IsBoolean(obj));
 
         /// <summary>
+        /// Checks if all objects are type of boolean and/or List(boolean)
+        /// </summary>
+        /// <param name="objs"></param>
+        /// <returns></returns>
+        internal static bool IsArrayOfBooleanOrBooleanList(object[] objs) => !objs.Any(obj => !(IsBoolean(obj) || (obj is List<object> list && list.All(x => IsBoolean(x)))));
+
+        /// <summary>
         /// Checks if all objects are type of string or List(string)
         /// </summary>
         /// <param name="objs"></param>

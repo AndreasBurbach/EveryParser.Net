@@ -5,6 +5,31 @@ namespace EveryParser.Test.ExpressionTest
     public class LogicTest
     {
         [Fact]
+        public void TestBoolean()
+        {
+            Assert.Equal(true, Expression.CalculateBoolean("true || false"));
+            Assert.Equal(true, Expression.CalculateBoolean("false || true"));
+            Assert.Equal(false, Expression.CalculateBoolean("false || false"));
+            Assert.Equal(true, Expression.CalculateBoolean("true || true"));
+
+            Assert.Equal(false, Expression.CalculateBoolean("true && false"));
+            Assert.Equal(false, Expression.CalculateBoolean("false && true"));
+            Assert.Equal(false, Expression.CalculateBoolean("false && false"));
+            Assert.Equal(true, Expression.CalculateBoolean("true && true"));
+
+            Assert.Equal(true, Expression.CalculateBoolean("true ^ false"));
+            Assert.Equal(true, Expression.CalculateBoolean("false ^ true"));
+            Assert.Equal(false, Expression.CalculateBoolean("false ^ false"));
+            Assert.Equal(false, Expression.CalculateBoolean("true ^ true"));
+
+            Assert.Equal(new object[] { true, true, false, true }, Expression.CalculateArray("[true,false, false, true] || [false,true,false, true]"));
+
+            Assert.Equal(new object[] { false, false, false, true }, Expression.CalculateArray("[true,false, false, true] && [false,true,false, true]"));
+
+            Assert.Equal(new object[] { true, true, false, false }, Expression.CalculateArray("[true,false, false, true] ^ [false,true,false, true]"));
+        }
+
+        [Fact]
         public void TestEqual()
         {
             Assert.Equal(true, Expression.CalculateBoolean("true == true"));

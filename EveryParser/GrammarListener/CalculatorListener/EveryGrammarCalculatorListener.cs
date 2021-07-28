@@ -103,7 +103,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         public void ExitBoolOr([NotNull] EveryGrammarParser.BoolOrContext context)
         {
             Func<bool, bool, object> calculation = (x1, x2) => x1 || x2;
-            Node.Value = CalculationHelper.CalcBooleanBinary(context, ErrorCollector, calculation, Node.Children);
+            Node.Value = CalculationHelper.CalcBooleanOrBooleanArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -127,7 +127,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         public virtual void ExitBoolXOr([NotNull] EveryGrammarParser.BoolXOrContext context)
         {
             Func<bool, bool, object> calculation = (x1, x2) => x1 ^ x2;
-            Node.Value = CalculationHelper.CalcBooleanBinary(context, ErrorCollector, calculation, Node.Children);
+            Node.Value = CalculationHelper.CalcBooleanOrBooleanArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -151,7 +151,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         public void ExitBoolAnd([NotNull] EveryGrammarParser.BoolAndContext context)
         {
             Func<bool, bool, object> calculation = (x1, x2) => x1 && x2;
-            Node.Value = CalculationHelper.CalcBooleanBinary(context, ErrorCollector, calculation, Node.Children);
+            Node.Value = CalculationHelper.CalcBooleanOrBooleanArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 

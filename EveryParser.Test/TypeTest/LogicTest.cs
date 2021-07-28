@@ -31,6 +31,12 @@ namespace EveryParser.Test.TypeTest
 
             Assert.Equal(EveryParserType.Boolean, Expression.GetPossibleResultingType("\"Test\" !=i \"test\""));
             Assert.Equal(EveryParserType.Boolean, Expression.GetPossibleResultingType("\"Test\" !=i \"not\""));
+
+            Assert.Equal(EveryParserType.ArrayOfBoolean, Expression.GetPossibleResultingType("[true,false, false, true] || [false,true,false, true]"));
+
+            Assert.Equal(EveryParserType.ArrayOfBoolean, Expression.GetPossibleResultingType("[true,false, false, true] && [false,true,false, true]"));
+
+            Assert.Equal(EveryParserType.ArrayOfBoolean, Expression.GetPossibleResultingType("[true,false, false, true] ^ [false,true,false, true]"));
         }
 
         [Fact]
