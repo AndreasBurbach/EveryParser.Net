@@ -186,9 +186,6 @@ namespace EveryParser.GrammarListener.CalculatorListener
                 case ArraySlicingType.AllStepSlicing:
                     Node.Value = SliceArrayFromToStep(context, array, 0, array.Count, childValues[0]);
                     break;
-
-                default:
-                    break;
             }
 
             Node = Node.Parent;
