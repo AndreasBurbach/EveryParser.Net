@@ -8,6 +8,16 @@ namespace EveryParser.Test.TypeTest
         [Fact]
         public void MathArrayDefaultTest()
         {
+            Assert.Equal(EveryParserType.ArrayOfNumber, Expression.GetPossibleResultingType("[1,2,4] + [1,2,4])"));
+            Assert.Equal(EveryParserType.ArrayOfNumber, Expression.GetPossibleResultingType("[1,2,4] - [1,2,4])"));
+
+            Assert.Equal(EveryParserType.ArrayOfNumber, Expression.GetPossibleResultingType("[1,2,4] * [1,2,4])"));
+            Assert.Equal(EveryParserType.ArrayOfNumber, Expression.GetPossibleResultingType("[1,2,4] / [1,2,4])"));
+            Assert.Equal(EveryParserType.ArrayOfNumber, Expression.GetPossibleResultingType("[1,2,4] // [1,2,4])"));
+
+            Assert.Equal(EveryParserType.ArrayOfNumber, Expression.GetPossibleResultingType("[1,2,4] ** 2)"));
+            Assert.Equal(EveryParserType.ArrayOfNumber, Expression.GetPossibleResultingType("2 ** [1,2,4])"));
+            Assert.Equal(EveryParserType.ArrayOfNumber, Expression.GetPossibleResultingType("[1,2,4] ** [1,2,4])"));
         }
 
         [Fact]

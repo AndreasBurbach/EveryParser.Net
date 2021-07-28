@@ -9,6 +9,16 @@ namespace EveryParser.Test.ExpressionTest
         [Fact]
         public void MathArrayDefaultTest()
         {
+            Assert.Equal(ToDecimalArray(new object[] { 2, 4, 8 }), ToDecimalArray(Expression.CalculateArray("[1,2,4] + [1,2,4])")));
+            Assert.Equal(ToDecimalArray(new object[] { 0, 0, 0 }), ToDecimalArray(Expression.CalculateArray("[1,2,4] - [1,2,4])")));
+
+            Assert.Equal(ToDecimalArray(new object[] { 1, 4, 16 }), ToDecimalArray(Expression.CalculateArray("[1,2,4] * [1,2,4])")));
+            Assert.Equal(ToDecimalArray(new object[] { 1, 1, 1 }), ToDecimalArray(Expression.CalculateArray("[1,2,4] / [1,2,4])")));
+            Assert.Equal(ToDecimalArray(new object[] { 1, 1, 1 }), ToDecimalArray(Expression.CalculateArray("[1,2,4] // [1,2,4])")));
+
+            Assert.Equal(ToDecimalArray(new object[] { 1, 4, 16 }), ToDecimalArray(Expression.CalculateArray("[1,2,4] ** 2)")));
+            Assert.Equal(ToDecimalArray(new object[] { 2, 4, 16 }), ToDecimalArray(Expression.CalculateArray("2 ** [1,2,4])")));
+            Assert.Equal(ToDecimalArray(new object[] { 1, 4, 256 }), ToDecimalArray(Expression.CalculateArray("[1,2,4] ** [1,2,4])")));
         }
 
         [Fact]
