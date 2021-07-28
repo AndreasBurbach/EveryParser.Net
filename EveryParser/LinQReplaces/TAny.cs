@@ -24,7 +24,6 @@ namespace EveryParser.LinQReplaces
             return list.Count > 0;
         }
 
-
         public static bool Any<T>(this T[] array)
         {
             return array.Length > 0;

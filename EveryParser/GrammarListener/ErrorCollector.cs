@@ -3,7 +3,7 @@ using EveryParser.LinQReplaces;
 using System;
 using System.Collections.Generic;
 
-namespace EveryParser
+namespace EveryParser.GrammarListener
 {
     /// <summary>
     /// ErrorCodes for the EveryParser
@@ -43,7 +43,7 @@ namespace EveryParser
         SyntaxError
     }
 
-    public class AssertErrors
+    public class ErrorCollector
     {
         private readonly List<(ErrorCode, string)> _errors;
 
@@ -57,7 +57,7 @@ namespace EveryParser
         /// </summary>
         public bool HasErrors => _errors.Count > 0;
 
-        public AssertErrors()
+        public ErrorCollector()
         {
             _errors = new List<(ErrorCode, string)>();
         }

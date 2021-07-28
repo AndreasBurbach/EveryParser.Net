@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 
-namespace EveryParser.CalculatorListener
+namespace EveryParser.GrammarListener.CalculatorListener
 {
     public partial class EveryGrammarCalculatorListener
     {

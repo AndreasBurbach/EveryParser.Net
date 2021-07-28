@@ -377,6 +377,7 @@ namespace EveryParser.GrammarListener.TypeListener
                     else
                         Node.ValueType = GetSingleTypeOfArrayType(Node.Children[0].ValueType);
                     break;
+
                 case ArraySlicingType.Slicing:
                 case ArraySlicingType.StepSlicing:
                 case ArraySlicingType.StartSlicing:

@@ -80,7 +80,7 @@ namespace EveryParser.Test
         public static List<TResult> OwnSelect<T1, TResult>(List<T1> list, Func<T1, TResult> expression)
         {
             var result = new List<TResult>(list.Count);
-            foreach(T1 value in list)
+            foreach (T1 value in list)
                 result.Add(expression.Invoke(value));
 
             return result;

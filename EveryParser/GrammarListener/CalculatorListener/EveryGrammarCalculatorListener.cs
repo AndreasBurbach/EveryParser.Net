@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace EveryParser.CalculatorListener
+namespace EveryParser.GrammarListener.CalculatorListener
 {
     /// <summary>
     /// This class provides an empty implementation of <see cref="IEveryGrammarListener"/>,
@@ -22,7 +22,7 @@ namespace EveryParser.CalculatorListener
 
         public object Result => _result;
 
-        public AssertErrors ErrorCollector;
+        public ErrorCollector ErrorCollector;
 
         public EveryGrammarCalculatorListener(SortedList<string, object> arguments)
         {
@@ -37,7 +37,7 @@ namespace EveryParser.CalculatorListener
         public void EnterStartRule([NotNull] EveryGrammarParser.StartRuleContext context)
         {
             Node = new NodeCalculator();
-            ErrorCollector = new AssertErrors();
+            ErrorCollector = new ErrorCollector();
             _result = null;
         }
 

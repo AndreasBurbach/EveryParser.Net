@@ -17,7 +17,7 @@ namespace EveryParser.GrammarListener.TypeListener
         private SortedList<string, object> _arguments;
         private ArraySlicingType _lastArraySlicingType;
 
-        public AssertErrors ErrorCollector;
+        public ErrorCollector ErrorCollector;
 
         public EveryParserType Result => _result;
 
@@ -33,7 +33,7 @@ namespace EveryParser.GrammarListener.TypeListener
         public void EnterStartRule([NotNull] EveryGrammarParser.StartRuleContext context)
         {
             Node = new TypeNode();
-            ErrorCollector = new AssertErrors();
+            ErrorCollector = new ErrorCollector();
             _result = EveryParserType.None;
         }
 

@@ -1,10 +1,10 @@
 ﻿using Antlr4.Runtime.Misc;
+using EveryParser.LinQReplaces;
 using MathNet.Numerics.LinearAlgebra;
 using System;
 using System.Collections.Generic;
-using EveryParser.LinQReplaces;
 
-namespace EveryParser.CalculatorListener
+namespace EveryParser.GrammarListener.CalculatorListener
 {
     public partial class EveryGrammarCalculatorListener
     {

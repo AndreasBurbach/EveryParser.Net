@@ -4,7 +4,7 @@ using MathNet.Numerics.Statistics;
 using System;
 using System.Collections.Generic;
 
-namespace EveryParser.CalculatorListener
+namespace EveryParser.GrammarListener.CalculatorListener
 {
     public partial class EveryGrammarCalculatorListener
     {

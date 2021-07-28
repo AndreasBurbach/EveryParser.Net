@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace EveryParser
+namespace EveryParser.GrammarListener
 {
     internal static class TypeCheckHelper
     {

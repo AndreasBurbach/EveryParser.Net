@@ -3,7 +3,7 @@ using EveryParser.LinQReplaces;
 using System;
 using System.Collections.Generic;
 
-namespace EveryParser
+namespace EveryParser.GrammarListener.CalculatorListener
 {
     public static class CalculationHelper
     {
@@ -15,7 +15,7 @@ namespace EveryParser
         /// <param name="calculationExpression"></param>
         /// <param name="children"></param>
         /// <returns></returns>
-        internal static object CalcNumericOrNumericArrayUnary(ParserRuleContext context, AssertErrors errorCollector, Func<object, object> calculationExpression, List<NodeCalculator> children)
+        internal static object CalcNumericOrNumericArrayUnary(ParserRuleContext context, ErrorCollector errorCollector, Func<object, object> calculationExpression, List<NodeCalculator> children)
         {
             if (!errorCollector.CheckHasParams(context, children))
                 return double.NaN;
@@ -41,7 +41,7 @@ namespace EveryParser
         /// <param name="calculationExpression"></param>
         /// <param name="children"></param>
         /// <returns></returns>
-        internal static object CalcNumericOrNumericArrayBinary(ParserRuleContext context, AssertErrors errorCollector, Func<object, object, object> calculationExpression, List<NodeCalculator> children)
+        internal static object CalcNumericOrNumericArrayBinary(ParserRuleContext context, ErrorCollector errorCollector, Func<object, object, object> calculationExpression, List<NodeCalculator> children)
         {
             if (!errorCollector.CheckHasParams(context, children))
                 return double.NaN;
@@ -91,7 +91,7 @@ namespace EveryParser
         /// <param name="calculationExpression"></param>
         /// <param name="children"></param>
         /// <returns></returns>
-        internal static object CalcBooleanBinary(ParserRuleContext context, AssertErrors errorCollector, Func<bool, bool, object> calculationExpression, List<NodeCalculator> children)
+        internal static object CalcBooleanBinary(ParserRuleContext context, ErrorCollector errorCollector, Func<bool, bool, object> calculationExpression, List<NodeCalculator> children)
         {
             if (!errorCollector.CheckHasParams(context, children))
                 return null;
@@ -114,7 +114,7 @@ namespace EveryParser
         /// <param name="calculationExpression"></param>
         /// <param name="children"></param>
         /// <returns></returns>
-        internal static object CalcListUnary(ParserRuleContext context, AssertErrors errorCollector, Func<List<object>, object> calculationExpression, List<NodeCalculator> children)
+        internal static object CalcListUnary(ParserRuleContext context, ErrorCollector errorCollector, Func<List<object>, object> calculationExpression, List<NodeCalculator> children)
         {
             if (!errorCollector.CheckHasParams(context, children))
                 return null;
@@ -137,7 +137,7 @@ namespace EveryParser
         /// <param name="calculationExpression"></param>
         /// <param name="children"></param>
         /// <returns></returns>
-        internal static object CalcListOfNumbersUnary(ParserRuleContext context, AssertErrors errorCollector, Func<List<object>, object> calculationExpression, List<NodeCalculator> children)
+        internal static object CalcListOfNumbersUnary(ParserRuleContext context, ErrorCollector errorCollector, Func<List<object>, object> calculationExpression, List<NodeCalculator> children)
         {
             if (!errorCollector.CheckHasParams(context, children))
                 return null;
@@ -160,7 +160,7 @@ namespace EveryParser
         /// <param name="calculationExpression"></param>
         /// <param name="children"></param>
         /// <returns></returns>
-        internal static object CalcListOfNumbersBinary(ParserRuleContext context, AssertErrors errorCollector, Func<List<object>, List<object>, object> calculationExpression, List<NodeCalculator> children)
+        internal static object CalcListOfNumbersBinary(ParserRuleContext context, ErrorCollector errorCollector, Func<List<object>, List<object>, object> calculationExpression, List<NodeCalculator> children)
         {
             if (!errorCollector.CheckHasParams(context, children))
                 return null;
@@ -183,7 +183,7 @@ namespace EveryParser
         /// <param name="calculationExpression"></param>
         /// <param name="children"></param>
         /// <returns></returns>
-        internal static object CalcStringOrListBinary(ParserRuleContext context, AssertErrors errorCollector, Func<List<object>, List<object>, object> calculationListExpression, Func<string, string, object> calculationStringExpression, List<NodeCalculator> children)
+        internal static object CalcStringOrListBinary(ParserRuleContext context, ErrorCollector errorCollector, Func<List<object>, List<object>, object> calculationListExpression, Func<string, string, object> calculationStringExpression, List<NodeCalculator> children)
         {
             if (!errorCollector.CheckHasParams(context, children))
                 return null;
@@ -218,7 +218,7 @@ namespace EveryParser
         /// <param name="calculationExpression"></param>
         /// <param name="children"></param>
         /// <returns></returns>
-        internal static object CalcNumericUnary(ParserRuleContext context, AssertErrors errorCollector, Func<object, object> calculationExpression, List<NodeCalculator> children)
+        internal static object CalcNumericUnary(ParserRuleContext context, ErrorCollector errorCollector, Func<object, object> calculationExpression, List<NodeCalculator> children)
         {
             if (!errorCollector.CheckHasParams(context, children))
                 return double.NaN;
@@ -241,7 +241,7 @@ namespace EveryParser
         /// <param name="calculationExpression"></param>
         /// <param name="children"></param>
         /// <returns></returns>
-        internal static object CalcNumericBinary(ParserRuleContext context, AssertErrors errorCollector, Func<object, object, object> calculationExpression, List<NodeCalculator> children)
+        internal static object CalcNumericBinary(ParserRuleContext context, ErrorCollector errorCollector, Func<object, object, object> calculationExpression, List<NodeCalculator> children)
         {
             if (!errorCollector.CheckHasParams(context, children))
                 return double.NaN;
@@ -264,7 +264,7 @@ namespace EveryParser
         /// <param name="calculationExpression"></param>
         /// <param name="children"></param>
         /// <returns></returns>
-        internal static object CalcNumericTri(ParserRuleContext context, AssertErrors errorCollector, Func<object, object, object, object> calculationExpression, List<NodeCalculator> children)
+        internal static object CalcNumericTri(ParserRuleContext context, ErrorCollector errorCollector, Func<object, object, object, object> calculationExpression, List<NodeCalculator> children)
         {
             if (!errorCollector.CheckHasParams(context, children))
                 return double.NaN;
@@ -287,7 +287,7 @@ namespace EveryParser
         /// <param name="calculationExpression"></param>
         /// <param name="children"></param>
         /// <returns></returns>
-        internal static object CalcStringOrListUnary(ParserRuleContext context, AssertErrors errorCollector, Func<List<object>, object> calculationListExpression, Func<string, object> calculationStringExpression, List<NodeCalculator> children)
+        internal static object CalcStringOrListUnary(ParserRuleContext context, ErrorCollector errorCollector, Func<List<object>, object> calculationListExpression, Func<string, object> calculationStringExpression, List<NodeCalculator> children)
         {
             if (!errorCollector.CheckHasParams(context, children))
                 return null;
@@ -315,7 +315,7 @@ namespace EveryParser
         /// <param name="calculationExpression"></param>
         /// <param name="children"></param>
         /// <returns></returns>
-        internal static object CalcStringOrStringListUnary(ParserRuleContext context, AssertErrors errorCollector, Func<string, object> calculationStringExpression, List<NodeCalculator> children)
+        internal static object CalcStringOrStringListUnary(ParserRuleContext context, ErrorCollector errorCollector, Func<string, object> calculationStringExpression, List<NodeCalculator> children)
         {
             if (!errorCollector.CheckHasParams(context, children))
                 return null;
@@ -394,7 +394,7 @@ namespace EveryParser
         /// <param name="calculationExpression"></param>
         /// <param name="children"></param>
         /// <returns></returns>
-        internal static object CalcAnyUnary(ParserRuleContext context, AssertErrors errorCollector, Func<object, object> calculationExpression, List<NodeCalculator> children)
+        internal static object CalcAnyUnary(ParserRuleContext context, ErrorCollector errorCollector, Func<object, object> calculationExpression, List<NodeCalculator> children)
         {
             if (!errorCollector.CheckHasParams(context, children))
                 return null;

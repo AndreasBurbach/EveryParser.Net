@@ -1,11 +1,10 @@
 ﻿using Antlr4.Runtime;
 using Antlr4.Runtime.Misc;
-using EveryParser.GrammarListener;
 using EveryParser.LinQReplaces;
 using System;
 using System.Collections.Generic;
 
-namespace EveryParser.CalculatorListener
+namespace EveryParser.GrammarListener.CalculatorListener
 {
     public partial class EveryGrammarCalculatorListener
     {

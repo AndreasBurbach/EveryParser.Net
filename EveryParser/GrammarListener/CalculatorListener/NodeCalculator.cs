@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace EveryParser
+namespace EveryParser.GrammarListener.CalculatorListener
 {
     internal class NodeCalculator
     {

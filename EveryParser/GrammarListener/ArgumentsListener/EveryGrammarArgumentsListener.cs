@@ -2,7 +2,7 @@ using Antlr4.Runtime.Misc;
 using System;
 using System.Collections.Generic;
 
-namespace EveryParser.ArgumentsListener
+namespace EveryParser.GrammarListener.ArgumentsListener
 {
     /// <summary>
     /// This interface defines a complete listener for a parse tree produced by
