@@ -14,7 +14,7 @@ namespace EveryParser
     {
         private string _formular;
 
-        private SortedList<string, object> _arguments;
+        private readonly SortedList<string, object> _arguments;
         private (ErrorCode, string)[] _errorsOfLastCalculation;
         private readonly SyntaxErrorListener _syntaxErrorListener;
 
