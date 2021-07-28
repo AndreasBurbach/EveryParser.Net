@@ -55,89 +55,89 @@ namespace EveryParser.Test.TypeTest
         [Fact]
         public void FunctionTests()
         {
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("abs(1)"));
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("abs(-1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Abs(1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Abs(-1)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("acos(1)"));
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("acosh(1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("ACos(1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("ACosH(1)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("asin(1)"));
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("asinh(1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("ASin(1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("ASinH(1)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("atan(1)"));
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("atan2(1,1)"));
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("atanh(0.5)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("ATan(1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("ATan2(1,1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("ATanH(0.5)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("cbrt(1)"));
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("cbrt(27)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Cbrt(1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Cbrt(27)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("cos(1)"));
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("cosh(1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Cos(1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("CosH(1)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("ceilling(1.1)"));
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("clamp(1,10,20)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Ceilling(1.1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Clamp(1,10,20)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("crosssum(1800)"));
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("exp(2)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Exp(2)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("CrossSum(1800)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("floor(1.1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Floor(1.1)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("log(12, 2)"));
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("log2(12)"));
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("log10(12)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Log(12, 2)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Log2(12)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Log10(12)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("max(2,3)"));
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("max(3)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Max(2,3)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Max(3)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("min(2,3)"));
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("min(2)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Min(2,3)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Min(2)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("pow(3,2)"));
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("root(9,2)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Pow(3,2)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Root(9,2)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("round(2.2)"));
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("round(2.234,2)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Round(2.2)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Round(2.234,2)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("sin(1)"));
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("sinh(1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Sin(1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("SinH(1)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("sqrt(1)"));
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("sqrt(100)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Sqrt(1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Sqrt(100)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("tan(1)"));
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("tanh(1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Tan(1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("TanH(1)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("truncate(1.234)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Truncate(1.234)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("gcd(10,5)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Gcd(10,5)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("lcm(10,5)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Lcm(10,5)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("binomial(3,2)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Binomial(3,2)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("acot(1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("ACot(1)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("acoth(10)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("ACotH(10)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("acsc(1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("ACsc(1)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("acsch(1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("ACscH(1)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("asec(1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("ASec(1)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("asech(1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("ASecH(1)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("cot(1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Cot(1)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("coth(1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("CotH(1)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("csc(1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Csc(1)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("csch(1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("CscH(1)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("sec(1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Sec(1)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("sech(1)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("SecH(1)"));
         }
 
         [Fact]

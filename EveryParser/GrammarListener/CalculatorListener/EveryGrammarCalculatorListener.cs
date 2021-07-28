@@ -1063,7 +1063,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
             string text = context.GetText();
             object value;
 
-            if (text.Equals("date.now", StringComparison.InvariantCultureIgnoreCase))
+            if (text.Equals("DateTime.Now", StringComparison.InvariantCultureIgnoreCase))
                 value = DateTime.Now;
             else
                 value = ErrorCollector.GetCheckedObjectArgument(context, _arguments, text);

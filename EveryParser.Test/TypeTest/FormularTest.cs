@@ -8,7 +8,7 @@ namespace EveryParser.Test.TypeTest
         [Fact]
         public void Test()
         {
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("count([1,2,3]) // max([1,2,3])"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("Count([1,2,3]) // Max([1,2,3])"));
         }
     }
 }

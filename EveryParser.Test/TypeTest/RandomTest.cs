@@ -8,17 +8,17 @@ namespace EveryParser.Test.TypeTest
         [Fact]
         public void Test()
         {
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("rnddecimal()"));
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("rnddecimal(1,10)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("RndDecimal()"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("RndDecimal(1,10)"));
 
-            Assert.Equal(EveryParserType.ArrayOfNumber, Expression.GetPossibleResultingType("rnddecimal(5)"));
-            Assert.Equal(EveryParserType.ArrayOfNumber, Expression.GetPossibleResultingType("rnddecimal(5, 1, 10)"));
+            Assert.Equal(EveryParserType.ArrayOfNumber, Expression.GetPossibleResultingType("RndDecimal(5)"));
+            Assert.Equal(EveryParserType.ArrayOfNumber, Expression.GetPossibleResultingType("RndDecimal(5, 1, 10)"));
 
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("rndinteger()"));
-            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("rndinteger(1,10)"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("RndInteger()"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("RndInteger(1,10)"));
 
-            Assert.Equal(EveryParserType.ArrayOfNumber, Expression.GetPossibleResultingType("rndinteger(5)"));
-            Assert.Equal(EveryParserType.ArrayOfNumber, Expression.GetPossibleResultingType("rndinteger(5, 1, 10)"));
+            Assert.Equal(EveryParserType.ArrayOfNumber, Expression.GetPossibleResultingType("RndInteger(5)"));
+            Assert.Equal(EveryParserType.ArrayOfNumber, Expression.GetPossibleResultingType("RndInteger(5, 1, 10)"));
         }
     }
 }

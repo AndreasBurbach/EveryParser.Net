@@ -805,7 +805,7 @@ namespace EveryParser.GrammarListener.TypeListener
             string text = context.GetText();
             EveryParserType type = EveryParserType.None;
 
-            if (text.Equals("date.now", StringComparison.InvariantCultureIgnoreCase))
+            if (text.Equals("DateTime.Now", StringComparison.InvariantCultureIgnoreCase))
                 type = EveryParserType.DateTime;
             else
             {

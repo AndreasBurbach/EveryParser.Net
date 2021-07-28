@@ -90,12 +90,12 @@ convert_function_term:
 	| RadianToGrad expression ROUNDBRACKETCLOSED	# Convert_RadianToGrad;
 
 datetime_term:
-	DATETIME expression ROUNDBRACKETCLOSED																											# DateTime_Expression
-	| DATETIME expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED																		# DateTime_DateEntry
-	| DATETIME expression KOMMA expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED														# DateTime_DateHour
-	| DATETIME expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED									# DateTime_DateHourMinute
-	| DATETIME expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED					# DateTime_DateHourMinuteSeconds
-	| DATETIME expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED	# DateTime_Full;
+	DateTime expression ROUNDBRACKETCLOSED																											# DateTime_Expression
+	| DateTime expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED																		# DateTime_DateEntry
+	| DateTime expression KOMMA expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED														# DateTime_DateHour
+	| DateTime expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED									# DateTime_DateHourMinute
+	| DateTime expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED					# DateTime_DateHourMinuteSeconds
+	| DateTime expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED	# DateTime_Full;
 
 array_slicing_term:
 	EDGEBRACKETOPEN expression EDGEBRACKETCLOSED										# ArraySlicing_Indexing
@@ -115,60 +115,60 @@ check_function_term:
 	| IsNumber expression ROUNDBRACKETCLOSED		# CheckFunction_IsNumber
 	| IsString expression ROUNDBRACKETCLOSED		# CheckFunction_IsString
 	| IsWhitespace expression ROUNDBRACKETCLOSED	# CheckFunction_IsWhitespace
-	| HASANY expression ROUNDBRACKETCLOSED			# CheckFunction_HasAny
-	| HASDUPLICATES expression ROUNDBRACKETCLOSED	# CheckFunction_HasDuplicates;
+	| HasAny expression ROUNDBRACKETCLOSED			# CheckFunction_HasAny
+	| HasDuplicates expression ROUNDBRACKETCLOSED	# CheckFunction_HasDuplicates;
 
 default_function_term:
-	CONCAT expression KOMMA expression ROUNDBRACKETCLOSED										# Function_Concat
-	| COUNT expression ROUNDBRACKETCLOSED														# Function_Count
-	| DISTINCT expression ROUNDBRACKETCLOSED													# Function_Distinc
-	| DIFFERENCE expression KOMMA expression ROUNDBRACKETCLOSED									# Function_Difference
+	Concat expression KOMMA expression ROUNDBRACKETCLOSED										# Function_Concat
+	| Count expression ROUNDBRACKETCLOSED														# Function_Count
+	| Distinct expression ROUNDBRACKETCLOSED													# Function_Distinc
+	| Difference expression KOMMA expression ROUNDBRACKETCLOSED									# Function_Difference
 	| Except expression KOMMA expression ROUNDBRACKETCLOSED										# Function_Except
-	| INDEXOF expression KOMMA expression ROUNDBRACKETCLOSED									# Function_IndexOf
-	| INDEXOF expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED					# Function_IndexOfStart
-	| INDEXOF expression KOMMA expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED	# Function_IndexOfStartEnd
-	| LOWERCASE expression ROUNDBRACKETCLOSED													# Function_Lower
-	| REVERSE expression ROUNDBRACKETCLOSED														# Function_Reverse
-	| UPPERCASE expression ROUNDBRACKETCLOSED													# Function_Upper
-	| SORT expression ROUNDBRACKETCLOSED														# Function_Sort
+	| IndexOf expression KOMMA expression ROUNDBRACKETCLOSED									# Function_IndexOf
+	| IndexOf expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED					# Function_IndexOfStart
+	| IndexOf expression KOMMA expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED	# Function_IndexOfStartEnd
+	| LowerCase expression ROUNDBRACKETCLOSED													# Function_Lower
+	| Reverse expression ROUNDBRACKETCLOSED														# Function_Reverse
+	| UpperCase expression ROUNDBRACKETCLOSED													# Function_Upper
+	| Sort expression ROUNDBRACKETCLOSED														# Function_Sort
 	| Trim expression ROUNDBRACKETCLOSED														# Function_Trim;
 
 math_function_term:
-	ABS expression ROUNDBRACKETCLOSED																# Math_Abs
-	| ACOS expression ROUNDBRACKETCLOSED															# Math_ACos
-	| ACOSH expression ROUNDBRACKETCLOSED															# Math_ACosH
-	| ASIN expression ROUNDBRACKETCLOSED															# Math_ASin
-	| ASINH expression ROUNDBRACKETCLOSED															# Math_ASinH
-	| ATAN expression ROUNDBRACKETCLOSED															# Math_ATan
-	| ATAN2 expression KOMMA expression ROUNDBRACKETCLOSED											# Math_ATan2
-	| ATANH expression ROUNDBRACKETCLOSED															# Math_ATanH
-	| CBRT expression ROUNDBRACKETCLOSED															# Math_Cbrt
-	| COS expression ROUNDBRACKETCLOSED																# Math_Cos
-	| COSH expression ROUNDBRACKETCLOSED															# Math_CosH
-	| CEILLING expression ROUNDBRACKETCLOSED														# Math_Ceilling
-	| CLAMP expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED							# Math_Clamp
-	| CROSSSUM expression ROUNDBRACKETCLOSED														# Math_CrossSum
-	| DERIVATIVE expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED					# Math_Derivative
-	| EXP expression ROUNDBRACKETCLOSED																# Math_Exp
-	| FLOOR expression ROUNDBRACKETCLOSED															# Math_Floor
-	| INTEGRATION expression KOMMA expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED	# Math_Integration
-	| LOG expression KOMMA expression ROUNDBRACKETCLOSED											# Math_Log
-	| LOG2 expression ROUNDBRACKETCLOSED															# Math_Log2
-	| LOG10 expression ROUNDBRACKETCLOSED															# Math_Log10
-	| MAX expression ROUNDBRACKETCLOSED																# Math_Max_Array
-	| MAX expression KOMMA expression ROUNDBRACKETCLOSED											# Math_Max_Two
-	| MIN expression ROUNDBRACKETCLOSED																# Math_Min_Array
-	| MIN expression KOMMA expression ROUNDBRACKETCLOSED											# Math_Min_Two
-	| POWER expression KOMMA expression ROUNDBRACKETCLOSED											# Math_Power
-	| ROUND expression ROUNDBRACKETCLOSED															# Math_Round_Not_Decimal
-	| ROUND expression KOMMA expression ROUNDBRACKETCLOSED											# Math_Round_Decimal
-	| ROOT expression KOMMA expression ROUNDBRACKETCLOSED											# Math_Root
-	| SIN expression ROUNDBRACKETCLOSED																# Math_Sin
-	| SINH expression ROUNDBRACKETCLOSED															# Math_SinH
-	| SQRT expression ROUNDBRACKETCLOSED															# Math_Sqrt
-	| TAN expression ROUNDBRACKETCLOSED																# Math_Tan
-	| TANH expression ROUNDBRACKETCLOSED															# Math_TanH
-	| TRUNCATE expression ROUNDBRACKETCLOSED														# Math_Truncate
+	Abs expression ROUNDBRACKETCLOSED																# Math_Abs
+	| ACos expression ROUNDBRACKETCLOSED															# Math_ACos
+	| ACosH expression ROUNDBRACKETCLOSED															# Math_ACosH
+	| ASin expression ROUNDBRACKETCLOSED															# Math_ASin
+	| ASinH expression ROUNDBRACKETCLOSED															# Math_ASinH
+	| ATan expression ROUNDBRACKETCLOSED															# Math_ATan
+	| ATan2 expression KOMMA expression ROUNDBRACKETCLOSED											# Math_ATan2
+	| ATanH expression ROUNDBRACKETCLOSED															# Math_ATanH
+	| Cbrt expression ROUNDBRACKETCLOSED															# Math_Cbrt
+	| Cos expression ROUNDBRACKETCLOSED																# Math_Cos
+	| CosH expression ROUNDBRACKETCLOSED															# Math_CosH
+	| Ceilling expression ROUNDBRACKETCLOSED														# Math_Ceilling
+	| Clamp expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED							# Math_Clamp
+	| CrossSum expression ROUNDBRACKETCLOSED														# Math_CrossSum
+	| Derivative expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED					# Math_Derivative
+	| Exp expression ROUNDBRACKETCLOSED																# Math_Exp
+	| Floor expression ROUNDBRACKETCLOSED															# Math_Floor
+	| Integration expression KOMMA expression KOMMA expression KOMMA expression ROUNDBRACKETCLOSED	# Math_Integration
+	| Log expression KOMMA expression ROUNDBRACKETCLOSED											# Math_Log
+	| Log2 expression ROUNDBRACKETCLOSED															# Math_Log2
+	| Log10 expression ROUNDBRACKETCLOSED															# Math_Log10
+	| Max expression ROUNDBRACKETCLOSED																# Math_Max_Array
+	| Max expression KOMMA expression ROUNDBRACKETCLOSED											# Math_Max_Two
+	| Min expression ROUNDBRACKETCLOSED																# Math_Min_Array
+	| Min expression KOMMA expression ROUNDBRACKETCLOSED											# Math_Min_Two
+	| Power expression KOMMA expression ROUNDBRACKETCLOSED											# Math_Power
+	| Round expression ROUNDBRACKETCLOSED															# Math_Round_Not_Decimal
+	| Round expression KOMMA expression ROUNDBRACKETCLOSED											# Math_Round_Decimal
+	| Root expression KOMMA expression ROUNDBRACKETCLOSED											# Math_Root
+	| Sin expression ROUNDBRACKETCLOSED																# Math_Sin
+	| SinH expression ROUNDBRACKETCLOSED															# Math_SinH
+	| Sqrt expression ROUNDBRACKETCLOSED															# Math_Sqrt
+	| Tan expression ROUNDBRACKETCLOSED																# Math_Tan
+	| TanH expression ROUNDBRACKETCLOSED															# Math_TanH
+	| Truncate expression ROUNDBRACKETCLOSED														# Math_Truncate
 	| Norm expression KOMMA expression ROUNDBRACKETCLOSED											# Math_Norm
 	| EulerNorm expression ROUNDBRACKETCLOSED														# Math_EulerNorm
 	| MaxNorm expression ROUNDBRACKETCLOSED															# Math_MaxNorm
@@ -176,29 +176,28 @@ math_function_term:
 	| LeastCommonMultiple expression KOMMA expression ROUNDBRACKETCLOSED							# Math_LeastCommonMultiple
 	| DotProduct expression KOMMA expression ROUNDBRACKETCLOSED										# Math_DotProduct
 	| Binomial expression KOMMA expression ROUNDBRACKETCLOSED										# Math_Binomila
-	| ACOT expression ROUNDBRACKETCLOSED															# Math_ACot
-	| ACOTH expression ROUNDBRACKETCLOSED															# Math_ACotH
-	| ACSC expression ROUNDBRACKETCLOSED															# Math_ACsc
-	| ACSCH expression ROUNDBRACKETCLOSED															# Math_ACscH
-	| ASEC expression ROUNDBRACKETCLOSED															# Math_ASec
-	| ASECH expression ROUNDBRACKETCLOSED															# Math_ASecH
-	| COT expression ROUNDBRACKETCLOSED																# Math_Cot
-	| COTH expression ROUNDBRACKETCLOSED															# Math_CotH
-	| CSC expression ROUNDBRACKETCLOSED																# Math_Csc
-	| CSCH expression ROUNDBRACKETCLOSED															# Math_CscH
-	| SEC expression ROUNDBRACKETCLOSED																# Math_Sec
-	| SECH expression ROUNDBRACKETCLOSED															# Math_SecH;
+	| ACot expression ROUNDBRACKETCLOSED															# Math_ACot
+	| ACotH expression ROUNDBRACKETCLOSED															# Math_ACotH
+	| ACsc expression ROUNDBRACKETCLOSED															# Math_ACsc
+	| ACscH expression ROUNDBRACKETCLOSED															# Math_ACscH
+	| ASec expression ROUNDBRACKETCLOSED															# Math_ASec
+	| ASecH expression ROUNDBRACKETCLOSED															# Math_ASecH
+	| Cot expression ROUNDBRACKETCLOSED																# Math_Cot
+	| CotH expression ROUNDBRACKETCLOSED															# Math_CotH
+	| Csc expression ROUNDBRACKETCLOSED																# Math_Csc
+	| CscH expression ROUNDBRACKETCLOSED															# Math_CscH
+	| Sec expression ROUNDBRACKETCLOSED																# Math_Sec
+	| SecH expression ROUNDBRACKETCLOSED															# Math_SecH;
 
 statistic_math_function_term:
-	COVARIANCE expression KOMMA expression ROUNDBRACKETCLOSED	# MathStatistic_CoVariance
-	| MEAN expression ROUNDBRACKETCLOSED						# MathStatistic_Mean
-	| MEDIAN expression ROUNDBRACKETCLOSED						# MathStatistic_Median
-	| PEARSON expression KOMMA expression ROUNDBRACKETCLOSED	# MathStatistic_Pearson
-	| QUANTIL expression KOMMA expression ROUNDBRACKETCLOSED	# MathStatistic_Quantil
-	| SPEARMAN expression KOMMA expression ROUNDBRACKETCLOSED	# MathStatistic_Spearman
-	| STD expression ROUNDBRACKETCLOSED							# MathStatistic_StD
-	| MEDIAN expression ROUNDBRACKETCLOSED						# MathStatistic_Median
-	| VARIANCE expression ROUNDBRACKETCLOSED					# MathStatistic_Variance;
+	CoVariance expression KOMMA expression ROUNDBRACKETCLOSED	# MathStatistic_CoVariance
+	| Mean expression ROUNDBRACKETCLOSED						# MathStatistic_Mean
+	| Median expression ROUNDBRACKETCLOSED						# MathStatistic_Median
+	| Pearson expression KOMMA expression ROUNDBRACKETCLOSED	# MathStatistic_Pearson
+	| Quantil expression KOMMA expression ROUNDBRACKETCLOSED	# MathStatistic_Quantil
+	| Spearman expression KOMMA expression ROUNDBRACKETCLOSED	# MathStatistic_Spearman
+	| Std expression ROUNDBRACKETCLOSED							# MathStatistic_StD
+	| Variance expression ROUNDBRACKETCLOSED					# MathStatistic_Variance;
 
 expr_args: expression | expression KOMMA expr_args;
 
@@ -259,105 +258,105 @@ E: 'e';
 PI: 'pi';
 
 //default math function tokens
-ABS: 'abs(';
-ACOS: 'acos(';
-ACOSH: 'acosh(';
-ASIN: 'asin(';
-ASINH: 'asinh(';
-ATAN: 'atan(';
-ATAN2: 'atan2(';
-ATANH: 'atanh(';
-CBRT: 'cbrt(';
-COS: 'cos(';
-COSH: 'cosh(';
-CEILLING: 'ceilling(';
-CLAMP: 'clamp(';
-CROSSSUM: 'crosssum(';
-DERIVATIVE: 'derivative(';
-EXP: 'exp(';
-FLOOR: 'floor(';
-INTEGRATION: 'integration(';
-LOG: 'log(';
-LOG2: 'log2(';
-LOG10: 'log10(';
-MAX: 'max(';
-MIN: 'min(';
-POWER: 'pow(';
-ROUND: 'round(';
-ROOT: 'root(';
-SIN: 'sin(';
-SINH: 'sinh(';
-SQRT: 'sqrt(';
-TAN: 'tan(';
-TANH: 'tanh(';
-TRUNCATE: 'truncate(';
-Norm: 'norm(';
-EulerNorm: 'eulernorm(';
-MaxNorm: 'maxnorm(';
-GreatestCommonDivisor: 'gcd(';
-LeastCommonMultiple: 'lcm(';
-DotProduct: 'dotproduct(';
-Binomial: 'binomial(';
-ACOT: 'acot(';
-ACOTH: 'acoth(';
-ACSC: 'acsc(';
-ACSCH: 'acsch(';
-ASEC: 'asec(';
-ASECH: 'asech(';
-COT: 'cot(';
-COTH: 'coth(';
-CSC: 'csc(';
-CSCH: 'csch(';
-SEC: 'sec(';
-SECH: 'sech(';
+Abs: 'Abs(';
+ACos: 'ACos(';
+ACosH: 'ACosH(';
+ASin: 'ASin(';
+ASinH: 'ASinH(';
+ATan: 'ATan(';
+ATan2: 'ATan2(';
+ATanH: 'ATanH(';
+Cbrt: 'Cbrt(';
+Cos: 'Cos(';
+CosH: 'CosH(';
+Ceilling: 'Ceilling(';
+Clamp: 'Clamp(';
+CrossSum: 'CrossSum(';
+Derivative: 'Derivative(';
+Exp: 'Exp(';
+Floor: 'Floor(';
+Integration: 'Integration(';
+Log: 'Log(';
+Log2: 'Log2(';
+Log10: 'Log10(';
+Max: 'Max(';
+Min: 'Min(';
+Power: 'Pow(';
+Round: 'Round(';
+Root: 'Root(';
+Sin: 'Sin(';
+SinH: 'SinH(';
+Sqrt: 'Sqrt(';
+Tan: 'Tan(';
+TanH: 'TanH(';
+Truncate: 'Truncate(';
+Norm: 'Norm(';
+EulerNorm: 'EulerNorm(';
+MaxNorm: 'MaxNorm(';
+GreatestCommonDivisor: 'Gcd(';
+LeastCommonMultiple: 'Lcm(';
+DotProduct: 'DotProduct(';
+Binomial: 'Binomial(';
+ACot: 'ACot(';
+ACotH: 'ACotH(';
+ACsc: 'ACsc(';
+ACscH: 'ACscH(';
+ASec: 'ASec(';
+ASecH: 'ASecH(';
+Cot: 'Cot(';
+CotH: 'CotH(';
+Csc: 'Csc(';
+CscH: 'CscH(';
+Sec: 'Sec(';
+SecH: 'SecH(';
 
 //statistic math function tokens
-COVARIANCE: 'covariance(';
-MEAN: 'mean(';
-MEDIAN: 'median(';
-PEARSON: 'pearson(';
-QUANTIL: 'quantil(';
-SPEARMAN: 'spearman(';
-STD: 'std(';
-VARIANCE: 'variance(';
+CoVariance: 'CoVariance(';
+Mean: 'Mean(';
+Median: 'Median(';
+Pearson: 'Pearson(';
+Quantil: 'Quantil(';
+Spearman: 'Spearman(';
+Std: 'Std(';
+Variance: 'Variance(';
 
 //default function tokens
-CONCAT: 'concat(';
-COUNT: 'count(';
-DISTINCT: 'distinct(';
-DIFFERENCE: 'difference(';
-HASDUPLICATES: 'hasduplicates(';
-DATETIME: 'date(';
-Except: 'except(';
-INDEXOF: 'indexOf(';
-LOWERCASE: 'lower(';
-REVERSE: 'reverse(';
-UPPERCASE: 'upper(';
-HASANY: 'hasany(';
-SORT: 'sort(';
-Trim: 'trim(';
+Concat: 'Concat(';
+Count: 'Count(';
+Distinct: 'Distinct(';
+Difference: 'Difference(';
+HasDuplicates: 'HasDuplicates(';
+DateTime: 'DateTime(';
+Except: 'Except(';
+IndexOf: 'IndexOf(';
+LowerCase: 'Lower(';
+Reverse: 'Reverse(';
+UpperCase: 'Upper(';
+HasAny: 'HasAny(';
+Sort: 'Sort(';
+Trim: 'Trim(';
 
 //check type function tokens
-IsString: 'isstring(';
-IsNumber: 'isnumber(';
-IsBoolean: 'isboolean(';
-IsDateTime: 'isdatetime(';
-IsArray: 'isarray(';
-IsNull: 'isnull(';
-IsWhitespace: 'iswhitespace(';
+IsString: 'IsString(';
+IsNumber: 'IsNumber(';
+IsBoolean: 'IsBoolean(';
+IsDateTime: 'IsDatetime(';
+IsArray: 'IsArray(';
+IsNull: 'IsNull(';
+IsWhitespace: 'IsWhitespace(';
 
 //converter function tokens
-ToNumber: 'tonumber(';
-ToString: 'tostring(';
-ToBoolean: 'toboolean(';
-ToArray: 'toarray(';
-DegreeToGrad: 'degreetograd(';
-DegreeToRadian: 'degreetoradian(';
-GradToDegree: 'gradtodegree(';
-GradToRadian: 'gradtoradian(';
-RadianToDegree: 'radiantodegree(';
-RadianToGrad: 'radiantograd(';
+ToNumber: 'ToNumber(';
+ToString: 'ToString(';
+ToBoolean: 'ToBoolean(';
+ToArray: 'ToArray(';
+DegreeToGrad: 'DegreeToGrad(';
+DegreeToRadian: 'DegreeToRadian(';
+GradToDegree: 'GradToDegree(';
+GradToRadian: 'GradToRadian(';
+RadianToDegree: 'RadianToDegree(';
+RadianToGrad: 'RadianToGrad(';
 
 //random function tokens
-RndDecimal: 'rnddecimal(';
-RndInteger: 'rndinteger(';
+RndDecimal: 'RndDecimal(';
+RndInteger: 'RndInteger(';

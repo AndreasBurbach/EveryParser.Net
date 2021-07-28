@@ -7,7 +7,7 @@ namespace EveryParser.Test.ExpressionTest
         [Fact]
         public void Test()
         {
-            Assert.Equal(1, Expression.CalculateDecimal("count([1,2,3]) // max([1,2,3])"));
+            Assert.Equal(1, Expression.CalculateDecimal("Count([1,2,3]) // Max([1,2,3])"));
         }
     }
 }

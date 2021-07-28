@@ -7,17 +7,17 @@ namespace EveryParser.Test.ExpressionTest
         [Fact]
         public void Test()
         {
-            Assert.NotNull(Expression.CalculateDecimal("rnddecimal()"));
-            Assert.NotNull(Expression.CalculateDecimal("rnddecimal(1,10)"));
+            Assert.NotNull(Expression.CalculateDecimal("RndDecimal()"));
+            Assert.NotNull(Expression.CalculateDecimal("RndDecimal(1,10)"));
 
-            Assert.NotEmpty(Expression.CalculateArray("rnddecimal(5)"));
-            Assert.NotEmpty(Expression.CalculateArray("rnddecimal(5, 1, 10)"));
+            Assert.NotEmpty(Expression.CalculateArray("RndDecimal(5)"));
+            Assert.NotEmpty(Expression.CalculateArray("RndDecimal(5, 1, 10)"));
 
-            Assert.NotNull(Expression.CalculateDecimal("rndinteger()"));
-            Assert.NotNull(Expression.CalculateDecimal("rndinteger(1,10)"));
+            Assert.NotNull(Expression.CalculateDecimal("RndInteger()"));
+            Assert.NotNull(Expression.CalculateDecimal("RndInteger(1,10)"));
 
-            Assert.NotEmpty(Expression.CalculateArray("rndinteger(5)"));
-            Assert.NotEmpty(Expression.CalculateArray("rndinteger(5, 1, 10)"));
+            Assert.NotEmpty(Expression.CalculateArray("RndInteger(5)"));
+            Assert.NotEmpty(Expression.CalculateArray("RndInteger(5, 1, 10)"));
         }
     }
 }
