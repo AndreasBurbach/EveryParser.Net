@@ -7,7 +7,7 @@ namespace EveryParser.Test.ExpressionTest
         [Fact]
         public void TestArgumentRecognition()
         {
-            string[] result = Expression.GetArgumentNames("variable1 + variable2 + objVar.variable.test");
+            string[] result = Expression.GetFormularArgumentNames("variable1 + variable2 + objVar.variable.test");
 
             Assert.Equal(3, result.Length);
             Assert.Contains("variable1", result);

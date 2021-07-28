@@ -71,7 +71,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
 
                 double result = _randomizer.Next(min, max);
 
-                if (result == min)
+                if ((int)result == min)
                     result += Math.Abs(_randomizer.NextDouble());
                 else
                     result += _randomizer.NextDouble();
@@ -110,7 +110,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
                  {
                      double res = _randomizer.Next(min, max);
 
-                     if (res == min)
+                     if ((int)res == min)
                          res += Math.Abs(_randomizer.NextDouble());
                      else
                          res += _randomizer.NextDouble();

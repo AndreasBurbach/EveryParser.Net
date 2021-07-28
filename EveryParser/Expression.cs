@@ -16,7 +16,7 @@ namespace EveryParser
 
         private SortedList<string, object> _arguments;
         private (ErrorCode, string)[] _errorsOfLastCalculation;
-        private SyntaxErrorListener _syntaxErrorListener;
+        private readonly SyntaxErrorListener _syntaxErrorListener;
 
         public bool HasErrors => !(_errorsOfLastCalculation is null) && _errorsOfLastCalculation.Any();
 
@@ -77,7 +77,11 @@ namespace EveryParser
         /// <returns>object array</returns>
         public static object[] CalculateArray(string formular) => new Expression(formular).CalculateArray();
 
-        public static string[] GetArgumentNames(string formular) => new Expression(formular).GetArgumentNames();
+        /// <summary>
+        /// Returns the names of the variables inside of the formular for the calculation
+        /// </summary>
+        /// <returns>string array</returns>
+        public static string[] GetFormularArgumentNames(string formular) => new Expression(formular).GetFormularArgumentNames();
 
         /// <summary>
         /// Returns the possible type of the result of the formular, e.g. string, number, etc.
@@ -206,10 +210,34 @@ namespace EveryParser
         }
 
         /// <summary>
-        /// Returns the names of the variables inside of the formular
+        /// Removes a specific argument for the calculation
+        /// </summary>
+        /// <param name="name">Name of Argument</param>
+        public void RemoveArgument(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentNullException(nameof(name));
+
+            if (_arguments.ContainsKey(name))
+                _arguments.Remove(name);
+        }
+
+        /// <summary>
+        /// Removed everythin inside the Arguments for the calculation
+        /// </summary>
+        public void ClearArguments() => _arguments.Clear();
+
+        /// <summary>
+        /// Returns all names of the added Arguments
+        /// </summary>
+        /// <returns>Array of strings</returns>
+        public string[] GetAddedArguments() => _arguments.Keys.ToArray();
+
+        /// <summary>
+        /// Returns the names of the variables inside of the formular for the calculation
         /// </summary>
         /// <returns>string array</returns>
-        public string[] GetArgumentNames()
+        public string[] GetFormularArgumentNames()
         {
             var listener = new EveryGrammarArgumentsListener();
             ParseTreeWalker.Default.Walk(listener, GetParser(_formular));
