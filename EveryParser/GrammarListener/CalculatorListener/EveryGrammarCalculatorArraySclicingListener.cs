@@ -1,5 +1,6 @@
 ﻿using Antlr4.Runtime;
 using Antlr4.Runtime.Misc;
+using EveryParser.GrammarListener;
 using EveryParser.LinQReplaces;
 using System;
 using System.Collections.Generic;
@@ -8,88 +9,7 @@ namespace EveryParser.CalculatorListener
 {
     public partial class EveryGrammarCalculatorListener
     {
-        /// <summary>
-        /// Enter a parse tree produced by the <c>ArraySlicing_Indexing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void EnterArraySlicing_Indexing([NotNull] EveryGrammarParser.ArraySlicing_IndexingContext context)
-        {
-            Node.ChildCaluclationName = "ArraySlicing_Indexing";
-        }
-
-        /// <summary>
-        /// Enter a parse tree produced by the <c>ArraySlicing_Slicing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void EnterArraySlicing_Slicing([NotNull] EveryGrammarParser.ArraySlicing_SlicingContext context)
-        {
-            Node.ChildCaluclationName = "ArraySlicing_Slicing";
-        }
-
-        /// <summary>
-        /// Enter a parse tree produced by the <c>ArraySlicing_StepSlicing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void EnterArraySlicing_StepSlicing([NotNull] EveryGrammarParser.ArraySlicing_StepSlicingContext context)
-        {
-            Node.ChildCaluclationName = "ArraySlicing_StepSlicing";
-        }
-
-        /// <summary>
-        /// Enter a parse tree produced by the <c>ArraySlicing_StartSlicing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void EnterArraySlicing_StartSlicing([NotNull] EveryGrammarParser.ArraySlicing_StartSlicingContext context)
-        {
-            Node.ChildCaluclationName = "ArraySlicing_StartSlicing";
-        }
-
-        /// <summary>
-        /// Enter a parse tree produced by the <c>ArraySlicing_StartStepSlicing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void EnterArraySlicing_StartStepSlicing([NotNull] EveryGrammarParser.ArraySlicing_StartStepSlicingContext context)
-        {
-            Node.ChildCaluclationName = "ArraySlicing_StartStepSlicing";
-        }
-
-        /// <summary>
-        /// Enter a parse tree produced by the <c>ArraySlicing_EndSlicing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void EnterArraySlicing_EndSlicing([NotNull] EveryGrammarParser.ArraySlicing_EndSlicingContext context)
-        {
-            Node.ChildCaluclationName = "ArraySlicing_EndSlicing";
-        }
-
-        /// <summary>
-        /// Enter a parse tree produced by the <c>ArraySlicing_EndStepSlicing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void EnterArraySlicing_EndStepSlicing([NotNull] EveryGrammarParser.ArraySlicing_EndStepSlicingContext context)
-        {
-            Node.ChildCaluclationName = "ArraySlicing_EndStepSlicing";
-        }
-
-        /// <summary>
-        /// Enter a parse tree produced by the <c>ArraySlicing_AllStepSlicing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void EnterArraySlicing_AllStepSlicing([NotNull] EveryGrammarParser.ArraySlicing_AllStepSlicingContext context)
-        {
-            Node.ChildCaluclationName = "ArraySlicing_AllStepSlicing";
-        }
+        private ArraySlicingType _lastArraySlicingType;
 
         /// <summary>
         /// Enter a parse tree produced by the <c>ArraySlicing</c>
@@ -110,6 +30,94 @@ namespace EveryParser.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitArraySlicing([NotNull] EveryGrammarParser.ArraySlicingContext context)
         {
+            ArraySlicing(context, _lastArraySlicingType);
+        }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>ArraySlicing_Indexing</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
+        /// <para>The default implementation does nothing.</para>
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitArraySlicing_Indexing([NotNull] EveryGrammarParser.ArraySlicing_IndexingContext context)
+        {
+            _lastArraySlicingType = ArraySlicingType.Indexing;
+        }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>ArraySlicing_Slicing</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
+        /// <para>The default implementation does nothing.</para>
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitArraySlicing_Slicing([NotNull] EveryGrammarParser.ArraySlicing_SlicingContext context)
+        {
+            _lastArraySlicingType = ArraySlicingType.Slicing;
+        }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>ArraySlicing_StepSlicing</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
+        /// <para>The default implementation does nothing.</para>
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitArraySlicing_StepSlicing([NotNull] EveryGrammarParser.ArraySlicing_StepSlicingContext context)
+        {
+            _lastArraySlicingType = ArraySlicingType.StepSlicing;
+        }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>ArraySlicing_StartSlicing</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitArraySlicing_StartSlicing([NotNull] EveryGrammarParser.ArraySlicing_StartSlicingContext context)
+        {
+            _lastArraySlicingType = ArraySlicingType.StartSlicing;
+        }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>ArraySlicing_StartStepSlicing</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitArraySlicing_StartStepSlicing([NotNull] EveryGrammarParser.ArraySlicing_StartStepSlicingContext context)
+        {
+            _lastArraySlicingType = ArraySlicingType.StartStepSlicing;
+        }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>ArraySlicing_EndSlicing</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitArraySlicing_EndSlicing([NotNull] EveryGrammarParser.ArraySlicing_EndSlicingContext context)
+        {
+            _lastArraySlicingType = ArraySlicingType.EndSlicing;
+        }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>ArraySlicing_EndStepSlicing</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitArraySlicing_EndStepSlicing([NotNull] EveryGrammarParser.ArraySlicing_EndStepSlicingContext context)
+        {
+            _lastArraySlicingType = ArraySlicingType.EndStepSlicing;
+        }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>ArraySlicing_AllStepSlicing</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitArraySlicing_AllStepSlicing([NotNull] EveryGrammarParser.ArraySlicing_AllStepSlicingContext context)
+        {
+            _lastArraySlicingType = ArraySlicingType.AllStepSlicing;
+        }
+
+        private void ArraySlicing([NotNull] ParserRuleContext context, ArraySlicingType arraySlicingType)
+        {
             if (!ErrorCollector.CheckHasParams(context, Node.Children))
             {
                 Node.Value = null;
@@ -117,27 +125,23 @@ namespace EveryParser.CalculatorListener
                 return;
             }
 
-            var childValues = Node.Children.Select(child => child.Value).ToArray();
+            int parametersCount = arraySlicingType.GetParameterCount();
 
-            if (ErrorCollector.CheckIsNull(context, childValues) || !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
+            var childValues = Node.Children.GetRange(1, parametersCount - 1).Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, parametersCount - 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
             {
                 Node.Value = null;
                 Node = Node.Parent;
                 return;
             }
 
-            if (childValues.Length < 2 || childValues.Length > 4)
-            {
-                ErrorCollector.AddError(context, ErrorCode.ArraySlicingNotCorrect, "The parameter count for slicing the array is not correct!");
-                Node.Value = null;
-                Node = Node.Parent;
-                return;
-            }
-
-            var array = childValues[0] as List<object>;
+            var array = Node.Children[0].Value as List<object>;
             if (array is null)
             {
-                string text = childValues[0] as string;
+                string text = Node.Children[0].Value as string;
                 if (string.IsNullOrWhiteSpace(text))
                 {
                     ErrorCollector.AddError(context, ErrorCode.FirstIsNotArray, "The first parameter musst be an array or string!");
@@ -149,120 +153,42 @@ namespace EveryParser.CalculatorListener
                 array = new List<object>(Array.ConvertAll(text.ToCharArray(), x => (object)x));
             }
 
-            switch (Node.ChildCaluclationName)
+            switch (arraySlicingType)
             {
-                case "ArraySlicing_Indexing":
-                    if (childValues.Length < 2 || childValues.Length > 2)
-                    {
-                        ErrorCollector.AddError(context, ErrorCode.ArraySlicingNotCorrect, "The parameter count for slicing the array (ArraySlicing_Indexing) is not correct!");
-                        Node.Value = null;
-                        Node = Node.Parent;
-                        return;
-                    }
-
-                    Node.Value = SliceArray(context, array, childValues[1]);
+                case ArraySlicingType.Indexing:
+                    Node.Value = SliceArray(context, array, childValues[0]);
                     break;
 
-                case "ArraySlicing_Slicing":
-                    if (childValues.Length != 3)
-                    {
-                        ErrorCollector.AddError(context, ErrorCode.ArraySlicingNotCorrect, "The parameter count for slicing the array (ArraySlicing_Slicing) is not correct!");
-                        Node.Value = null;
-                        Node = Node.Parent;
-                        return;
-                    }
-
-                    Node.Value = SliceArrayFromTo(context, array, childValues[1], childValues[2]);
+                case ArraySlicingType.Slicing:
+                    Node.Value = SliceArrayFromTo(context, array, childValues[0], childValues[1]);
                     break;
 
-                case "ArraySlicing_StepSlicing":
-                    if (childValues.Length != 4)
-                    {
-                        ErrorCollector.AddError(context, ErrorCode.ArraySlicingNotCorrect, "The parameter count for slicing the array (ArraySlicing_StepSlicing) is not correct!");
-                        Node.Value = null;
-                        Node = Node.Parent;
-                        return;
-                    }
+                case ArraySlicingType.StepSlicing:
 
-                    Node.Value = SliceArrayFromToStep(context, array, childValues[1], childValues[2], childValues[3]);
+                    Node.Value = SliceArrayFromToStep(context, array, childValues[0], childValues[1], childValues[2]);
                     break;
 
-                case "ArraySlicing_StartSlicing":
-                    if (childValues.Length != 2)
-                    {
-                        ErrorCollector.AddError(context, ErrorCode.ArraySlicingNotCorrect, "The parameter count for slicing the array (ArraySlicing_StartSlicing) is not correct!");
-                        Node.Value = null;
-                        Node = Node.Parent;
-                        return;
-                    }
-                    Node.Value = SliceArrayFromTo(context, array, childValues[1], array.Count);
+                case ArraySlicingType.StartSlicing:
+                    Node.Value = SliceArrayFromTo(context, array, childValues[0], array.Count);
                     break;
 
-                case "ArraySlicing_StartStepSlicing":
-                    if (childValues.Length != 3)
-                    {
-                        ErrorCollector.AddError(context, ErrorCode.ArraySlicingNotCorrect, "The parameter count for slicing the array (ArraySlicing_StartStepSlicing) is not correct!");
-                        Node.Value = null;
-                        Node = Node.Parent;
-                        return;
-                    }
-                    Node.Value = SliceArrayFromToStep(context, array, childValues[1], array.Count, childValues[2]);
+                case ArraySlicingType.StartStepSlicing:
+                    Node.Value = SliceArrayFromToStep(context, array, childValues[0], array.Count, childValues[1]);
                     break;
 
-                case "ArraySlicing_EndSlicing":
-                    if (childValues.Length != 2)
-                    {
-                        ErrorCollector.AddError(context, ErrorCode.ArraySlicingNotCorrect, "The parameter count for slicing the array (ArraySlicing_EndSlicing) is not correct!");
-                        Node.Value = null;
-                        Node = Node.Parent;
-                        return;
-                    }
-
-                    Node.Value = SliceArrayFromTo(context, array, 0, childValues[1]);
+                case ArraySlicingType.EndSlicing:
+                    Node.Value = SliceArrayFromTo(context, array, 0, childValues[0]);
                     break;
 
-                case "ArraySlicing_EndStepSlicing":
-                    if (childValues.Length != 3)
-                    {
-                        ErrorCollector.AddError(context, ErrorCode.ArraySlicingNotCorrect, "The parameter count for slicing the array (ArraySlicing_EndStepSlicing) is not correct!");
-                        Node.Value = null;
-                        Node = Node.Parent;
-                        return;
-                    }
-
-                    Node.Value = SliceArrayFromToStep(context, array, 0, childValues[1], childValues[2]);
+                case ArraySlicingType.EndStepSlicing:
+                    Node.Value = SliceArrayFromToStep(context, array, 0, childValues[0], childValues[1]);
                     break;
 
-                case "ArraySlicing_AllStepSlicing":
-                    if (childValues.Length != 2)
-                    {
-                        ErrorCollector.AddError(context, ErrorCode.ArraySlicingNotCorrect, "The parameter count for slicing the array (ArraySlicing_AllStepSlicing) is not correct!");
-                        Node.Value = null;
-                        Node = Node.Parent;
-                        return;
-                    }
-
-                    Node.Value = SliceArrayFromToStep(context, array, 0, array.Count, childValues[1]);
+                case ArraySlicingType.AllStepSlicing:
+                    Node.Value = SliceArrayFromToStep(context, array, 0, array.Count, childValues[0]);
                     break;
 
                 default:
-                    break;
-            }
-
-            switch (childValues.Length)
-            {
-                case 2:
-                    break;
-
-                case 3:
-                    break;
-
-                case 4:
-                    break;
-
-                default:
-                    ErrorCollector.AddError(context, ErrorCode.ParamsCountNotCorrect, "Count of parameters for this function is not correct!");
-                    Node.Value = null;
                     break;
             }
 

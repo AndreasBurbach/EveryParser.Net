@@ -2,6 +2,7 @@
 using EveryParser.LinQReplaces;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 
 namespace EveryParser.CalculatorListener
@@ -163,11 +164,17 @@ namespace EveryParser.CalculatorListener
                 return;
             }
 
+            if (expectedDateParameters == 1)
+            {
+                Node.Value = CalculationHelper.CalcStringOrStringListUnary(context, ErrorCollector, x => DateTime.Parse(x, CultureInfo.InvariantCulture), Node.Children);
+                Node = Node.Parent;
+                return;
+            }
+
             var childValues = Node.Children.Select(child => child.Value).ToArray();
 
             if (!ErrorCollector.CheckParamsCount(context, expectedDateParameters, childValues) ||
-                ErrorCollector.CheckIsNull(context, childValues) ||
-                !ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
+                ErrorCollector.CheckIsNull(context, childValues))
             {
                 SetErrorNodeFor_ExitFactor_DateTimeTerm();
                 return;
@@ -175,6 +182,13 @@ namespace EveryParser.CalculatorListener
 
             var date = new DateTime();
             var dateList = new List<DateTime>();
+
+            if (!ErrorCollector.CheckIsNumberOrArrayOfNumbers(context, childValues))
+            {
+                SetErrorNodeFor_ExitFactor_DateTimeTerm();
+                return;
+            }
+
             for (var datePartIndex = 0; datePartIndex < childValues.Length; datePartIndex++)
             {
                 var datePartList = childValues[datePartIndex] as List<object>;
@@ -231,7 +245,7 @@ namespace EveryParser.CalculatorListener
                 dateList = result.dateResultList;
             }
 
-            Node.Value = date;
+            Node.Value = dateList.Any() ? dateList.Select(d => (object)d) : (object)date;
             Node = Node.Parent;
         }
 

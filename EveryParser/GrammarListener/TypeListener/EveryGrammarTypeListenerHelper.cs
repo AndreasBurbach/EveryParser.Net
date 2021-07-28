@@ -220,7 +220,6 @@ namespace EveryParser.GrammarListener.TypeListener
             Node = Node.Parent;
         }
 
-
         private void CheckOnlyStringOrOnlyArraySameResult([NotNull] ParserRuleContext context)
         {
             if (ErrorCollector.CheckParamsCount(context, 2, Node.Children))
@@ -257,6 +256,38 @@ namespace EveryParser.GrammarListener.TypeListener
             return EveryParserType.Array;
         }
 
+        private EveryParserType GetSingleTypeOfArrayType(EveryParserType type)
+        {
+            switch (type)
+            {
+                case EveryParserType.Number:
+                    return EveryParserType.Number;
+
+                case EveryParserType.Boolean:
+                    return EveryParserType.Boolean;
+
+                case EveryParserType.String:
+                    return EveryParserType.String;
+
+                case EveryParserType.DateTime:
+                    return EveryParserType.DateTime;
+
+                case EveryParserType.ArrayOfNumber:
+                    return EveryParserType.Number;
+
+                case EveryParserType.ArrayOfBoolean:
+                    return EveryParserType.Boolean;
+
+                case EveryParserType.ArrayOfString:
+                    return EveryParserType.String;
+
+                case EveryParserType.ArrayOfDateTime:
+                    return EveryParserType.DateTime;
+            }
+
+            return EveryParserType.None;
+        }
+
         private bool IsNumberArray(List<TypeNode> children) => !children.Any(x => x.ValueType != EveryParserType.Number);
 
         private bool IsStringArray(List<TypeNode> children) => !children.Any(x => x.ValueType != EveryParserType.String);
@@ -273,24 +304,89 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="expectedDateParameters"></param>
         private void SetNodeForDateTimeValue([NotNull] ParserRuleContext context, int expectedDateParameters)
         {
-            if (ErrorCollector.CheckParamsCount(context, expectedDateParameters, Node.Children))
+            if (!ErrorCollector.CheckParamsCount(context, expectedDateParameters, Node.Children))
             {
                 Node.ValueType = EveryParserType.None;
                 Node = Node.Parent;
                 return;
             }
 
-            if (Node.Children.Any(v => !v.ValueType.IsNumber() && !v.ValueType.IsNumberArray() && !v.ValueType.IsNumberOrArrayOfNumbers()))
+            if (expectedDateParameters == 1)
             {
-                Node.ValueType = EveryParserType.None;
-                Node = Node.Parent;
-                return;
+                var childType = Node.Children[0].ValueType;
+                if (childType.IsString())
+                    Node.ValueType = EveryParserType.DateTime;
+                else if (childType.IsStringArray())
+                    Node.ValueType = EveryParserType.ArrayOfDateTime;
+                else if (childType.IsStringOrArrayOfStrings())
+                    Node.ValueType = EveryParserType.DateTime | EveryParserType.ArrayOfDateTime;
             }
-
-            if (Node.Children.Any(v => v.ValueType.IsNumberArray()))
-                Node.ValueType = EveryParserType.ArrayOfNumber;
             else
-                Node.ValueType = EveryParserType.Number;
+            {
+                if (Node.Children.Any(v => !v.ValueType.IsNumber() && !v.ValueType.IsNumberArray() && !v.ValueType.IsNumberOrArrayOfNumbers()))
+                {
+                    ErrorCollector.AddError(context, ErrorCode.IsNotNumberOrArrayOfNumbers, "One or more values are not number or array of numbers");
+                    Node.ValueType = EveryParserType.None;
+                    Node = Node.Parent;
+                    return;
+                }
+
+                if (Node.Children.Any(v => v.ValueType.IsNumberArray()))
+                    Node.ValueType = EveryParserType.ArrayOfDateTime;
+                else if (Node.Children.Any(v => v.ValueType.IsNumberOrArrayOfNumbers()))
+                    Node.ValueType = EveryParserType.DateTime | EveryParserType.ArrayOfDateTime;
+                else
+                    Node.ValueType = EveryParserType.DateTime;
+            }
+
+            Node = Node.Parent;
+        }
+
+        private void ArraySlicing([NotNull] ParserRuleContext context, ArraySlicingType arraySlicingType)
+        {
+            if (!ErrorCollector.CheckParamsCount(context, arraySlicingType.GetParameterCount(), Node.Children))
+            {
+                Node = Node.Parent;
+                return;
+            }
+
+            if (!Node.Children[0].ValueType.IsArrayType())
+            {
+                ErrorCollector.AddError(context, ErrorCode.FirstIsNotArray, "First parameter must be an array!");
+                Node = Node.Parent;
+                return;
+            }
+
+            var childrenTypes = Node.Children.GetRange(1, arraySlicingType.GetParameterCount() - 1).Select(x => x.ValueType);
+
+            if (childrenTypes.Any(v => !v.IsNumber() && !v.IsNumberArray() && !v.IsNumberOrArrayOfNumbers()))
+            {
+                ErrorCollector.AddError(context, ErrorCode.IsNotNumberOrArrayOfNumbers, "One or more values are not number or array of numbers");
+                Node = Node.Parent;
+                return;
+            }
+
+            //Issue here, we can not recognize arrays in arrays
+            switch (arraySlicingType)
+            {
+                case ArraySlicingType.Indexing:
+                    if (childrenTypes.Any(v => v.IsNumberArray()))
+                        Node.ValueType = Node.Children[0].ValueType;
+                    else if (childrenTypes.Any(v => v.IsNumberOrArrayOfNumbers()))
+                        Node.ValueType = GetSingleTypeOfArrayType(Node.Children[0].ValueType) | Node.Children[0].ValueType;
+                    else
+                        Node.ValueType = GetSingleTypeOfArrayType(Node.Children[0].ValueType);
+                    break;
+                case ArraySlicingType.Slicing:
+                case ArraySlicingType.StepSlicing:
+                case ArraySlicingType.StartSlicing:
+                case ArraySlicingType.StartStepSlicing:
+                case ArraySlicingType.EndSlicing:
+                case ArraySlicingType.EndStepSlicing:
+                case ArraySlicingType.AllStepSlicing:
+                    Node.ValueType = Node.Children[0].ValueType;
+                    break;
+            }
 
             Node = Node.Parent;
         }

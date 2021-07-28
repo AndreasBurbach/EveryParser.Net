@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Xunit;
 
 namespace EveryParser.Test.ExpressionTest
@@ -26,12 +27,19 @@ namespace EveryParser.Test.ExpressionTest
             var nowExpected = DateTime.Now;
 
             AssertDateTime(nowExpected, nowActual, CompareDateTime.second); //for comparing milliseconds the programm is too slow :-|
-            AssertDateTime(new DateTime(2021, 1, 1), Expression.CalculateDateTime("date(2021)"), CompareDateTime.day);
+
+            AssertDateTime(nowExpected, Expression.CalculateDateTime($"date(\"{nowExpected.ToString(CultureInfo.InvariantCulture)}\")"), CompareDateTime.second);
+            Assert.Equal(new object[] { DateTime.Parse(nowExpected.ToString(CultureInfo.InvariantCulture), CultureInfo.InvariantCulture),
+                DateTime.Parse(nowExpected.ToString(CultureInfo.InvariantCulture), CultureInfo.InvariantCulture) },
+                Expression.CalculateArray($"date([\"{nowExpected.ToString(CultureInfo.InvariantCulture)}\",\"{nowExpected.ToString(CultureInfo.InvariantCulture)}\"])"));
+
             AssertDateTime(new DateTime(2021, 2, 3), Expression.CalculateDateTime("date(2021,2,3)"), CompareDateTime.day);
             AssertDateTime(new DateTime(2021, 2, 3, 4, 0, 0), Expression.CalculateDateTime("date(2021,2,3,4)"), CompareDateTime.second);
             AssertDateTime(new DateTime(2021, 2, 3, 4, 5, 0), Expression.CalculateDateTime("date(2021,2,3,4,5)"), CompareDateTime.second);
             AssertDateTime(new DateTime(2021, 2, 3, 4, 5, 6), Expression.CalculateDateTime("date(2021,2,3,4,5,6)"), CompareDateTime.second);
             AssertDateTime(new DateTime(2021, 2, 3, 4, 5, 6, 7), Expression.CalculateDateTime("date(2021,2,3,4,5,6,7)"), CompareDateTime.millisecond);
+
+            Assert.Equal(new object[] { new DateTime(2021, 2, 3, 4, 5, 6, 1), new DateTime(2021, 2, 3, 4, 5, 6, 2) }, Expression.CalculateArray("date(2021,2,3,4,5,6,[1,2])"));
         }
 
         private void AssertDateTime(DateTime? expected, DateTime? actual, CompareDateTime compareUpTo = CompareDateTime.millisecond)

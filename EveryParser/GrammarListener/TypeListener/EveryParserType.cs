@@ -14,9 +14,8 @@ namespace EveryParser.GrammarListener.TypeListener
         ArrayOfBoolean = 32,
         ArrayOfString = 64,
         ArrayOfDateTime = 128,
-        All = 256,
-        EmptyArray = 512,
-        Array = 1024,
+        EmptyArray = 256,
+        Array = 512,
     }
 
     public static class EveryParserTypeHelper

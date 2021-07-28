@@ -44,12 +44,12 @@ namespace EveryParser.Test.ExpressionTest
             Assert.Equal(MathArrayTest.ToDecimalArray(new object[] { 1 }), MathArrayTest.ToDecimalArray((result[0] as List<object>).ToArray()));
             Assert.Equal(MathArrayTest.ToDecimalArray(new object[] { 1, 4 }), MathArrayTest.ToDecimalArray((result[1] as List<object>).ToArray()));
 
-            result = Expression.CalculateArray("[1,2,3,4,5][0:5:[1,2]");
+            result = Expression.CalculateArray("[1,2,3,4,5][0:5:[1,2]]");
             Assert.Equal(2, result.Length);
             Assert.Equal(MathArrayTest.ToDecimalArray(new object[] { 1, 2, 3, 4, 5 }), MathArrayTest.ToDecimalArray((result[0] as List<object>).ToArray()));
             Assert.Equal(MathArrayTest.ToDecimalArray(new object[] { 1, 3, 5 }), MathArrayTest.ToDecimalArray((result[1] as List<object>).ToArray()));
 
-            result = Expression.CalculateArray("[1,2,3,4,5][[0,1]:[3,5]:[2,3]");
+            result = Expression.CalculateArray("[1,2,3,4,5][[0,1]:[3,5]:[2,3]]");
             Assert.Equal(2, result.Length);
             Assert.Equal(MathArrayTest.ToDecimalArray(new object[] { 1, 3 }), MathArrayTest.ToDecimalArray((result[0] as List<object>).ToArray()));
             Assert.Equal(MathArrayTest.ToDecimalArray(new object[] { 2, 5 }), MathArrayTest.ToDecimalArray((result[1] as List<object>).ToArray()));

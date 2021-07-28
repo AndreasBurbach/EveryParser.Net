@@ -310,6 +310,55 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitFactor_Brackets([NotNull] EveryGrammarParser.Factor_BracketsContext context) { }
 
+        /// <summary>
+        /// Enter a parse tree produced by the <c>ArraySlicing_Indexing</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void EnterArraySlicing_Indexing([NotNull] EveryGrammarParser.ArraySlicing_IndexingContext context) { }
+
+        /// <summary>
+        /// Enter a parse tree produced by the <c>ArraySlicing_Slicing</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void EnterArraySlicing_Slicing([NotNull] EveryGrammarParser.ArraySlicing_SlicingContext context) { }
+
+        /// <summary>
+        /// Enter a parse tree produced by the <c>ArraySlicing_StepSlicing</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void EnterArraySlicing_StepSlicing([NotNull] EveryGrammarParser.ArraySlicing_StepSlicingContext context) { }
+
+        /// <summary>
+        /// Enter a parse tree produced by the <c>ArraySlicing_StartStepSlicing</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void EnterArraySlicing_StartStepSlicing([NotNull] EveryGrammarParser.ArraySlicing_StartStepSlicingContext context) { }
+
+        /// <summary>
+        /// Enter a parse tree produced by the <c>ArraySlicing_EndSlicing</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void EnterArraySlicing_EndSlicing([NotNull] EveryGrammarParser.ArraySlicing_EndSlicingContext context) { }
+
+        /// <summary>
+        /// Enter a parse tree produced by the <c>ArraySlicing_EndStepSlicing</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void EnterArraySlicing_EndStepSlicing([NotNull] EveryGrammarParser.ArraySlicing_EndStepSlicingContext context) { }
+
+        /// <summary>
+        /// Enter a parse tree produced by the <c>ArraySlicing_AllStepSlicing</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void EnterArraySlicing_AllStepSlicing([NotNull] EveryGrammarParser.ArraySlicing_AllStepSlicingContext context) { }
+
         public void VisitTerminal(ITerminalNode node)
         {
         }

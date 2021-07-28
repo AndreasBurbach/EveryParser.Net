@@ -28,8 +28,6 @@ namespace EveryParser.GrammarListener.TypeListener
             ValueType = valueType;
         }
 
-        public string ChildCaluclationName { get; internal set; }
-
         public TypeNode AddChildNode(EveryParserType value = EveryParserType.None)
         {
             if (Children is null)
