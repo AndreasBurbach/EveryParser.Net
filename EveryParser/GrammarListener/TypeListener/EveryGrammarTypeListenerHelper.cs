@@ -32,7 +32,7 @@ namespace EveryParser.GrammarListener.TypeListener
             Node = Node.Parent;
         }
 
-        private void CheckNumberOrArrayOfNumbersBinary([NotNull] ParserRuleContext context)
+        private void CheckNumberOrArrayOfNumbersBinary([NotNull] ParserRuleContext context, EveryParserType singleTypeResult = EveryParserType.Number, EveryParserType arrayTypeResult = EveryParserType.ArrayOfNumber)
         {
             if (!ErrorCollector.CheckParamsCount(context, 2, Node.Children))
             {
@@ -44,13 +44,13 @@ namespace EveryParser.GrammarListener.TypeListener
             var parameterType2 = Node.Children[1].ValueType;
 
             if (parameterType1.IsNumber() && parameterType2.IsNumber())
-                Node.ValueType = EveryParserType.Number;
+                Node.ValueType = singleTypeResult;
             if ((parameterType1.IsNumber() && parameterType2.IsNumberArray()) ||
                 parameterType1.IsNumberArray() && parameterType2.IsNumber() ||
                 parameterType1.IsNumberArray() && parameterType2.IsNumberArray())
-                Node.ValueType = EveryParserType.ArrayOfNumber;
+                Node.ValueType = arrayTypeResult;
             if (parameterType1.IsNumberOrArrayOfNumbers() && parameterType2.IsNumberOrArrayOfNumbers())
-                Node.ValueType = EveryParserType.Number | EveryParserType.ArrayOfNumber;
+                Node.ValueType = singleTypeResult | arrayTypeResult;
             if (parameterType1.IsEmptyArray() && parameterType2.IsEmptyArray())
                 Node.ValueType = EveryParserType.EmptyArray;
 

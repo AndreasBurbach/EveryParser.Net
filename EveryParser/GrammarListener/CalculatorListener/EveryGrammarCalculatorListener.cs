@@ -195,6 +195,8 @@ namespace EveryParser.GrammarListener.CalculatorListener
 
             if (value2 is List<object> list2)
                 Node.Value = list2.Contains(value1);
+            else if (value2 is string v2)
+                Node.Value = v2.Contains(value1.ToString());
             else
             {
                 ErrorCollector.AddError(context, ErrorCode.SecondParamIsNotArray, "The second argument is not an array");
@@ -384,6 +386,8 @@ namespace EveryParser.GrammarListener.CalculatorListener
 
             if (value2 is List<object> list2)
                 Node.Value = !list2.Contains(value1);
+            else if (value2 is string v2)
+                Node.Value = !v2.Contains(value1.ToString());
             else
             {
                 ErrorCollector.AddError(context, ErrorCode.SecondParamIsNotArray, "The second argument is not an array");

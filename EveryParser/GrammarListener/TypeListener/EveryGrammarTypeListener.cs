@@ -155,8 +155,8 @@ namespace EveryParser.GrammarListener.TypeListener
             {
                 if (Node.Children[0].ValueType == EveryParserType.None)
                     ErrorCollector.AddError(context, ErrorCode.IsNotNumber, "First Parameter has no type!");
-                else if (!Node.Children[1].ValueType.IsArrayType())
-                    ErrorCollector.AddError(context, ErrorCode.IsNotNumber, "Second Parameter has not an Array!");
+                else if (!Node.Children[1].ValueType.IsArrayType() && !Node.Children[1].ValueType.IsString())
+                    ErrorCollector.AddError(context, ErrorCode.IsNotNumber, "Second Parameter is not an array or string!");
                 else
                     Node.ValueType = EveryParserType.Boolean;
             }
@@ -245,8 +245,8 @@ namespace EveryParser.GrammarListener.TypeListener
             {
                 if (Node.Children[0].ValueType == EveryParserType.None)
                     ErrorCollector.AddError(context, ErrorCode.IsNotNumber, "First Parameter has no type!");
-                else if (!Node.Children[1].ValueType.IsArrayType())
-                    ErrorCollector.AddError(context, ErrorCode.IsNotNumber, "Second Parameter has not an Array!");
+                else if (!Node.Children[1].ValueType.IsArrayType() && !Node.Children[1].ValueType.IsString())
+                    ErrorCollector.AddError(context, ErrorCode.IsNotNumber, "Second Parameter is not an array or string!");
                 else
                     Node.ValueType = EveryParserType.Boolean;
             }
@@ -291,7 +291,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitCheck_Greater([NotNull] EveryGrammarParser.Check_GreaterContext context)
         {
-            CheckNumberOrArrayOfNumbersBinary(context);
+            CheckNumberOrArrayOfNumbersBinary(context, EveryParserType.Boolean, EveryParserType.ArrayOfBoolean);
         }
 
         /// <summary>
@@ -311,7 +311,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitCheck_GreaterEqual([NotNull] EveryGrammarParser.Check_GreaterEqualContext context)
         {
-            CheckNumberOrArrayOfNumbersBinary(context);
+            CheckNumberOrArrayOfNumbersBinary(context, EveryParserType.Boolean, EveryParserType.ArrayOfBoolean);
         }
 
         /// <summary>
@@ -331,7 +331,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitCheck_Lower([NotNull] EveryGrammarParser.Check_LowerContext context)
         {
-            CheckNumberOrArrayOfNumbersBinary(context);
+            CheckNumberOrArrayOfNumbersBinary(context, EveryParserType.Boolean, EveryParserType.ArrayOfBoolean);
         }
 
         /// <summary>
@@ -351,7 +351,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitCheck_LowerEqual([NotNull] EveryGrammarParser.Check_LowerEqualContext context)
         {
-            CheckNumberOrArrayOfNumbersBinary(context);
+            CheckNumberOrArrayOfNumbersBinary(context, EveryParserType.Boolean, EveryParserType.ArrayOfBoolean);
         }
 
         /// <summary>
