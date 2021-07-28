@@ -1,4 +1,7 @@
 # EveryParser.Net
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/4c746a7333e6433882c4b1ff360a45be)](https://app.codacy.com/gh/AndreasBurbach/EveryParser.Net?utm_source=github.com&utm_medium=referral&utm_content=AndreasBurbach/EveryParser.Net&utm_campaign=Badge_Grade_Settings)
+
 Parser for everything in your life!
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/bf62aef3d51d4d56aaa4b4b28ee0b88e)](https://www.codacy.com/gh/AndreasBurbach/EveryParser.Net/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AndreasBurbach/EveryParser.Net&amp;utm_campaign=Badge_Grade)
