@@ -49,9 +49,10 @@
 
                 case ArraySlicingType.AllStepSlicing:
                     return 2;
-            }
 
-            return -1;
+                default:
+                    return -1;
+            }
         }
     }
 }

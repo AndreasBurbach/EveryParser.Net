@@ -87,6 +87,9 @@ namespace EveryParser.Test.ExpressionTest
                     case CompareDateTime.millisecond:
                         Assert.True(expected.Value.Millisecond == actual.Value.Millisecond, $"Millisecond is not same for expected {expected.ToAssertDateTimeString()} and actual {actual.ToAssertDateTimeString()}");
                         break;
+
+                    default:
+                        throw new InvalidOperationException();
                 }
             }
         }

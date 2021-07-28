@@ -48,7 +48,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
             else if (value is string sValue)
                 Node.Value = sValue.Select(x => (object)x.ToString());
             else if (TypeCheckHelper.IsNumber(value) || TypeCheckHelper.IsBoolean(value) || TypeCheckHelper.IsDateTime(value))
-                Node.Value = new List<object>() { value };
+                Node.Value = new List<object> { value };
 
             Node = Node.Parent;
         }

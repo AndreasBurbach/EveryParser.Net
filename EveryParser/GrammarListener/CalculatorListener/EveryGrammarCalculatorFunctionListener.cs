@@ -2,6 +2,7 @@
 using EveryParser.LinQReplaces;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace EveryParser.GrammarListener.CalculatorListener
@@ -296,7 +297,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitFunction_Lower([NotNull] EveryGrammarParser.Function_LowerContext context)
         {
-            Func<string, object> stringCalculation = x => x.ToLower();
+            Func<string, object> stringCalculation = x => x.ToLower(CultureInfo.InvariantCulture);
             Node.Value = CalculationHelper.CalcStringOrStringListUnary(context, ErrorCollector, stringCalculation, Node.Children);
             Node = Node.Parent;
         }
@@ -345,7 +346,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitFunction_Upper([NotNull] EveryGrammarParser.Function_UpperContext context)
         {
-            Func<string, object> stringCalculation = x => x.ToUpper();
+            Func<string, object> stringCalculation = x => x.ToUpper(CultureInfo.InvariantCulture);
             Node.Value = CalculationHelper.CalcStringOrStringListUnary(context, ErrorCollector, stringCalculation, Node.Children);
             Node = Node.Parent;
         }
