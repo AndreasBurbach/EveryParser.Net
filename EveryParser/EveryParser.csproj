@@ -7,6 +7,13 @@
     <Product>EveryParser.Net</Product>
     <Description>Parser for everything in you life!</Description>
     <Copyright>MIT</Copyright>
+    <RepositoryUrl>https://github.com/AndreasBurbach/EveryParser.Net</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/AndreasBurbach/EveryParser.Net</PackageProjectUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <PackageTags>Expression, Parser, Math</PackageTags>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
 
   <ItemGroup>

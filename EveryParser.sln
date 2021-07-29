@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EveryParser", "EveryParser\EveryParser.csproj", "{D0027704-49FE-437F-A0CF-419D8AE7C681}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EveryParser.Test", "EveryParser.Test\EveryParser.Test.csproj", "{6723F1B0-C361-4233-80E7-C6C5C0A1A851}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EveryParser.Test", "EveryParser.Test\EveryParser.Test.csproj", "{6723F1B0-C361-4233-80E7-C6C5C0A1A851}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
