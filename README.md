@@ -5,6 +5,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/bu1f6a74yc79ft83/branch/main?svg=true)](https://ci.appveyor.com/project/AndreasBurbach/everyparser-net/branch/main)
 
+[EveryParser.Net Version](https://www.nuget.org/packages/EveryParser.Net/) EveryParser.Net
 
 ## Description
 
