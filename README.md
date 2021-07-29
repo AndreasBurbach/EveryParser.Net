@@ -1,13 +1,34 @@
 # EveryParser.Net
-## Parser for everything in your life!
+
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/bf62aef3d51d4d56aaa4b4b28ee0b88e)](https://www.codacy.com/gh/AndreasBurbach/EveryParser.Net/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AndreasBurbach/EveryParser.Net&amp;utm_campaign=Badge_Grade)
 
-Makes use of ANTLR and Math.Net. Many thanks to their contributors.
+## Description
 
-Very Noice
+This parser is for "everything in your life!" as you need inside your projects.
+This parser is an easy to use expression parser library. It can not like the most parsers only calculate math, it can also calculate logical boolean expressions, working with strings calculation and date/time expressions.
 
+This project repository is only for .Net-Core we are currently working on an integration for many other programming languages. It's planed for Java, Python, Typescript and Ruby.
+
+## Installation Instructions
+
+The recommended way to get **EveryParser.Net** is to use NuGet. The following packages are provided and maintained in the public .
+
+## Usage
+
+The know how to use, look at our Wiki of this project.
+
+To create the C# classes from AntLR use the following command:
 java -jar antlr-4.9.2-complete.jar -Dlanguage=CSharp EveryGrammar.g4 -o ".antlr" -package "EveryParser"
 
-Need to add Case Insensitive functions
-https://github.com/antlr/antlr4/blob/master/doc/case-insensitive-lexing.md
+## Contributing
+
+We call it EveryParser and we mean it in all ways. If you think there is something missing or you need some more functions, let us know with an Issue or feel free to create a pull request.
+
+## Thanks
+
+Thanks to all contributors for this project. Also thanks to the team behind [ANTLR](https://github.com/antlr/antlr4), [Math.Net](https://github.com/mathnet/mathnet-numerics), [XUnit](https://github.com/xunit/xunit) and also [Microsoft .Net](https://github.com/dotnet/core).
+
+## License
+
+The project runs under the MIT License.
