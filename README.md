@@ -27,7 +27,7 @@ We call it EveryParser and we mean it in all ways. If you think there is somethi
 
 ## Thanks
 
-Thanks to all contributors for this project. Also thanks to the team behind AntLr, Math.Net, XUnit and also Microsoft .Net.
+Thanks to all contributors for this project. Also thanks to the team behind [ANTLR](https://github.com/antlr/antlr4), [Math.Net](https://github.com/mathnet/mathnet-numerics), [XUnit](https://github.com/xunit/xunit) and also [Microsoft .Net](https://github.com/dotnet/core).
 
 ## License
 
