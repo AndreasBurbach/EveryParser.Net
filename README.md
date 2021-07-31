@@ -36,10 +36,14 @@ If you just want to evaluate with no thinking of own parameters or errors:
 Results in => 0
 
 If you have an expression with variables from outside the formular:
-> ```cshapr
+> ```csharp
 > var expr = new Expression("variable1 + variable2");
-> expr.AddArgument("variable1", 1);
-> expr.AddArgument("variable2", 2);
+> var arguments = expr.GetFormularArgumentNames();
+> if (arguments.Any())
+> {
+>   expr.AddArgument("variable1", 1);
+>   expr.AddArgument("variable2", 2);
+> }
 > expr.CalculateDecimal();
 > ```
 
