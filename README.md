@@ -3,8 +3,6 @@
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/bf62aef3d51d4d56aaa4b4b28ee0b88e)](https://www.codacy.com/gh/AndreasBurbach/EveryParser.Net/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AndreasBurbach/EveryParser.Net&amp;utm_campaign=Badge_Grade)
 
-[![Build status](https://ci.appveyor.com/api/projects/status/bu1f6a74yc79ft83/branch/main?svg=true)](https://ci.appveyor.com/project/AndreasBurbach/everyparser-net/branch/main)
-
 [![NuGet Badge](https://buildstats.info/nuget/EveryParser.Net)](https://www.nuget.org/packages/EveryParser.Net/)
 
 ## Description
