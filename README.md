@@ -20,10 +20,41 @@ The recommended way to get **EveryParser.Net** is to use NuGet. The following pa
 
 ## Usage
 
-The know how to use, look at our Wiki of this project.
+The know how to use, look at our Wiki of this project or the quick start below.
+You can also check out the Tests written for this project.
 
 To create the C# classes from AntLR use the following command:
 java -jar antlr-4.9.2-complete.jar -Dlanguage=CSharp EveryGrammar.g4 -o ".antlr" -package "EveryParser"
+
+### Quick Start
+
+If you just want to evaluate with no thinking of own parameters or errors:
+> ```csharp
+> Expression.CalculateDecimal("IndexOf([1,2,3], 1)")
+> ```
+
+Results in => 0
+
+If you have an expression with variables from outside the formular:
+> ```cshapr
+> var expr = new Expression("variable1 + variable2");
+> expr.AddArgument("variable1", 1);
+> expr.AddArgument("variable2", 2);
+> expr.CalculateDecimal();
+> ```
+
+Results in => 3
+
+If you want to check for errors from the evaluation of an expression:
+> ```csharp
+> var expr = new Expression("# + ! * testfunc(1)");
+> expr.Calculate();
+> if (expr.HasErrors)
+>   for(int i = 0; i < expr.CalculationErrors.Length; ++i)
+>     Console.WriteLine(expr.CalculationErrors[i].Item2);
+>```
+
+Returns all errors you receive from the evaluation
 
 ## Contributing
 
