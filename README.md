@@ -18,8 +18,8 @@ The recommended way to get **EveryParser.Net** is to use NuGet. The following pa
 
 ## Usage
 
-The know how to use, look at our Wiki of this project or the quick start below.
-You can also check out the Tests written for this project.
+The know how to use, look at our [Wiki](https://github.com/AndreasBurbach/EveryParser.Net/wiki) of this project or the quick start below.
+You can also check out the [tests](https://github.com/AndreasBurbach/EveryParser.Net/tree/main/EveryParser.Test/ExpressionTest) written for this project.
 
 To create the C# classes from AntLR use the following command:
 java -jar antlr-4.9.2-complete.jar -Dlanguage=CSharp EveryGrammar.g4 -o ".antlr" -package "EveryParser"
