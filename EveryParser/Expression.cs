@@ -97,7 +97,7 @@ namespace EveryParser
         /// Adds a string as an argument for the calculation
         /// </summary>
         /// <param name="name">Name of the argument</param>
-        /// <param name="value">value of the Argument</param>
+        /// <param name="value">Value of the Argument</param>
         public void AddArgument(string name, string value)
         {
             AddArgument(name, (object)value);
@@ -107,7 +107,7 @@ namespace EveryParser
         /// Adds a double as an argument for the calculation
         /// </summary>
         /// <param name="name">Name of the argument</param>
-        /// <param name="value">value of the Argument</param>
+        /// <param name="value">Value of the Argument</param>
         public void AddArgument(string name, double value)
         {
             AddArgument(name, (object)value);
@@ -117,7 +117,7 @@ namespace EveryParser
         /// Adds a int as an argument for the calculation
         /// </summary>
         /// <param name="name">Name of the argument</param>
-        /// <param name="value">value of the Argument</param>
+        /// <param name="value">Value of the Argument</param>
         public void AddArgument(string name, int value)
         {
             AddArgument(name, (object)value);
@@ -127,7 +127,7 @@ namespace EveryParser
         /// Adds a decimal as an argument for the calculation
         /// </summary>
         /// <param name="name">Name of the argument</param>
-        /// <param name="value">value of the Argument</param>
+        /// <param name="value">Value of the Argument</param>
         public void AddArgument(string name, decimal value)
         {
             AddArgument(name, (object)value);
@@ -137,7 +137,7 @@ namespace EveryParser
         /// Adds a float as an argument for the calculation
         /// </summary>
         /// <param name="name">Name of the argument</param>
-        /// <param name="value">value of the Argument</param>
+        /// <param name="value">Value of the Argument</param>
         public void AddArgument(string name, float value)
         {
             AddArgument(name, (object)value);
@@ -147,7 +147,7 @@ namespace EveryParser
         /// Adds a string array as an argument for the calculation
         /// </summary>
         /// <param name="name">Name of the argument</param>
-        /// <param name="value">value of the Argument</param>
+        /// <param name="value">Value of the Argument</param>
         public void AddArgument(string name, string[] value)
         {
             AddArgument(name, (object)value);
@@ -157,7 +157,7 @@ namespace EveryParser
         /// Adds a double array as an argument for the calculation
         /// </summary>
         /// <param name="name">Name of the argument</param>
-        /// <param name="value">value of the Argument</param>
+        /// <param name="value">Value of the Argument</param>
         public void AddArgument(string name, double[] value)
         {
             AddArgument(name, (object)value);
@@ -167,7 +167,7 @@ namespace EveryParser
         /// Adds a int array as an argument for the calculation
         /// </summary>
         /// <param name="name">Name of the argument</param>
-        /// <param name="value">value of the Argument</param>
+        /// <param name="value">Value of the Argument</param>
         public void AddArgument(string name, int[] value)
         {
             AddArgument(name, (object)value);
@@ -177,7 +177,7 @@ namespace EveryParser
         /// Adds a decimal array as an argument for the calculation
         /// </summary>
         /// <param name="name">Name of the argument</param>
-        /// <param name="value">value of the Argument</param>
+        /// <param name="value">Value of the Argument</param>
         public void AddArgument(string name, decimal[] value)
         {
             AddArgument(name, (object)value);
@@ -187,21 +187,38 @@ namespace EveryParser
         /// Adds a float array as an argument for the calculation
         /// </summary>
         /// <param name="name">Name of the argument</param>
-        /// <param name="value">value of the Argument</param>
+        /// <param name="value">Value of the Argument</param>
         public void AddArgument(string name, float[] value)
         {
             AddArgument(name, (object)value);
         }
 
         /// <summary>
+        /// Add an array of arguments for the calculation
+        /// </summary>
+        /// <param name="names">Names of the arguments</param>
+        /// <param name="values">Values of the arguments</param>
+        public void AddArgumentRange(string[] names, object[] values)
+        {
+            if (names.Length != values.Length)
+                throw new ArgumentException("Arrays must have the same size!");
+
+            for (int i = 0; i < names.Length; i += 1)
+                AddArgument(names[i], values[i]);
+        }
+
+        /// <summary>
         /// Adds a object as an argument for the calculation
         /// </summary>
         /// <param name="name">Name of the argument</param>
-        /// <param name="value">value of the Argument</param>
+        /// <param name="value">Value of the Argument</param>
         public void AddArgument(string name, object value)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentNullException(nameof(name));
+
+            if (value is null)
+                throw new ArgumentNullException(nameof(value));
 
             if (_arguments.ContainsKey(name))
                 _arguments[name] = value;
