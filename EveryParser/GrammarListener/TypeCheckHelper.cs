@@ -52,9 +52,7 @@ namespace EveryParser.GrammarListener
         /// </summary>
         /// <param name="objs"></param>
         /// <returns></returns>
-        internal static bool IsArrayOfNumberOrNumberList(object[] objs) =>
-            !objs.Any(obj => !(obj is int || obj is long || obj is double || obj is decimal ||
-            (obj is List<object> list && list.All(x => x is int || x is long || x is double || x is decimal))));
+        internal static bool IsArrayOfNumberOrNumberList(object[] objs) => !objs.Any(obj => !(IsNumber(obj) || (obj is List<object> list && IsArrayOfNumber(list.ToArray()))));
 
         /// <summary>
         /// Checks if all objects are type of number
