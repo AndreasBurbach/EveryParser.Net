@@ -88,5 +88,12 @@ namespace EveryParser.GrammarListener
         /// <param name="obj"></param>
         /// <returns></returns>
         internal static bool IsDateTime(object obj) => obj is DateTime;
+
+        /// <summary>
+        /// Checks if all objects are type of DateTime
+        /// </summary>
+        /// <param name="objs"></param>
+        /// <returns></returns>
+        internal static bool IsArrayOfDateTime(object[] objs) => !objs.Any(obj => !IsDateTime(obj));
     }
 }
