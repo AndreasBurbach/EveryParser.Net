@@ -64,7 +64,7 @@ namespace EveryParser.GrammarListener.TypeListener
         {
             if (ErrorCollector.CheckParamsCount(context, 1, Node.Children))
             {
-                if (Node.Children[0].ValueType != EveryParserType.ArrayOfNumber)
+                if (!Node.Children[0].ValueType.IsNumberArray())
                     ErrorCollector.AddError(context, ErrorCode.IsNotNumberArray, "Parameter is not an Array of Numbers!");
                 else
                     Node.ValueType = EveryParserType.Number;
