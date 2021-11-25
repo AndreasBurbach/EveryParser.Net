@@ -34,6 +34,9 @@ namespace EveryParser.Test.ExpressionTest
 
             Assert.Equal(4, Expression.CalculateDecimal("2**2"));
             Assert.Equal(5, Expression.CalculateDecimal("2**2+1"));
+
+            Assert.Equal(4, Expression.CalculateDecimal("1<<2"));
+            Assert.Equal(1, Expression.CalculateDecimal("2>>1"));
         }
 
         [Fact]

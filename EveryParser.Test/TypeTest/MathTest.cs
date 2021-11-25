@@ -34,6 +34,9 @@ namespace EveryParser.Test.TypeTest
 
             Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("2**2"));
             Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("2**2+1"));
+
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("1<<2"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("2>>1"));
         }
 
         [Fact]

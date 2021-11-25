@@ -511,6 +511,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitPointTerm_BitShiftLeft([NotNull] EveryGrammarParser.PointTerm_BitShiftLeftContext context)
         {
+            CheckNumericBinary(context, EveryParserType.Number);
         }
 
         /// <summary>
@@ -550,6 +551,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitPointTerm_BitShiftRight([NotNull] EveryGrammarParser.PointTerm_BitShiftRightContext context)
         {
+            CheckNumericBinary(context, EveryParserType.Number);
         }
 
         /// <summary>
