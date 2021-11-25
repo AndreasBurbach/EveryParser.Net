@@ -1413,13 +1413,6 @@ namespace EveryParser.GrammarListener.TypeListener
         }
 
         /// <summary>
-        /// Enter a parse tree produced by the <c>ArraySlicing_StartSlicing</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void EnterArraySlicing_StartSlicing([NotNull] EveryGrammarParser.ArraySlicing_StartSlicingContext context) { }
-
-        /// <summary>
         /// Exit a parse tree produced by the <c>ArraySlicing_Slicing</c>
         /// labeled alternative in <see cref="EveryGrammarParser.array_slicing_term"/>.
         /// </summary>
