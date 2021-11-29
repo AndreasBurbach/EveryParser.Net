@@ -42,7 +42,7 @@ namespace EveryParser.GrammarListener.ArgumentsListener
         {
             string text = context.GetText();
 
-            if (!text.Equals("date.now", StringComparison.InvariantCultureIgnoreCase))
+            if (!text.Equals("DateTime.Now", StringComparison.InvariantCultureIgnoreCase))
                 _variables.Add(text);
         }
     }
