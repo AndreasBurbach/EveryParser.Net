@@ -68,9 +68,11 @@ namespace EveryParser.GrammarListener.CalculatorListener
 
             if (!(list1 is null) && list2 is null)
                 return list1.Select(x => calculationExpression(x, value2));
-            else if (list1 is null && !(list2 is null))
+
+            if (list1 is null && !(list2 is null))
                 return list2.Select(x => calculationExpression(value1, x));
-            else if (list1.Count == list2.Count)
+
+            if (list1.Count == list2.Count)
             {
                 var result = new List<object>(list1.Count);
                 for (int i = 0; i < list1.Count; i += 1)
@@ -108,7 +110,8 @@ namespace EveryParser.GrammarListener.CalculatorListener
 
             if (list1 is null && list2 is null)
                 return calculationExpression(Convert.ToBoolean(childValues[0]), Convert.ToBoolean(childValues[1]));
-            else if ((list1 is null && !(list2 is null)) || (!(list1 is null) && list2 is null))
+
+            if ((list1 is null && !(list2 is null)) || (!(list1 is null) && list2 is null))
             {
                 errorCollector.AddError(context, ErrorCode.CanBeEitherBooleanOrListBoolean, "Both parameters can be either boolean or List of boolean");
                 return null;
