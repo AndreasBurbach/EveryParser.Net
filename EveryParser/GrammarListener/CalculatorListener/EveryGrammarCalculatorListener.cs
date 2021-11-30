@@ -48,7 +48,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitStartRule([NotNull] EveryGrammarParser.StartRuleContext context)
         {
-            _result = ErrorCollector.CheckHasParams(context, Node.Children) ? _result = Node.Children[0].Value : _result = null;
+            _result = ErrorCollector.CheckHasParams(context, Node.Children) ? Node.Children[0].Value : null;
         }
 
         /// <summary>
