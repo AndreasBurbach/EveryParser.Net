@@ -412,14 +412,6 @@ namespace EveryParser.GrammarListener.CalculatorListener
         public void ExitFactor_True([NotNull] EveryGrammarParser.Factor_TrueContext context) { }
 
         /// <summary>
-        /// Exit a parse tree produced by the <c>Factor_Not</c>
-        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
-        /// <para>The default implementation does nothing.</para>
-        /// </summary>
-        /// <param name="context">The parse tree.</param>
-        public void ExitFactor_Not([NotNull] EveryGrammarParser.Factor_NotContext context) { }
-
-        /// <summary>
         /// Exit a parse tree produced by the <c>Random_Decimal</c>
         /// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
         /// </summary>

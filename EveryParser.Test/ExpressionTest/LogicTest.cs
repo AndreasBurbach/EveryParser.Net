@@ -7,6 +7,9 @@ namespace EveryParser.Test.ExpressionTest
         [Fact]
         public void TestBoolean()
         {
+            Assert.Equal(false, Expression.CalculateBoolean("not true"));
+            Assert.Equal(true, Expression.CalculateBoolean("not false"));
+
             Assert.Equal(true, Expression.CalculateBoolean("true || false"));
             Assert.Equal(true, Expression.CalculateBoolean("false || true"));
             Assert.Equal(false, Expression.CalculateBoolean("false || false"));

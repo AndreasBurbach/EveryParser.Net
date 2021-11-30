@@ -57,7 +57,8 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterIfElse([NotNull] EveryGrammarParser.IfElseContext context) { }
+        public void EnterIfElse([NotNull] EveryGrammarParser.IfElseContext context)
+        { }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>IfElse</c>
@@ -65,7 +66,8 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitIfElse([NotNull] EveryGrammarParser.IfElseContext context) { }
+        public void ExitIfElse([NotNull] EveryGrammarParser.IfElseContext context)
+        { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>InnerIfElse</c>
@@ -73,7 +75,8 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterInnerIfElse([NotNull] EveryGrammarParser.InnerIfElseContext context) { }
+        public void EnterInnerIfElse([NotNull] EveryGrammarParser.InnerIfElseContext context)
+        { }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>InnerIfElse</c>
@@ -81,7 +84,8 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitInnerIfElse([NotNull] EveryGrammarParser.InnerIfElseContext context) { }
+        public void ExitInnerIfElse([NotNull] EveryGrammarParser.InnerIfElseContext context)
+        { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>BoolOr</c>
@@ -882,6 +886,40 @@ namespace EveryParser.GrammarListener.CalculatorListener
         public void EnterFactor_Not([NotNull] EveryGrammarParser.Factor_NotContext context)
         {
             Node = Node.AddChildNode();
+        }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>Factor_Not</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
+        /// <para>The default implementation does nothing.</para>
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitFactor_Not([NotNull] EveryGrammarParser.Factor_NotContext context)
+        {
+            if (!ErrorCollector.CheckHasParams(context, Node.Children))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            var childValues = Node.Children.Select(child => child.Value).ToArray();
+
+            if (!ErrorCollector.CheckParamsCount(context, 1, childValues) ||
+                ErrorCollector.CheckIsNull(context, childValues) ||
+                !ErrorCollector.CheckIsBooleanOrArrayOfBoolean(context, childValues))
+            {
+                Node.Value = double.NaN;
+                Node = Node.Parent;
+                return;
+            }
+
+            if (childValues[0] is List<object> list)
+                Node.Value =  list.Select(x => (object)!Convert.ToBoolean(x));
+            else
+                Node.Value = !Convert.ToBoolean(childValues[0]);
+
+            Node = Node.Parent;
         }
 
         /// <summary>
