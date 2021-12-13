@@ -1117,8 +1117,8 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void EnterFactor_String([NotNull] EveryGrammarParser.Factor_StringContext context)
         {
-            var text = context.GetText();
-            if (string.IsNullOrWhiteSpace(text) || text.Length == 2)
+            var text = context.GetText().Trim();
+            if (string.IsNullOrWhiteSpace(text) || text.Length <= 2)
                 text = string.Empty;
             else
                 text = text.Substring(1, text.Length - 2);
