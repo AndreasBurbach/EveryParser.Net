@@ -172,7 +172,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         public void ExitMath_ATan2([NotNull] EveryGrammarParser.Math_ATan2Context context)
         {
             Func<object, object, object> calculation = (x1, x2) => Math.Atan2(Convert.ToDouble(x1), Convert.ToDouble(x2));
-            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -559,7 +559,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         public void ExitMath_Log([NotNull] EveryGrammarParser.Math_LogContext context)
         {
             Func<object, object, object> calculation = (x1, x2) => Math.Log(Convert.ToDouble(x1), Convert.ToDouble(x2));
-            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -681,7 +681,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         public void ExitMath_Max_Two([NotNull] EveryGrammarParser.Math_Max_TwoContext context)
         {
             Func<object, object, object> calculation = (x1, x2) => Math.Max(Convert.ToDouble(x1), Convert.ToDouble(x2));
-            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -755,7 +755,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         public void ExitMath_Min_Two([NotNull] EveryGrammarParser.Math_Min_TwoContext context)
         {
             Func<object, object, object> calculation = (x1, x2) => Math.Min(Convert.ToDouble(x1), Convert.ToDouble(x2));
-            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -779,7 +779,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         public void ExitMath_Power([NotNull] EveryGrammarParser.Math_PowerContext context)
         {
             Func<object, object, object> calculation = (x1, x2) => Math.Pow(Convert.ToDouble(x1), Convert.ToDouble(x2));
-            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -827,7 +827,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         public void ExitMath_Round_Decimal([NotNull] EveryGrammarParser.Math_Round_DecimalContext context)
         {
             Func<object, object, object> calculation = (x1, x2) => Math.Round(Convert.ToDecimal(x1), Convert.ToInt32(x2));
-            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -851,7 +851,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         public void ExitMath_Root([NotNull] EveryGrammarParser.Math_RootContext context)
         {
             Func<object, object, object> calculation = (x1, x2) => Math.Pow(Convert.ToDouble(x1), 1 / Convert.ToDouble(x2));
-            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 

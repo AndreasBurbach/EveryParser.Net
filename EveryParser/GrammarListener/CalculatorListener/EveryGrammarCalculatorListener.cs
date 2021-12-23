@@ -469,7 +469,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         public void ExitCheck_Greater([NotNull] EveryGrammarParser.Check_GreaterContext context)
         {
             Func<object, object, object> calculation = (x1, x2) => (object)(Convert.ToDecimal(x1) > Convert.ToDecimal(x2));
-            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -493,7 +493,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         public void ExitCheck_GreaterEqual([NotNull] EveryGrammarParser.Check_GreaterEqualContext context)
         {
             Func<object, object, object> calculation = (x1, x2) => (object)(Convert.ToDecimal(x1) >= Convert.ToDecimal(x2));
-            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -517,7 +517,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         public void ExitCheck_Lower([NotNull] EveryGrammarParser.Check_LowerContext context)
         {
             Func<object, object, object> calculation = (x1, x2) => (object)(Convert.ToDecimal(x1) < Convert.ToDecimal(x2));
-            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -541,7 +541,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         public void ExitCheck_LowerEqual([NotNull] EveryGrammarParser.Check_LowerEqualContext context)
         {
             Func<object, object, object> calculation = (x1, x2) => (object)(Convert.ToDecimal(x1) <= Convert.ToDecimal(x2));
-            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -647,7 +647,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         public void ExitLine_Addition([NotNull] EveryGrammarParser.Line_AdditionContext context)
         {
             Func<object, object, object> calculation = (x1, x2) => (object)(Convert.ToDecimal(x1) + Convert.ToDecimal(x2));
-            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -671,7 +671,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         public void ExitLine_Subtraction([NotNull] EveryGrammarParser.Line_SubtractionContext context)
         {
             Func<object, object, object> calculation = (x1, x2) => (object)(Convert.ToDecimal(x1) - Convert.ToDecimal(x2));
-            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -695,7 +695,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         public void ExitPointTerm_PowerOperator([NotNull] EveryGrammarParser.PointTerm_PowerOperatorContext context)
         {
             Func<object, object, object> calculation = (x1, x2) => (object)Math.Pow(Convert.ToDouble(x1), Convert.ToDouble(x2));
-            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -719,7 +719,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         public void ExitPointTerm_Modulo([NotNull] EveryGrammarParser.PointTerm_ModuloContext context)
         {
             Func<object, object, object> calculation = (x1, x2) => (object)(Convert.ToDecimal(x1) % Convert.ToDecimal(x2));
-            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -743,7 +743,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         public void ExitPointTerm_Multiply([NotNull] EveryGrammarParser.PointTerm_MultiplyContext context)
         {
             Func<object, object, object> calculation = (x1, x2) => (object)(Convert.ToDecimal(x1) * Convert.ToDecimal(x2));
-            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -808,7 +808,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         public void ExitPointTerm_IntegerDivision([NotNull] EveryGrammarParser.PointTerm_IntegerDivisionContext context)
         {
             Func<object, object, object> calculation = (x1, x2) => (object)(Convert.ToInt64(x1) / Convert.ToInt64(x2));
-            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
@@ -873,7 +873,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         public void ExitPointTerm_Divide([NotNull] EveryGrammarParser.PointTerm_DivideContext context)
         {
             Func<object, object, object> calculation = (x1, x2) => (object)(Convert.ToDecimal(x1) / Convert.ToDecimal(x2));
-            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation.Invoke, Node.Children);
+            Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
 
