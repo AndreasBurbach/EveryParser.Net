@@ -7,7 +7,7 @@ namespace EveryParser.GrammarListener.TypeListener
 {
     internal static class TypeListenerHelper
     {
-        internal static object CheckNumberOrArrayOfNumbersUnary([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, EveryParserType resultType = EveryParserType.Number, EveryParserType resultArrayType = EveryParserType.ArrayOfNumber, EveryParserType resultEmptyArray = EveryParserType.EmptyArray)
+        internal static TypeNode CheckNumberOrArrayOfNumbersUnary([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, EveryParserType resultType = EveryParserType.Number, EveryParserType resultArrayType = EveryParserType.ArrayOfNumber, EveryParserType resultEmptyArray = EveryParserType.EmptyArray)
         {
             if (!errorCollector.CheckParamsCount(context, 1, node.Children))
                 return node.Parent;
@@ -29,7 +29,7 @@ namespace EveryParser.GrammarListener.TypeListener
             return node.Parent;
         }
 
-        internal static object CheckNumberOrArrayOfNumbersBinary([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, EveryParserType singleTypeResult = EveryParserType.Number, EveryParserType arrayTypeResult = EveryParserType.ArrayOfNumber)
+        internal static TypeNode CheckNumberOrArrayOfNumbersBinary([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, EveryParserType singleTypeResult = EveryParserType.Number, EveryParserType arrayTypeResult = EveryParserType.ArrayOfNumber)
         {
             if (!errorCollector.CheckParamsCount(context, 2, node.Children))
                 return node.Parent;
@@ -54,7 +54,7 @@ namespace EveryParser.GrammarListener.TypeListener
             return node.Parent;
         }
 
-        internal static object CheckListOfNumbersUnary([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node)
+        internal static TypeNode CheckListOfNumbersUnary([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node)
         {
             if (errorCollector.CheckParamsCount(context, 1, node.Children))
             {
@@ -67,7 +67,7 @@ namespace EveryParser.GrammarListener.TypeListener
             return node.Parent;
         }
 
-        internal static object CheckListOfNumbersBinary([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, EveryParserType resultType)
+        internal static TypeNode CheckListOfNumbersBinary([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, EveryParserType resultType)
         {
             if (errorCollector.CheckParamsCount(context, 2, node.Children))
             {
@@ -80,7 +80,7 @@ namespace EveryParser.GrammarListener.TypeListener
             return node.Parent;
         }
 
-        internal static object CheckNumericUnary([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, EveryParserType resultType)
+        internal static TypeNode CheckNumericUnary([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, EveryParserType resultType)
         {
             if (errorCollector.CheckParamsCount(context, 1, node.Children))
             {
@@ -93,7 +93,7 @@ namespace EveryParser.GrammarListener.TypeListener
             return node.Parent;
         }
 
-        internal static object CheckNumericBinary([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, EveryParserType resultType)
+        internal static TypeNode CheckNumericBinary([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, EveryParserType resultType)
         {
             if (errorCollector.CheckParamsCount(context, 2, node.Children))
             {
@@ -106,7 +106,7 @@ namespace EveryParser.GrammarListener.TypeListener
             return node.Parent;
         }
 
-        internal static object CheckNumericTri([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, EveryParserType resultType)
+        internal static TypeNode CheckNumericTri([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, EveryParserType resultType)
         {
             if (errorCollector.CheckParamsCount(context, 3, node.Children))
             {
@@ -119,7 +119,7 @@ namespace EveryParser.GrammarListener.TypeListener
             return node.Parent;
         }
 
-        internal static object CalcBooleanOrBooleanArrayBinary([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, EveryParserType resultType, EveryParserType listResultType)
+        internal static TypeNode CalcBooleanOrBooleanArrayBinary([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, EveryParserType resultType, EveryParserType listResultType)
         {
             if (errorCollector.CheckParamsCount(context, 2, node.Children))
             {
@@ -134,7 +134,7 @@ namespace EveryParser.GrammarListener.TypeListener
             return node.Parent;
         }
 
-        internal static object CheckStringOrListUnary([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, EveryParserType stringResultType, EveryParserType listResultType)
+        internal static TypeNode CheckStringOrListUnary([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, EveryParserType stringResultType, EveryParserType listResultType)
         {
             if (errorCollector.CheckParamsCount(context, 1, node.Children))
             {
@@ -149,7 +149,7 @@ namespace EveryParser.GrammarListener.TypeListener
             return node.Parent;
         }
 
-        internal static object CheckStringOrArrayOfStringsUnary([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, EveryParserType stringResultType, EveryParserType listResultType)
+        internal static TypeNode CheckStringOrArrayOfStringsUnary([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, EveryParserType stringResultType, EveryParserType listResultType)
         {
             if (errorCollector.CheckParamsCount(context, 1, node.Children))
             {
@@ -164,7 +164,7 @@ namespace EveryParser.GrammarListener.TypeListener
             return node.Parent;
         }
 
-        internal static object CheckStringOrArrayOfStringsBinary([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, EveryParserType stringResultType, EveryParserType listResultType)
+        internal static TypeNode CheckStringOrArrayOfStringsBinary([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, EveryParserType stringResultType, EveryParserType listResultType)
         {
             if (!errorCollector.CheckParamsCount(context, 2, node.Children))
                 return node.Parent;
@@ -187,7 +187,7 @@ namespace EveryParser.GrammarListener.TypeListener
             return node.Parent;
         }
 
-        internal static object CheckAnyUnary([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, EveryParserType resultType)
+        internal static TypeNode CheckAnyUnary([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, EveryParserType resultType)
         {
             if (errorCollector.CheckParamsCount(context, 1, node.Children))
             {
@@ -200,7 +200,7 @@ namespace EveryParser.GrammarListener.TypeListener
             return node.Parent;
         }
 
-        internal static object CheckAnyBinary([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, EveryParserType resultType)
+        internal static TypeNode CheckAnyBinary([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, EveryParserType resultType)
         {
             if (errorCollector.CheckParamsCount(context, 2, node.Children))
             {
@@ -213,7 +213,7 @@ namespace EveryParser.GrammarListener.TypeListener
             return node.Parent;
         }
 
-        internal static object CheckOnlyStringOrOnlyArraySameResult([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node)
+        internal static TypeNode CheckOnlyStringOrOnlyArraySameResult([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node)
         {
             if (errorCollector.CheckParamsCount(context, 2, node.Children))
             {
@@ -229,7 +229,7 @@ namespace EveryParser.GrammarListener.TypeListener
             return node.Parent;
         }
 
-        private static EveryParserType GetArrayType(List<TypeNode> children)
+        internal static EveryParserType GetArrayType(List<TypeNode> children)
         {
             if (children is null || !children.Any())
                 return EveryParserType.EmptyArray;
@@ -295,7 +295,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// </summary>
         /// <param name="context"></param>
         /// <param name="expectedDateParameters"></param>
-        internal static object SetNodeForDateTimeValue([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, int expectedDateParameters)
+        internal static TypeNode SetNodeForDateTimeValue([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, int expectedDateParameters)
         {
             if (!errorCollector.CheckParamsCount(context, expectedDateParameters, node.Children))
             {
@@ -333,7 +333,7 @@ namespace EveryParser.GrammarListener.TypeListener
             return node.Parent;
         }
 
-        internal static object ArraySlicing([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, ArraySlicingType arraySlicingType)
+        internal static TypeNode ArraySlicing([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, ArraySlicingType arraySlicingType)
         {
             if (!errorCollector.CheckParamsCount(context, arraySlicingType.GetParameterCount(), node.Children))
                 return node.Parent;

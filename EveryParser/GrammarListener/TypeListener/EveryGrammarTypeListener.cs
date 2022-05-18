@@ -51,28 +51,32 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.if_else"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterIfElse([NotNull] EveryGrammarParser.IfElseContext context) { }
+        public void EnterIfElse([NotNull] EveryGrammarParser.IfElseContext context)
+        { }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>IfElse</c>
         /// labeled alternative in <see cref="EveryGrammarParser.if_else"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitIfElse([NotNull] EveryGrammarParser.IfElseContext context) { }
+        public void ExitIfElse([NotNull] EveryGrammarParser.IfElseContext context)
+        { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>InnerIfElse</c>
         /// labeled alternative in <see cref="EveryGrammarParser.inner_if_else"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void EnterInnerIfElse([NotNull] EveryGrammarParser.InnerIfElseContext context) { }
+        public void EnterInnerIfElse([NotNull] EveryGrammarParser.InnerIfElseContext context)
+        { }
 
         /// <summary>
         /// Exit a parse tree produced by the <c>InnerIfElse</c>
         /// labeled alternative in <see cref="EveryGrammarParser.inner_if_else"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitInnerIfElse([NotNull] EveryGrammarParser.InnerIfElseContext context) { }
+        public void ExitInnerIfElse([NotNull] EveryGrammarParser.InnerIfElseContext context)
+        { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>BoolOr</c>
@@ -91,7 +95,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitBoolOr([NotNull] EveryGrammarParser.BoolOrContext context)
         {
-            CalcBooleanOrBooleanArrayBinary(context, EveryParserType.Boolean, EveryParserType.ArrayOfBoolean);
+            Node = TypeListenerHelper.CalcBooleanOrBooleanArrayBinary(context, ErrorCollector, Node, EveryParserType.Boolean, EveryParserType.ArrayOfBoolean);
         }
 
         /// <summary>
@@ -111,7 +115,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitBoolXOr([NotNull] EveryGrammarParser.BoolXOrContext context)
         {
-            CalcBooleanOrBooleanArrayBinary(context, EveryParserType.Boolean, EveryParserType.ArrayOfBoolean);
+            Node = TypeListenerHelper.CalcBooleanOrBooleanArrayBinary(context, ErrorCollector, Node, EveryParserType.Boolean, EveryParserType.ArrayOfBoolean);
         }
 
         /// <summary>
@@ -131,7 +135,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitBoolAnd([NotNull] EveryGrammarParser.BoolAndContext context)
         {
-            CalcBooleanOrBooleanArrayBinary(context, EveryParserType.Boolean, EveryParserType.ArrayOfBoolean);
+            Node = TypeListenerHelper.CalcBooleanOrBooleanArrayBinary(context, ErrorCollector, Node, EveryParserType.Boolean, EveryParserType.ArrayOfBoolean);
         }
 
         /// <summary>
@@ -181,7 +185,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitEquality_Equal([NotNull] EveryGrammarParser.Equality_EqualContext context)
         {
-            CheckAnyBinary(context, EveryParserType.Boolean);
+            Node = TypeListenerHelper.CheckAnyBinary(context, ErrorCollector, Node, EveryParserType.Boolean);
         }
 
         /// <summary>
@@ -201,7 +205,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitEquality_NotEqualIgnoreCase([NotNull] EveryGrammarParser.Equality_NotEqualIgnoreCaseContext context)
         {
-            CheckStringOrArrayOfStringsBinary(context, EveryParserType.Boolean, EveryParserType.Boolean);
+            Node = TypeListenerHelper.CheckStringOrArrayOfStringsBinary(context, ErrorCollector, Node, EveryParserType.Boolean, EveryParserType.Boolean);
         }
 
         /// <summary>
@@ -221,7 +225,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitEquality_NotEqual([NotNull] EveryGrammarParser.Equality_NotEqualContext context)
         {
-            CheckAnyBinary(context, EveryParserType.Boolean);
+            Node = TypeListenerHelper.CheckAnyBinary(context, ErrorCollector, Node, EveryParserType.Boolean);
         }
 
         /// <summary>
@@ -271,7 +275,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitEquality_EqualIgnoreCase([NotNull] EveryGrammarParser.Equality_EqualIgnoreCaseContext context)
         {
-            CheckStringOrArrayOfStringsBinary(context, EveryParserType.Boolean, EveryParserType.Boolean);
+            Node = TypeListenerHelper.CheckStringOrArrayOfStringsBinary(context, ErrorCollector, Node, EveryParserType.Boolean, EveryParserType.Boolean);
         }
 
         /// <summary>
@@ -291,7 +295,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitCheck_Greater([NotNull] EveryGrammarParser.Check_GreaterContext context)
         {
-            CheckNumberOrArrayOfNumbersBinary(context, EveryParserType.Boolean, EveryParserType.ArrayOfBoolean);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersBinary(context, ErrorCollector, Node, EveryParserType.Boolean, EveryParserType.ArrayOfBoolean);
         }
 
         /// <summary>
@@ -311,7 +315,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitCheck_GreaterEqual([NotNull] EveryGrammarParser.Check_GreaterEqualContext context)
         {
-            CheckNumberOrArrayOfNumbersBinary(context, EveryParserType.Boolean, EveryParserType.ArrayOfBoolean);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersBinary(context, ErrorCollector, Node, EveryParserType.Boolean, EveryParserType.ArrayOfBoolean);
         }
 
         /// <summary>
@@ -331,7 +335,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitCheck_Lower([NotNull] EveryGrammarParser.Check_LowerContext context)
         {
-            CheckNumberOrArrayOfNumbersBinary(context, EveryParserType.Boolean, EveryParserType.ArrayOfBoolean);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersBinary(context, ErrorCollector, Node, EveryParserType.Boolean, EveryParserType.ArrayOfBoolean);
         }
 
         /// <summary>
@@ -351,7 +355,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitCheck_LowerEqual([NotNull] EveryGrammarParser.Check_LowerEqualContext context)
         {
-            CheckNumberOrArrayOfNumbersBinary(context, EveryParserType.Boolean, EveryParserType.ArrayOfBoolean);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersBinary(context, ErrorCollector, Node, EveryParserType.Boolean, EveryParserType.ArrayOfBoolean);
         }
 
         /// <summary>
@@ -371,7 +375,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitBitOR([NotNull] EveryGrammarParser.BitORContext context)
         {
-            CheckNumericBinary(context, EveryParserType.Number);
+            Node = TypeListenerHelper.CheckNumericBinary(context, ErrorCollector, Node, EveryParserType.Number);
         }
 
         /// <summary>
@@ -391,7 +395,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitBitAnd([NotNull] EveryGrammarParser.BitAndContext context)
         {
-            CheckNumericBinary(context, EveryParserType.Number);
+            Node = TypeListenerHelper.CheckNumericBinary(context, ErrorCollector, Node, EveryParserType.Number);
         }
 
         /// <summary>
@@ -411,7 +415,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitLine_Addition([NotNull] EveryGrammarParser.Line_AdditionContext context)
         {
-            CheckNumberOrArrayOfNumbersBinary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersBinary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -431,7 +435,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitLine_Subtraction([NotNull] EveryGrammarParser.Line_SubtractionContext context)
         {
-            CheckNumberOrArrayOfNumbersBinary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersBinary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -451,7 +455,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitPointTerm_PowerOperator([NotNull] EveryGrammarParser.PointTerm_PowerOperatorContext context)
         {
-            CheckNumberOrArrayOfNumbersBinary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersBinary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -471,7 +475,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitPointTerm_Modulo([NotNull] EveryGrammarParser.PointTerm_ModuloContext context)
         {
-            CheckNumberOrArrayOfNumbersBinary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersBinary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -491,7 +495,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitPointTerm_Multiply([NotNull] EveryGrammarParser.PointTerm_MultiplyContext context)
         {
-            CheckNumberOrArrayOfNumbersBinary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersBinary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -511,7 +515,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitPointTerm_BitShiftLeft([NotNull] EveryGrammarParser.PointTerm_BitShiftLeftContext context)
         {
-            CheckNumericBinary(context, EveryParserType.Number);
+            Node = TypeListenerHelper.CheckNumericBinary(context, ErrorCollector, Node, EveryParserType.Number);
         }
 
         /// <summary>
@@ -531,7 +535,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitPointTerm_IntegerDivision([NotNull] EveryGrammarParser.PointTerm_IntegerDivisionContext context)
         {
-            CheckNumberOrArrayOfNumbersBinary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersBinary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -551,7 +555,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitPointTerm_BitShiftRight([NotNull] EveryGrammarParser.PointTerm_BitShiftRightContext context)
         {
-            CheckNumericBinary(context, EveryParserType.Number);
+            Node = TypeListenerHelper.CheckNumericBinary(context, ErrorCollector, Node, EveryParserType.Number);
         }
 
         /// <summary>
@@ -571,7 +575,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitPointTerm_Divide([NotNull] EveryGrammarParser.PointTerm_DivideContext context)
         {
-            CheckNumberOrArrayOfNumbersBinary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersBinary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -619,7 +623,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitFactor_Minus([NotNull] EveryGrammarParser.Factor_MinusContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -639,7 +643,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitFactor_Plus([NotNull] EveryGrammarParser.Factor_PlusContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -659,7 +663,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitFactor_Tilde([NotNull] EveryGrammarParser.Factor_TildeContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -679,7 +683,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitFactor_Factorial([NotNull] EveryGrammarParser.Factor_FactorialContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -697,7 +701,8 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitFactor_True([NotNull] EveryGrammarParser.Factor_TrueContext context) { }
+        public void ExitFactor_True([NotNull] EveryGrammarParser.Factor_TrueContext context)
+        { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Factor_False</c>
@@ -714,7 +719,8 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitFactor_False([NotNull] EveryGrammarParser.Factor_FalseContext context) { }
+        public void ExitFactor_False([NotNull] EveryGrammarParser.Factor_FalseContext context)
+        { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Factor_Integer</c>
@@ -731,7 +737,8 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitFactor_Integer([NotNull] EveryGrammarParser.Factor_IntegerContext context) { }
+        public void ExitFactor_Integer([NotNull] EveryGrammarParser.Factor_IntegerContext context)
+        { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Factor_Double</c>
@@ -748,7 +755,8 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitFactor_Double([NotNull] EveryGrammarParser.Factor_DoubleContext context) { }
+        public void ExitFactor_Double([NotNull] EveryGrammarParser.Factor_DoubleContext context)
+        { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Factor_Variable</c>
@@ -795,7 +803,8 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitFactor_Variable([NotNull] EveryGrammarParser.Factor_VariableContext context) { }
+        public void ExitFactor_Variable([NotNull] EveryGrammarParser.Factor_VariableContext context)
+        { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Factor_ObjectVariables</c>
@@ -842,7 +851,8 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitFactor_ObjectVariables([NotNull] EveryGrammarParser.Factor_ObjectVariablesContext context) { }
+        public void ExitFactor_ObjectVariables([NotNull] EveryGrammarParser.Factor_ObjectVariablesContext context)
+        { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Factor_String</c>
@@ -859,7 +869,8 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitFactor_String([NotNull] EveryGrammarParser.Factor_StringContext context) { }
+        public void ExitFactor_String([NotNull] EveryGrammarParser.Factor_StringContext context)
+        { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Random_Decimal</c>
@@ -876,7 +887,8 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitRandom_Decimal([NotNull] EveryGrammarParser.Random_DecimalContext context) { }
+        public void ExitRandom_Decimal([NotNull] EveryGrammarParser.Random_DecimalContext context)
+        { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Random_DecimalArray</c>
@@ -895,7 +907,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitRandom_DecimalArray([NotNull] EveryGrammarParser.Random_DecimalArrayContext context)
         {
-            CheckNumericUnary(context, EveryParserType.ArrayOfNumber);
+            Node = TypeListenerHelper.CheckNumericUnary(context, ErrorCollector, Node, EveryParserType.ArrayOfNumber);
         }
 
         /// <summary>
@@ -915,7 +927,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitRandom_DecimalMinMax([NotNull] EveryGrammarParser.Random_DecimalMinMaxContext context)
         {
-            CheckNumericBinary(context, EveryParserType.Number);
+            Node = TypeListenerHelper.CheckNumericBinary(context, ErrorCollector, Node, EveryParserType.Number);
         }
 
         /// <summary>
@@ -935,7 +947,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitRandom_DecimalArrayMinMax([NotNull] EveryGrammarParser.Random_DecimalArrayMinMaxContext context)
         {
-            CheckNumericTri(context, EveryParserType.ArrayOfNumber);
+            Node = TypeListenerHelper.CheckNumericTri(context, ErrorCollector, Node, EveryParserType.ArrayOfNumber);
         }
 
         /// <summary>
@@ -953,7 +965,8 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.random_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitRandom_Integer([NotNull] EveryGrammarParser.Random_IntegerContext context) { }
+        public void ExitRandom_Integer([NotNull] EveryGrammarParser.Random_IntegerContext context)
+        { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Random_IntegerArray</c>
@@ -972,7 +985,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitRandom_IntegerArray([NotNull] EveryGrammarParser.Random_IntegerArrayContext context)
         {
-            CheckNumericUnary(context, EveryParserType.ArrayOfNumber);
+            Node = TypeListenerHelper.CheckNumericUnary(context, ErrorCollector, Node, EveryParserType.ArrayOfNumber);
         }
 
         /// <summary>
@@ -992,7 +1005,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitRandom_IntegerMinMax([NotNull] EveryGrammarParser.Random_IntegerMinMaxContext context)
         {
-            CheckNumericBinary(context, EveryParserType.Number);
+            Node = TypeListenerHelper.CheckNumericBinary(context, ErrorCollector, Node, EveryParserType.Number);
         }
 
         /// <summary>
@@ -1012,7 +1025,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitRandom_IntegerArrayMinMax([NotNull] EveryGrammarParser.Random_IntegerArrayMinMaxContext context)
         {
-            CheckNumericTri(context, EveryParserType.ArrayOfNumber);
+            Node = TypeListenerHelper.CheckNumericTri(context, ErrorCollector, Node, EveryParserType.ArrayOfNumber);
         }
 
         /// <summary>
@@ -1147,7 +1160,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitConvert_DegreeToGrad([NotNull] EveryGrammarParser.Convert_DegreeToGradContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -1167,7 +1180,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitConvert_DegreeToRadian([NotNull] EveryGrammarParser.Convert_DegreeToRadianContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -1187,7 +1200,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitConvert_GradToDegree([NotNull] EveryGrammarParser.Convert_GradToDegreeContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -1207,7 +1220,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitConvert_GradToRadian([NotNull] EveryGrammarParser.Convert_GradToRadianContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -1227,7 +1240,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitConvert_RadianToDegree([NotNull] EveryGrammarParser.Convert_RadianToDegreeContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -1247,7 +1260,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitConvert_RadianToGrad([NotNull] EveryGrammarParser.Convert_RadianToGradContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -1269,7 +1282,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitDateTime_Expression([NotNull] EveryGrammarParser.DateTime_ExpressionContext context)
         {
-            SetNodeForDateTimeValue(context, 1);
+            Node = TypeListenerHelper.SetNodeForDateTimeValue(context, ErrorCollector, Node, 1);
         }
 
         /// <summary>
@@ -1291,7 +1304,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitDateTime_DateEntry([NotNull] EveryGrammarParser.DateTime_DateEntryContext context)
         {
-            SetNodeForDateTimeValue(context, 3);
+            Node = TypeListenerHelper.SetNodeForDateTimeValue(context, ErrorCollector, Node, 3);
         }
 
         /// <summary>
@@ -1313,7 +1326,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitDateTime_DateHour([NotNull] EveryGrammarParser.DateTime_DateHourContext context)
         {
-            SetNodeForDateTimeValue(context, 4);
+            Node = TypeListenerHelper.SetNodeForDateTimeValue(context, ErrorCollector, Node, 4);
         }
 
         /// <summary>
@@ -1335,7 +1348,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitDateTime_DateHourMinute([NotNull] EveryGrammarParser.DateTime_DateHourMinuteContext context)
         {
-            SetNodeForDateTimeValue(context, 5);
+            Node = TypeListenerHelper.SetNodeForDateTimeValue(context, ErrorCollector, Node, 5);
         }
 
         /// <summary>
@@ -1357,7 +1370,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitDateTime_DateHourMinuteSeconds([NotNull] EveryGrammarParser.DateTime_DateHourMinuteSecondsContext context)
         {
-            SetNodeForDateTimeValue(context, 6);
+            Node = TypeListenerHelper.SetNodeForDateTimeValue(context, ErrorCollector, Node, 6);
         }
 
         /// <summary>
@@ -1379,7 +1392,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitDateTime_Full([NotNull] EveryGrammarParser.DateTime_FullContext context)
         {
-            SetNodeForDateTimeValue(context, 7);
+            Node = TypeListenerHelper.SetNodeForDateTimeValue(context, ErrorCollector, Node, 7);
         }
 
         /// <summary>
@@ -1399,7 +1412,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitArraySlicing([NotNull] EveryGrammarParser.ArraySlicingContext context)
         {
-            ArraySlicing(context, _lastArraySlicingType);
+            Node = TypeListenerHelper.ArraySlicing(context, ErrorCollector, Node, _lastArraySlicingType);
         }
 
         /// <summary>
@@ -1499,7 +1512,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitCheckFunction_IsArray([NotNull] EveryGrammarParser.CheckFunction_IsArrayContext context)
         {
-            CheckAnyUnary(context, EveryParserType.Boolean);
+            Node = TypeListenerHelper.CheckAnyUnary(context, ErrorCollector, Node, EveryParserType.Boolean);
         }
 
         /// <summary>
@@ -1519,7 +1532,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitCheckFunction_IsBoolean([NotNull] EveryGrammarParser.CheckFunction_IsBooleanContext context)
         {
-            CheckAnyUnary(context, EveryParserType.Boolean);
+            Node = TypeListenerHelper.CheckAnyUnary(context, ErrorCollector, Node, EveryParserType.Boolean);
         }
 
         /// <summary>
@@ -1539,7 +1552,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitCheckFunction_IsDateTime([NotNull] EveryGrammarParser.CheckFunction_IsDateTimeContext context)
         {
-            CheckAnyUnary(context, EveryParserType.Boolean);
+            Node = TypeListenerHelper.CheckAnyUnary(context, ErrorCollector, Node, EveryParserType.Boolean);
         }
 
         /// <summary>
@@ -1559,7 +1572,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitCheckFunction_IsNull([NotNull] EveryGrammarParser.CheckFunction_IsNullContext context)
         {
-            CheckAnyUnary(context, EveryParserType.Boolean);
+            Node = TypeListenerHelper.CheckAnyUnary(context, ErrorCollector, Node, EveryParserType.Boolean);
         }
 
         /// <summary>
@@ -1579,7 +1592,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitCheckFunction_IsNumber([NotNull] EveryGrammarParser.CheckFunction_IsNumberContext context)
         {
-            CheckAnyUnary(context, EveryParserType.Boolean);
+            Node = TypeListenerHelper.CheckAnyUnary(context, ErrorCollector, Node, EveryParserType.Boolean);
         }
 
         /// <summary>
@@ -1599,7 +1612,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitCheckFunction_IsString([NotNull] EveryGrammarParser.CheckFunction_IsStringContext context)
         {
-            CheckAnyUnary(context, EveryParserType.Boolean);
+            Node = TypeListenerHelper.CheckAnyUnary(context, ErrorCollector, Node, EveryParserType.Boolean);
         }
 
         /// <summary>
@@ -1619,7 +1632,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitCheckFunction_IsWhitespace([NotNull] EveryGrammarParser.CheckFunction_IsWhitespaceContext context)
         {
-            CheckStringOrArrayOfStringsUnary(context, EveryParserType.Boolean, EveryParserType.Boolean);
+            Node = TypeListenerHelper.CheckStringOrArrayOfStringsUnary(context, ErrorCollector, Node, EveryParserType.Boolean, EveryParserType.Boolean);
         }
 
         /// <summary>
@@ -1639,7 +1652,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitCheckFunction_HasAny([NotNull] EveryGrammarParser.CheckFunction_HasAnyContext context)
         {
-            CheckStringOrListUnary(context, EveryParserType.Boolean, EveryParserType.Boolean);
+            Node = TypeListenerHelper.CheckStringOrListUnary(context, ErrorCollector, Node, EveryParserType.Boolean, EveryParserType.Boolean);
         }
 
         /// <summary>
@@ -1659,7 +1672,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitCheckFunction_HasDuplicates([NotNull] EveryGrammarParser.CheckFunction_HasDuplicatesContext context)
         {
-            CheckStringOrListUnary(context, EveryParserType.Boolean, EveryParserType.Boolean);
+            Node = TypeListenerHelper.CheckStringOrListUnary(context, ErrorCollector, Node, EveryParserType.Boolean, EveryParserType.Boolean);
         }
 
         /// <summary>
@@ -1679,7 +1692,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitFunction_Concat([NotNull] EveryGrammarParser.Function_ConcatContext context)
         {
-            CheckOnlyStringOrOnlyArraySameResult(context);
+            Node = TypeListenerHelper.CheckOnlyStringOrOnlyArraySameResult(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -1699,7 +1712,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitFunction_Count([NotNull] EveryGrammarParser.Function_CountContext context)
         {
-            CheckStringOrListUnary(context, EveryParserType.Number, EveryParserType.Number);
+            Node = TypeListenerHelper.CheckStringOrListUnary(context, ErrorCollector, Node, EveryParserType.Number, EveryParserType.Number);
         }
 
         /// <summary>
@@ -1719,7 +1732,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitFunction_Distinc([NotNull] EveryGrammarParser.Function_DistincContext context)
         {
-            CheckStringOrListUnary(context, EveryParserType.String, EveryParserType.Array);
+            Node = TypeListenerHelper.CheckStringOrListUnary(context, ErrorCollector, Node, EveryParserType.String, EveryParserType.Array);
         }
 
         /// <summary>
@@ -1739,7 +1752,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitFunction_Difference([NotNull] EveryGrammarParser.Function_DifferenceContext context)
         {
-            CheckOnlyStringOrOnlyArraySameResult(context);
+            Node = TypeListenerHelper.CheckOnlyStringOrOnlyArraySameResult(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -1759,7 +1772,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitFunction_Except([NotNull] EveryGrammarParser.Function_ExceptContext context)
         {
-            CheckOnlyStringOrOnlyArraySameResult(context);
+            Node = TypeListenerHelper.CheckOnlyStringOrOnlyArraySameResult(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -1878,7 +1891,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitFunction_Lower([NotNull] EveryGrammarParser.Function_LowerContext context)
         {
-            CheckStringOrArrayOfStringsUnary(context, EveryParserType.String, EveryParserType.ArrayOfString);
+            Node = TypeListenerHelper.CheckStringOrArrayOfStringsUnary(context, ErrorCollector, Node, EveryParserType.String, EveryParserType.ArrayOfString);
         }
 
         /// <summary>
@@ -1898,7 +1911,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitFunction_Reverse([NotNull] EveryGrammarParser.Function_ReverseContext context)
         {
-            CheckStringOrListUnary(context, EveryParserType.String, EveryParserType.Array);
+            Node = TypeListenerHelper.CheckStringOrListUnary(context, ErrorCollector, Node, EveryParserType.String, EveryParserType.Array);
         }
 
         /// <summary>
@@ -1918,7 +1931,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitFunction_Upper([NotNull] EveryGrammarParser.Function_UpperContext context)
         {
-            CheckStringOrArrayOfStringsUnary(context, EveryParserType.String, EveryParserType.ArrayOfString);
+            Node = TypeListenerHelper.CheckStringOrArrayOfStringsUnary(context, ErrorCollector, Node, EveryParserType.String, EveryParserType.ArrayOfString);
         }
 
         /// <summary>
@@ -1938,7 +1951,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitFunction_Sort([NotNull] EveryGrammarParser.Function_SortContext context)
         {
-            CheckStringOrListUnary(context, EveryParserType.String, EveryParserType.Array);
+            Node = TypeListenerHelper.CheckStringOrListUnary(context, ErrorCollector, Node, EveryParserType.String, EveryParserType.Array);
         }
 
         /// <summary>
@@ -1958,7 +1971,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitFunction_Trim([NotNull] EveryGrammarParser.Function_TrimContext context)
         {
-            CheckStringOrListUnary(context, EveryParserType.String, EveryParserType.Array);
+            Node = TypeListenerHelper.CheckStringOrListUnary(context, ErrorCollector, Node, EveryParserType.String, EveryParserType.Array);
         }
 
         /// <summary>
@@ -1978,7 +1991,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Abs([NotNull] EveryGrammarParser.Math_AbsContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -1998,7 +2011,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ACos([NotNull] EveryGrammarParser.Math_ACosContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2018,7 +2031,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ACosH([NotNull] EveryGrammarParser.Math_ACosHContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2038,7 +2051,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ASin([NotNull] EveryGrammarParser.Math_ASinContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2058,7 +2071,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ASinH([NotNull] EveryGrammarParser.Math_ASinHContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2078,7 +2091,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ATan([NotNull] EveryGrammarParser.Math_ATanContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2098,7 +2111,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ATan2([NotNull] EveryGrammarParser.Math_ATan2Context context)
         {
-            CheckNumberOrArrayOfNumbersBinary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersBinary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2118,7 +2131,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ATanH([NotNull] EveryGrammarParser.Math_ATanHContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2138,7 +2151,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Cbrt([NotNull] EveryGrammarParser.Math_CbrtContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2158,7 +2171,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Cos([NotNull] EveryGrammarParser.Math_CosContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2178,7 +2191,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_CosH([NotNull] EveryGrammarParser.Math_CosHContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2198,7 +2211,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Ceilling([NotNull] EveryGrammarParser.Math_CeillingContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2252,7 +2265,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_CrossSum([NotNull] EveryGrammarParser.Math_CrossSumContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2270,7 +2283,8 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_Derivative([NotNull] EveryGrammarParser.Math_DerivativeContext context) { }
+        public void ExitMath_Derivative([NotNull] EveryGrammarParser.Math_DerivativeContext context)
+        { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Exp</c>
@@ -2289,7 +2303,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Exp([NotNull] EveryGrammarParser.Math_ExpContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2309,7 +2323,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Floor([NotNull] EveryGrammarParser.Math_FloorContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2327,7 +2341,8 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.math_function_term"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_Integration([NotNull] EveryGrammarParser.Math_IntegrationContext context) { }
+        public void ExitMath_Integration([NotNull] EveryGrammarParser.Math_IntegrationContext context)
+        { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Log</c>
@@ -2346,7 +2361,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Log([NotNull] EveryGrammarParser.Math_LogContext context)
         {
-            CheckNumberOrArrayOfNumbersBinary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersBinary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2366,7 +2381,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Log2([NotNull] EveryGrammarParser.Math_Log2Context context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2386,7 +2401,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Log10([NotNull] EveryGrammarParser.Math_Log10Context context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2406,7 +2421,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Max_Array([NotNull] EveryGrammarParser.Math_Max_ArrayContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context, EveryParserType.Number, EveryParserType.Number, EveryParserType.None);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node, EveryParserType.Number, EveryParserType.Number, EveryParserType.None);
         }
 
         /// <summary>
@@ -2426,7 +2441,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Max_Two([NotNull] EveryGrammarParser.Math_Max_TwoContext context)
         {
-            CheckNumberOrArrayOfNumbersBinary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersBinary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2446,7 +2461,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Min_Array([NotNull] EveryGrammarParser.Math_Min_ArrayContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context, EveryParserType.Number, EveryParserType.Number, EveryParserType.None);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node, EveryParserType.Number, EveryParserType.Number, EveryParserType.None);
         }
 
         /// <summary>
@@ -2466,7 +2481,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Min_Two([NotNull] EveryGrammarParser.Math_Min_TwoContext context)
         {
-            CheckNumberOrArrayOfNumbersBinary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersBinary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2486,7 +2501,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Power([NotNull] EveryGrammarParser.Math_PowerContext context)
         {
-            CheckNumberOrArrayOfNumbersBinary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersBinary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2506,7 +2521,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Round_Not_Decimal([NotNull] EveryGrammarParser.Math_Round_Not_DecimalContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2526,7 +2541,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Round_Decimal([NotNull] EveryGrammarParser.Math_Round_DecimalContext context)
         {
-            CheckNumberOrArrayOfNumbersBinary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersBinary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2546,7 +2561,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Root([NotNull] EveryGrammarParser.Math_RootContext context)
         {
-            CheckNumberOrArrayOfNumbersBinary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersBinary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2566,7 +2581,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Sin([NotNull] EveryGrammarParser.Math_SinContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2586,7 +2601,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_SinH([NotNull] EveryGrammarParser.Math_SinHContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2606,7 +2621,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Sqrt([NotNull] EveryGrammarParser.Math_SqrtContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2626,7 +2641,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Tan([NotNull] EveryGrammarParser.Math_TanContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2646,7 +2661,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_TanH([NotNull] EveryGrammarParser.Math_TanHContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2666,7 +2681,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Truncate([NotNull] EveryGrammarParser.Math_TruncateContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2716,7 +2731,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_EulerNorm([NotNull] EveryGrammarParser.Math_EulerNormContext context)
         {
-            CheckListOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckListOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2736,7 +2751,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_MaxNorm([NotNull] EveryGrammarParser.Math_MaxNormContext context)
         {
-            CheckListOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckListOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2756,7 +2771,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_GreatesCommonDivisor([NotNull] EveryGrammarParser.Math_GreatesCommonDivisorContext context)
         {
-            CheckNumberOrArrayOfNumbersBinary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersBinary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2776,7 +2791,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_LeastCommonMultiple([NotNull] EveryGrammarParser.Math_LeastCommonMultipleContext context)
         {
-            CheckNumberOrArrayOfNumbersBinary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersBinary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2796,7 +2811,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_DotProduct([NotNull] EveryGrammarParser.Math_DotProductContext context)
         {
-            CheckListOfNumbersBinary(context, EveryParserType.Number);
+            Node = TypeListenerHelper.CheckListOfNumbersBinary(context, ErrorCollector, Node, EveryParserType.Number);
         }
 
         /// <summary>
@@ -2816,7 +2831,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Binomila([NotNull] EveryGrammarParser.Math_BinomilaContext context)
         {
-            CheckNumberOrArrayOfNumbersBinary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersBinary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2836,7 +2851,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ACot([NotNull] EveryGrammarParser.Math_ACotContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2856,7 +2871,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ACotH([NotNull] EveryGrammarParser.Math_ACotHContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2876,7 +2891,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ACsc([NotNull] EveryGrammarParser.Math_ACscContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2896,7 +2911,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ACscH([NotNull] EveryGrammarParser.Math_ACscHContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2916,7 +2931,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ASec([NotNull] EveryGrammarParser.Math_ASecContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2936,7 +2951,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ASecH([NotNull] EveryGrammarParser.Math_ASecHContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2956,7 +2971,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Cot([NotNull] EveryGrammarParser.Math_CotContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2976,7 +2991,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_CotH([NotNull] EveryGrammarParser.Math_CotHContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -2996,7 +3011,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Csc([NotNull] EveryGrammarParser.Math_CscContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -3016,7 +3031,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_CscH([NotNull] EveryGrammarParser.Math_CscHContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -3036,7 +3051,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Sec([NotNull] EveryGrammarParser.Math_SecContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -3056,7 +3071,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_SecH([NotNull] EveryGrammarParser.Math_SecHContext context)
         {
-            CheckNumberOrArrayOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -3076,7 +3091,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMathStatistic_CoVariance([NotNull] EveryGrammarParser.MathStatistic_CoVarianceContext context)
         {
-            CheckListOfNumbersBinary(context, EveryParserType.Number);
+            Node = TypeListenerHelper.CheckListOfNumbersBinary(context, ErrorCollector, Node, EveryParserType.Number);
         }
 
         /// <summary>
@@ -3096,7 +3111,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMathStatistic_Mean([NotNull] EveryGrammarParser.MathStatistic_MeanContext context)
         {
-            CheckListOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckListOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -3116,7 +3131,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMathStatistic_Median([NotNull] EveryGrammarParser.MathStatistic_MedianContext context)
         {
-            CheckListOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckListOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -3136,7 +3151,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMathStatistic_Pearson([NotNull] EveryGrammarParser.MathStatistic_PearsonContext context)
         {
-            CheckListOfNumbersBinary(context, EveryParserType.Number);
+            Node = TypeListenerHelper.CheckListOfNumbersBinary(context, ErrorCollector, Node, EveryParserType.Number);
         }
 
         /// <summary>
@@ -3186,7 +3201,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMathStatistic_Spearman([NotNull] EveryGrammarParser.MathStatistic_SpearmanContext context)
         {
-            CheckListOfNumbersBinary(context, EveryParserType.Number);
+            Node = TypeListenerHelper.CheckListOfNumbersBinary(context, ErrorCollector, Node, EveryParserType.Number);
         }
 
         /// <summary>
@@ -3206,7 +3221,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMathStatistic_StD([NotNull] EveryGrammarParser.MathStatistic_StDContext context)
         {
-            CheckListOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckListOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -3226,7 +3241,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitMathStatistic_Variance([NotNull] EveryGrammarParser.MathStatistic_VarianceContext context)
         {
-            CheckListOfNumbersUnary(context);
+            Node = TypeListenerHelper.CheckListOfNumbersUnary(context, ErrorCollector, Node);
         }
 
         /// <summary>
@@ -3244,7 +3259,8 @@ namespace EveryParser.GrammarListener.TypeListener
         /// labeled alternative in <see cref="EveryGrammarParser.array_expr"/>.
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitArrayCreation_Empty([NotNull] EveryGrammarParser.ArrayCreation_EmptyContext context) { }
+        public void ExitArrayCreation_Empty([NotNull] EveryGrammarParser.ArrayCreation_EmptyContext context)
+        { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>ArrayCreation</c>
@@ -3263,7 +3279,7 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitArrayCreation([NotNull] EveryGrammarParser.ArrayCreationContext context)
         {
-            Node.ValueType = GetArrayType(Node.Children);
+            Node.ValueType = TypeListenerHelper.GetArrayType(Node.Children);
             Node = Node.Parent;
         }
     }
