@@ -22,7 +22,7 @@ The know how to use, look at our [Wiki](https://github.com/AndreasBurbach/EveryP
 You can also check out the [tests](https://github.com/AndreasBurbach/EveryParser.Net/tree/main/EveryParser.Test/ExpressionTest) written for this project.
 
 To create the C# classes from AntLR use the following command:
-java -jar antlr-4.9.2-complete.jar -Dlanguage=CSharp EveryGrammar.g4 -o ".antlr" -package "EveryParser"
+java -jar antlr-4.10.1-complete.jar -Dlanguage=CSharp EveryGrammar.g4 -o ".antlr" -package "EveryParser"
 
 ### Quick Start
 
