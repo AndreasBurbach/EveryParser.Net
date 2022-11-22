@@ -17,13 +17,12 @@
     <PackageId>EveryParser.Net</PackageId>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <NeutralLanguage>en</NeutralLanguage>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Antlr4.Runtime.Standard" Version="4.11.1" />
     <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="4.4.0" />
   </ItemGroup>
 
   <ItemGroup>
