@@ -485,7 +485,7 @@ namespace EveryParser.GrammarListener
         /// <param name="targetedType">Type the text should be converted to</param>
         public void AddTypeConversionError(ParserRuleContext context, string text, Type targetedType)
         {
-            _errors.Add((ErrorCode.TypeConversion, $"Could not convert { text}  to type of {targetedType.Name} "));
+            _errors.Add((ErrorCode.TypeConversion, $"Could not convert {text}  to type of {targetedType.Name} "));
         }
 
         /// <summary>

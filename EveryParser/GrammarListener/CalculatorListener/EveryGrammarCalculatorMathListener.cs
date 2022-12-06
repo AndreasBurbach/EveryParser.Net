@@ -1,5 +1,6 @@
 ﻿using Antlr4.Runtime.Misc;
 using EveryParser.LinQReplaces;
+using EveryParser.Types;
 using MathNet.Numerics.LinearAlgebra;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Abs([NotNull] EveryGrammarParser.Math_AbsContext context)
         {
-            Func<object, object> calculation = x => Math.Abs(Convert.ToDecimal(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return Math.Abs(value.GetValue());
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -51,7 +59,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ACos([NotNull] EveryGrammarParser.Math_ACosContext context)
         {
-            Func<object, object> calculation = x => Math.Acos(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return Math.Acos(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -75,7 +90,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ACosH([NotNull] EveryGrammarParser.Math_ACosHContext context)
         {
-            Func<object, object> calculation = x => MathNet.Numerics.Trig.Acosh(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return MathNet.Numerics.Trig.Acosh(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -99,7 +121,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ASin([NotNull] EveryGrammarParser.Math_ASinContext context)
         {
-            Func<object, object> calculation = x => Math.Asin(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return Math.Asin(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -123,7 +152,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ASinH([NotNull] EveryGrammarParser.Math_ASinHContext context)
         {
-            Func<object, object> calculation = x => MathNet.Numerics.Trig.Asinh(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return MathNet.Numerics.Trig.Asinh(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -147,7 +183,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ATan([NotNull] EveryGrammarParser.Math_ATanContext context)
         {
-            Func<object, object> calculation = x => Math.Atan(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return Math.Atan(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -171,7 +214,15 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ATan2([NotNull] EveryGrammarParser.Math_ATan2Context context)
         {
-            Func<object, object, object> calculation = (x1, x2) => Math.Atan2(Convert.ToDouble(x1), Convert.ToDouble(x2));
+            Func<object, object, object> calculation = (x1, x2) =>
+            {
+                var value1 = new EPDecimal(x1);
+                var value2 = new EPDecimal(x2);
+                if (value1.IsNaN || value2.IsNaN)
+                    return null;
+
+                return Math.Atan2(value1, value2);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -195,7 +246,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ATanH([NotNull] EveryGrammarParser.Math_ATanHContext context)
         {
-            Func<object, object> calculation = x => MathNet.Numerics.Trig.Atanh(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return MathNet.Numerics.Trig.Atanh(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -219,7 +277,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Cbrt([NotNull] EveryGrammarParser.Math_CbrtContext context)
         {
-            Func<object, object> calculation = x => Math.Pow(Convert.ToDouble(x), 1d / 3d);
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return Math.Pow(value, 1d/3d);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -243,7 +308,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Cos([NotNull] EveryGrammarParser.Math_CosContext context)
         {
-            Func<object, object> calculation = x => Math.Cos(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return Math.Cos(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -267,7 +339,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_CosH([NotNull] EveryGrammarParser.Math_CosHContext context)
         {
-            Func<object, object> calculation = x => Math.Cosh(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return Math.Cosh(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -291,7 +370,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Ceilling([NotNull] EveryGrammarParser.Math_CeillingContext context)
         {
-            Func<object, object> calculation = x => Math.Ceiling(Convert.ToDecimal(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return Math.Ceiling(value.GetValue());
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -334,19 +420,19 @@ namespace EveryParser.GrammarListener.CalculatorListener
             }
 
             var valueList = childValues[0] as List<object>;
-            decimal value = 0;
+            EPDecimal value = 0;
             if (valueList is null)
-                value = Convert.ToDecimal(childValues[0]);
+                value = new EPDecimal(childValues[0]);
 
             var minList = childValues[1] as List<object>;
-            decimal min = 0;
+            EPDecimal min = 0;
             if (minList is null)
-                min = Convert.ToDecimal(childValues[1]);
+                min = new EPDecimal(childValues[1]);
 
             var maxList = childValues[2] as List<object>;
-            decimal max = 0;
+            EPDecimal max = 0;
             if (maxList is null)
-                max = Convert.ToDecimal(childValues[2]);
+                max = new EPDecimal(childValues[2]);
 
             if (valueList is null && minList is null && maxList is null)
             {
@@ -358,7 +444,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
                 {
                     Node.Value = valueList.Select(x =>
                     {
-                        decimal valueX = Convert.ToDecimal(x);
+                        var valueX = new EPDecimal(x);
                         return (object)(valueX < min ? min : valueX > max ? max : value);
                     });
                 }
@@ -369,8 +455,8 @@ namespace EveryParser.GrammarListener.CalculatorListener
                         var result = new List<object>(valueList.Count);
                         for (int i = 0; i < valueList.Count; ++i)
                         {
-                            value = Convert.ToDecimal(valueList[i]);
-                            max = Convert.ToDecimal(maxList[i]);
+                            value = new EPDecimal(valueList[i]);
+                            max = new EPDecimal(maxList[i]);
                             result.Add((value < min ? min : value > max ? max : value));
                         }
                         Node.Value = result;
@@ -388,8 +474,8 @@ namespace EveryParser.GrammarListener.CalculatorListener
                         var result = new List<object>(valueList.Count);
                         for (int i = 0; i < valueList.Count; ++i)
                         {
-                            value = Convert.ToDecimal(valueList[i]);
-                            min = Convert.ToDecimal(minList[i]);
+                            value = new EPDecimal(valueList[i]);
+                            min = new EPDecimal(minList[i]);
                             result.Add((value < min ? min : value > max ? max : value));
                         }
                         Node.Value = result;
@@ -405,9 +491,9 @@ namespace EveryParser.GrammarListener.CalculatorListener
                     var result = new List<object>(valueList.Count);
                     for (int i = 0; i < valueList.Count; i += 1)
                     {
-                        decimal valueX = Convert.ToDecimal(valueList[i]);
-                        decimal minX = Convert.ToDecimal(minList[i]);
-                        decimal maxX = Convert.ToDecimal(maxList[i]);
+                        var valueX = new EPDecimal(valueList[i]);
+                        var minX = new EPDecimal(minList[i]);
+                        var maxX = new EPDecimal(maxList[i]);
 
                         result.Add(valueX < minX ? minX : valueX > maxX ? maxX : valueX);
                     }
@@ -445,7 +531,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
             Func<object, object> calculation = x =>
             {
                 long value = 0;
-                foreach (var letter in Convert.ToInt64(x).ToString())
+                foreach (var letter in ((long)new EPDecimal(x)).ToString())
                     value += long.Parse(letter.ToString());
                 return value;
             };
@@ -470,7 +556,8 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_Derivative([NotNull] EveryGrammarParser.Math_DerivativeContext context) { }
+        public void ExitMath_Derivative([NotNull] EveryGrammarParser.Math_DerivativeContext context)
+        { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Exp</c>
@@ -491,7 +578,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Exp([NotNull] EveryGrammarParser.Math_ExpContext context)
         {
-            Func<object, object> calculation = x => Math.Exp(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return Math.Exp(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -515,7 +609,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Floor([NotNull] EveryGrammarParser.Math_FloorContext context)
         {
-            Func<object, object> calculation = x => Math.Floor(Convert.ToDecimal(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return Math.Floor(value.GetValue());
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -537,7 +638,8 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <para>The default implementation does nothing.</para>
         /// </summary>
         /// <param name="context">The parse tree.</param>
-        public void ExitMath_Integration([NotNull] EveryGrammarParser.Math_IntegrationContext context) { }
+        public void ExitMath_Integration([NotNull] EveryGrammarParser.Math_IntegrationContext context)
+        { }
 
         /// <summary>
         /// Enter a parse tree produced by the <c>Math_Log</c>
@@ -558,7 +660,15 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Log([NotNull] EveryGrammarParser.Math_LogContext context)
         {
-            Func<object, object, object> calculation = (x1, x2) => Math.Log(Convert.ToDouble(x1), Convert.ToDouble(x2));
+            Func<object, object, object> calculation = (x1, x2) =>
+            {
+                var value1 = new EPDecimal(x1);
+                var value2 = new EPDecimal(x2);
+                if (value1.IsNaN || value2.IsNaN)
+                    return null;
+
+                return Math.Log(value1, value2);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -582,7 +692,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Log2([NotNull] EveryGrammarParser.Math_Log2Context context)
         {
-            Func<object, object> calculation = x => Math.Log(Convert.ToDouble(x), 2d);
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return Math.Log(value, 2d);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -606,7 +723,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Log10([NotNull] EveryGrammarParser.Math_Log10Context context)
         {
-            Func<object, object> calculation = x => Math.Log10(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return Math.Log10(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -652,11 +776,11 @@ namespace EveryParser.GrammarListener.CalculatorListener
             {
                 decimal max = decimal.MinValue;
                 foreach (var value in list)
-                    max = Math.Max(max, Convert.ToDecimal(value));
+                    max = Math.Max(max, new EPDecimal(value));
                 Node.Value = max;
             }
             else
-                Node.Value = Convert.ToDecimal(childValues[0]);
+                Node.Value = new EPDecimal(childValues[0]);
 
             Node = Node.Parent;
         }
@@ -680,7 +804,15 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Max_Two([NotNull] EveryGrammarParser.Math_Max_TwoContext context)
         {
-            Func<object, object, object> calculation = (x1, x2) => Math.Max(Convert.ToDouble(x1), Convert.ToDouble(x2));
+            Func<object, object, object> calculation = (x1, x2) =>
+            {
+                var value1 = new EPDecimal(x1);
+                var value2 = new EPDecimal(x2);
+                if (value1.IsNaN || value2.IsNaN)
+                    return null;
+
+                return Math.Max((double)value1, (double)value2);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -726,11 +858,11 @@ namespace EveryParser.GrammarListener.CalculatorListener
             {
                 decimal min = decimal.MaxValue;
                 foreach (var value in list)
-                    min = Math.Min(min, Convert.ToDecimal(value));
+                    min = Math.Min(min, new EPDecimal(value));
                 Node.Value = min;
             }
             else
-                Node.Value = Convert.ToDecimal(childValues[0]);
+                Node.Value = new EPDecimal(childValues[0]);
 
             Node = Node.Parent;
         }
@@ -754,7 +886,15 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Min_Two([NotNull] EveryGrammarParser.Math_Min_TwoContext context)
         {
-            Func<object, object, object> calculation = (x1, x2) => Math.Min(Convert.ToDouble(x1), Convert.ToDouble(x2));
+            Func<object, object, object> calculation = (x1, x2) =>
+            {
+                var value1 = new EPDecimal(x1);
+                var value2 = new EPDecimal(x2);
+                if (value1.IsNaN || value2.IsNaN)
+                    return null;
+
+                return Math.Min((double)value1, (double)value2);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -778,7 +918,15 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Power([NotNull] EveryGrammarParser.Math_PowerContext context)
         {
-            Func<object, object, object> calculation = (x1, x2) => Math.Pow(Convert.ToDouble(x1), Convert.ToDouble(x2));
+            Func<object, object, object> calculation = (x1, x2) =>
+            {
+                var value1 = new EPDecimal(x1);
+                var value2 = new EPDecimal(x2);
+                if (value1.IsNaN || value2.IsNaN)
+                    return null;
+
+                return Math.Pow(value1, value2);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -802,7 +950,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Round_Not_Decimal([NotNull] EveryGrammarParser.Math_Round_Not_DecimalContext context)
         {
-            Func<object, object> calculation = x => Math.Round(Convert.ToDecimal(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return Math.Round(value.GetValue());
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -826,7 +981,15 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Round_Decimal([NotNull] EveryGrammarParser.Math_Round_DecimalContext context)
         {
-            Func<object, object, object> calculation = (x1, x2) => Math.Round(Convert.ToDecimal(x1), Convert.ToInt32(x2));
+            Func<object, object, object> calculation = (x1, x2) =>
+            {
+                var value1 = new EPDecimal(x1);
+                var value2 = new EPDecimal(x2);
+                if (value1.IsNaN || value2.IsNaN)
+                    return null;
+
+                return Math.Round(value1.GetValue(), value2);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -850,7 +1013,15 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Root([NotNull] EveryGrammarParser.Math_RootContext context)
         {
-            Func<object, object, object> calculation = (x1, x2) => Math.Pow(Convert.ToDouble(x1), 1 / Convert.ToDouble(x2));
+            Func<object, object, object> calculation = (x1, x2) =>
+            {
+                var value1 = new EPDecimal(x1);
+                var value2 = new EPDecimal(x2);
+                if (value1.IsNaN || value2.IsNaN)
+                    return null;
+
+                return Math.Pow(value1, 1/value2);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -874,7 +1045,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Sin([NotNull] EveryGrammarParser.Math_SinContext context)
         {
-            Func<object, object> calculation = x => Math.Sin(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return Math.Sin(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -898,7 +1076,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_SinH([NotNull] EveryGrammarParser.Math_SinHContext context)
         {
-            Func<object, object> calculation = x => Math.Sinh(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return Math.Sinh(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -922,7 +1107,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Sqrt([NotNull] EveryGrammarParser.Math_SqrtContext context)
         {
-            Func<object, object> calculation = x => Math.Sqrt(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return Math.Sqrt(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -946,7 +1138,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Tan([NotNull] EveryGrammarParser.Math_TanContext context)
         {
-            Func<object, object> calculation = x => Math.Tan(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return Math.Tan(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -970,7 +1169,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_TanH([NotNull] EveryGrammarParser.Math_TanHContext context)
         {
-            Func<object, object> calculation = x => Math.Tanh(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return Math.Tanh(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -994,7 +1200,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Truncate([NotNull] EveryGrammarParser.Math_TruncateContext context)
         {
-            Func<object, object> calculation = x => Math.Truncate(Convert.ToDecimal(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return Math.Truncate(value.GetValue());
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -1052,7 +1265,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
                 return;
             }
 
-            Node.Value = Vector<double>.Build.DenseOfArray(Array.ConvertAll(list.ToArray(), y => Convert.ToDouble(y))).Norm(value);
+            Node.Value = Vector<double>.Build.DenseOfArray(Array.ConvertAll(list.ToArray(), y => (double)new EPDecimal(y))).Norm(value);
             Node = Node.Parent;
         }
 
@@ -1073,7 +1286,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_EulerNorm([NotNull] EveryGrammarParser.Math_EulerNormContext context)
         {
-            Func<List<object>, object> calculation = x => Vector<double>.Build.DenseOfArray(Array.ConvertAll(x.ToArray(), y => Convert.ToDouble(y))).L2Norm();
+            Func<List<object>, object> calculation = x => Vector<double>.Build.DenseOfArray(Array.ConvertAll(x.ToArray(), y => (double)new EPDecimal(y))).L2Norm();
             Node.Value = CalculationHelper.CalcListOfNumbersUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -1095,7 +1308,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_MaxNorm([NotNull] EveryGrammarParser.Math_MaxNormContext context)
         {
-            Func<List<object>, object> calculation = x => Vector<double>.Build.DenseOfArray(Array.ConvertAll(x.ToArray(), y => Convert.ToDouble(y))).InfinityNorm();
+            Func<List<object>, object> calculation = x => Vector<double>.Build.DenseOfArray(Array.ConvertAll(x.ToArray(), y => (double)new EPDecimal(y))).InfinityNorm();
             Node.Value = CalculationHelper.CalcListOfNumbersUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -1117,7 +1330,15 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_GreatesCommonDivisor([NotNull] EveryGrammarParser.Math_GreatesCommonDivisorContext context)
         {
-            Func<object, object, object> calculation = (x, y) => MathNet.Numerics.Euclid.GreatestCommonDivisor(Convert.ToInt64(x), Convert.ToInt64(y));
+            Func<object, object, object> calculation = (x1, x2) =>
+            {
+                var value1 = new EPDecimal(x1);
+                var value2 = new EPDecimal(x2);
+                if (value1.IsNaN || value2.IsNaN)
+                    return null;
+
+                return MathNet.Numerics.Euclid.GreatestCommonDivisor(value1, value2);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -1139,7 +1360,15 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_LeastCommonMultiple([NotNull] EveryGrammarParser.Math_LeastCommonMultipleContext context)
         {
-            Func<object, object, object> calculation = (x, y) => MathNet.Numerics.Euclid.LeastCommonMultiple(Convert.ToInt64(x), Convert.ToInt64(y));
+            Func<object, object, object> calculation = (x1, x2) =>
+            {
+                var value1 = new EPDecimal(x1);
+                var value2 = new EPDecimal(x2);
+                if (value1.IsNaN || value2.IsNaN)
+                    return null;
+
+                return MathNet.Numerics.Euclid.LeastCommonMultiple(value1, value2);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -1161,7 +1390,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_DotProduct([NotNull] EveryGrammarParser.Math_DotProductContext context)
         {
-            Converter<object, double> converter = y => Convert.ToDouble(y);
+            Converter<object, double> converter = y => (double)new EPDecimal(y);
             Func<List<object>, List<object>, object> calculation = (x, z) =>
                             Vector<double>.Build.DenseOfArray(Array.ConvertAll(x.ToArray(), converter)).DotProduct(
                             Vector<double>.Build.DenseOfArray(Array.ConvertAll(z.ToArray(), converter)));
@@ -1187,7 +1416,15 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Binomila([NotNull] EveryGrammarParser.Math_BinomilaContext context)
         {
-            Func<object, object, object> calculation = (x, y) => MathNet.Numerics.SpecialFunctions.Binomial(Convert.ToInt32(x), Convert.ToInt32(y));
+            Func<object, object, object> calculation = (x1, x2) =>
+            {
+                var value1 = new EPDecimal(x1);
+                var value2 = new EPDecimal(x2);
+                if (value1.IsNaN || value2.IsNaN)
+                    return null;
+
+                return MathNet.Numerics.SpecialFunctions.Binomial(value1, value2);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -1209,7 +1446,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ACot([NotNull] EveryGrammarParser.Math_ACotContext context)
         {
-            Func<object, object> calculation = x => MathNet.Numerics.Trig.Acot(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return MathNet.Numerics.Trig.Acot(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -1231,7 +1475,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ACotH([NotNull] EveryGrammarParser.Math_ACotHContext context)
         {
-            Func<object, object> calculation = x => MathNet.Numerics.Trig.Acoth(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return MathNet.Numerics.Trig.Acoth(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -1253,7 +1504,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ACsc([NotNull] EveryGrammarParser.Math_ACscContext context)
         {
-            Func<object, object> calculation = x => MathNet.Numerics.Trig.Acsc(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return MathNet.Numerics.Trig.Acsc(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -1275,7 +1533,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ACscH([NotNull] EveryGrammarParser.Math_ACscHContext context)
         {
-            Func<object, object> calculation = x => MathNet.Numerics.Trig.Acsch(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return MathNet.Numerics.Trig.Acsch(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -1297,7 +1562,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ASec([NotNull] EveryGrammarParser.Math_ASecContext context)
         {
-            Func<object, object> calculation = x => MathNet.Numerics.Trig.Asec(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return MathNet.Numerics.Trig.Asec(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -1319,7 +1591,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_ASecH([NotNull] EveryGrammarParser.Math_ASecHContext context)
         {
-            Func<object, object> calculation = x => MathNet.Numerics.Trig.Asech(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return MathNet.Numerics.Trig.Asech(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -1341,7 +1620,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Cot([NotNull] EveryGrammarParser.Math_CotContext context)
         {
-            Func<object, object> calculation = x => MathNet.Numerics.Trig.Cot(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return MathNet.Numerics.Trig.Cot(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -1363,7 +1649,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_CotH([NotNull] EveryGrammarParser.Math_CotHContext context)
         {
-            Func<object, object> calculation = x => MathNet.Numerics.Trig.Coth(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return MathNet.Numerics.Trig.Coth(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -1385,7 +1678,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Csc([NotNull] EveryGrammarParser.Math_CscContext context)
         {
-            Func<object, object> calculation = x => MathNet.Numerics.Trig.Csc(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return MathNet.Numerics.Trig.Csc(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -1407,7 +1707,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_CscH([NotNull] EveryGrammarParser.Math_CscHContext context)
         {
-            Func<object, object> calculation = x => MathNet.Numerics.Trig.Csch(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return MathNet.Numerics.Trig.Csch(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -1429,7 +1736,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_Sec([NotNull] EveryGrammarParser.Math_SecContext context)
         {
-            Func<object, object> calculation = x => MathNet.Numerics.Trig.Sec(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return MathNet.Numerics.Trig.Sec(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -1451,7 +1765,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMath_SecH([NotNull] EveryGrammarParser.Math_SecHContext context)
         {
-            Func<object, object> calculation = x => MathNet.Numerics.Trig.Sech(Convert.ToDouble(x));
+            Func<object, object> calculation = x =>
+            {
+                var value = new EPDecimal(x);
+                if (value.IsNaN)
+                    return null;
+
+                return MathNet.Numerics.Trig.Sech(value);
+            };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }

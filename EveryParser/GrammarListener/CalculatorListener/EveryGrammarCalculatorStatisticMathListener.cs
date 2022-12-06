@@ -1,5 +1,6 @@
 ﻿using Antlr4.Runtime.Misc;
 using EveryParser.LinQReplaces;
+using EveryParser.Types;
 using MathNet.Numerics.Statistics;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMathStatistic_CoVariance([NotNull] EveryGrammarParser.MathStatistic_CoVarianceContext context)
         {
-            Func<List<object>, List<object>, object> calculation = (list1, list2) => (object)ArrayStatistics.Covariance(Array.ConvertAll(list1.ToArray(), x => Convert.ToDouble(x)), Array.ConvertAll(list2.ToArray(), x => Convert.ToDouble(x)));
+            Func<List<object>, List<object>, object> calculation = (list1, list2) => ArrayStatistics.Covariance(Array.ConvertAll(list1.ToArray(), x => (double)EPDecimal.ToEPDecimal(x)), Array.ConvertAll(list2.ToArray(), x => (double)EPDecimal.ToEPDecimal(x)));
             Node.Value = CalculationHelper.CalcListOfNumbersBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -47,7 +48,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMathStatistic_Pearson([NotNull] EveryGrammarParser.MathStatistic_PearsonContext context)
         {
-            Func<List<object>, List<object>, object> calculation = (list1, list2) => (object)Correlation.Pearson(Array.ConvertAll(list1.ToArray(), x => Convert.ToDouble(x)), Array.ConvertAll(list2.ToArray(), x => Convert.ToDouble(x)));
+            Func<List<object>, List<object>, object> calculation = (list1, list2) => Correlation.Pearson(Array.ConvertAll(list1.ToArray(), x => (double)EPDecimal.ToEPDecimal(x)), Array.ConvertAll(list2.ToArray(), x => (double)EPDecimal.ToEPDecimal(x)));
             Node.Value = CalculationHelper.CalcListOfNumbersBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -105,7 +106,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
                 return;
             }
 
-            Node.Value = ArrayStatistics.QuantileInplace(list.ConvertAll(x => Convert.ToDouble(x)).ToArray(), value);
+            Node.Value = ArrayStatistics.QuantileInplace(list.ConvertAll(x => (double)EPDecimal.ToEPDecimal(x)).ToArray(), value);
             Node = Node.Parent;
         }
 
@@ -126,7 +127,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMathStatistic_Spearman([NotNull] EveryGrammarParser.MathStatistic_SpearmanContext context)
         {
-            Func<List<object>, List<object>, object> calculation = (list1, list2) => (object)Correlation.Spearman(Array.ConvertAll(list1.ToArray(), x => Convert.ToDouble(x)), Array.ConvertAll(list2.ToArray(), x => Convert.ToDouble(x)));
+            Func<List<object>, List<object>, object> calculation = (list1, list2) => Correlation.Spearman(Array.ConvertAll(list1.ToArray(), x => (double)EPDecimal.ToEPDecimal(x)), Array.ConvertAll(list2.ToArray(), x => (double)EPDecimal.ToEPDecimal(x)));
             Node.Value = CalculationHelper.CalcListOfNumbersBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -148,7 +149,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMathStatistic_StD([NotNull] EveryGrammarParser.MathStatistic_StDContext context)
         {
-            Func<List<object>, object> calculation = list => (object)ArrayStatistics.StandardDeviation(Array.ConvertAll(list.ToArray(), x => Convert.ToDouble(x)));
+            Func<List<object>, object> calculation = list => ArrayStatistics.StandardDeviation(Array.ConvertAll(list.ToArray(), x => (double)EPDecimal.ToEPDecimal(x)));
             Node.Value = CalculationHelper.CalcListOfNumbersUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -172,7 +173,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMathStatistic_Mean([NotNull] EveryGrammarParser.MathStatistic_MeanContext context)
         {
-            Func<List<object>, object> calculation = list => (object)ArrayStatistics.Mean(Array.ConvertAll(list.ToArray(), x => Convert.ToDouble(x)));
+            Func<List<object>, object> calculation = list => ArrayStatistics.Mean(Array.ConvertAll(list.ToArray(), x => (double)EPDecimal.ToEPDecimal(x)));
             Node.Value = CalculationHelper.CalcListOfNumbersUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -196,7 +197,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMathStatistic_Median([NotNull] EveryGrammarParser.MathStatistic_MedianContext context)
         {
-            Func<List<object>, object> calculation = list => (object)ArrayStatistics.MedianInplace(Array.ConvertAll(list.ToArray(), x => Convert.ToDouble(x)));
+            Func<List<object>, object> calculation = list => ArrayStatistics.MedianInplace(Array.ConvertAll(list.ToArray(), x => (double)EPDecimal.ToEPDecimal(x)));
             Node.Value = CalculationHelper.CalcListOfNumbersUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -220,7 +221,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitMathStatistic_Variance([NotNull] EveryGrammarParser.MathStatistic_VarianceContext context)
         {
-            Func<List<object>, object> calculation = list => (object)ArrayStatistics.Variance(Array.ConvertAll(list.ToArray(), x => Convert.ToDouble(x)));
+            Func<List<object>, object> calculation = list => ArrayStatistics.Variance(Array.ConvertAll(list.ToArray(), x => (double)EPDecimal.ToEPDecimal(x)));
             Node.Value = CalculationHelper.CalcListOfNumbersUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }

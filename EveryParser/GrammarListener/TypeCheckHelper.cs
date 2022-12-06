@@ -1,4 +1,5 @@
 ﻿using EveryParser.LinQReplaces;
+using EveryParser.Types;
 using System;
 using System.Collections.Generic;
 
@@ -73,7 +74,7 @@ namespace EveryParser.GrammarListener
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        internal static bool IsNumber(object obj) => obj is int || obj is long || obj is double || obj is decimal;
+        internal static bool IsNumber(object obj) => obj is int || obj is long || obj is double || obj is decimal || obj is float || obj is short || obj is byte || obj is uint || obj is ulong || obj is ushort || obj is sbyte || obj is EPDecimal;
 
         /// <summary>
         /// Checks if object is type of boolean

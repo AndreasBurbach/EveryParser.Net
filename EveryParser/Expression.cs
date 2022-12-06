@@ -4,6 +4,7 @@ using EveryParser.GrammarListener;
 using EveryParser.GrammarListener.ArgumentsListener;
 using EveryParser.GrammarListener.CalculatorListener;
 using EveryParser.GrammarListener.TypeListener;
+using EveryParser.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -277,7 +278,7 @@ namespace EveryParser
             if (HasErrors)
                 return null;
 
-            return result;
+            return result is EPDecimal value ? value.Value : result;
         }
 
         /// <summary>
@@ -319,7 +320,7 @@ namespace EveryParser
             if (HasErrors)
                 return null;
 
-            return Convert.ToDecimal(result);
+            return new EPDecimal(result);
         }
 
         /// <summary>
@@ -347,7 +348,7 @@ namespace EveryParser
             if (HasErrors)
                 return null;
 
-            return (result as List<object>)?.ToArray();
+            return (result as List<object>)?.Select(x => x is EPDecimal value ? value.Value : x).ToArray();
         }
 
         /// <summary>

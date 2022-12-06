@@ -1,5 +1,6 @@
 ﻿using Antlr4.Runtime.Misc;
 using EveryParser.LinQReplaces;
+using EveryParser.Types;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -194,7 +195,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
                 var datePartList = childValues[datePartIndex] as List<object>;
                 var datePart = -1;
                 if (datePartList is null)
-                    datePart = Convert.ToInt32(childValues[datePartIndex]);
+                    datePart = EPDecimal.ToEPDecimal(childValues[datePartIndex]);
 
                 Func<DateTime, int, DateTime> expression;
 
@@ -271,7 +272,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
                 for (int i = 0; i < valueList.Count; i += 1)
                 {
                     var d = currentDateList.Count == 0 ? currentDate : currentDateList[i];
-                    result.Add(expression.Invoke(d, Convert.ToInt32(valueList[i])));
+                    result.Add(expression.Invoke(d, EPDecimal.ToEPDecimal(valueList[i])));
                 }
                 currentDateList = result;
             }

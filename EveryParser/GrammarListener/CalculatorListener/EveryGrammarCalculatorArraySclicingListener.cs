@@ -1,6 +1,7 @@
 ﻿using Antlr4.Runtime;
 using Antlr4.Runtime.Misc;
 using EveryParser.LinQReplaces;
+using EveryParser.Types;
 using System;
 using System.Collections.Generic;
 
@@ -193,11 +194,9 @@ namespace EveryParser.GrammarListener.CalculatorListener
 
         private object SliceArray(ParserRuleContext context, List<object> array, object indexObj)
         {
-            var indexList = indexObj as List<object>;
-
-            if (indexList is null)
+            if (!(indexObj is List<object> indexList))
             {
-                int index = Convert.ToInt32(indexObj);
+                int index = new EPDecimal(indexObj);
                 if (index < 0)
                     index = array.Count + index;
 
@@ -217,7 +216,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
 
             return indexList.Select(x =>
             {
-                int index = Convert.ToInt32(x);
+                int index = new EPDecimal(x);
                 if (index < 0)
                     index = array.Count + index;
 
@@ -243,27 +242,27 @@ namespace EveryParser.GrammarListener.CalculatorListener
 
             if (indexStartList is null && indexEndList is null)
             {
-                int indexStart = Convert.ToInt32(indexStartObj);
-                int indexEnd = Convert.ToInt32(indexEndObj);
+                int indexStart = new EPDecimal(indexStartObj);
+                int indexEnd = new EPDecimal(indexEndObj);
                 return GetFromTo(context, array, indexStart, indexEnd);
             }
             else if (indexStartList is null)
             {
-                int indexStart = Convert.ToInt32(indexStartObj);
-                return indexEndList.Select(indexEndX => (object)GetFromTo(context, array, indexStart, Convert.ToInt32(indexEndX)));
+                int indexStart = new EPDecimal(indexStartObj);
+                return indexEndList.Select(indexEndX => (object)GetFromTo(context, array, indexStart, new EPDecimal(indexEndX)));
             }
             else if (indexEndList is null)
             {
-                int indexEnd = Convert.ToInt32(indexEndObj);
-                return indexStartList.Select(indexStartX => (object)GetFromTo(context, array, Convert.ToInt32(indexStartX), indexEnd));
+                int indexEnd = new EPDecimal(indexEndObj);
+                return indexStartList.Select(indexStartX => (object)GetFromTo(context, array, new EPDecimal(indexStartX), indexEnd));
             }
             else if (indexStartList.Count == indexEndList.Count)
             {
                 var result = new List<object>(indexEndList.Count);
                 for (int i = 0; i < indexEndList.Count; i += 1)
                 {
-                    int indexStart = Convert.ToInt32(indexStartList[i]);
-                    int indexEnd = Convert.ToInt32(indexEndList[i]);
+                    int indexStart = new EPDecimal(indexStartList[i]);
+                    int indexEnd = new EPDecimal(indexEndList[i]);
                     result.Add(GetFromTo(context, array, indexStart, indexEnd));
                 }
                 return result;
@@ -282,40 +281,40 @@ namespace EveryParser.GrammarListener.CalculatorListener
 
             if (indexStartList is null && indexEndList is null && stepList is null)
             {
-                int indexStart = Convert.ToInt32(indexStartObj);
-                int indexEnd = Convert.ToInt32(indexEndObj);
-                int step = Convert.ToInt32(stepObj);
+                int indexStart = EPDecimal.ToEPDecimal(indexStartObj);
+                int indexEnd = EPDecimal.ToEPDecimal(indexEndObj);
+                int step = EPDecimal.ToEPDecimal(stepObj);
                 return GetFromTo(context, array, indexStart, indexEnd, step);
             }
             else if (indexStartList is null && indexEndList is null)
             {
-                int indexStart = Convert.ToInt32(indexStartObj);
-                int indexEnd = Convert.ToInt32(indexEndObj);
-                return stepList.Select(stepX => (object)GetFromTo(context, array, indexStart, indexEnd, Convert.ToInt32(stepX)));
+                int indexStart = EPDecimal.ToEPDecimal(indexStartObj);
+                int indexEnd = EPDecimal.ToEPDecimal(indexEndObj);
+                return stepList.Select(stepX => (object)GetFromTo(context, array, indexStart, indexEnd, EPDecimal.ToEPDecimal(stepX)));
             }
             else if (indexStartList is null && stepList is null)
             {
-                int indexStart = Convert.ToInt32(indexStartObj);
-                int step = Convert.ToInt32(stepObj);
-                return indexEndList.Select(indexEndX => (object)GetFromTo(context, array, indexStart, Convert.ToInt32(indexEndX), step));
+                int indexStart = EPDecimal.ToEPDecimal(indexStartObj);
+                int step = EPDecimal.ToEPDecimal(stepObj);
+                return indexEndList.Select(indexEndX => (object)GetFromTo(context, array, indexStart, EPDecimal.ToEPDecimal(indexEndX), step));
             }
             else if (indexEndList is null && stepList is null)
             {
-                int indexEnd = Convert.ToInt32(indexEndObj);
-                int step = Convert.ToInt32(stepObj);
-                return indexStartList.Select(indexStartX => (object)GetFromTo(context, array, Convert.ToInt32(indexStartX), indexEnd, step));
+                int indexEnd = EPDecimal.ToEPDecimal(indexEndObj);
+                int step = EPDecimal.ToEPDecimal(stepObj);
+                return indexStartList.Select(indexStartX => (object)GetFromTo(context, array, EPDecimal.ToEPDecimal(indexStartX), indexEnd, step));
             }
             else if (indexStartList is null)
             {
                 if (indexEndList.Count == stepList.Count)
                 {
-                    int indexStart = Convert.ToInt32(indexStartObj);
+                    int indexStart = EPDecimal.ToEPDecimal(indexStartObj);
                     var result = new List<object>(indexEndList.Count);
                     for (int i = 0; i < indexEndList.Count; i += 1)
                     {
-                        int indexEnd = Convert.ToInt32(indexEndList[i]);
-                        int step = Convert.ToInt32(stepList[i]);
-                        result.Add((object)GetFromTo(context, array, indexStart, indexEnd, step));
+                        int indexEnd = EPDecimal.ToEPDecimal(indexEndList[i]);
+                        int step = EPDecimal.ToEPDecimal(stepList[i]);
+                        result.Add(GetFromTo(context, array, indexStart, indexEnd, step));
                     }
                     return result;
                 }
@@ -326,13 +325,13 @@ namespace EveryParser.GrammarListener.CalculatorListener
             {
                 if (indexStartList.Count == stepList.Count)
                 {
-                    int indexEnd = Convert.ToInt32(indexEndObj);
+                    int indexEnd = EPDecimal.ToEPDecimal(indexEndObj);
                     var result = new List<object>(indexStartList.Count);
                     for (int i = 0; i < indexStartList.Count; i += 1)
                     {
-                        int indexStart = Convert.ToInt32(indexStartList[i]);
-                        int step = Convert.ToInt32(stepList[i]);
-                        result.Add((object)GetFromTo(context, array, indexStart, indexEnd, step));
+                        int indexStart = EPDecimal.ToEPDecimal(indexStartList[i]);
+                        int step = EPDecimal.ToEPDecimal(stepList[i]);
+                        result.Add(GetFromTo(context, array, indexStart, indexEnd, step));
                     }
                     return result;
                 }
@@ -343,13 +342,13 @@ namespace EveryParser.GrammarListener.CalculatorListener
             {
                 if (indexStartList.Count == indexEndList.Count)
                 {
-                    int step = Convert.ToInt32(stepObj);
+                    int step = EPDecimal.ToEPDecimal(stepObj);
                     var result = new List<object>(indexStartList.Count);
                     for (int i = 0; i < indexStartList.Count; i += 1)
                     {
-                        int indexStart = Convert.ToInt32(indexStartList[i]);
-                        int indexEnd = Convert.ToInt32(indexEndList[i]);
-                        result.Add((object)GetFromTo(context, array, indexStart, indexEnd, step));
+                        int indexStart = EPDecimal.ToEPDecimal(indexStartList[i]);
+                        int indexEnd = EPDecimal.ToEPDecimal(indexEndList[i]);
+                        result.Add(GetFromTo(context, array, indexStart, indexEnd, step));
                     }
                     return result;
                 }
@@ -361,10 +360,10 @@ namespace EveryParser.GrammarListener.CalculatorListener
                 var result = new List<object>(indexStartList.Count);
                 for (int i = 0; i < indexStartList.Count; i += 1)
                 {
-                    int indexStart = Convert.ToInt32(indexStartList[i]);
-                    int indexEnd = Convert.ToInt32(indexEndList[i]);
-                    int step = Convert.ToInt32(stepList[i]);
-                    result.Add((object)GetFromTo(context, array, indexStart, indexEnd, step));
+                    int indexStart = EPDecimal.ToEPDecimal(indexStartList[i]);
+                    int indexEnd = EPDecimal.ToEPDecimal(indexEndList[i]);
+                    int step = EPDecimal.ToEPDecimal(stepList[i]);
+                    result.Add(GetFromTo(context, array, indexStart, indexEnd, step));
                 }
                 return result;
             }

@@ -1,5 +1,6 @@
 ﻿using Antlr4.Runtime;
 using EveryParser.LinQReplaces;
+using EveryParser.Types;
 using System;
 using System.Collections.Generic;
 
@@ -54,14 +55,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
                 return double.NaN;
 
             var list1 = childValues[0] as List<object>;
-            decimal value1 = 0;
+            EPDecimal value1 = 0;
             if (list1 is null)
-                value1 = Convert.ToDecimal(childValues[0]);
+                value1 = new EPDecimal(childValues[0]);
 
             var list2 = childValues[1] as List<object>;
-            decimal value2 = 0;
+            EPDecimal value2 = 0;
             if (list2 is null)
-                value2 = Convert.ToDecimal(childValues[1]);
+                value2 = new EPDecimal(childValues[1]);
 
             if (list1 is null && list2 is null)
                 return calculationExpression(value1, value2);
