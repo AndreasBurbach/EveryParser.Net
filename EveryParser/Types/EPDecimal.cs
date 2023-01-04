@@ -2,7 +2,7 @@
 
 namespace EveryParser.Types
 {
-    public class EPDecimal
+    public class EPDecimal : IEquatable<EPDecimal>
     {
         public decimal? Value { get; set; }
 
@@ -20,49 +20,49 @@ namespace EveryParser.Types
 
         public static EPDecimal ToEPDecimal(object value) => new EPDecimal(value);
 
-        public static EPDecimal operator +(EPDecimal x) => new EPDecimal(x.IsNaN ? null : +x.Value);
+        public static EPDecimal operator +(EPDecimal x) => new EPDecimal(x is null || x.IsNaN ? null : +x.Value);
 
-        public static EPDecimal operator -(EPDecimal x) => new EPDecimal(x.IsNaN ? null : -x.Value);
+        public static EPDecimal operator -(EPDecimal x) => new EPDecimal(x is null || x.IsNaN ? null : -x.Value);
 
-        public static EPDecimal operator +(EPDecimal x, EPDecimal y) => new EPDecimal(x.IsNaN || y.IsNaN ? null : x.Value + y.Value);
+        public static EPDecimal operator +(EPDecimal x, EPDecimal y) => new EPDecimal(x is null || y is null || x.IsNaN || y.IsNaN ? null : x.Value + y.Value);
 
-        public static EPDecimal operator -(EPDecimal x, EPDecimal y) => new EPDecimal(x.IsNaN || y.IsNaN ? null : x.Value - y.Value);
+        public static EPDecimal operator -(EPDecimal x, EPDecimal y) => new EPDecimal(x is null || y is null || x.IsNaN || y.IsNaN ? null : x.Value - y.Value);
 
-        public static EPDecimal operator *(EPDecimal x, EPDecimal y) => new EPDecimal(x.IsNaN || y.IsNaN ? null : x.Value * y.Value);
+        public static EPDecimal operator *(EPDecimal x, EPDecimal y) => new EPDecimal(x is null || y is null || x.IsNaN || y.IsNaN ? null : x.Value * y.Value);
 
-        public static EPDecimal operator /(EPDecimal x, EPDecimal y) => new EPDecimal(x.IsNaN || y.IsNaN ? null : x.Value / y.Value);
+        public static EPDecimal operator /(EPDecimal x, EPDecimal y) => new EPDecimal(x is null || y is null || x.IsNaN || y.IsNaN ? null : x.Value / y.Value);
 
-        public static EPDecimal operator %(EPDecimal x, EPDecimal y) => new EPDecimal(x.IsNaN || y.IsNaN ? null : x.Value % y.Value);
+        public static EPDecimal operator %(EPDecimal x, EPDecimal y) => new EPDecimal(x is null || y is null || x.IsNaN || y.IsNaN ? null : x.Value % y.Value);
 
-        public static EPDecimal operator --(EPDecimal x) => new EPDecimal(x.IsNaN ? null : x.Value - 1);
+        public static EPDecimal operator ~(EPDecimal x) => new EPDecimal(x is null || x.IsNaN ? null : (decimal?)(~Convert.ToInt64(x.Value)));
 
-        public static EPDecimal operator ~(EPDecimal x) => new EPDecimal(x.IsNaN ? null : (decimal?)(~Convert.ToInt64(x.Value)));
+        public static EPDecimal operator !(EPDecimal x) => new EPDecimal(x is null || x.IsNaN ? null : (decimal?)(Convert.ToInt64(x.Value) == 0 ? 1 : 0));
 
-        public static EPDecimal operator !(EPDecimal x) => new EPDecimal(x.IsNaN ? null : (decimal?)(Convert.ToInt64(x.Value) == 0 ? 1 : 0));
+        public static EPDecimal operator &(EPDecimal x, EPDecimal y) => new EPDecimal(x is null || y is null ||x.IsNaN || y.IsNaN ? null : (decimal?)(Convert.ToInt64(x.Value) & Convert.ToInt64(y.Value)));
 
-        public static EPDecimal operator &(EPDecimal x, EPDecimal y) => new EPDecimal(x.IsNaN || y.IsNaN ? null : (decimal?)(Convert.ToInt64(x.Value) & Convert.ToInt64(y.Value)));
+        public static EPDecimal operator |(EPDecimal x, EPDecimal y) => new EPDecimal(x is null || y is null ||x.IsNaN || y.IsNaN ? null : (decimal?)(Convert.ToInt64(x.Value) | Convert.ToInt64(y.Value)));
 
-        public static EPDecimal operator |(EPDecimal x, EPDecimal y) => new EPDecimal(x.IsNaN || y.IsNaN ? null : (decimal?)(Convert.ToInt64(x.Value) | Convert.ToInt64(y.Value)));
+        public static EPDecimal operator ^(EPDecimal x, EPDecimal y) => new EPDecimal(x is null || y is null ||x.IsNaN || y.IsNaN ? null : (decimal?)(Convert.ToInt64(x.Value) ^ Convert.ToInt64(y.Value)));
 
-        public static EPDecimal operator ^(EPDecimal x, EPDecimal y) => new EPDecimal(x.IsNaN || y.IsNaN ? null : (decimal?)(Convert.ToInt64(x.Value) ^ Convert.ToInt64(y.Value)));
+        public static EPDecimal operator <<(EPDecimal x, int y) => new EPDecimal(x is null || x.IsNaN ? null : (decimal?)(Convert.ToInt64(x.Value) << y));
 
-        public static EPDecimal operator <<(EPDecimal x, int y) => new EPDecimal(x.IsNaN ? null : (decimal?)(Convert.ToInt64(x.Value) << y));
+        public static EPDecimal operator >>(EPDecimal x, int y) => new EPDecimal(x is null || x.IsNaN ? null : (decimal?)(Convert.ToInt64(x.Value) >> y));
 
-        public static EPDecimal operator >>(EPDecimal x, int y) => new EPDecimal(x.IsNaN ? null : (decimal?)(Convert.ToInt64(x.Value) >> y));
+        public static bool operator ==(EPDecimal x, EPDecimal y) => (x is null && y is null) || (!(x is null) && x.IsNaN && !(y is null) && y.IsNaN) || (!(x is null) && !(y is null) && x.Value == y.Value);
 
-        public static bool operator ==(EPDecimal x, EPDecimal y) => x.IsNaN || y.IsNaN ? false : x.Value == y.Value;
+        public static bool operator !=(EPDecimal x, EPDecimal y) => !(x == y);
 
-        public static bool operator !=(EPDecimal x, EPDecimal y) => x.IsNaN || y.IsNaN ? true : x.Value != y.Value;
+        public static bool operator <(EPDecimal x, EPDecimal y) => !(x is null) && !(y is null) && !x.IsNaN && !y.IsNaN && x.Value < y.Value;
 
-        public static bool operator <(EPDecimal x, EPDecimal y) => x.IsNaN || y.IsNaN ? false : x.Value < y.Value;
+        public static bool operator >(EPDecimal x, EPDecimal y) => !(x is null) && !(y is null) && !x.IsNaN && !y.IsNaN && x.Value > y.Value;
 
-        public static bool operator >(EPDecimal x, EPDecimal y) => x.IsNaN || y.IsNaN ? false : x.Value > y.Value;
+        public static bool operator <=(EPDecimal x, EPDecimal y) => x ==y || x < y;
 
-        public static bool operator <=(EPDecimal x, EPDecimal y) => x.IsNaN || y.IsNaN ? false : x.Value <= y.Value;
+        public static bool operator >=(EPDecimal x, EPDecimal y) => x ==y || x > y;
 
-        public static bool operator >=(EPDecimal x, EPDecimal y) => x.IsNaN || y.IsNaN ? false : x.Value >= y.Value;
+        public static EPDecimal operator ++(EPDecimal x) => new EPDecimal(x is null ||x.IsNaN ? null : x.Value + 1);
 
-        public static EPDecimal operator ++(EPDecimal x) => new EPDecimal(x.IsNaN ? null : x.Value + 1);
+        public static EPDecimal operator --(EPDecimal x) => new EPDecimal(x is null || x.IsNaN ? null : x.Value - 1);
 
         public static implicit operator EPDecimal(decimal? value) => new EPDecimal(value);
 
@@ -78,25 +78,25 @@ namespace EveryParser.Types
 
         public static implicit operator EPDecimal(bool value) => new EPDecimal(value);
 
-        public static implicit operator decimal?(EPDecimal value) => value.Value;
+        public static implicit operator decimal?(EPDecimal value) => value?.Value;
 
-        public static implicit operator double?(EPDecimal value) => value.IsNaN ? null : (double?)Convert.ToDouble(value.Value);
+        public static implicit operator double?(EPDecimal value) => value is null || value.IsNaN ? null : (double?)Convert.ToDouble(value.Value);
 
-        public static implicit operator float?(EPDecimal value) => value.IsNaN ? null : (float?)Convert.ToSingle(value.Value);
+        public static implicit operator float?(EPDecimal value) => value is null || value.IsNaN ? null : (float?)Convert.ToSingle(value.Value);
 
-        public static implicit operator int?(EPDecimal value) => value.IsNaN ? null : (int?)Convert.ToInt32(value.Value);
+        public static implicit operator int?(EPDecimal value) => value is null || value.IsNaN ? null : (int?)Convert.ToInt32(value.Value);
 
-        public static implicit operator long?(EPDecimal value) => value.IsNaN ? null : (long?)Convert.ToInt64(value.Value);
+        public static implicit operator long?(EPDecimal value) => value is null ||  value.IsNaN ? null : (long?)Convert.ToInt64(value.Value);
 
-        public static implicit operator decimal(EPDecimal value) => value.Value??0;
+        public static implicit operator decimal(EPDecimal value) => value?.Value??0;
 
-        public static implicit operator double(EPDecimal value) => value.IsNaN ? 0 : (double)(value.Value??0);
+        public static implicit operator double(EPDecimal value) => (double)(value?.Value??0);
 
-        public static implicit operator float(EPDecimal value) => value.IsNaN ? 0 : (float)(value.Value??0);
+        public static implicit operator float(EPDecimal value) => (float)(value?.Value??0);
 
-        public static implicit operator int(EPDecimal value) => value.IsNaN ? 0 : (int)(value.Value??0);
+        public static implicit operator int(EPDecimal value) => (int)(value?.Value??0);
 
-        public static implicit operator long(EPDecimal value) => value.IsNaN ? 0 : (long)(value.Value??0);
+        public static implicit operator long(EPDecimal value) => (long)(value?.Value??0);
 
         public override bool Equals(object obj) => obj is EPDecimal objVal && Equals(objVal);
 
@@ -104,7 +104,11 @@ namespace EveryParser.Types
 
         public override int GetHashCode() => Value.GetHashCode();
 
-        public override string ToString() => IsNaN ? "NaN" : Value.ToString();
+        public override string ToString() => IsNaN ? "NaN" : Value.Value.ToString();
+
+        public string ToString(string format) => IsNaN ? "NaN" : Value.Value.ToString(format);
+
+        public string ToString(string format, IFormatProvider formatProvider) => IsNaN ? "NaN" : Value.Value.ToString(format, formatProvider);
 
         private static object ToDecimalWithNaN(object value)
         {
