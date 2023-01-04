@@ -1069,7 +1069,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
                 Node.AddChildNode(value);
             else
             {
-                ErrorCollector.AddTypeConversionError(context, text, typeof(long));
+                ErrorCollector.AddTypeConversionError(text, typeof(long));
                 Node.AddChildNode(double.NaN);
             }
         }
@@ -1087,7 +1087,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
                 Node.AddChildNode(value);
             else
             {
-                ErrorCollector.AddTypeConversionError(context, text, typeof(decimal));
+                ErrorCollector.AddTypeConversionError(text, typeof(decimal));
                 Node.AddChildNode(double.NaN);
             }
         }

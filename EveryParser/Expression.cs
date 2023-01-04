@@ -201,6 +201,12 @@ namespace EveryParser
         /// <param name="values">Values of the arguments</param>
         public void AddArgumentRange(string[] names, object[] values)
         {
+            if (names is null)
+                throw new ArgumentNullException(nameof(names));
+
+            if (values is null)
+                throw new ArgumentNullException(nameof(values));
+
             if (names.Length != values.Length)
                 throw new ArgumentException("Arrays must have the same size!");
 

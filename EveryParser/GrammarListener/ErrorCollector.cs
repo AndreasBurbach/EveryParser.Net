@@ -230,6 +230,12 @@ namespace EveryParser.GrammarListener
         /// <returns>true if types differ</returns>
         public bool CheckIsTypeDifferent(ParserRuleContext context, params object[] childs)
         {
+            if (context is null)
+                throw new ArgumentNullException(nameof(context));
+
+            if (childs is null)
+                throw new ArgumentNullException(nameof(childs));
+
             for (int i = 0; i < childs.Length; i += 1)
             {
                 var child1Value = childs[i];
@@ -440,7 +446,7 @@ namespace EveryParser.GrammarListener
         /// <returns>returns the object for the variable if found otherwise null</returns>
         public object GetCheckedObjectArgument(ParserRuleContext context, SortedList<string, object> arguments, string variable)
         {
-            if (!CheckHasArguments(context, arguments))
+            if (string.IsNullOrWhiteSpace(variable) || !CheckHasArguments(context, arguments))
                 return null;
 
             var variableNames = variable.Split('.');
@@ -483,9 +489,9 @@ namespace EveryParser.GrammarListener
         /// <param name="context">Context for line recognition</param>
         /// <param name="text">Text to convert to a type</param>
         /// <param name="targetedType">Type the text should be converted to</param>
-        public void AddTypeConversionError(ParserRuleContext context, string text, Type targetedType)
+        public void AddTypeConversionError(string text, Type targetedType)
         {
-            _errors.Add((ErrorCode.TypeConversion, $"Could not convert {text}  to type of {targetedType.Name} "));
+            _errors.Add((ErrorCode.TypeConversion, $"Could not convert {text}  to type of {targetedType?.Name} "));
         }
 
         /// <summary>
@@ -496,7 +502,7 @@ namespace EveryParser.GrammarListener
         /// <param name="text">Text to convert to a type</param>
         public void AddError(ParserRuleContext context, ErrorCode errorCode, string text)
         {
-            _errors.Add((errorCode, $"{text}, {context.Stop.Line}:{context.Stop.StartIndex}:{context.Stop.StopIndex}"));
+            _errors.Add((errorCode, $"{text}, {context?.Stop?.Line}:{context?.Stop?.StartIndex}:{context?.Stop?.StopIndex}"));
         }
     }
 }

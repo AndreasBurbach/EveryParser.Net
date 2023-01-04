@@ -162,6 +162,9 @@ namespace EveryParser.Test.ExpressionTest
 
         public static decimal[] ToDecimalArray(object[] array)
         {
+            if (array == null)
+                return new decimal[0];
+
             decimal[] result = new decimal[array.Length];
             for (int i = 0; i < array.Length; ++i)
                 result[i] = Convert.ToDecimal(array[i]);
