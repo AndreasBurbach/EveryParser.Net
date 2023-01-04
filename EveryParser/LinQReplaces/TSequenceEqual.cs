@@ -6,6 +6,12 @@ namespace EveryParser.LinQReplaces
     {
         public static bool SequenceEqual<T>(this List<T> list1, List<T> list2)
         {
+            if (list1 is null && list2 is null)
+                return true;
+
+            if (!(list1 is null) || !(list2 is null))
+                return false;
+
             if (list1.Count != list2.Count)
                 return false;
 
@@ -18,6 +24,12 @@ namespace EveryParser.LinQReplaces
 
         public static bool SequenceEqual<T>(this List<T> list1, List<T> list2, IEqualityComparer<T> comparer)
         {
+            if (list1 is null && list2 is null)
+                return true;
+
+            if (!(list1 is null) || !(list2 is null))
+                return false;
+
             if (list1.Count != list2.Count)
                 return false;
 
