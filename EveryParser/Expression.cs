@@ -45,48 +45,85 @@ namespace EveryParser
         /// <summary>
         /// Calculates the formular
         /// </summary>
+        /// <param name="formular">Formular to check</param>
         /// <returns>object</returns>
         public static object Calculate(string formular) => new Expression(formular).Calculate();
 
         /// <summary>
         /// Calculates the formular
         /// </summary>
+        /// <param name="formular">Formular to check</param>
         /// <returns>boolean</returns>
         public static bool? CalculateBoolean(string formular) => new Expression(formular).CalculateBoolean();
 
         /// <summary>
         /// Calculates the formular
         /// </summary>
+        /// <param name="formular">Formular to check</param>
         /// <returns>string</returns>
         public static string CalculateString(string formular) => new Expression(formular).CalculateString();
 
         /// <summary>
         /// Calculates the formular
         /// </summary>
+        /// <param name="formular">Formular to check</param>
         /// <returns>decimal</returns>
         public static decimal? CalculateDecimal(string formular) => new Expression(formular).CalculateDecimal();
 
         /// <summary>
         /// Calculates the formular
         /// </summary>
+        /// <param name="formular">Formular to check</param>
         /// <returns>dateTime</returns>
         public static DateTime? CalculateDateTime(string formular) => new Expression(formular).CalculateDateTime();
 
         /// <summary>
         /// Calculates the formular
         /// </summary>
+        /// <param name="formular">Formular to check</param>
         /// <returns>object array</returns>
         public static object[] CalculateArray(string formular) => new Expression(formular).CalculateArray();
 
         /// <summary>
         /// Returns the names of the variables inside of the formular for the calculation
         /// </summary>
+        /// <param name="formular">Formular to check</param>
         /// <returns>string array</returns>
         public static string[] GetFormularArgumentNames(string formular) => new Expression(formular).GetFormularArgumentNames();
+
+
+        /// <summary>
+        /// Tokenizes the given formula input string into an array of individual tokens.
+        /// </summary>
+        /// <param name="formular">Formular to check</param>
+        /// <returns>string array</returns>
+        public static string[] GetFormulaTokens(string formular)
+        {
+            ICharStream input = CharStreams.fromString(formular);
+
+            EveryGrammarLexer lexer = new EveryGrammarLexer(input);
+
+            List<string> tokens = new List<string>();
+
+            IToken token;
+            do
+            {
+                token = lexer.NextToken();
+
+                if (token.Type != TokenConstants.EOF &&
+                    token.Channel == TokenConstants.DefaultChannel)
+                {
+                    tokens.Add(token.Text);
+                }
+            } while (token.Type != TokenConstants.EOF);
+
+            return tokens.ToArray();
+        }
 
         /// <summary>
         /// Returns the possible type of the result of the formular, e.g. string, number, etc.
         /// </summary>
+        /// <param name="formular">Formular to check</param>
         /// <returns>Type of result</returns>
         public static EveryParserType GetPossibleResultingType(string formular) => new Expression(formular).GetPossibleResultingType();
 
@@ -451,5 +488,6 @@ namespace EveryParser
             if (!HasFormular())
                 throw new ArgumentNullException(nameof(_formular));
         }
+
     }
 }

@@ -8,7 +8,7 @@ namespace EveryParser
 {
     internal class SyntaxErrorListener : IAntlrErrorListener<IToken>
     {
-        private List<(ErrorCode, string message)> _errors = new List<(ErrorCode, string message)>();
+        private readonly List<(ErrorCode, string message)> _errors = new List<(ErrorCode, string message)>();
 
         internal bool HasErrors => _errors.Any();
 
@@ -19,7 +19,7 @@ namespace EveryParser
 
         internal void ClearErrors()
         {
-            _errors = new List<(ErrorCode, string message)>();
+            _errors.Clear();
         }
 
         public void SyntaxError(TextWriter output, IRecognizer recognizer, IToken offendingSymbol, int line, int charPositionInLine, string msg, RecognitionException e)

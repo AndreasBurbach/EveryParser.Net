@@ -14,16 +14,23 @@ namespace EveryParser.Compare
             if (ReferenceEquals(x, y)) return true;
 
             //Check whether any of the compared objects is null.
-            if (ReferenceEquals(x, null) || ReferenceEquals(y, null))
+            if (x is null || y is null)
                 return false;
 
             //Check whether the strings are equal.
-            return x.ToString().Equals(y.ToString(), StringComparison.OrdinalIgnoreCase);
+            return string.Equals(
+                x.ToString(), 
+                y.ToString(), 
+                StringComparison.OrdinalIgnoreCase);
         }
 
         public int GetHashCode(object x)
         {
-            return x.ToString().GetHashCode();
+            if (x is null)
+                return 0;
+                
+            // StringComparison konsequent durchsetzen
+            return x.ToString().GetHashCode(StringComparison.OrdinalIgnoreCase);
         }
     }
 }

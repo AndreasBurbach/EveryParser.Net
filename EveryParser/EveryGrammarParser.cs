@@ -19,6 +19,10 @@
 // Ambiguous reference in cref attribute
 #pragma warning disable 419
 
+#pragma warning disable CS0108
+
+#pragma warning disable CS0114
+
 namespace EveryParser {
 using System;
 using System.IO;
@@ -32,7 +36,6 @@ using Antlr4.Runtime.Tree;
 using DFA = Antlr4.Runtime.Dfa.DFA;
 
 [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.10.1")]
-[System.CLSCompliant(false)]
 public partial class EveryGrammarParser : Parser {
 	protected static DFA[] decisionToDFA;
 	protected static PredictionContextCache sharedContextCache = new PredictionContextCache();
@@ -56,9 +59,9 @@ public partial class EveryGrammarParser : Parser {
 		Concat=103, Count=104, Distinct=105, Difference=106, HasDuplicates=107, 
 		DateTime=108, Except=109, IndexOf=110, LowerCase=111, Reverse=112, UpperCase=113, 
 		HasAny=114, Sort=115, Trim=116, IsString=117, IsNumber=118, IsBoolean=119, 
-		IsDateTime=120, IsArray=121, IsNull=122, IsWhitespace=123, ToNumber=124, 
-		ToString=125, ToBoolean=126, ToArray=127, DegreeToGrad=128, DegreeToRadian=129, 
-		GradToDegree=130, GradToRadian=131, RadianToDegree=132, RadianToGrad=133, 
+		IsDateTime=120, IsArray=121, IsNull=122, IsWhitespace=123, ToNumber=124,
+        ToString =125, ToBoolean=126, ToArray=127, DegreeToGrad=128, DegreeToRadian=129,
+        GradToDegree =130, GradToRadian=131, RadianToDegree=132, RadianToGrad=133, 
 		RndDecimal=134, RndInteger=135;
 	public const int
 		RULE_startRule = 0, RULE_expression = 1, RULE_if_else = 2, RULE_inner_if_else = 3, 
@@ -2933,8 +2936,8 @@ public partial class EveryGrammarParser : Parser {
 		}
 	}
 	public partial class Convert_ToStringContext : Convert_function_termContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ToString() { return GetToken(EveryGrammarParser.ToString, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
+            [System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ToString() { return GetToken(EveryGrammarParser.ToString, 0); }
+            [System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ROUNDBRACKETCLOSED() { return GetToken(EveryGrammarParser.ROUNDBRACKETCLOSED, 0); }

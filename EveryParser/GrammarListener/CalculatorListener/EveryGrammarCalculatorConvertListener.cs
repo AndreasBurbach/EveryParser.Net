@@ -187,7 +187,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
             if (childValues[0] is List<object>)
                 Node.Value = null;
             else
-                Node.Value = childValues[0].ToString();
+                Node.Value = childValues[0]?.ToString();
 
             Node = Node.Parent;
         }
@@ -209,14 +209,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitConvert_DegreeToGrad([NotNull] EveryGrammarParser.Convert_DegreeToGradContext context)
         {
-            Func<object, object> calculation = x =>
+            static object calculation(object x)
             {
                 var value = new EPDecimal(x);
                 if (value.IsNaN)
                     return null;
 
                 return MathNet.Numerics.Trig.DegreeToGrad(value);
-            };
+            }
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -238,14 +238,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitConvert_DegreeToRadian([NotNull] EveryGrammarParser.Convert_DegreeToRadianContext context)
         {
-            Func<object, object> calculation = x =>
+            static object calculation(object x)
             {
                 var value = new EPDecimal(x);
                 if (value.IsNaN)
                     return null;
 
                 return MathNet.Numerics.Trig.DegreeToRadian(value);
-            };
+            }
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -267,14 +267,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitConvert_GradToDegree([NotNull] EveryGrammarParser.Convert_GradToDegreeContext context)
         {
-            Func<object, object> calculation = x =>
+            static object calculation(object x)
             {
                 var value = new EPDecimal(x);
                 if (value.IsNaN)
                     return null;
 
                 return MathNet.Numerics.Trig.GradToDegree(value);
-            };
+            }
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -296,14 +296,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitConvert_GradToRadian([NotNull] EveryGrammarParser.Convert_GradToRadianContext context)
         {
-            Func<object, object> calculation = x =>
+            static object calculation(object x)
             {
                 var value = new EPDecimal(x);
                 if (value.IsNaN)
                     return null;
 
                 return MathNet.Numerics.Trig.GradToRadian(value);
-            };
+            }
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -325,14 +325,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitConvert_RadianToDegree([NotNull] EveryGrammarParser.Convert_RadianToDegreeContext context)
         {
-            Func<object, object> calculation = x =>
+            static object calculation(object x)
             {
                 var value = new EPDecimal(x);
                 if (value.IsNaN)
                     return null;
 
                 return MathNet.Numerics.Trig.RadianToDegree(value);
-            };
+            }
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
@@ -354,14 +354,14 @@ namespace EveryParser.GrammarListener.CalculatorListener
         /// <param name="context">The parse tree.</param>
         public void ExitConvert_RadianToGrad([NotNull] EveryGrammarParser.Convert_RadianToGradContext context)
         {
-            Func<object, object> calculation = x =>
+            static object calculation(object x)
             {
                 var value = new EPDecimal(x);
                 if (value.IsNaN)
                     return null;
 
                 return MathNet.Numerics.Trig.RadianToGrad(value);
-            };
+            }
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
