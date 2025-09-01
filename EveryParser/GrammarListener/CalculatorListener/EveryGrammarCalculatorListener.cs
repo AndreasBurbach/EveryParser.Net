@@ -185,7 +185,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
                 Node = Node.Parent;
                 return;
             }
-            var x = new int[] { 2 };
+
             var childValues = Node.Children.Select(child => child.Value).ToArray();
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues))
