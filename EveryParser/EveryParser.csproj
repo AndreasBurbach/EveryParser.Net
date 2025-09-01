@@ -17,7 +17,7 @@
     <PackageId>EveryParser.Net</PackageId>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <NeutralLanguage>en</NeutralLanguage>
-    <Version>1.0.6</Version>
+    <Version>1.0.7</Version>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
 	<GenerateDocumentationFile>False</GenerateDocumentationFile>
   </PropertyGroup>

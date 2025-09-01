@@ -60,6 +60,101 @@ namespace EveryParser.Test.ExpressionTest
         }
 
         [Fact]
+        public void TestArgumentLogic()
+        {
+            string formula = "test == 0";
+            var expr = new Expression(formula);
+            expr.AddArgument("test", 0);
+            bool? result = expr.CalculateBoolean();
+            Assert.True(result.HasValue);
+            Assert.True(result.Value);
+
+            formula = "test != 0";
+            expr = new Expression(formula);
+            expr.AddArgument("test", 0);
+            result = expr.CalculateBoolean();
+            Assert.True(result.HasValue);
+            Assert.False(result.Value);
+
+            formula = "[test, test] == [0, 0]";
+            expr = new Expression(formula);
+            expr.AddArgument("test", 0);
+            result = expr.CalculateBoolean();
+            Assert.True(result.HasValue);
+            Assert.True(result.Value);
+
+            formula = "[test, test] != [0, 0]";
+            expr = new Expression(formula);
+            expr.AddArgument("test", 0);
+            result = expr.CalculateBoolean();
+            Assert.True(result.HasValue);
+            Assert.False(result.Value);
+
+            formula = "test in [0, 1, 2]";
+            expr = new Expression(formula);
+            expr.AddArgument("test", 0);
+            result = expr.CalculateBoolean();
+            Assert.True(result.HasValue);
+            Assert.True(result.Value);
+
+            formula = "test in [0, 1, 2]";
+            expr = new Expression(formula);
+            expr.AddArgument("test", "0");
+            result = expr.CalculateBoolean();
+            Assert.True(result.HasValue);
+            Assert.False(result.Value);
+
+            formula = "test not in [0, 1, 2]";
+            expr = new Expression(formula);
+            expr.AddArgument("test", 0);
+            result = expr.CalculateBoolean();
+            Assert.True(result.HasValue);
+            Assert.False(result.Value);
+
+            formula = "test in [test, 1, 2]";
+            expr = new Expression(formula);
+            expr.AddArgument("test", 0);
+            result = expr.CalculateBoolean();
+            Assert.True(result.HasValue);
+            Assert.True(result.Value);
+
+            formula = "test not in [test, 1, 2]";
+            expr = new Expression(formula);
+            expr.AddArgument("test", 0);
+            result = expr.CalculateBoolean();
+            Assert.True(result.HasValue);
+            Assert.False(result.Value);
+
+            formula = "0 in [test, 1, 2]";
+            expr = new Expression(formula);
+            expr.AddArgument("test", 0);
+            result = expr.CalculateBoolean();
+            Assert.True(result.HasValue);
+            Assert.True(result.Value);
+
+            formula = "0 not in [test, 1, 2]";
+            expr = new Expression(formula);
+            expr.AddArgument("test", 0);
+            result = expr.CalculateBoolean();
+            Assert.True(result.HasValue);
+            Assert.False(result.Value);
+
+            formula = "test in [test, 1, 2]";
+            expr = new Expression(formula);
+            expr.AddArgument("test", "0");
+            result = expr.CalculateBoolean();
+            Assert.True(result.HasValue);
+            Assert.True(result.Value);
+
+            formula = "test not in [test, 1, 2]";
+            expr = new Expression(formula);
+            expr.AddArgument("test", "0");
+            result = expr.CalculateBoolean();
+            Assert.True(result.HasValue);
+            Assert.False(result.Value);
+        }
+
+        [Fact]
         public void TestSimpleArithmeticTokenization()
         {
             string formula = "1 + 2 * 3";

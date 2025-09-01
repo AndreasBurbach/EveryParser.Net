@@ -96,5 +96,10 @@ namespace EveryParser.GrammarListener
         /// <param name="objs"></param>
         /// <returns></returns>
         internal static bool IsArrayOfDateTime(object[] objs) => !objs.Any(obj => !IsDateTime(obj));
+
+        /// <summary>
+        /// Checks if an object is an array (List(object))
+        /// </summary>
+        internal static bool IsArray(object obj) => obj is List<object>;
     }
 }

@@ -185,7 +185,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
                 Node = Node.Parent;
                 return;
             }
-
+            var x = new int[] { 2 };
             var childValues = Node.Children.Select(child => child.Value).ToArray();
 
             if (!ErrorCollector.CheckParamsCount(context, 2, childValues))
@@ -199,7 +199,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
             object value2 = childValues[1];
 
             if (value2 is List<object> list2)
-                Node.Value = list2.Contains(value1);
+                Node.Value = list2.Any(x => EqualityHelper.AreEqual(value1, x));
             else if (value2 is string v2)
                 Node.Value = v2.Contains(value1.ToString());
             else
@@ -249,10 +249,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
             object value1 = childValues[0];
             object value2 = childValues[1];
 
-            if (value1 is List<object> list1 && value2 is List<object> list2)
-                Node.Value = list1.SequenceEqual(list2);
-            else
-                Node.Value = value1.Equals(value2);
+            Node.Value = EqualityHelper.AreEqual(value1, value2);
 
             Node = Node.Parent;
         }
@@ -343,10 +340,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
             object value1 = childValues[0];
             object value2 = childValues[1];
 
-            if (value1 is List<object> list1 && value2 is List<object> list2)
-                Node.Value = !list1.SequenceEqual(list2);
-            else
-                Node.Value = !value1.Equals(value2);
+            Node.Value = !EqualityHelper.AreEqual(value1, value2);
 
             Node = Node.Parent;
         }
@@ -390,7 +384,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
             object value2 = childValues[1];
 
             if (value2 is List<object> list2)
-                Node.Value = !list2.Contains(value1);
+                Node.Value = !list2.Any(x => EqualityHelper.AreEqual(value1, x));
             else if (value2 is string v2)
                 Node.Value = !v2.Contains(value1.ToString());
             else
@@ -655,7 +649,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
                     return sx1 + sx2;
 
                 if (sx1 != null)
-                    return sx1 +new EPDecimal(x2);
+                    return sx1 + new EPDecimal(x2);
 
                 if (sx2 != null)
                     return new EPDecimal(x1) + sx2;
@@ -938,7 +932,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
             }
 
             if (childValues[0] is List<object> list)
-                Node.Value =  list.Select(x => (object)!Convert.ToBoolean(x));
+                Node.Value = list.Select(x => (object)!Convert.ToBoolean(x));
             else
                 Node.Value = !Convert.ToBoolean(childValues[0]);
 

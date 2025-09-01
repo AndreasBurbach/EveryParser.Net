@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using EveryParser.GrammarListener.CalculatorListener;
+using System.Collections.Generic;
 
 namespace EveryParser.LinQReplaces
 {
@@ -9,32 +10,32 @@ namespace EveryParser.LinQReplaces
             if (list1 is null && list2 is null)
                 return true;
 
-            if (!(list1 is null) || !(list2 is null))
+            if (list1 is null || list2 is null)
                 return false;
 
             if (list1.Count != list2.Count)
                 return false;
 
             for (int i = 0; i < list1.Count; i += 1)
-                if (!list1[i].Equals(list2[i]))
+                if (!EqualityHelper.AreEqual(list1[i], list2[i]))
                     return false;
 
             return true;
         }
 
-        public static bool SequenceEqual<T>(this List<T> list1, List<T> list2, IEqualityComparer<T> comparer)
+        public static bool SequenceEqual<T>(this List<T> list1, List<T> list2, IEqualityComparer<string> comparer)
         {
             if (list1 is null && list2 is null)
                 return true;
 
-            if (!(list1 is null) || !(list2 is null))
+            if (list1 is null || list2 is null)
                 return false;
 
             if (list1.Count != list2.Count)
                 return false;
 
             for (int i = 0; i < list1.Count; i += 1)
-                if (!comparer.Equals(list1[i], list2[i]))
+                if (!comparer.Equals(list1[i].ToString(), list2[i].ToString()))
                     return false;
 
             return true;
