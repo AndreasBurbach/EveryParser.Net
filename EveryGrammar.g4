@@ -2,7 +2,10 @@ grammar EveryGrammar;
 startRule: expression; //Multiline not allowed
 expression: if_else;
 
-if_else: inner_if_else # IfElse_Next | inner_if_else array_slicing_term # ArraySlicing | inner_if_else QUESTIONMARK inner_if_else COLON inner_if_else # IfElse;
+if_else:
+	inner_if_else # IfElse_Next
+	| inner_if_else array_slicing_term # ArraySlicing
+	| inner_if_else QUESTIONMARK inner_if_else COLON inner_if_else # IfElse;
 
 inner_if_else: bool_or_term # InnerIfElse_Next | ROUNDBRACKETOPEN if_else ROUNDBRACKETCLOSED # InnerIfElse;
 
