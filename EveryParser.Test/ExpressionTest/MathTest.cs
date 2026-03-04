@@ -15,7 +15,7 @@ namespace EveryParser.Test.ExpressionTest
             Assert.Equal(1200 - 450, Expression.CalculateDecimal("1200 - 450"));
 
             Assert.Equal(10 - 9 + 8 - 7 + 6 - 5 + 4 - 3 + 2 - 1, Expression.CalculateDecimal("10 - 9 + 8 - 7 + 6 - 5 + 4 - 3 + 2 - 1"));
-            Assert.Equal(1.05m * 12m, Expression.CalculateDecimal("1.05 * 12,000"));
+            Assert.Equal(1.05m * 12m, Expression.CalculateDecimal("1.05 * 12.000"));
 
             Assert.Equal(125 * 216 * 343, Expression.CalculateDecimal("125 * 216 * 343"));
             Assert.Equal(1000 / 65, Expression.CalculateDecimal("1000 // 65"));

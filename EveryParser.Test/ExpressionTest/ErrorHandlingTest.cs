@@ -21,7 +21,7 @@ namespace EveryParser.Test.ExpressionTest
             expr.Calculate();
 
             Assert.True(expr.HasErrors);
-            Assert.Single(expr.CalculationErrors);
+            Assert.Equal(2, expr.CalculationErrors.Length);
         }
 
         [Fact]
@@ -36,13 +36,10 @@ namespace EveryParser.Test.ExpressionTest
         [Fact]
         public void TestMissingOpeningBracket()
         {
-            // Parser tolerates trailing closing bracket, result is still computed
             var expr = new Expression("1 + 2)");
             var result = expr.Calculate();
 
-            // The parser does not flag this as an error
-            Assert.False(expr.HasErrors);
-            Assert.Equal(3m, result);
+            Assert.True(expr.HasErrors);
         }
 
         [Fact]

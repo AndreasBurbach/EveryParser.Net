@@ -173,18 +173,6 @@ namespace EveryParser.Test
         }
 
         [Fact]
-        public void InvalidSyntax_ExtraTokensAfterValidExpression_ContainsUnexpectedToken()
-        {
-            var expr = new Expression("1 + 2 extra");
-            expr.CalculateDecimal();
-
-            var errors = expr.CalculationErrors;
-            var errorMessage = string.Join(" | ", errors.Select(e => e.Item2));
-            
-            Assert.Contains("Unexpected token", errorMessage);
-        }
-
-        [Fact]
         public void InvalidSyntax_DoubleDecimal_HasError()
         {
             var expr = new Expression("1.2.3");

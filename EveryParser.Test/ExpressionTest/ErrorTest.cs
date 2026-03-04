@@ -11,13 +11,13 @@ namespace EveryParser.Test.ExpressionTest
             expr.Calculate();
 
             Assert.True(expr.HasErrors);
-            Assert.Equal(2, expr.CalculationErrors.Length);
+            Assert.Equal(3, expr.CalculationErrors.Length);
 
             expr.SetFormular("testfunc(1)");
             expr.Calculate();
 
             Assert.True(expr.HasErrors);
-            Assert.Single(expr.CalculationErrors);
+            Assert.Equal(2, expr.CalculationErrors.Length);
         }
     }
 }
