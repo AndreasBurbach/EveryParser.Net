@@ -469,6 +469,7 @@ namespace EveryParser
 
             var lexer = new EveryGrammarLexer(stream);
             lexer.RemoveErrorListeners();
+            lexer.AddErrorListener(_syntaxErrorListener);
 
             var tokens = new CommonTokenStream(lexer);
 
@@ -480,7 +481,19 @@ namespace EveryParser
             parser.RemoveErrorListeners();
             parser.AddErrorListener(_syntaxErrorListener);
 
-            return parser.startRule();
+            var context = parser.startRule();
+
+            tokens.Fill();
+            var lastNonEofTokenIndex = tokens.Size - 2;
+            var parsedStopTokenIndex = context.Stop?.TokenIndex ?? -1;
+
+            if (parsedStopTokenIndex < lastNonEofTokenIndex)
+            {
+                var offendingToken = tokens.Get(parsedStopTokenIndex + 1);
+                _syntaxErrorListener.AddError($"Unexpected token '{offendingToken?.Text}' at {offendingToken?.Line}:{offendingToken?.Column}");
+            }
+
+            return context;
         }
 
         private void CheckFormular()

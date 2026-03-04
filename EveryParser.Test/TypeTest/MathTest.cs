@@ -152,5 +152,39 @@ namespace EveryParser.Test.TypeTest
         public void IntegrationTest()
         {
         }
+
+        [Fact]
+        public void PercentageTypeTests()
+        {
+            // Integer percentages should be Number type
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("83%"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("10%"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("100%"));
+
+            // Double percentages should be Number type
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("45.3%"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("12.5%"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("99.9%"));
+
+            // Arithmetic with percentages should be Number type
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("83% + 10%"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("83% - 10%"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("83% * 10%"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("83% / 10%"));
+
+            // Modulo with percentages
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("6% % 3%"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("10% % 3%"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("45.3% % 12.5%"));
+
+            // Mixed percentage and regular numbers
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("100 * 83%"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("50% * 200"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("0.06 % 3%"));
+
+            // Complex expressions
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("(50% + 25%) * 100"));
+            Assert.Equal(EveryParserType.Number, Expression.GetPossibleResultingType("100 * (1 - 20%)"));
+        }
     }
 }

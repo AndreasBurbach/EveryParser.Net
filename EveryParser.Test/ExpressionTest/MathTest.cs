@@ -152,5 +152,65 @@ namespace EveryParser.Test.ExpressionTest
         public void IntegrationTest()
         {
         }
+
+        [Fact]
+        public void PercentageTests()
+        {
+            // Integer percentage values
+            Assert.Equal(0.83m, Expression.CalculateDecimal("83%"));
+            Assert.Equal(0.10m, Expression.CalculateDecimal("10%"));
+            Assert.Equal(1.00m, Expression.CalculateDecimal("100%"));
+            Assert.Equal(0.01m, Expression.CalculateDecimal("1%"));
+            Assert.Equal(0m, Expression.CalculateDecimal("0%"));
+
+            // Double percentage values
+            Assert.Equal(0.453m, Expression.CalculateDecimal("45.3%"));
+            Assert.Equal(0.125m, Expression.CalculateDecimal("12.5%"));
+            Assert.Equal(0.999m, Expression.CalculateDecimal("99.9%"));
+            Assert.Equal(0.0625m, Expression.CalculateDecimal("6.25%"));
+
+            // Arithmetic with percentages
+            Assert.Equal(0.83m + 0.10m, Expression.CalculateDecimal("83% + 10%"));
+            Assert.Equal(0.83m - 0.10m, Expression.CalculateDecimal("83% - 10%"));
+            Assert.Equal(0.83m * 0.10m, Expression.CalculateDecimal("83% * 10%"));
+            Assert.Equal(0.83m / 0.10m, Expression.CalculateDecimal("83% / 10%"));
+
+            // Mixed percentage and regular numbers
+            Assert.Equal(100m * 0.83m, Expression.CalculateDecimal("100 * 83%"));
+            Assert.Equal(0.50m * 200m, Expression.CalculateDecimal("50% * 200"));
+            Assert.Equal(100m + 0.10m, Expression.CalculateDecimal("100 + 10%"));
+            Assert.Equal(100m - 0.10m, Expression.CalculateDecimal("100 - 10%"));
+
+            // Complex expressions with percentages
+            Assert.Equal((0.50m + 0.25m) * 100m, Expression.CalculateDecimal("(50% + 25%) * 100"));
+            Assert.Equal(100m * (1m - 0.20m), Expression.CalculateDecimal("100 * (1 - 20%)"));
+        }
+
+        [Fact]
+        public void ModuloTests()
+        {
+            // Basic modulo operations
+            Assert.Equal(10m % 3m, Expression.CalculateDecimal("10 % 3"));
+            Assert.Equal(17m % 5m, Expression.CalculateDecimal("17 % 5"));
+            Assert.Equal(100m % 7m, Expression.CalculateDecimal("100 % 7"));
+            Assert.Equal(0.5m % 0.3m, Expression.CalculateDecimal("0.5 % 0.3"));
+
+            // Modulo with percentages - this is the critical test!
+            Assert.Equal(0.06m % 0.03m, Expression.CalculateDecimal("6% % 3%"));
+            Assert.Equal(0.10m % 0.03m, Expression.CalculateDecimal("10% % 3%"));
+            Assert.Equal(0.83m % 0.25m, Expression.CalculateDecimal("83% % 25%"));
+            Assert.Equal(0.453m % 0.125m, Expression.CalculateDecimal("45.3% % 12.5%"));
+
+            // Mixed: percentage modulo number
+            Assert.Equal(0.83m % 0.5m, Expression.CalculateDecimal("83% % 0.5"));
+            Assert.Equal(10m % 0.03m, Expression.CalculateDecimal("10 % 3%"));
+
+            // Modulo with regular decimal and then percentage (verifying tokenization)
+            Assert.Equal(0.06m % 0.03m, Expression.CalculateDecimal("0.06 % 3%"));
+            Assert.Equal(0.06m % 3m, Expression.CalculateDecimal("0.06 % 3"));
+            
+            // Edge case: no space between modulo and percentage
+            Assert.Equal(0.06m % 0.03m, Expression.CalculateDecimal("6%%3%"));
+        }
     }
 }

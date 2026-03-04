@@ -1087,6 +1087,46 @@ namespace EveryParser.GrammarListener.CalculatorListener
         }
 
         /// <summary>
+        /// Enter a parse tree produced by the <c>Factor_IntegerPercent</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
+        /// <para>The default implementation does nothing.</para>
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void EnterFactor_IntegerPercent([NotNull] EveryGrammarParser.Factor_IntegerPercentContext context)
+        {
+            string text = context.GetText();
+            // Remove the '%' character
+            string numberText = text.TrimEnd('%');
+            if (long.TryParse(numberText, out long value))
+                Node.AddChildNode((decimal)value / 100m);
+            else
+            {
+                ErrorCollector.AddTypeConversionError(text, typeof(long));
+                Node.AddChildNode(double.NaN);
+            }
+        }
+
+        /// <summary>
+        /// Enter a parse tree produced by the <c>Factor_DoublePercent</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
+        /// <para>The default implementation does nothing.</para>
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void EnterFactor_DoublePercent([NotNull] EveryGrammarParser.Factor_DoublePercentContext context)
+        {
+            string text = context.GetText();
+            // Remove the '%' character
+            string numberText = text.TrimEnd('%');
+            if (decimal.TryParse(numberText, NumberStyles.Float, CultureInfo.InvariantCulture, out decimal value))
+                Node.AddChildNode(value / 100m);
+            else
+            {
+                ErrorCollector.AddTypeConversionError(text, typeof(decimal));
+                Node.AddChildNode(double.NaN);
+            }
+        }
+
+        /// <summary>
         /// Enter a parse tree produced by the <c>Factor_Variable</c>
         /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
         /// <para>The default implementation does nothing.</para>

@@ -759,6 +759,42 @@ namespace EveryParser.GrammarListener.TypeListener
         { }
 
         /// <summary>
+        /// Enter a parse tree produced by the <c>Factor_IntegerPercent</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void EnterFactor_IntegerPercent([NotNull] EveryGrammarParser.Factor_IntegerPercentContext context)
+        {
+            Node.AddChildNode(EveryParserType.Number);
+        }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>Factor_IntegerPercent</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitFactor_IntegerPercent([NotNull] EveryGrammarParser.Factor_IntegerPercentContext context)
+        { }
+
+        /// <summary>
+        /// Enter a parse tree produced by the <c>Factor_DoublePercent</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void EnterFactor_DoublePercent([NotNull] EveryGrammarParser.Factor_DoublePercentContext context)
+        {
+            Node.AddChildNode(EveryParserType.Number);
+        }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>Factor_DoublePercent</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitFactor_DoublePercent([NotNull] EveryGrammarParser.Factor_DoublePercentContext context)
+        { }
+
+        /// <summary>
         /// Enter a parse tree produced by the <c>Factor_Variable</c>
         /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
         /// </summary>

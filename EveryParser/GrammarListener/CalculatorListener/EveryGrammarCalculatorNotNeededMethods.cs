@@ -448,6 +448,24 @@ namespace EveryParser.GrammarListener.CalculatorListener
         { }
 
         /// <summary>
+        /// Exit a parse tree produced by the <c>Factor_IntegerPercent</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
+        /// <para>The default implementation does nothing.</para>
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitFactor_IntegerPercent([NotNull] EveryGrammarParser.Factor_IntegerPercentContext context)
+        { }
+
+        /// <summary>
+        /// Exit a parse tree produced by the <c>Factor_DoublePercent</c>
+        /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
+        /// <para>The default implementation does nothing.</para>
+        /// </summary>
+        /// <param name="context">The parse tree.</param>
+        public void ExitFactor_DoublePercent([NotNull] EveryGrammarParser.Factor_DoublePercentContext context)
+        { }
+
+        /// <summary>
         /// Exit a parse tree produced by the <c>Factor_False</c>
         /// labeled alternative in <see cref="EveryGrammarParser.factor"/>.
         /// <para>The default implementation does nothing.</para>

@@ -1,5 +1,5 @@
 grammar EveryGrammar;
-startRule: expression; //Multiline not allowed
+startRule: expression EOF; //Multiline not allowed
 expression: if_else;
 
 if_else:
@@ -56,6 +56,8 @@ factor:
 	| ROUNDBRACKETOPEN expression ROUNDBRACKETCLOSED	# Factor_Brackets
 	| TRUE												# Factor_True
 	| FALSE												# Factor_False
+	| DOUBLEPERCENT										# Factor_DoublePercent
+	| INTPERCENT										# Factor_IntegerPercent
 	| INT												# Factor_Integer
 	| DOUBLE											# Factor_Double
 	| VARIABLE											# Factor_Variable
@@ -249,6 +251,8 @@ ROUNDBRACKETOPEN: '(';
 ROUNDBRACKETCLOSED: ')';
 EDGEBRACKETOPEN: '[';
 EDGEBRACKETCLOSED: ']';
+DOUBLEPERCENT: INT '.' INT '%';
+INTPERCENT: INT '%';
 DOUBLE: INT '.' INT;
 STRING: '"' ( '\\"' | .)*? '"';
 VARIABLE: ALPHA (ALPHA | INT)*;

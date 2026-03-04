@@ -1,6 +1,6 @@
 # EveryParser.Net
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/bf62aef3d51d4d56aaa4b4b28ee0b88e)](https://www.codacy.com/gh/AndreasBurbach/EveryParser.Net/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AndreasBurbach/EveryParser.Net&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/bf62aef3d51d4d56aaa4b4b28ee0b88e)](https://www.codacy.com/gh/AndreasBurbach/EveryParser.Net/dashboard?utm_source=github.com&utm_medium=referral&utm_content=AndreasBurbach/EveryParser.Net&utm_campaign=Badge_Grade)
 
 [![NuGet Badge](https://buildstats.info/nuget/EveryParser.Net)](https://www.nuget.org/packages/EveryParser.Net/)
 
@@ -26,6 +26,7 @@ java -jar antlr-4.10.1-complete.jar -Dlanguage=CSharp EveryGrammar.g4 -o ".antlr
 ### Quick Start
 
 If you just want to evaluate with no thinking of own parameters or errors:
+
 > ```csharp
 > Expression.CalculateDecimal("IndexOf([1,2,3], 1)")
 > ```
@@ -33,6 +34,7 @@ If you just want to evaluate with no thinking of own parameters or errors:
 Results in => 0
 
 If you have an expression with variables from outside the formular:
+
 > ```csharp
 > var expr = new Expression("variable1 + variable2");
 > var arguments = expr.GetFormularArgumentNames();
@@ -47,15 +49,24 @@ If you have an expression with variables from outside the formular:
 Results in => 3
 
 If you want to check for errors from the evaluation of an expression:
+
 > ```csharp
 > var expr = new Expression("# + ! * testfunc(1)");
 > expr.Calculate();
 > if (expr.HasErrors)
 >   for(int i = 0; i < expr.CalculationErrors.Length; ++i)
 >     Console.WriteLine(expr.CalculationErrors[i].Item2);
->```
+> ```
 
 Returns all errors you receive from the evaluation
+
+## Generation of C# classes from AntLR
+
+To generate the C# classes from AntLR, you can use the following command in your terminal:
+
+```bash
+java -jar antlr-4.13.2-complete.jar -Dlanguage=CSharp -o bin EveryGrammar.g4
+```
 
 ## Contributing
 
@@ -63,7 +74,7 @@ We call it EveryParser and we mean it in all ways. If you think there is somethi
 
 ## Thanks
 
-Thanks to all contributors for this project. Also thanks to the team behind [ANTLR](https://github.com/antlr/antlr4), [Math.Net](https://github.com/mathnet/mathnet-numerics), [XUnit](https://github.com/xunit/xunit) and also [Microsoft .Net](https://github.com/dotnet/core).
+Thanks to all contributors for this project. Also thanks to the teams behind [ANTLR](https://github.com/antlr/antlr4), [Math.Net](https://github.com/mathnet/mathnet-numerics), [XUnit](https://github.com/xunit/xunit) and also [Microsoft .Net](https://github.com/dotnet/core).
 
 ## License
 
