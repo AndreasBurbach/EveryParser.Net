@@ -1,6 +1,6 @@
 # EveryParser.Net
 
-[![NuGet Badge](https://buildstats.info/nuget/EveryParser.Net)](https://www.nuget.org/packages/EveryParser.Net/)
+[![NuGet Badge](https://img.shields.io/nuget/v/EveryParser.Net.svg)](https://www.nuget.org/packages/EveryParser.Net/)
 
 ## Description
 
