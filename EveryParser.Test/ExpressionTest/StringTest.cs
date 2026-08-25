@@ -16,13 +16,6 @@ namespace EveryParser.Test.ExpressionTest
             Assert.True(exprHasNoErrors("\"a\" + 1"));
         }
 
-        private bool exprHasNoErrors(string formular)
-        {
-            var expr = new Expression(formular);
-            expr.Calculate();
-            return !expr.HasErrors;
-        }
-
         [Fact]
         public void TestStringLiteral()
         {
@@ -153,6 +146,13 @@ namespace EveryParser.Test.ExpressionTest
         {
             Assert.Equal("HelloWorld", Expression.CalculateString("Concat(\"Hello\", \"World\")"));
             Assert.Equal("Hello World", Expression.CalculateString("Concat(\"Hello \", \"World\")"));
+        }
+
+        private bool exprHasNoErrors(string formular)
+        {
+            var expr = new Expression(formular);
+            expr.Calculate();
+            return !expr.HasErrors;
         }
     }
 }

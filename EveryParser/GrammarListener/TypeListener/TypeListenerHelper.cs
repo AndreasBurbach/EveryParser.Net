@@ -29,6 +29,18 @@ namespace EveryParser.GrammarListener.TypeListener
             return node.Parent;
         }
 
+        /// <summary>
+        /// Checks if the combination of two operand types is a valid string
+        /// concatenation (at least one string, the other string/number/boolean).
+        /// </summary>
+        internal static bool IsStringConcatenation(EveryParserType type1, EveryParserType type2)
+        {
+            if (type1.IsString())
+                return type2.IsString() || type2.IsNumber() || type2.IsBoolean();
+
+            return type2.IsString() && (type1.IsNumber() || type1.IsBoolean());
+        }
+
         internal static TypeNode CheckNumberOrArrayOfNumbersBinary([NotNull] ParserRuleContext context, [NotNull] ErrorCollector errorCollector, [NotNull] TypeNode node, EveryParserType singleTypeResult = EveryParserType.Number, EveryParserType arrayTypeResult = EveryParserType.ArrayOfNumber)
         {
             if (!errorCollector.CheckParamsCount(context, 2, node.Children))
