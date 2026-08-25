@@ -8,6 +8,8 @@ using EveryParser.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace EveryParser
 {
@@ -415,6 +417,116 @@ namespace EveryParser
         }
 
         #endregion Caluclator
+
+        #region Async Calculation
+
+        // Note: The parser is CPU-bound. The async methods only offload the synchronous
+        // execution to the thread pool, so e.g. UI threads are not blocked. A running
+        // calculation cannot be cancelled mid-execution; the token is checked before start.
+
+        /// <summary>
+        /// Calculates the setted formular asynchronously
+        /// </summary>
+        /// <param name="cancellationToken">Token to cancel before the calculation starts</param>
+        /// <returns>object</returns>
+        public Task<object> CalculateAsync(CancellationToken cancellationToken = default) =>
+            Task.Run(Calculate, cancellationToken);
+
+        /// <summary>
+        /// Calculates the setted formular asynchronously
+        /// </summary>
+        /// <param name="cancellationToken">Token to cancel before the calculation starts</param>
+        /// <returns>boolean</returns>
+        public Task<bool?> CalculateBooleanAsync(CancellationToken cancellationToken = default) =>
+            Task.Run(CalculateBoolean, cancellationToken);
+
+        /// <summary>
+        /// Calculates the setted formular asynchronously
+        /// </summary>
+        /// <param name="cancellationToken">Token to cancel before the calculation starts</param>
+        /// <returns>string</returns>
+        public Task<string> CalculateStringAsync(CancellationToken cancellationToken = default) =>
+            Task.Run(CalculateString, cancellationToken);
+
+        /// <summary>
+        /// Calculates the setted formular asynchronously
+        /// </summary>
+        /// <param name="cancellationToken">Token to cancel before the calculation starts</param>
+        /// <returns>decimal</returns>
+        public Task<decimal?> CalculateDecimalAsync(CancellationToken cancellationToken = default) =>
+            Task.Run(CalculateDecimal, cancellationToken);
+
+        /// <summary>
+        /// Calculates the setted formular asynchronously
+        /// </summary>
+        /// <param name="cancellationToken">Token to cancel before the calculation starts</param>
+        /// <returns>dateTime</returns>
+        public Task<DateTime?> CalculateDateTimeAsync(CancellationToken cancellationToken = default) =>
+            Task.Run(CalculateDateTime, cancellationToken);
+
+        /// <summary>
+        /// Calculates the setted formular asynchronously
+        /// </summary>
+        /// <param name="cancellationToken">Token to cancel before the calculation starts</param>
+        /// <returns>object array</returns>
+        public Task<object[]> CalculateArrayAsync(CancellationToken cancellationToken = default) =>
+            Task.Run(CalculateArray, cancellationToken);
+
+        /// <summary>
+        /// Calculates the formular asynchronously
+        /// </summary>
+        /// <param name="formular">Formular to calculate</param>
+        /// <param name="cancellationToken">Token to cancel before the calculation starts</param>
+        /// <returns>object</returns>
+        public static Task<object> CalculateAsync(string formular, CancellationToken cancellationToken = default) =>
+            new Expression(formular).CalculateAsync(cancellationToken);
+
+        /// <summary>
+        /// Calculates the formular asynchronously
+        /// </summary>
+        /// <param name="formular">Formular to calculate</param>
+        /// <param name="cancellationToken">Token to cancel before the calculation starts</param>
+        /// <returns>boolean</returns>
+        public static Task<bool?> CalculateBooleanAsync(string formular, CancellationToken cancellationToken = default) =>
+            new Expression(formular).CalculateBooleanAsync(cancellationToken);
+
+        /// <summary>
+        /// Calculates the formular asynchronously
+        /// </summary>
+        /// <param name="formular">Formular to calculate</param>
+        /// <param name="cancellationToken">Token to cancel before the calculation starts</param>
+        /// <returns>string</returns>
+        public static Task<string> CalculateStringAsync(string formular, CancellationToken cancellationToken = default) =>
+            new Expression(formular).CalculateStringAsync(cancellationToken);
+
+        /// <summary>
+        /// Calculates the formular asynchronously
+        /// </summary>
+        /// <param name="formular">Formular to calculate</param>
+        /// <param name="cancellationToken">Token to cancel before the calculation starts</param>
+        /// <returns>decimal</returns>
+        public static Task<decimal?> CalculateDecimalAsync(string formular, CancellationToken cancellationToken = default) =>
+            new Expression(formular).CalculateDecimalAsync(cancellationToken);
+
+        /// <summary>
+        /// Calculates the formular asynchronously
+        /// </summary>
+        /// <param name="formular">Formular to calculate</param>
+        /// <param name="cancellationToken">Token to cancel before the calculation starts</param>
+        /// <returns>dateTime</returns>
+        public static Task<DateTime?> CalculateDateTimeAsync(string formular, CancellationToken cancellationToken = default) =>
+            new Expression(formular).CalculateDateTimeAsync(cancellationToken);
+
+        /// <summary>
+        /// Calculates the formular asynchronously
+        /// </summary>
+        /// <param name="formular">Formular to calculate</param>
+        /// <param name="cancellationToken">Token to cancel before the calculation starts</param>
+        /// <returns>object array</returns>
+        public static Task<object[]> CalculateArrayAsync(string formular, CancellationToken cancellationToken = default) =>
+            new Expression(formular).CalculateArrayAsync(cancellationToken);
+
+        #endregion Async Calculation
 
         /// <summary>
         /// Returns the possible type of the result of the formular, e.g. string, number, etc.
