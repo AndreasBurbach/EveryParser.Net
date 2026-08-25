@@ -1,0 +1,26 @@
+name: Feature request
+description: Suggest a new function, operator or capability
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / use case
+      description: What are you trying to express that the parser cannot do today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed syntax / behavior
+      description: |
+        Example of how the formular should look and what it should return.
+        ```csharp
+        Expression.CalculateDecimal("...")
+        ```
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered

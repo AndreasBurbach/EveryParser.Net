@@ -1,0 +1,37 @@
+name: Bug report
+description: Report a wrong result or a problem with the parser
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happens, and what did you expect to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: formular
+    attributes:
+      label: Formular / reproduction
+      description: |
+        The expression that fails and the observed vs. expected result.
+        ```csharp
+        var result = Expression.CalculateDecimal("1 + 1");
+        ```
+      placeholder: |
+        Expression: "..."
+        Expected: ...
+        Actual: ...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: EveryParser.Net version
+      placeholder: 1.2.0
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
