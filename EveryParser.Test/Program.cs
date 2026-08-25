@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -18,6 +18,7 @@ namespace EveryParser.Test
             //var mathArrayTest = new ExpressionTest.ExpressionMathArrayTest();
             //mathArrayTest.MathArrayTests();
             //mathArrayTest.MathStatisticsArrayTests();
+
             LinqPerformanceTest();
             Console.ReadLine();
         }

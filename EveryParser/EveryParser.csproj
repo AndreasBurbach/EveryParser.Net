@@ -19,7 +19,9 @@
     <NeutralLanguage>en</NeutralLanguage>
     <Version>1.1.0</Version>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
-	<GenerateDocumentationFile>False</GenerateDocumentationFile>
+	<GenerateDocumentationFile>True</GenerateDocumentationFile>
+	<!-- Doc warnings suppressed: public API is not fully documented yet; CS0419/CS0114 originate from generated ANTLR code -->
+	<NoWarn>$(NoWarn);CS1591;CS1572;CS1573;CS1570;CS0419;CS0114</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
