@@ -357,7 +357,7 @@ namespace EveryParser
         {
             var result = CalculateFormular();
 
-            if (HasErrors)
+            if (HasErrors || result is null)
                 return null;
 
             return result.ToString();
@@ -402,7 +402,23 @@ namespace EveryParser
             if (HasErrors)
                 return null;
 
-            return (result as List<object>)?.Select(x => x is EPDecimal value ? value.Value : x).ToArray();
+            if (!(result is List<object> list))
+            {
+                AppendError(ErrorCode.IsNotArray, "Result of the formular is not an array");
+                return null;
+            }
+
+            return list.Select(x => x is EPDecimal value ? value.Value : x).ToArray();
+        }
+
+        /// <summary>
+        /// Appends an error to the errors of the last calculation
+        /// </summary>
+        private void AppendError(ErrorCode errorCode, string message)
+        {
+            var errors = new List<(ErrorCode, string)>(_errorsOfLastCalculation ?? Array.Empty<(ErrorCode, string)>());
+            errors.Add((errorCode, message));
+            _errorsOfLastCalculation = errors.ToArray();
         }
 
         /// <summary>

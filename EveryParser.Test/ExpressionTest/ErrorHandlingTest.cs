@@ -1,3 +1,4 @@
+using EveryParser.GrammarListener;
 using Xunit;
 
 namespace EveryParser.Test.ExpressionTest
@@ -159,6 +160,16 @@ namespace EveryParser.Test.ExpressionTest
             // Must not throw even if no calculation was executed yet
             Assert.False(expr.HasErrors);
             Assert.Empty(expr.CalculationErrors);
+        }
+
+        [Fact]
+        public void TestCalculateArrayOnNonArrayResultIsAnError()
+        {
+            var expr = new Expression("42");
+
+            Assert.Null(expr.CalculateArray());
+            Assert.True(expr.HasErrors);
+            Assert.Contains(expr.CalculationErrors, e => e.Item1 == ErrorCode.IsNotArray);
         }
 
         [Fact]
