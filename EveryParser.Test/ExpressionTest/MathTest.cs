@@ -68,6 +68,27 @@ namespace EveryParser.Test.ExpressionTest
         }
 
         [Fact]
+        public void TestFactorialUpperLimit()
+        {
+            Assert.Equal(2432902008176640000, Expression.CalculateDecimal("!20"));
+            Assert.True(exprHasErrors("!21"));
+        }
+
+        [Fact]
+        public void TestNegativeFactorialIsAnError()
+        {
+            Assert.True(exprHasErrors("!-3"));
+            Assert.True(exprHasErrors("!(1 - 5)"));
+        }
+
+        private bool exprHasErrors(string formular)
+        {
+            var expr = new Expression(formular);
+            expr.Calculate();
+            return expr.HasErrors;
+        }
+
+        [Fact]
         public void FactorConstTest()
         {
             Assert.Equal(2.71828182845904523536028747135266249775724709369995957496696762772407663035354759457138217852516642742746m, Expression.CalculateDecimal("e"));

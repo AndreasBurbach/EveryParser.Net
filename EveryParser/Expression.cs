@@ -13,6 +13,15 @@ using System.Threading.Tasks;
 
 namespace EveryParser
 {
+    /// <summary>
+    /// Parses and evaluates expressions for math, logic, strings, dates and arrays.
+    /// </summary>
+    /// <remarks>
+    /// Instances of this class are not thread-safe. Do not share a single instance
+    /// across threads or modify arguments while a calculation is running. The async
+    /// methods (e.g. <see cref="CalculateAsync"/>) only offload the synchronous
+    /// evaluation to the thread pool; they do not add thread safety.
+    /// </remarks>
     public class Expression
     {
         private string _formular;

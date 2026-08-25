@@ -1292,7 +1292,19 @@ namespace EveryParser.GrammarListener.CalculatorListener
                 if (value.IsNaN)
                     return null;
 
-                return CalculationHelper.CalcFactorial(value);
+                if (value.GetValue() < 0)
+                {
+                    ErrorCollector.AddError(context, ErrorCode.TypeConversion, "Factorial is only defined for non-negative numbers");
+                    return double.NaN;
+                }
+
+                if (value.GetValue() > 20)
+                {
+                    ErrorCollector.AddError(context, ErrorCode.TypeConversion, "Factorial is only supported for numbers up to 20");
+                    return double.NaN;
+                }
+
+                return CalculationHelper.CalcFactorial((int)value.GetValue());
             };
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayUnary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
