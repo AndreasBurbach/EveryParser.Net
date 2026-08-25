@@ -14,10 +14,8 @@ namespace EveryParser.Test.TypeTest
         [Fact]
         public void TestStringConcatenation()
         {
-            // String concatenation with + is not supported in type inference
-            // It returns None since + on strings is not a recognized operation
-            var type = Expression.GetPossibleResultingType("\"hello\" + \" world\"");
-            Assert.Equal(EveryParserType.None, type);
+            // "string" + "string" is a valid concatenation and results in a string
+            Assert.Equal(EveryParserType.String, Expression.GetPossibleResultingType("\"hello\" + \" world\""));
         }
 
         [Fact]

@@ -5,6 +5,21 @@ namespace EveryParser.Test.ExpressionTest
     public class StringTest
     {
         [Fact]
+        public void TestStringConcatenationWithPlus()
+        {
+            Assert.Equal("Hello World", Expression.CalculateString("\"Hello \" + \"World\""));
+            Assert.Equal("abc", Expression.CalculateString("\"a\" + \"b\" + \"c\""));
+            Assert.True(exprHasNoErrors("\"a\" + \"b\""));
+        }
+
+        private bool exprHasNoErrors(string formular)
+        {
+            var expr = new Expression(formular);
+            expr.Calculate();
+            return !expr.HasErrors;
+        }
+
+        [Fact]
         public void TestStringLiteral()
         {
             Assert.Equal("hello", Expression.CalculateString("\"hello\""));

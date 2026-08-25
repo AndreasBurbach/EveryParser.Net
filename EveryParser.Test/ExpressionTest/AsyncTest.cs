@@ -33,7 +33,7 @@ namespace EveryParser.Test.ExpressionTest
         [Fact]
         public async Task TestCalculateStringAsync()
         {
-            var expr = new Expression("Concat(\"Hello \", \"World\")");
+            var expr = new Expression("\"Hello \" + \"World\"");
             Assert.Equal("Hello World", await expr.CalculateStringAsync());
         }
 

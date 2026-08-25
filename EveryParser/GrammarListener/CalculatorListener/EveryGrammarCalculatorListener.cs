@@ -656,6 +656,18 @@ namespace EveryParser.GrammarListener.CalculatorListener
 
                 return new EPDecimal(x1) + new EPDecimal(x2);
             };
+
+            // Two strings are concatenated directly; the shared helper
+            // CalcNumericOrNumericArrayBinary would reject non-numeric operands.
+            if (Node.Children.Count == 2 &&
+                Node.Children[0].Value is string leftString &&
+                Node.Children[1].Value is string rightString)
+            {
+                Node.Value = calculation(leftString, rightString);
+                Node = Node.Parent;
+                return;
+            }
+
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
         }
