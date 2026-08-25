@@ -382,7 +382,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
                     return 6;
 
                 case 4:
-                    return 14;
+                    return 24;
 
                 case 5:
                     return 120;
