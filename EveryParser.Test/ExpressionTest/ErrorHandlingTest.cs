@@ -152,6 +152,16 @@ namespace EveryParser.Test.ExpressionTest
         }
 
         [Fact]
+        public void TestCalculationErrorsBeforeAnyCalculation()
+        {
+            var expr = new Expression("1 + 1");
+
+            // Must not throw even if no calculation was executed yet
+            Assert.False(expr.HasErrors);
+            Assert.Empty(expr.CalculationErrors);
+        }
+
+        [Fact]
         public void TestConsecutiveErrorsDoNotAccumulate()
         {
             var expr = new Expression("unknownVar");

@@ -11,7 +11,7 @@ This project repository is only for .Net-Core we are currently working on an int
 
 ## Installation Instructions
 
-The recommended way to get **EveryParser.Net** is to use NuGet. The following packages are provided and maintained in the public .
+The recommended way to get **EveryParser.Net** is to use NuGet. The package is provided and maintained in the public [NuGet Gallery](https://www.nuget.org/packages/EveryParser.Net/).
 
 ## Usage
 
@@ -19,7 +19,7 @@ The know how to use, look at our [Wiki](https://github.com/AndreasBurbach/EveryP
 You can also check out the [tests](https://github.com/AndreasBurbach/EveryParser.Net/tree/main/EveryParser.Test/ExpressionTest) written for this project.
 
 To create the C# classes from AntLR use the following command:
-java -jar antlr-4.10.1-complete.jar -Dlanguage=CSharp EveryGrammar.g4 -o ".antlr" -package "EveryParser"
+java -jar antlr-4.13.2-complete.jar -Dlanguage=CSharp -o EveryParser EveryGrammar.g4
 
 ### Quick Start
 
@@ -57,14 +57,6 @@ If you want to check for errors from the evaluation of an expression:
 > ```
 
 Returns all errors you receive from the evaluation
-
-## Generation of C# classes from AntLR
-
-To generate the C# classes from AntLR, you can use the following command in your terminal:
-
-```bash
-java -jar antlr-4.13.2-complete.jar -Dlanguage=CSharp -o bin EveryGrammar.g4
-```
 
 ## Contributing
 

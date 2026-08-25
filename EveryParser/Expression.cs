@@ -452,7 +452,8 @@ namespace EveryParser
         /// <summary>
         /// Errors from the last calculation
         /// </summary>
-        public (ErrorCode, string)[] CalculationErrors => _errorsOfLastCalculation.ToArray();
+        public (ErrorCode, string)[] CalculationErrors =>
+            _errorsOfLastCalculation?.ToArray() ?? Array.Empty<(ErrorCode, string)>();
 
         /// <summary>
         /// Is the formular already set?
