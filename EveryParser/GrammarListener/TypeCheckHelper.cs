@@ -2,6 +2,7 @@
 using EveryParser.Types;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EveryParser.GrammarListener
 {

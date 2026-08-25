@@ -351,7 +351,7 @@ namespace EveryParser.GrammarListener
         /// <returns>true if there is a parameter</returns>
         public bool CheckHasParams(ParserRuleContext context, params object[] childs)
         {
-            if (childs is null || !childs.Any() || childs[0] is null)
+            if (childs is null || childs.Length == 0 || childs[0] is null)
             {
                 AddError(context, ErrorCode.NoParameter, $"No Parameter was comitted to the calculation");
                 return false;
@@ -368,7 +368,7 @@ namespace EveryParser.GrammarListener
         /// <returns>true if there are arguments</returns>
         public bool CheckHasArguments(ParserRuleContext context, SortedList<string, object> arguments)
         {
-            if (arguments is null || !arguments.Any())
+            if (arguments is null || arguments.Count == 0)
             {
                 AddError(context, ErrorCode.NoArguments, $"No Arguments was given for the calculation");
                 return false;

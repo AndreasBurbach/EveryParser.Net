@@ -1,10 +1,11 @@
-using Antlr4.Runtime.Misc;
+﻿using Antlr4.Runtime.Misc;
 using EveryParser.Compare;
 using EveryParser.LinQReplaces;
 using EveryParser.Types;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace EveryParser.GrammarListener.CalculatorListener
 {
@@ -295,7 +296,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
             object value2 = childValues[1];
 
             if (value1 is List<object> list1 && value2 is List<object> list2)
-                Node.Value = !list1.SequenceEqual(list2, new StringIgnoreCaseComparer());
+                Node.Value = !TSequenceEqual.SequenceEqual(list1, list2, new StringIgnoreCaseComparer());
             else
                 Node.Value = !value1.ToString().Equals(value2.ToString(), StringComparison.OrdinalIgnoreCase);
 
@@ -437,7 +438,7 @@ namespace EveryParser.GrammarListener.CalculatorListener
             object value2 = childValues[1];
 
             if (value1 is List<object> list1 && value2 is List<object> list2)
-                Node.Value = list1.SequenceEqual(list2, new StringIgnoreCaseComparer());
+                Node.Value = TSequenceEqual.SequenceEqual(list1, list2, new StringIgnoreCaseComparer());
             else
                 Node.Value = value1.ToString().Equals(value2.ToString(), StringComparison.OrdinalIgnoreCase);
 
