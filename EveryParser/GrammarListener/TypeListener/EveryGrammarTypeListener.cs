@@ -415,14 +415,22 @@ namespace EveryParser.GrammarListener.TypeListener
         /// <param name="context">The parse tree.</param>
         public void ExitLine_Addition([NotNull] EveryGrammarParser.Line_AdditionContext context)
         {
-            // "string" + "string" is a valid concatenation and results in a string
-            if (Node.Children.Count == 2 &&
-                Node.Children[0].ValueType == EveryParserType.String &&
-                Node.Children[1].ValueType == EveryParserType.String)
+            // Addition with at least one string operand is a concatenation and results in a string
+            if (Node.Children.Count == 2)
             {
-                Node.ValueType = EveryParserType.String;
-                Node = Node.Parent;
-                return;
+                var parameterType1 = Node.Children[0].ValueType;
+                var parameterType2 = Node.Children[1].ValueType;
+
+                bool concatSupported =
+                    (parameterType1.IsString() && (parameterType2.IsString() || parameterType2.IsNumber() || parameterType2.IsBoolean())) ||
+                    (parameterType2.IsString() && (parameterType1.IsString() || parameterType1.IsNumber() || parameterType1.IsBoolean()));
+
+                if (concatSupported)
+                {
+                    Node.ValueType = EveryParserType.String;
+                    Node = Node.Parent;
+                    return;
+                }
             }
 
             Node = TypeListenerHelper.CheckNumberOrArrayOfNumbersBinary(context, ErrorCollector, Node);

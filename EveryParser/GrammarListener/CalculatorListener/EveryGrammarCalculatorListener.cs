@@ -657,19 +657,48 @@ namespace EveryParser.GrammarListener.CalculatorListener
                 return new EPDecimal(x1) + new EPDecimal(x2);
             };
 
-            // Two strings are concatenated directly; the shared helper
-            // CalcNumericOrNumericArrayBinary would reject non-numeric operands.
-            if (Node.Children.Count == 2 &&
-                Node.Children[0].Value is string leftString &&
-                Node.Children[1].Value is string rightString)
+            // Addition with at least one string operand is a concatenation; the shared
+            // helper CalcNumericOrNumericArrayBinary would reject non-numeric operands.
+            // IMPORTANT: never write `string + EPDecimal` here - the implicit
+            // EPDecimal(string) operator converts non-numeric strings into NaN.
+            if (Node.Children.Count == 2)
             {
-                Node.Value = calculation(leftString, rightString);
-                Node = Node.Parent;
-                return;
+                var leftString = Node.Children[0].Value as string;
+                var rightString = Node.Children[1].Value as string;
+
+                if (leftString != null || rightString != null)
+                {
+                    var otherAsText = ConvertScalarToText(leftString != null ? Node.Children[1].Value : Node.Children[0].Value);
+
+                    if (otherAsText != null)
+                    {
+                        Node.Value = leftString != null ? leftString + otherAsText : otherAsText + rightString;
+                        Node = Node.Parent;
+                        return;
+                    }
+                }
             }
 
             Node.Value = CalculationHelper.CalcNumericOrNumericArrayBinary(context, ErrorCollector, calculation, Node.Children);
             Node = Node.Parent;
+        }
+
+        /// <summary>
+        /// Converts a numeric or boolean scalar to its text representation for
+        /// string concatenation. Returns null for values that cannot be concatenated.
+        /// </summary>
+        private static string ConvertScalarToText(object value)
+        {
+            if (value is string stringValue)
+                return stringValue;
+
+            if (value is null || value is List<object> || value is DateTime)
+                return null;
+
+            if (TypeCheckHelper.IsNumber(value) || TypeCheckHelper.IsBoolean(value))
+                return new EPDecimal(value).ToString(null, System.Globalization.CultureInfo.InvariantCulture);
+
+            return null;
         }
 
         /// <summary>

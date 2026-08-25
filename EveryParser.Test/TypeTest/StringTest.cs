@@ -14,8 +14,10 @@ namespace EveryParser.Test.TypeTest
         [Fact]
         public void TestStringConcatenation()
         {
-            // "string" + "string" is a valid concatenation and results in a string
+            // Addition with at least one string operand is a concatenation and results in a string
             Assert.Equal(EveryParserType.String, Expression.GetPossibleResultingType("\"hello\" + \" world\""));
+            Assert.Equal(EveryParserType.String, Expression.GetPossibleResultingType("\"hello\" + 1"));
+            Assert.Equal(EveryParserType.String, Expression.GetPossibleResultingType("1 + \"hello\""));
         }
 
         [Fact]

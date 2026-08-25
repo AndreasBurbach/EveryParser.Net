@@ -9,7 +9,11 @@ namespace EveryParser.Test.ExpressionTest
         {
             Assert.Equal("Hello World", Expression.CalculateString("\"Hello \" + \"World\""));
             Assert.Equal("abc", Expression.CalculateString("\"a\" + \"b\" + \"c\""));
+            Assert.Equal("a1", Expression.CalculateString("\"a\" + 1"));
+            Assert.Equal("1a", Expression.CalculateString("1 + \"a\""));
+            Assert.Equal("x2.5", Expression.CalculateString("\"x\" + 2.5"));
             Assert.True(exprHasNoErrors("\"a\" + \"b\""));
+            Assert.True(exprHasNoErrors("\"a\" + 1"));
         }
 
         private bool exprHasNoErrors(string formular)
