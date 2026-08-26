@@ -1,6 +1,8 @@
 # EveryParser.Net
 
 [![NuGet Badge](https://img.shields.io/nuget/v/EveryParser.Net.svg)](https://www.nuget.org/packages/EveryParser.Net/)
+[![.NET](https://github.com/AndreasBurbach/EveryParser.Net/actions/workflows/dotnet.yml/badge.svg)](https://github.com/AndreasBurbach/EveryParser.Net/actions/workflows/dotnet.yml)
+[![CodeQL](https://github.com/AndreasBurbach/EveryParser.Net/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/AndreasBurbach/EveryParser.Net/actions/workflows/codeql-analysis.yml)
 
 ## Description
 
@@ -12,6 +14,16 @@ This project repository is only for .Net-Core we are currently working on an int
 ## Installation Instructions
 
 The recommended way to get **EveryParser.Net** is to use NuGet. The package is provided and maintained in the public [NuGet Gallery](https://www.nuget.org/packages/EveryParser.Net/).
+
+```bash
+dotnet add package EveryParser.Net
+```
+
+or with Visual Studio's Package Manager Console:
+
+```powershell
+Install-Package EveryParser.Net
+```
 
 ## Usage
 

@@ -5,9 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.2.0] - Unreleased
+## [1.2.0] - 2026-08-26
 
 ### Added
+- Community health files: security policy (`SECURITY.md`), code of conduct,
+  Dependabot configuration for NuGet and GitHub Actions, and an `.editorconfig`.
 - Async calculation API: `CalculateAsync`, `CalculateDecimalAsync`, `CalculateBooleanAsync`,
   `CalculateStringAsync`, `CalculateDateTimeAsync` and `CalculateArrayAsync`
   (instance and static variants) with optional `CancellationToken`.
@@ -15,7 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `"x" + 2.5` now work (numbers are formatted culture-invariant).
 - `CalculateArray` now reports an error (`ErrorCode.IsNotArray`) when the formular
   result is not an array instead of returning `null` without any error.
-- Release workflow that builds, tests and publishes the NuGet package on tag push (`v*`).
+- Release workflow that builds, tests and publishes the NuGet package on tag push (`v*`)
+  using NuGet trusted publishing (OIDC, no stored API key required).
+- NuGet symbol package (`.snupkg`) with source-linked PDBs for debuggable releases.
 - Grammar source `EveryGrammar.g4` is part of the repository again and can be verified
   against the generated parser with `tools/verify-grammar.ps1`.
 

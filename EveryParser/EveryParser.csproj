@@ -6,7 +6,7 @@
     <Company />
     <Product>EveryParser.Net</Product>
     <Description>Parser for everything in you life!</Description>
-    <Copyright>MIT</Copyright>
+    <Copyright>Andreas Burbach, Joram Stiel</Copyright>
     <RepositoryUrl>https://github.com/AndreasBurbach/EveryParser.Net</RepositoryUrl>
     <PackageProjectUrl>https://github.com/AndreasBurbach/EveryParser.Net</PackageProjectUrl>
     <RepositoryType>GitHub</RepositoryType>
@@ -22,11 +22,17 @@
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	<!-- Doc warnings suppressed: public API is not fully documented yet; CS0419/CS0114 originate from generated ANTLR code -->
 	<NoWarn>$(NoWarn);CS1591;CS1572;CS1573;CS1570;CS0419;CS0114</NoWarn>
+    <!-- Source link & deterministic builds: reproducible packages with debuggable symbols -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Antlr4.Runtime.Standard" Version="4.13.1" />
     <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
