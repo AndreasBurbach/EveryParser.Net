@@ -50,7 +50,7 @@ jobs:
 
       - name: Push package and symbol package to NuGet.org
         run: >
-          dotnet nuget push "./artifacts/*.nupkg" --api-key ${{ steps.nuget-login.nuget_api_key }}
+          dotnet nuget push "./artifacts/*.nupkg" --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}"
           --source https://api.nuget.org/v3/index.json --skip-duplicate &&
-          dotnet nuget push "./artifacts/*.snupkg" --api-key ${{ steps.nuget-login.nuget_api_key }}
+          dotnet nuget push "./artifacts/*.snupkg" --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}"
           --source https://api.nuget.org/v3/index.json --skip-duplicate
