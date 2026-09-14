@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EveryParser\EveryParser.csproj" />
+    <ProjectReference Include="..\EveryParser.Benchmarks\EveryParser.Benchmarks.csproj" />
   </ItemGroup>
 
 </Project>

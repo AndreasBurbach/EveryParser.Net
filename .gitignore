@@ -1,8 +1,26 @@
-/EveryParser/bin
-/EveryParser/obj
-/EveryParser.Test/bin
-/EveryParser.Test/obj
-/.vs
-/.antlr
-/.vscode
-/antlr-4.10.1-complete.jar
+## Build and Output Folders
+**/[Bb]in/
+**/[Oo]bj/
+**/TestResults/
+
+## BenchmarkDotNet Artifacts
+**/BenchmarkDotNet.Artifacts/
+
+## Local Only Files
+PERFORMANCE_ROADMAP.md
+
+## IDE & Editor Files
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## ANTLR
+.antlr/
+antlr-*.jar
+
+## NuGet Packages Output
+*.nupkg
+*.snupkg

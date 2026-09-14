@@ -70,6 +70,59 @@ If you want to check for errors from the evaluation of an expression:
 
 Returns all errors you receive from the evaluation
 
+## Performance & Benchmarks
+
+EveryParser.Net includes an integrated benchmark suite powered by **BenchmarkDotNet** in the `EveryParser.Benchmarks` project.
+
+### How to Run the Benchmarks
+
+Always execute benchmarks in **Release mode**:
+
+```bash
+# Interactive menu (choose any benchmark):
+dotnet run -c Release --project EveryParser.Benchmarks/EveryParser.Benchmarks.csproj
+
+# Run formula parsing benchmarks (from simple to stress-test):
+dotnet run -c Release --project EveryParser.Benchmarks/EveryParser.Benchmarks.csproj -- --filter "*ParsingBenchmarks*"
+
+# Run repeated evaluation benchmarks:
+dotnet run -c Release --project EveryParser.Benchmarks/EveryParser.Benchmarks.csproj -- --filter "*EvaluationBenchmarks*"
+
+# Run competitive comparison benchmarks (EveryParser vs. NCalc, Flee, DynamicExpresso):
+dotnet run -c Release --project EveryParser.Benchmarks/EveryParser.Benchmarks.csproj -- --filter "*Comparison*"
+
+# Quick run (fewer warmup/target iterations):
+dotnet run -c Release --project EveryParser.Benchmarks/EveryParser.Benchmarks.csproj -- --filter "*ComparisonRepeated*" --job short
+```
+
+Reports are automatically generated and saved in:
+- **HTML:** `BenchmarkDotNet.Artifacts/results/*-report.html` (visual report with formatting)
+- **Markdown:** `BenchmarkDotNet.Artifacts/results/*-report-github.md` (summary tables)
+- **CSV:** `BenchmarkDotNet.Artifacts/results/*-report.csv` (raw data)
+
+---
+
+### Current Status & Baseline (v1.2.0)
+
+EveryParser currently utilizes an event-driven ANTLR4 `ParseTreeWalker` with an intermediate DOM tree (`NodeCalculator`). For repeated calculations, formulas are currently re-parsed on each execution.
+
+#### 1. Internal Formula Baseline (Cold Parsing & Evaluation)
+
+| Formula Complexity | Sample Expression | Mean Latency | Gen 0 / 1k Ops | Allocated Memory |
+|---|---|---:|---:|---:|
+| **Short** | `1 + 2 * 3` | **21.68 µs** | 1.068 | **13.41 KB** |
+| **Huge / Stress-Test** | Multi-term math with `Pow`, `Sin`, `Clamp`, polynomials (~360 chars) | **629.93 µs** | 22.461 | **276.05 KB** |
+
+#### 2. Competitive Comparison (100 Repeated Evaluations with Variables)
+Formula: `"(a * 1.19 + b * 0.07) * (1 - 0.15) / (quantity + 1)"`
+
+| Engine | Execution Strategy | Mean Time (100 Ops) | Allocated Memory | Speedup vs EveryParser |
+|---|---|---:|---:|---:|
+| **EveryParser.Net** | ANTLR4 Listener (Current) | **9.06 ms** | **4,162 KB (~4.16 MB)** | **1.0x (Baseline)** |
+| **NCalc** (v7.2) | ANTLR4 + AST-Cache | **34.22 µs** | **141.6 KB** | **~265x faster** |
+| **Flee** (v2.0) | IL-JIT Compiled (`Reflection.Emit`) | **3.11 µs** | **2.4 KB** | **~2,900x faster** |
+| **DynamicExpresso** (v2.19) | .NET Expression Tree (`.Compile()`) | **90.85 ns** | **0 B (Zero Allocation)** | **~100,000x faster** |
+
 ## Contributing
 
 We call it EveryParser and we mean it in all ways. If you think there is something missing or you need some more functions, let us know with an Issue or feel free to create a pull request.
