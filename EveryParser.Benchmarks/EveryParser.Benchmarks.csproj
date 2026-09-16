@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BenchmarkDotNet" Version="0.14.0" />
+    <PackageReference Include="BenchmarkDotNet" Version="0.15.8" />
     <PackageReference Include="NCalcSync" Version="7.2.0" />
     <PackageReference Include="Flee" Version="2.0.0" />
     <PackageReference Include="DynamicExpresso.Core" Version="2.19.5" />
